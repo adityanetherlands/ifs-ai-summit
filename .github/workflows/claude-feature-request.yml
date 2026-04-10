@@ -1,0 +1,39 @@
+name: Claude Feature Request Handler
+
+on:
+  issues:
+    types: [opened, labeled]
+
+jobs:
+  implement-feature:
+    if: contains(github.event.issue.labels.*.name, 'feature-request')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Claude Code
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          direct_prompt: |
+            You are implementing a feature request for the IFS AI Summit website.
+
+            FEATURE REQUEST:
+            ${{ github.event.issue.title }}
+
+            ${{ github.event.issue.body }}
+
+            INSTRUCTIONS:
+            1. Read CLAUDE.md for project rules and design system
+            2. Implement the requested change, wrapping ALL new/modified content in <div class="ff-ext-edit"> or <span class="ff-ext-edit">
+            3. Follow the design system exactly (dark theme, Lexend+Inter, Lucide icons, no emojis)
+            4. Determine the next version number from existing git tags
+            5. Commit, tag, and push the changes
+            6. Comment on this issue with what you changed and how to preview it
+          allowed_tools: "Read,Write,Edit,Bash,Glob,Grep"
