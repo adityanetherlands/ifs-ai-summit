@@ -12,6 +12,7 @@ jobs:
       contents: write
       issues: write
       id-token: write
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,7 +20,24 @@ jobs:
           fetch-depth: 0
 
       - name: Run Claude Code
+        id: claude
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           label_trigger: "feature-request"
+
+      - name: Auto-merge Claude branch to main
+        run: |
+          # Find the Claude branch
+          git fetch origin
+          CLAUDE_BRANCH=$(git branch -r | grep 'origin/claude/issue-${{ github.event.issue.number }}' | head -1 | xargs)
+          if [ -n "$CLAUDE_BRANCH" ]; then
+            echo "Found branch: $CLAUDE_BRANCH"
+            git checkout main
+            git pull origin main
+            git merge $CLAUDE_BRANCH --no-edit
+            git push origin main
+            echo "Merged $CLAUDE_BRANCH into main"
+          else
+            echo "No Claude branch found, skipping merge"
+          fi
