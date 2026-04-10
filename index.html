@@ -687,6 +687,24 @@ body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
   color: var(--accent-indigo-light);
 }
 #back-to-top svg { width: 18px; height: 18px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   FEATURE FLAG: Gradient section dividers (ff-ext-edit)
+   ═══════════════════════════════════════════════════════════════ */
+body.ff-ext-edit-on .section { position: relative; }
+body.ff-ext-edit-on .section::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 900px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent-indigo) 50%, transparent 100%);
+  opacity: 0.6;
+}
 </style>
 </head>
 <body>
