@@ -762,13 +762,12 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   <div class="hero-orb hero-orb-2"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">IFS AI Leadership Summit</div>
-    <h1 class="hero-title">The Ground Is Shifting<span class="ff-ext-edit" style="color:red"> &#128512;</span></h1>
+    <h1 class="hero-title">The Ground Is Shifting</h1>
     <p class="hero-lead">AI-native startups aren&rsquo;t adding features to existing software. They&rsquo;re replacing entire functions with new architectures that make traditional SaaS look slow and bloated. Sales, Marketing, HR, Finance, IT. They&rsquo;re all in the crosshairs. IFS has a window: our industries adopt deliberately, which gives us time to lead. But that window is closing. This event is about making sure every leader here feels the urgency and leaves with a plan.</p>
     <div class="hero-meta">
       <span>Mountain View, California</span>
       <span class="sep">&middot;</span>
       <span>4 &ndash; 7 May 2026</span>
-      <span class="ff-ext-edit"><span id="hero-countdown-badge" style="display:inline-flex;align-items:center;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:var(--accent-indigo-light);padding:2px 10px;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:0.02em;white-space:nowrap;"></span></span>
     </div>
     <div class="hero-pills">
       <span class="hero-pill"><i data-lucide="users"></i> 50+ Senior Leaders</span>
@@ -1583,19 +1582,6 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   // Feature flags – append ?ext_edit=true to URL to reveal flagged content
   if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
     document.body.classList.add('ff-ext-edit-on');
-  }
-
-  // Countdown badge – days until May 4 2026
-  var countdownBadge = document.getElementById('hero-countdown-badge');
-  if (countdownBadge) {
-    var target = new Date('2026-05-04T00:00:00');
-    var now = new Date();
-    var daysLeft = Math.ceil((target - now) / 86400000);
-    if (daysLeft > 0) {
-      countdownBadge.textContent = daysLeft + ' days to go';
-    } else if (daysLeft === 0) {
-      countdownBadge.textContent = 'Today!';
-    }
   }
 
   // Reduced motion check
