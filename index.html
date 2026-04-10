@@ -447,6 +447,15 @@ body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
   border-bottom: 1px solid var(--border-subtle);
 }
 .speaker-section-label:first-of-type { margin-top: 0; }
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(99,102,241,0.6); }
+  50% { opacity: 0.85; transform: scale(1.15); box-shadow: 0 0 0 5px rgba(99,102,241,0); }
+}
+.live-dot {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  background: #ef4444; margin-left: 8px; vertical-align: middle;
+  animation: live-pulse 1.5s ease-in-out infinite;
+}
 .speakers-keynote {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
@@ -1217,7 +1226,7 @@ body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
       Speaker lineup being confirmed &ndash; subject to change
     </div>
 
-    <div class="speaker-section-label">Keynote &amp; Major Speakers</div>
+    <div class="speaker-section-label">Keynote &amp; Major Speakers<span class="ff-ext-edit"><span class="live-dot"></span></span></div>
     <div class="speakers-keynote animate-on-scroll">
       <div class="speaker-card">
         <div class="speaker-avatar" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6);">GS</div>
