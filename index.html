@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IFS AI Leadership Summit — Silicon Valley 2026</title>
+<title>IFS AI Leadership Summit – Silicon Valley 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
 /* ═══════════════════════════════════════════════════════════════
-   DESIGN SYSTEM — CSS Custom Properties
+   DESIGN SYSTEM – CSS Custom Properties
    ═══════════════════════════════════════════════════════════════ */
 :root {
   --bg-primary: #090b10;
@@ -229,8 +229,8 @@ img { max-width: 100%; height: auto; display: block; }
   animation: fadeInUp 0.8s var(--ease) both;
 }
 .hero-title {
-  font-family: var(--font-display); font-size: clamp(36px, 6vw, 64px); font-weight: 800;
-  color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.12; margin-bottom: 16px;
+  font-family: var(--font-display); font-size: clamp(30px, 4.5vw, 48px); font-weight: 800;
+  color: var(--text-primary); letter-spacing: -0.3px; line-height: 1.15; margin-bottom: 18px;
   animation: fadeInUp 0.8s var(--ease) 0.1s both;
 }
 .hero-lead {
@@ -471,15 +471,20 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .startup-card {
   background: var(--bg-surface); border: 1px solid var(--border-default);
-  border-radius: 10px; padding: 16px; text-align: center;
-  transition: border-color 0.2s, transform 0.2s; cursor: default;
+  border-radius: 10px; padding: 18px 16px; text-align: center;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  cursor: pointer; text-decoration: none; color: inherit; display: block;
 }
-.startup-card:hover { border-color: rgba(99,102,241,0.3); transform: translateY(-2px); }
+.startup-card:hover { border-color: rgba(99,102,241,0.3); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(99,102,241,0.1); text-decoration: none; }
+.startup-logo {
+  width: 36px; height: 36px; border-radius: 8px; margin: 0 auto 10px;
+  object-fit: contain; background: white; padding: 4px;
+}
 .startup-card h4 {
   font-family: var(--font-display); font-size: 14px; font-weight: 700;
   color: var(--text-primary); margin-bottom: 4px;
 }
-.startup-card p { font-size: 11px; color: var(--text-dim); }
+.startup-card p { font-size: 11px; color: var(--text-dim); margin: 0; }
 
 /* ═══════════════════════════════════════════════════════════════
    GROUPS
@@ -522,7 +527,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .group-card .group-lead span { color: var(--accent-amber); font-weight: 600; }
 
-/* Members — inline expand */
+/* Members – inline expand */
 .group-members {
   max-height: 0; overflow: hidden; opacity: 0;
   transition: max-height 0.4s var(--ease), opacity 0.3s var(--ease), margin 0.4s var(--ease), padding 0.4s var(--ease);
@@ -694,17 +699,17 @@ img { max-width: 100%; height: auto; display: block; }
   <div class="hero-orb hero-orb-2"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">IFS AI Leadership Summit</div>
-    <h1 class="hero-title">The Ground<br>Is Shifting</h1>
-    <p class="hero-lead">AI-native startups aren&rsquo;t adding features to existing software. They&rsquo;re replacing entire functions with new architectures that make traditional SaaS look slow and bloated. Sales, Marketing, HR, Finance, IT &mdash; they&rsquo;re all in the crosshairs. IFS has a window: our industries adopt deliberately, which gives us time to lead. But that window is closing. This event is about making sure every leader here feels the urgency and leaves with a plan.</p>
+    <h1 class="hero-title">The Ground Is Shifting</h1>
+    <p class="hero-lead">AI-native startups aren&rsquo;t adding features to existing software. They&rsquo;re replacing entire functions with new architectures that make traditional SaaS look slow and bloated. Sales, Marketing, HR, Finance, IT. They&rsquo;re all in the crosshairs. IFS has a window: our industries adopt deliberately, which gives us time to lead. But that window is closing. This event is about making sure every leader here feels the urgency and leaves with a plan.</p>
     <div class="hero-meta">
       <span>Mountain View, California</span>
       <span class="sep">&middot;</span>
       <span>4 &ndash; 7 May 2026</span>
     </div>
     <div class="hero-pills">
-      <span class="hero-pill"><i data-lucide="users"></i> 57 Senior Leaders</span>
-      <span class="hero-pill"><i data-lucide="calendar-days"></i> 4 Days</span>
-      <span class="hero-pill"><i data-lucide="zap"></i> 12 Working Groups</span>
+      <span class="hero-pill"><i data-lucide="users"></i> 50+ Senior Leaders</span>
+      <span class="hero-pill"><i data-lucide="map-pin"></i> Meet Silicon Valley Leaders</span>
+      <span class="hero-pill"><i data-lucide="zap"></i> Hands-on AI Exercises</span>
     </div>
     <a href="#agenda" class="hero-cta">
       View Agenda <i data-lucide="arrow-down"></i>
@@ -726,10 +731,7 @@ img { max-width: 100%; height: auto; display: block; }
       <p class="section-subtitle">From inspiration to action. Click each day to expand the full schedule.</p>
       <div class="agenda-download">
         <button class="cal-btn" onclick="downloadICS()">
-          <i data-lucide="calendar-plus"></i> Download for iOS / Apple Calendar
-        </button>
-        <button class="cal-btn" onclick="downloadICS()">
-          <i data-lucide="mail"></i> Download for Outlook (.ics)
+          <i data-lucide="calendar-plus"></i> Apple Calendar / Outlook
         </button>
       </div>
     </div>
@@ -741,7 +743,7 @@ img { max-width: 100%; height: auto; display: block; }
         <button class="day-toggle" aria-expanded="false" aria-controls="day1-content">
           <div class="day-badge day-badge-1">Day 1</div>
           <div class="day-info">
-            <h3>Monday 4 May &mdash; Arrival &amp; Opening Dinner</h3>
+            <h3>Monday 4 May &ndash; Arrival &amp; Opening Dinner</h3>
             <p>Check in, connect, set the tone</p>
           </div>
           <div class="day-venue">Stanford Park Hotel</div>
@@ -752,7 +754,7 @@ img { max-width: 100%; height: auto; display: block; }
             <div class="agenda-item">
               <div class="agenda-time">Afternoon</div>
               <div>
-                <div class="agenda-title">Arrivals &mdash; Check in to Hotel</div>
+                <div class="agenda-title">Arrivals &ndash; Check in to Hotel</div>
                 <div class="agenda-meta">Transfers from SFO / SJC as needed</div>
               </div>
             </div>
@@ -760,14 +762,14 @@ img { max-width: 100%; height: auto; display: block; }
               <div class="agenda-time">18:00 &ndash; 18:30</div>
               <div>
                 <div class="agenda-title">Opening Note</div>
-                <div class="agenda-meta">Mark Moffat &amp; Darren Roos &mdash; Scene setting</div>
+                <div class="agenda-meta">Mark Moffat &amp; Darren Roos &ndash; Scene setting</div>
               </div>
             </div>
             <div class="agenda-item">
               <div class="agenda-time">18:30 &ndash; 19:30</div>
               <div>
                 <div class="agenda-title">Founder Spotlight</div>
-                <div class="agenda-meta">10-minute founding stories &mdash; inspirational &amp; unfiltered</div>
+                <div class="agenda-meta">10-minute founding stories &ndash; inspirational &amp; unfiltered</div>
               </div>
             </div>
             <div class="agenda-item">
@@ -786,7 +788,7 @@ img { max-width: 100%; height: auto; display: block; }
         <button class="day-toggle" aria-expanded="false" aria-controls="day2-content">
           <div class="day-badge day-badge-2">Day 2</div>
           <div class="day-info">
-            <h3>Tuesday 5 May &mdash; "Show the Team What's Possible"</h3>
+            <h3>Tuesday 5 May &ndash; "Show the Team What's Possible"</h3>
             <p>See the disruption. Then get your hands dirty.</p>
           </div>
           <div class="day-venue">Computer History Museum</div>
@@ -809,14 +811,14 @@ img { max-width: 100%; height: auto; display: block; }
               <div class="agenda-time">09:30 &ndash; 10:00</div>
               <div>
                 <div class="agenda-title">Opening Inspirational Keynote</div>
-                <div class="agenda-meta">Mark Moffat &mdash; What to expect today, how the hands-on works</div>
+                <div class="agenda-meta">Mark Moffat &ndash; What to expect today, how the hands-on works</div>
               </div>
             </div>
             <div class="agenda-item">
               <div class="agenda-time">10:00 &ndash; 10:45</div>
               <div>
                 <div class="agenda-title">Technical Keynote</div>
-                <div class="agenda-meta">Industry luminary &mdash; AI market landscape &amp; what's coming next</div>
+                <div class="agenda-meta">Industry luminary &ndash; AI market landscape &amp; what's coming next</div>
               </div>
             </div>
             <div class="agenda-item break-item">
@@ -826,8 +828,8 @@ img { max-width: 100%; height: auto; display: block; }
             <div class="agenda-item">
               <div class="agenda-time">11:00 &ndash; 13:00</div>
               <div>
-                <div class="agenda-title">Hands-On Block 1 &mdash; Vibe Coding with Replit</div>
-                <div class="agenda-meta">Guided session &mdash; build something real with AI-assisted coding. External rep guiding the session.</div>
+                <div class="agenda-title">Hands-On Block 1 &ndash; Vibe Coding with Replit</div>
+                <div class="agenda-meta">Guided session &ndash; build something real with AI-assisted coding. External rep guiding the session.</div>
               </div>
             </div>
             <div class="agenda-item break-item">
@@ -837,7 +839,7 @@ img { max-width: 100%; height: auto; display: block; }
             <div class="agenda-item">
               <div class="agenda-time">13:45 &ndash; 16:00</div>
               <div>
-                <div class="agenda-title">Hands-On Block 2 &mdash; Anthropic / Claude Cowork</div>
+                <div class="agenda-title">Hands-On Block 2 &ndash; Anthropic / Claude Cowork</div>
                 <div class="agenda-meta">Breakout teams build skills, agents &amp; automation using Claude</div>
               </div>
             </div>
@@ -865,7 +867,7 @@ img { max-width: 100%; height: auto; display: block; }
         <button class="day-toggle" aria-expanded="false" aria-controls="day3-content">
           <div class="day-badge day-badge-3">Day 3</div>
           <div class="day-info">
-            <h3>Wednesday 6 May &mdash; "Present, Learn &amp; Plan"</h3>
+            <h3>Wednesday 6 May &ndash; "Present, Learn &amp; Plan"</h3>
             <p>How do we transform IFS to AI-native? Exercise + Play Back</p>
           </div>
           <div class="day-venue">Stanford Park Hotel</div>
@@ -884,7 +886,7 @@ img { max-width: 100%; height: auto; display: block; }
               <div class="agenda-time">09:00 &ndash; 10:00</div>
               <div>
                 <div class="agenda-title">Keynote: Market Risks in SaaS</div>
-                <div class="agenda-meta">Goldman Sachs &mdash; The new economics of software &amp; what AI means for unit economics</div>
+                <div class="agenda-meta">Goldman Sachs &ndash; The new economics of software &amp; what AI means for unit economics</div>
               </div>
             </div>
             <div class="agenda-item">
@@ -897,7 +899,7 @@ img { max-width: 100%; height: auto; display: block; }
             <div class="agenda-item">
               <div class="agenda-time">11:00 &ndash; 12:00</div>
               <div>
-                <div class="agenda-title">Working Session &mdash; "Your Function on 1 Jan 2027"</div>
+                <div class="agenda-title">Working Session &ndash; "Your Function on 1 Jan 2027"</div>
                 <div class="agenda-meta">Group work: if AI made your team dramatically more productive, what changes?</div>
               </div>
             </div>
@@ -934,14 +936,14 @@ img { max-width: 100%; height: auto; display: block; }
               <div class="agenda-time">16:30 &ndash; 17:00</div>
               <div>
                 <div class="agenda-title">Closing Remarks &amp; What's Next</div>
-                <div class="agenda-meta">Mark Moffat &amp; Darren Roos &mdash; Concrete next steps, ownership, timelines</div>
+                <div class="agenda-meta">Mark Moffat &amp; Darren Roos &ndash; Concrete next steps, ownership, timelines</div>
               </div>
             </div>
             <div class="agenda-item">
               <div class="agenda-time">19:00 &ndash; 21:30</div>
               <div>
                 <div class="agenda-title">Closing Dinner</div>
-                <div class="agenda-meta">Hotel restaurant &mdash; celebrate the work done</div>
+                <div class="agenda-meta">Hotel restaurant &ndash; celebrate the work done</div>
               </div>
             </div>
           </div>
@@ -953,7 +955,7 @@ img { max-width: 100%; height: auto; display: block; }
         <button class="day-toggle" aria-expanded="false" aria-controls="day4-content">
           <div class="day-badge day-badge-4">Day 4</div>
           <div class="day-info">
-            <h3>Thursday 7 May &mdash; Departures</h3>
+            <h3>Thursday 7 May &ndash; Departures</h3>
             <p>Breakfast, checkout, optional factory visit</p>
           </div>
           <div class="day-venue">Stanford Park Hotel</div>
@@ -979,7 +981,7 @@ img { max-width: 100%; height: auto; display: block; }
               <div class="agenda-time">13:30 &ndash; 15:30</div>
               <div>
                 <div class="agenda-title">Optional Factory Visit</div>
-                <div class="agenda-meta">For those with late departures &mdash; details TBC</div>
+                <div class="agenda-meta">For those with late departures &ndash; details TBC</div>
               </div>
             </div>
             <div class="agenda-item">
@@ -1110,7 +1112,7 @@ img { max-width: 100%; height: auto; display: block; }
     <div class="section-header">
       <div class="section-eyebrow">Before You Arrive</div>
       <h2 class="section-title">Your Homework</h2>
-      <p class="section-subtitle">Three tasks to ground the conversation in your reality. Come prepared &mdash; you'll get far more from the sessions.</p>
+      <p class="section-subtitle">Three tasks to ground the conversation in your reality. Come prepared &ndash; you'll get far more from the sessions.</p>
     </div>
 
     <div class="homework-grid">
@@ -1119,20 +1121,20 @@ img { max-width: 100%; height: auto; display: block; }
         <div class="hw-tag hw-tag-red">Required</div>
         <h3>1. Map Your Function's AI Landscape</h3>
         <p>Which 3&ndash;5 AI-native startups could replace parts of what your team does today? What can they do that your current stack can't?</p>
-        <p><span class="hw-tip">Where to start:</span> Search "AI-native [your function]" on Google and Product Hunt. Check Crunchbase for recent funding. Look at Clay, Glean, 11x.ai, Aisera &mdash; then find the equivalents for your domain.</p>
+        <p><span class="hw-tip">Where to start:</span> Search "AI-native [your function]" on Google and Product Hunt. Check Crunchbase for recent funding. Look at Clay, Glean, 11x.ai, Aisera &ndash; then find the equivalents for your domain.</p>
       </div>
 
       <div class="homework-card animate-on-scroll">
         <div class="hw-tag hw-tag-red">Required</div>
         <h3>2. The 10% Thought Experiment</h3>
-        <p>10% of today's headcount. Same budget &mdash; the rest spent on AI tooling. What do you automate first? What 2&ndash;5 things must be true to get there by Jan 2027?</p>
+        <p>10% of today's headcount. Same budget &ndash; the rest spent on AI tooling. What do you automate first? What 2&ndash;5 things must be true to get there by Jan 2027?</p>
         <p><span class="hw-tip">How to think about it:</span> List your team's top 10 tasks by time spent. For each: "Could AI do 80% of this today?" Then ask what your people do with the freed-up capacity. That's the real value.</p>
       </div>
 
       <div class="homework-card animate-on-scroll">
         <div class="hw-tag hw-tag-blue">Heads Up</div>
         <h3>3. Hands-On AI Sessions</h3>
-        <p>You'll use AI tools intensively on both Tuesday and Wednesday. No prior experience needed &mdash; but you'll get far more out of it if you've experimented beforehand.</p>
+        <p>You'll use AI tools intensively on both Tuesday and Wednesday. No prior experience needed &ndash; but you'll get far more out of it if you've experimented beforehand.</p>
         <p><span class="hw-tip">Tools &amp; access details to follow.</span> Ensure you have local admin rights on your laptop. Check with IT if unsure.</p>
       </div>
 
@@ -1153,7 +1155,7 @@ img { max-width: 100%; height: auto; display: block; }
 
     <div class="speakers-disclaimer animate-on-scroll">
       <i data-lucide="info"></i>
-      Speaker lineup being confirmed &mdash; subject to change
+      Speaker lineup being confirmed &ndash; subject to change
     </div>
 
     <div class="speaker-section-label">Keynote &amp; Major Speakers</div>
@@ -1163,7 +1165,7 @@ img { max-width: 100%; height: auto; display: block; }
         <div>
           <h4>Goldman Sachs</h4>
           <div class="speaker-role">Joe Porter</div>
-          <div class="speaker-topic">Market risks in SaaS &mdash; the new economics of software</div>
+          <div class="speaker-topic">Market risks in SaaS &ndash; the new economics of software</div>
         </div>
       </div>
       <div class="speaker-card">
@@ -1179,7 +1181,7 @@ img { max-width: 100%; height: auto; display: block; }
         <div>
           <h4>Databricks</h4>
           <div class="speaker-role">Ali Ghodsi, CEO</div>
-          <div class="speaker-topic">Technical keynote &mdash; invited</div>
+          <div class="speaker-topic">Technical keynote &ndash; invited</div>
         </div>
       </div>
       <div class="speaker-card">
@@ -1203,26 +1205,65 @@ img { max-width: 100%; height: auto; display: block; }
         <div>
           <h4>Nvidia</h4>
           <div class="speaker-role">TBC</div>
-          <div class="speaker-topic">Monday evening &mdash; alongside OpenAI</div>
+          <div class="speaker-topic">Monday evening &ndash; alongside OpenAI</div>
         </div>
       </div>
     </div>
 
-    <div class="speaker-section-label">AI Startup Showcase</div>
+    <div class="speaker-section-label">AI Startup Showcase <span style="font-weight:400;font-size:10px;letter-spacing:0.5px;opacity:0.6;margin-left:8px;">Subject to change</span></div>
     <div class="startup-grid animate-on-scroll">
-      <div class="startup-card"><h4>Replit</h4><p>AI Coding</p></div>
-      <div class="startup-card"><h4>Cursor</h4><p>AI Dev Tools</p></div>
-      <div class="startup-card"><h4>Clay</h4><p>Sales Intelligence</p></div>
-      <div class="startup-card"><h4>Apollo.io</h4><p>Sales Automation</p></div>
-      <div class="startup-card"><h4>11x.ai</h4><p>AI Sales Agents</p></div>
-      <div class="startup-card"><h4>6sense</h4><p>Marketing Intel</p></div>
-      <div class="startup-card"><h4>Demandbase</h4><p>ABM Platform</p></div>
-      <div class="startup-card"><h4>Mutiny</h4><p>Web Personalization</p></div>
-      <div class="startup-card"><h4>Aisera</h4><p>IT / HR Automation</p></div>
-      <div class="startup-card"><h4>Glean</h4><p>Enterprise AI Search</p></div>
-      <div class="startup-card"><h4>Tessl</h4><p>AI Development</p></div>
-      <div class="startup-card"><h4>Traycer</h4><p>AI Development</p></div>
-      <div class="startup-card"><h4>8090.ai</h4><p>AI Platform</p></div>
+      <a href="https://replit.com" target="_blank" rel="noopener" class="startup-card">
+        <img src="https://logo.clearbit.com/replit.com" alt="Replit" class="startup-logo" onerror="this.style.display='none'">
+        <h4>Replit</h4><p>AI Coding</p>
+      </a>
+      <a href="https://cursor.com" target="_blank" rel="noopener" class="startup-card">
+        <img src="https://logo.clearbit.com/cursor.com" alt="Cursor" class="startup-logo" onerror="this.style.display='none'">
+        <h4>Cursor</h4><p>AI Dev Tools</p>
+      </a>
+      <a href="https://clay.com" target="_blank" rel="noopener" class="startup-card">
+        <img src="https://logo.clearbit.com/clay.com" alt="Clay" class="startup-logo" onerror="this.style.display='none'">
+        <h4>Clay</h4><p>Sales Intelligence</p>
+      </a>
+      <a href="https://apollo.io" target="_blank" rel="noopener" class="startup-card">
+        <img src="https://logo.clearbit.com/apollo.io" alt="Apollo.io" class="startup-logo" onerror="this.style.display='none'">
+        <h4>Apollo.io</h4><p>Sales Automation</p>
+      </a>
+      <a href="https://11x.ai" target="_blank" rel="noopener" class="startup-card">
+        <img src="https://logo.clearbit.com/11x.ai" alt="11x.ai" class="startup-logo" onerror="this.style.display='none'">
+        <h4>11x.ai</h4><p>AI Sales Agents</p>
+      </a>
+      <a href="https://6sense.com" target="_blank" rel="noopener" class="startup-card">
+        <img src="https://logo.clearbit.com/6sense.com" alt="6sense" class="startup-logo" onerror="this.style.display='none'">
+        <h4>6sense</h4><p>Marketing Intel</p>
+      </a>
+      <a href="https://demandbase.com" target="_blank" rel="noopener" class="startup-card">
+        <img src="https://logo.clearbit.com/demandbase.com" alt="Demandbase" class="startup-logo" onerror="this.style.display='none'">
+        <h4>Demandbase</h4><p>ABM Platform</p>
+      </a>
+      <a href="https://mutinyhq.com" target="_blank" rel="noopener" class="startup-card">
+        <img src="https://logo.clearbit.com/mutinyhq.com" alt="Mutiny" class="startup-logo" onerror="this.style.display='none'">
+        <h4>Mutiny</h4><p>Web Personalization</p>
+      </a>
+      <a href="https://aisera.com" target="_blank" rel="noopener" class="startup-card">
+        <img src="https://logo.clearbit.com/aisera.com" alt="Aisera" class="startup-logo" onerror="this.style.display='none'">
+        <h4>Aisera</h4><p>IT / HR Automation</p>
+      </a>
+      <a href="https://glean.com" target="_blank" rel="noopener" class="startup-card">
+        <img src="https://logo.clearbit.com/glean.com" alt="Glean" class="startup-logo" onerror="this.style.display='none'">
+        <h4>Glean</h4><p>Enterprise AI Search</p>
+      </a>
+      <a href="https://tessl.io" target="_blank" rel="noopener" class="startup-card">
+        <img src="https://logo.clearbit.com/tessl.io" alt="Tessl" class="startup-logo" onerror="this.style.display='none'">
+        <h4>Tessl</h4><p>AI Development</p>
+      </a>
+      <a href="https://traycer.ai" target="_blank" rel="noopener" class="startup-card">
+        <img src="https://logo.clearbit.com/traycer.ai" alt="Traycer" class="startup-logo" onerror="this.style.display='none'">
+        <h4>Traycer</h4><p>AI Development</p>
+      </a>
+      <a href="https://8090.ai" target="_blank" rel="noopener" class="startup-card">
+        <img src="https://logo.clearbit.com/8090.ai" alt="8090.ai" class="startup-logo" onerror="this.style.display='none'">
+        <h4>8090.ai</h4><p>AI Platform</p>
+      </a>
     </div>
   </div>
 </section>
@@ -1252,7 +1293,7 @@ img { max-width: 100%; height: auto; display: block; }
 
       <div class="group-card animate-on-scroll">
         <div class="group-num">Group 2</div>
-        <h4>Sales &mdash; Targeting &amp; Account Mgmt</h4>
+        <h4>Sales &ndash; Targeting &amp; Account Mgmt</h4>
         <div class="group-lead">Tech Lead: <span>Ravi Bulusu</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1262,7 +1303,7 @@ img { max-width: 100%; height: auto; display: block; }
 
       <div class="group-card animate-on-scroll">
         <div class="group-num">Group 3</div>
-        <h4>Pre-Sales &mdash; Technical Demo&rsquo;ing</h4>
+        <h4>Pre-Sales &ndash; Technical Demo&rsquo;ing</h4>
         <div class="group-lead">Tech Lead: <span>Jonathan Hyden</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1352,7 +1393,7 @@ img { max-width: 100%; height: auto; display: block; }
 
       <div class="group-card animate-on-scroll">
         <div class="group-num">Group 12</div>
-        <h4>Sales &mdash; Team B</h4>
+        <h4>Sales &ndash; Team B</h4>
         <div class="group-lead">Tech Lead: <span>Justin Bigger</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1372,7 +1413,7 @@ img { max-width: 100%; height: auto; display: block; }
     <div class="section-header">
       <div class="section-eyebrow">Where We&rsquo;ll Be</div>
       <h2 class="section-title">The Venues</h2>
-      <p class="section-subtitle">Two locations across the four days &mdash; our hotel base and the hands-on lab at the Computer History Museum.</p>
+      <p class="section-subtitle">Two locations across the four days &ndash; our hotel base and the hands-on lab at the Computer History Museum.</p>
     </div>
 
     <div class="venue-cards animate-on-scroll">
@@ -1398,7 +1439,7 @@ img { max-width: 100%; height: auto; display: block; }
         <div class="venue-card-body">
           <div class="venue-card-days venue-days-museum">Day 2 &middot; Hands-On Lab</div>
           <h3>Computer History Museum</h3>
-          <p>The Learning Lab &mdash; our venue for Tuesday&rsquo;s keynotes, Replit vibe coding, and Anthropic hands-on sessions. IFS-organised transport from hotel.</p>
+          <p>The Learning Lab &ndash; our venue for Tuesday&rsquo;s keynotes, Replit vibe coding, and Anthropic hands-on sessions. IFS-organised transport from hotel.</p>
           <p><a href="https://computerhistory.org" target="_blank" rel="noopener">computerhistory.org &rarr;</a></p>
         </div>
       </div>
@@ -1428,12 +1469,12 @@ img { max-width: 100%; height: auto; display: block; }
         <div class="logi-icon"><i data-lucide="plane"></i></div>
         <h4>Flights &amp; Transfers</h4>
         <p>Send your flight details to <strong style="color:var(--text-primary)">Kate Joyce</strong> (<a href="mailto:kate.joyce@ifs.com">kate.joyce@ifs.com</a>) so we can group airport transfers.</p>
-        <p style="margin-top:8px;font-size:13px;color:var(--text-dim);">Do not book taxis to the museum &mdash; IFS-organised transport on Day 2.</p>
+        <p style="margin-top:8px;font-size:13px;color:var(--text-dim);">Do not book taxis to the museum &ndash; IFS-organised transport on Day 2.</p>
       </div>
       <div class="logistics-card">
         <div class="logi-icon"><i data-lucide="laptop"></i></div>
         <h4>What to Bring</h4>
-        <p>Laptop with local admin rights (check with IT). Chargers. Business cards &mdash; you'll meet founders. An open mind.</p>
+        <p>Laptop with local admin rights (check with IT). Chargers. Business cards &ndash; you'll meet founders. An open mind.</p>
       </div>
       <div class="logistics-card">
         <div class="logi-icon"><i data-lucide="shirt"></i></div>
@@ -1451,7 +1492,7 @@ img { max-width: 100%; height: auto; display: block; }
   <div class="container">
     <p><strong style="color:var(--text-muted)">IFS AI Leadership Summit</strong> &middot; 4&ndash;7 May 2026 &middot; Mountain View, California</p>
     <p>Questions? <a href="mailto:kate.joyce@ifs.com">Kate Joyce</a> &middot; Group assignments &amp; reading pack to follow</p>
-    <p class="footer-conf">Confidential &mdash; for IFS Leadership Team only</p>
+    <p class="footer-conf">Confidential &ndash; for IFS Leadership Team only</p>
   </div>
 </footer>
 
@@ -1580,31 +1621,31 @@ img { max-width: 100%; height: auto; display: block; }
     const hotel = 'The Stanford Park Hotel, 100 El Camino Real, Menlo Park, CA 94025';
     const museum = 'Computer History Museum, 1401 N Shoreline Blvd, Mountain View, CA 94043';
     const events = [
-      // Day 1 — Mon 4 May
-      { t: 'IFS Summit: Opening Note', s: '20260504T180000', e: '20260504T183000', l: hotel, d: 'Mark Moffat & Darren Roos — Scene setting' },
-      { t: 'IFS Summit: Founder Spotlight', s: '20260504T183000', e: '20260504T193000', l: hotel, d: '10-minute founding stories — inspirational & unfiltered' },
+      // Day 1 – Mon 4 May
+      { t: 'IFS Summit: Opening Note', s: '20260504T180000', e: '20260504T183000', l: hotel, d: 'Mark Moffat & Darren Roos – Scene setting' },
+      { t: 'IFS Summit: Founder Spotlight', s: '20260504T183000', e: '20260504T193000', l: hotel, d: '10-minute founding stories – inspirational & unfiltered' },
       { t: 'IFS Summit: Opening Dinner', s: '20260504T193000', e: '20260504T213000', l: hotel, d: 'Seated dinner, informal networking. Get warmed up with Replit for Tuesday.' },
-      // Day 2 — Tue 5 May
+      // Day 2 – Tue 5 May
       { t: 'IFS Summit: Explore Working Breakfast', s: '20260505T073000', e: '20260505T090000', l: hotel, d: 'Mingle with 2-3 startup founders over breakfast at the hotel' },
       { t: 'IFS Summit: Transfer to Museum', s: '20260505T090000', e: '20260505T093000', l: hotel, d: 'IFS-organised transport to Computer History Museum' },
-      { t: 'IFS Summit: Opening Inspirational Keynote', s: '20260505T093000', e: '20260505T100000', l: museum, d: 'Mark Moffat — What to expect today, how the hands-on works' },
-      { t: 'IFS Summit: Technical Keynote', s: '20260505T100000', e: '20260505T104500', l: museum, d: 'Industry luminary — AI market landscape & what\'s coming next' },
-      { t: 'IFS Summit: Hands-On Block 1 — Vibe Coding with Replit', s: '20260505T110000', e: '20260505T130000', l: museum, d: 'Guided session — build something real with AI-assisted coding' },
+      { t: 'IFS Summit: Opening Inspirational Keynote', s: '20260505T093000', e: '20260505T100000', l: museum, d: 'Mark Moffat – What to expect today, how the hands-on works' },
+      { t: 'IFS Summit: Technical Keynote', s: '20260505T100000', e: '20260505T104500', l: museum, d: 'Industry luminary – AI market landscape & what\'s coming next' },
+      { t: 'IFS Summit: Hands-On Block 1 – Vibe Coding with Replit', s: '20260505T110000', e: '20260505T130000', l: museum, d: 'Guided session – build something real with AI-assisted coding' },
       { t: 'IFS Summit: Lunch', s: '20260505T130000', e: '20260505T134500', l: museum, d: '' },
-      { t: 'IFS Summit: Hands-On Block 2 — Anthropic / Claude', s: '20260505T134500', e: '20260505T160000', l: museum, d: 'Breakout teams build skills, agents & automation using Claude' },
+      { t: 'IFS Summit: Hands-On Block 2 – Anthropic / Claude', s: '20260505T134500', e: '20260505T160000', l: museum, d: 'Breakout teams build skills, agents & automation using Claude' },
       { t: 'IFS Summit: Transfer back to Hotel', s: '20260505T163000', e: '20260505T170000', l: museum, d: '' },
       { t: 'IFS Summit: Team Dinner & Mixer', s: '20260505T191500', e: '20260505T233000', l: 'Offsite restaurant (details TBC)', d: 'Punctuated with startup founder conversations' },
-      // Day 3 — Wed 6 May
+      // Day 3 – Wed 6 May
       { t: 'IFS Summit: Working Breakfast', s: '20260506T073000', e: '20260506T090000', l: hotel, d: 'Informal catch-up at the hotel' },
-      { t: 'IFS Summit: Keynote — Market Risks in SaaS', s: '20260506T090000', e: '20260506T100000', l: hotel, d: 'Goldman Sachs — The new economics of software & what AI means for unit economics' },
+      { t: 'IFS Summit: Keynote – Market Risks in SaaS', s: '20260506T090000', e: '20260506T100000', l: hotel, d: 'Goldman Sachs – The new economics of software & what AI means for unit economics' },
       { t: 'IFS Summit: KPIs of the New World', s: '20260506T100000', e: '20260506T110000', l: hotel, d: 'Functional groups define the metrics that matter in an AI-native org' },
-      { t: 'IFS Summit: Working Session — Your Function on 1 Jan 2027', s: '20260506T110000', e: '20260506T120000', l: hotel, d: 'Group work: if AI made your team dramatically more productive, what changes?' },
+      { t: 'IFS Summit: Working Session – Your Function on 1 Jan 2027', s: '20260506T110000', e: '20260506T120000', l: hotel, d: 'Group work: if AI made your team dramatically more productive, what changes?' },
       { t: 'IFS Summit: Lunch', s: '20260506T120000', e: '20260506T130000', l: hotel, d: '' },
       { t: 'IFS Summit: Working Session Continues', s: '20260506T130000', e: '20260506T140000', l: hotel, d: 'Functional groups refine their vision & build 90-day action plans' },
       { t: 'IFS Summit: Product Launch Strategy in an AI-Native World', s: '20260506T140000', e: '20260506T150000', l: hotel, d: 'Andreas Georgiou & team' },
       { t: 'IFS Summit: Playback of Working Sessions', s: '20260506T153000', e: '20260506T163000', l: hotel, d: 'Each group presents their vision, prototype & commitments' },
-      { t: 'IFS Summit: Closing Remarks & What\'s Next', s: '20260506T163000', e: '20260506T170000', l: hotel, d: 'Mark Moffat & Darren Roos — Concrete next steps, ownership, timelines' },
-      { t: 'IFS Summit: Closing Dinner', s: '20260506T190000', e: '20260506T213000', l: hotel, d: 'Hotel restaurant — celebrate the work done' }
+      { t: 'IFS Summit: Closing Remarks & What\'s Next', s: '20260506T163000', e: '20260506T170000', l: hotel, d: 'Mark Moffat & Darren Roos – Concrete next steps, ownership, timelines' },
+      { t: 'IFS Summit: Closing Dinner', s: '20260506T190000', e: '20260506T213000', l: hotel, d: 'Hotel restaurant – celebrate the work done' }
     ];
 
     let ics = 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//IFS AI Summit//EN\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\nX-WR-CALNAME:IFS AI Leadership Summit\r\n';
