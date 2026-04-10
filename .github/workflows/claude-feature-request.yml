@@ -2,7 +2,7 @@ name: Claude Feature Request Handler
 
 on:
   issues:
-    types: [opened, labeled]
+    types: [opened]
 
 jobs:
   implement-feature:
@@ -28,6 +28,8 @@ jobs:
 
       - name: Auto-merge Claude branch to main
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           # Find the Claude branch
           git fetch origin
           CLAUDE_BRANCH=$(git branch -r | grep 'origin/claude/issue-${{ github.event.issue.number }}' | head -1 | xargs)
