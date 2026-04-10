@@ -2,7 +2,7 @@ name: Claude Feature Request Handler
 
 on:
   issues:
-    types: [opened]
+    types: [labeled]
 
 jobs:
   implement-feature:
