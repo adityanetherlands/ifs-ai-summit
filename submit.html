@@ -53,7 +53,7 @@ body {
 .brand-link:hover .brand { opacity: 0.8; }
 .tracker-num {
   font-family: var(--font-display);
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--text-dim);
   min-width: 22px;
@@ -328,7 +328,7 @@ function saveTrackedIssues(issues) {
 }
 
 function renderTracker() {
-  const issues = getTrackedIssues().slice(0, 5);
+  const issues = getTrackedIssues().slice(0, 3);
   const list = document.getElementById('trackerList');
 
   if (!issues.length) {
