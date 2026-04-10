@@ -159,6 +159,101 @@ textarea {
   color: #f87171;
 }
 
+.info-banner {
+  background: var(--accent-indigo-glow);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+.flag-code {
+  display: inline-block;
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--accent-indigo-light);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.tracker {
+  margin-top: 16px;
+  display: none;
+}
+.tracker.visible { display: block; }
+.tracker-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  padding: 20px;
+}
+.tracker-header {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.tracker-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(42, 47, 61, 0.5);
+}
+.tracker-item:last-child { border-bottom: none; }
+.tracker-title {
+  font-size: 14px;
+  color: var(--text-primary);
+  flex: 1;
+}
+.tracker-badge {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.tracker-badge.queued {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+.tracker-badge.completed {
+  background: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+}
+.tracker-preview {
+  display: none;
+  margin-top: 6px;
+  font-size: 12px;
+}
+.tracker-preview a { color: var(--accent-indigo-light); text-decoration: none; }
+.tracker-preview a:hover { text-decoration: underline; }
+.tracker-preview.visible { display: block; }
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(245, 158, 11, 0.3);
+  border-top-color: #fbbf24;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
 .footer {
   text-align: center;
   margin-top: 24px;
@@ -175,6 +270,10 @@ textarea {
   <div class="brand">IFS <span>AI Summit</span></div>
   <h1>Submit a Feature Request</h1>
   <p class="subtitle">Describe a change you'd like made to the summit website. An AI agent will implement it automatically.</p>
+
+  <div class="info-banner">
+    Changes will be deployed behind a feature flag. Preview them by adding <code class="flag-code">?ext_edit=true</code> to the end of the page URL.
+  </div>
 
   <div class="card">
     <form id="requestForm">
@@ -199,16 +298,86 @@ textarea {
     <div class="status" id="status"></div>
   </div>
 
+  <div class="tracker" id="tracker">
+    <div class="tracker-card">
+      <div class="tracker-header">Your Requests</div>
+      <div id="trackerList"></div>
+    </div>
+  </div>
+
   <div class="footer">
     <a href="/">Back to summit site</a>
   </div>
 </div>
 
 <script>
+// Track submitted issues in localStorage
+function getTrackedIssues() {
+  try { return JSON.parse(localStorage.getItem('ifs_tracked_issues') || '[]'); }
+  catch { return []; }
+}
+function saveTrackedIssues(issues) {
+  localStorage.setItem('ifs_tracked_issues', JSON.stringify(issues));
+}
+
+// Render tracker
+function renderTracker() {
+  const issues = getTrackedIssues();
+  const tracker = document.getElementById('tracker');
+  const list = document.getElementById('trackerList');
+  if (!issues.length) { tracker.classList.remove('visible'); return; }
+
+  tracker.classList.add('visible');
+  list.innerHTML = issues.map(issue => `
+    <div class="tracker-item" data-issue="${issue.number}">
+      <div style="flex:1">
+        <div class="tracker-title">${issue.title}</div>
+        <div class="tracker-preview ${issue.status === 'completed' ? 'visible' : ''}" id="preview-${issue.number}">
+          Ready to review: <a href="/?ext_edit=true" target="_blank">preview with feature flag</a>
+        </div>
+      </div>
+      ${issue.status === 'completed'
+        ? '<span class="tracker-badge completed">Done</span>'
+        : '<div class="spinner"></div><span class="tracker-badge queued">Building</span>'
+      }
+    </div>
+  `).join('');
+}
+
+// Poll for status updates
+async function pollStatuses() {
+  const issues = getTrackedIssues();
+  let changed = false;
+  for (const issue of issues) {
+    if (issue.status === 'completed') continue;
+    try {
+      const res = await fetch(`/api/status?issue=${issue.number}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.status === 'completed' && issue.status !== 'completed') {
+          issue.status = 'completed';
+          changed = true;
+        }
+      }
+    } catch {}
+  }
+  if (changed) {
+    saveTrackedIssues(issues);
+    renderTracker();
+  }
+}
+
+// Start polling every 15 seconds
+renderTracker();
+setInterval(pollStatuses, 15000);
+pollStatuses();
+
+// Form submission
 document.getElementById('requestForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
   const status = document.getElementById('status');
+  const titleVal = document.getElementById('title').value;
 
   btn.disabled = true;
   btn.textContent = 'Submitting...';
@@ -220,7 +389,7 @@ document.getElementById('requestForm').addEventListener('submit', async (e) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        title: document.getElementById('title').value,
+        title: titleVal,
         body: document.getElementById('body').value,
         password: document.getElementById('password').value,
       }),
@@ -229,8 +398,14 @@ document.getElementById('requestForm').addEventListener('submit', async (e) => {
     const data = await res.json();
 
     if (res.ok) {
+      // Track the issue
+      const issues = getTrackedIssues();
+      issues.unshift({ number: data.issue_number, title: titleVal, status: 'queued' });
+      saveTrackedIssues(issues);
+      renderTracker();
+
       status.className = 'status success';
-      status.innerHTML = 'Request submitted successfully! An AI agent will implement this shortly. You can preview changes at <a href="/?ext_edit=true" style="color:#4ade80;">the preview link</a>.';
+      status.innerHTML = 'Request submitted! An AI agent is building it now. Watch the status tracker below.';
       status.style.display = 'block';
       document.getElementById('requestForm').reset();
     } else {
