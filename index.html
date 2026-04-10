@@ -277,33 +277,6 @@ img { max-width: 100%; height: auto; display: block; }
 .hero-scroll-hint svg { width: 24px; height: 24px; }
 
 /* ═══════════════════════════════════════════════════════════════
-   WHY THIS MATTERS
-   ═══════════════════════════════════════════════════════════════ */
-#why { background: var(--bg-secondary); }
-.why-content { max-width: 820px; margin: 0 auto; text-align: center; }
-.why-stats {
-  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;
-}
-.why-stat {
-  background: var(--bg-surface); border: 1px solid var(--border-default);
-  padding: 12px 24px; border-radius: 100px; display: flex; align-items: center; gap: 10px;
-}
-.why-stat-value {
-  font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--accent-indigo-light);
-}
-.why-stat-label { font-size: 13px; color: var(--text-muted); font-weight: 600; }
-.why-box {
-  background: var(--bg-surface); border: 1px solid var(--border-default);
-  border-left: 3px solid var(--accent-indigo);
-  border-radius: 10px; padding: 32px; text-align: left;
-}
-.why-box h3 {
-  font-family: var(--font-display); font-size: 20px; font-weight: 800;
-  color: var(--text-primary); margin-bottom: 14px;
-}
-.why-box p { font-size: 15px; line-height: 1.75; color: var(--text-muted); margin: 0; }
-
-/* ═══════════════════════════════════════════════════════════════
    AGENDA
    ═══════════════════════════════════════════════════════════════ */
 #agenda { background: var(--bg-primary); }
@@ -508,9 +481,10 @@ img { max-width: 100%; height: auto; display: block; }
 .group-card {
   background: var(--bg-surface); border: 1px solid var(--border-default);
   border-radius: 10px; padding: 20px; border-left: 3px solid var(--accent-indigo);
-  transition: border-color 0.2s;
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  display: flex; flex-direction: column; min-height: 150px; position: relative; cursor: default;
 }
-.group-card:hover { border-color: var(--accent-indigo); }
+.group-card:hover { border-color: var(--accent-indigo); box-shadow: 0 4px 20px rgba(99,102,241,0.12); }
 .group-card .group-num {
   font-family: var(--font-display); font-size: 11px; font-weight: 700;
   color: var(--accent-indigo-light); letter-spacing: 0.5px; text-transform: uppercase;
@@ -518,10 +492,34 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .group-card h4 {
   font-family: var(--font-display); font-size: 14px; font-weight: 700;
-  color: var(--text-primary); margin-bottom: 8px; line-height: 1.3;
+  color: var(--text-primary); margin-bottom: 0; line-height: 1.3;
 }
-.group-card .group-meta { font-size: 12px; color: var(--text-muted); }
-.group-card .group-meta span { color: var(--accent-amber); font-weight: 600; }
+.group-card .group-lead {
+  margin-top: auto; padding-top: 14px;
+  font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 6px;
+}
+.group-card .group-lead span { color: var(--accent-amber); font-weight: 600; }
+.group-members {
+  position: absolute; bottom: 100%; left: -1px; right: -1px; z-index: 10;
+  background: var(--bg-surface); border: 1px solid var(--accent-indigo);
+  border-radius: 10px 10px 0 0; padding: 16px 20px;
+  box-shadow: 0 -8px 32px rgba(0,0,0,0.3);
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity 0.25s var(--ease), visibility 0.25s, transform 0.25s var(--ease);
+  pointer-events: none;
+}
+.group-card:hover .group-members { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
+.group-card:hover { border-top-left-radius: 0; border-top-right-radius: 0; border-top-color: var(--accent-indigo); }
+.group-members-label {
+  font-family: var(--font-display); font-size: 10px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--accent-indigo-light);
+  margin-bottom: 8px;
+}
+.group-members ul { list-style: none; padding: 0; margin: 0; }
+.group-members li {
+  font-size: 13px; color: var(--text-secondary); padding: 3px 0; font-weight: 500;
+}
+.group-members li .member-fn { color: var(--text-dim); font-weight: 400; font-size: 11px; margin-left: 6px; }
 
 /* ═══════════════════════════════════════════════════════════════
    VENUES
@@ -674,7 +672,7 @@ img { max-width: 100%; height: auto; display: block; }
   <div class="hero-content">
     <div class="hero-eyebrow">IFS AI Leadership Summit</div>
     <h1 class="hero-title">The Ground<br>Is Shifting</h1>
-    <p class="hero-lead">AI-native startups aren&rsquo;t adding features &mdash; they&rsquo;re replacing entire functions. The companies that win will be the ones obsessively close to what their customers need. This is where we make sure IFS leads.</p>
+    <p class="hero-lead">AI-native startups aren&rsquo;t adding features to existing software. They&rsquo;re replacing entire functions with new architectures that make traditional SaaS look slow and bloated. Sales, Marketing, HR, Finance, IT &mdash; they&rsquo;re all in the crosshairs. IFS has a window: our industries adopt deliberately, which gives us time to lead. But that window is closing. This event is about making sure every leader here feels the urgency and leaves with a plan.</p>
     <div class="hero-meta">
       <span>Mountain View, California</span>
       <span class="sep">&middot;</span>
@@ -691,38 +689,6 @@ img { max-width: 100%; height: auto; display: block; }
   </div>
   <div class="hero-scroll-hint">
     <i data-lucide="chevrons-down"></i>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════
-     WHY THIS MATTERS
-     ═══════════════════════════════════════════════════ -->
-<section class="section" id="why">
-  <div class="container">
-    <div class="why-content">
-      <div class="section-header" style="text-align:center;">
-        <div class="section-eyebrow">The Context</div>
-        <h2 class="section-title">Why This Matters</h2>
-      </div>
-      <div class="why-stats animate-on-scroll">
-        <div class="why-stat">
-          <div class="why-stat-value">57</div>
-          <div class="why-stat-label">Senior Leaders</div>
-        </div>
-        <div class="why-stat">
-          <div class="why-stat-value">4</div>
-          <div class="why-stat-label">Days in the Valley</div>
-        </div>
-        <div class="why-stat">
-          <div class="why-stat-value">12</div>
-          <div class="why-stat-label">Working Groups</div>
-        </div>
-      </div>
-      <div class="why-box animate-on-scroll">
-        <h3>The Ground Is Shifting</h3>
-        <p>AI-native startups aren't adding features to existing software. They're replacing entire functions with new architectures that make traditional SaaS look slow and bloated. Sales, Marketing, HR, Finance, IT &mdash; they're all in the crosshairs. The companies that win will be the ones obsessively close to what their customers actually need. IFS has a window: our industries adopt deliberately, which gives us time to lead. But that window is closing. This event is about making sure every leader here feels the urgency and leaves with a plan.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1242,66 +1208,197 @@ img { max-width: 100%; height: auto; display: block; }
     <p class="groups-intro">12 cross-functional groups of ~5 people, each with an assigned tech lead. You'll work with your group during hands-on sessions on Tuesday and the working sessions on Wednesday. Your group assignment will be confirmed via email.</p>
 
     <div class="groups-grid">
+
       <div class="group-card animate-on-scroll">
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul>
+            <li>Adi Kumar <span class="member-fn">AI BU</span></li>
+            <li>Darren Roos <span class="member-fn">Exec Team</span></li>
+            <li>Mark Moffat <span class="member-fn">Exec Team</span></li>
+            <li>Fred Brady <span class="member-fn">Exec Team</span></li>
+            <li>Joe Dormani <span class="member-fn">Strategy</span></li>
+          </ul>
+        </div>
         <div class="group-num">Group 1</div>
         <h4>Executive Board / Management</h4>
-        <div class="group-meta">5 members &middot; Tech Lead: <span>Adi Kumar</span></div>
+        <div class="group-lead">Tech Lead: <span>Adi Kumar</span></div>
       </div>
+
       <div class="group-card animate-on-scroll">
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul>
+            <li>Andre Robberts <span class="member-fn">Core Sales</span></li>
+            <li>Ann Marie Mullally <span class="member-fn">Core Sales</span></li>
+            <li>James Thompson <span class="member-fn">Core Sales</span></li>
+            <li>Ravi Bulusu <span class="member-fn">AI BU</span></li>
+            <li>Simon Niesler <span class="member-fn">Core Sales</span></li>
+          </ul>
+        </div>
         <div class="group-num">Group 2</div>
         <h4>Sales &mdash; Targeting &amp; Account Mgmt</h4>
-        <div class="group-meta">5 members &middot; Tech Lead: <span>Ravi Bulusu</span></div>
+        <div class="group-lead">Tech Lead: <span>Ravi Bulusu</span></div>
       </div>
+
       <div class="group-card animate-on-scroll">
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul>
+            <li>James Greaves <span class="member-fn">Core Sales</span></li>
+            <li>Jonathan Hyden <span class="member-fn">AI BU</span></li>
+            <li>Mathieu Daudigny <span class="member-fn">Core Sales</span></li>
+            <li>Stephanie Poore <span class="member-fn">Core Sales</span></li>
+            <li>Travis Johnstone <span class="member-fn">Core Sales</span></li>
+          </ul>
+        </div>
         <div class="group-num">Group 3</div>
-        <h4>Pre-Sales &mdash; Technical Demo'ing</h4>
-        <div class="group-meta">5 members &middot; Tech Lead: <span>Jonathan Hyden</span></div>
+        <h4>Pre-Sales &mdash; Technical Demo&rsquo;ing</h4>
+        <div class="group-lead">Tech Lead: <span>Jonathan Hyden</span></div>
       </div>
+
       <div class="group-card animate-on-scroll">
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul>
+            <li>Antoine Bisson <span class="member-fn">R&amp;D</span></li>
+            <li>Dan Dutton <span class="member-fn">Core Product / GCS</span></li>
+            <li>Mairi Campbell <span class="member-fn">Core Product / GCS</span></li>
+            <li>Cathie Hall <span class="member-fn">Core Product / GCS</span></li>
+            <li>Gregory Briedenbach <span class="member-fn">Core Product / GCS</span></li>
+          </ul>
+        </div>
         <div class="group-num">Group 4</div>
         <h4>R&amp;D</h4>
-        <div class="group-meta">4 members &middot; Tech Lead: <span>Dan Dutton</span></div>
+        <div class="group-lead">Tech Lead: <span>Dan Dutton</span></div>
       </div>
+
       <div class="group-card animate-on-scroll">
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul>
+            <li>Bob De Caux <span class="member-fn">Core Product / GCS</span></li>
+            <li>Kurt Kemmerly <span class="member-fn">AI BU</span></li>
+            <li>Raymond Jones <span class="member-fn">Core Product / GCS</span></li>
+            <li>Tony Johnson <span class="member-fn">Core Product / GCS</span></li>
+          </ul>
+        </div>
         <div class="group-num">Group 5</div>
         <h4>Customer Support &amp; Success</h4>
-        <div class="group-meta">4 members &middot; Tech Lead: <span>Bob De Caux</span></div>
+        <div class="group-lead">Tech Lead: <span>Bob De Caux</span></div>
       </div>
+
       <div class="group-card animate-on-scroll">
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul>
+            <li>Bisher Deirki <span class="member-fn">AI BU</span></li>
+            <li>Jon Zorio <span class="member-fn">AI BU</span></li>
+            <li>Matt Ely <span class="member-fn">AI BU</span></li>
+            <li>Matt Kempson <span class="member-fn">AI BU</span></li>
+            <li>Matt Quinn <span class="member-fn">AI BU</span></li>
+          </ul>
+        </div>
         <div class="group-num">Group 6</div>
         <h4>AI Product Unit</h4>
-        <div class="group-meta">5 members &middot; Tech Lead: <span>Matt Ely</span></div>
+        <div class="group-lead">Tech Lead: <span>Matt Ely</span></div>
       </div>
+
       <div class="group-card animate-on-scroll">
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul>
+            <li>Andreas Georgiou <span class="member-fn">Marketing</span></li>
+            <li>Elvis Pinjagic <span class="member-fn">AI BU</span></li>
+            <li>Oliver Pilgerstorfer <span class="member-fn">Marketing</span></li>
+            <li>Sara Hill <span class="member-fn">Marketing</span></li>
+            <li>Vaibs Kumar <span class="member-fn">Core Product / GCS</span></li>
+          </ul>
+        </div>
         <div class="group-num">Group 7</div>
         <h4>Marketing</h4>
-        <div class="group-meta">5 members &middot; Tech Lead: <span>Vaibs Kumar</span></div>
+        <div class="group-lead">Tech Lead: <span>Vaibs Kumar</span></div>
       </div>
+
       <div class="group-card animate-on-scroll">
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul>
+            <li>Christian Pedersen <span class="member-fn">Strategy</span></li>
+            <li>Kriti Sharma <span class="member-fn">AI BU</span></li>
+            <li>Laura Bennett <span class="member-fn">HR</span></li>
+            <li>Matt Breslin <span class="member-fn">Core Sales</span></li>
+            <li>Mihita Podobnik <span class="member-fn">HR</span></li>
+          </ul>
+        </div>
         <div class="group-num">Group 8</div>
         <h4>HR</h4>
-        <div class="group-meta">5 members &middot; Tech Lead: <span>Kriti Sharma</span></div>
+        <div class="group-lead">Tech Lead: <span>Kriti Sharma</span></div>
       </div>
+
       <div class="group-card animate-on-scroll">
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul>
+            <li>Danilo Prates <span class="member-fn">M&amp;A</span></li>
+            <li>Hannes Liebe <span class="member-fn">Core Sales</span></li>
+            <li>Jonathan Park <span class="member-fn">Finance</span></li>
+            <li>Jordan Setterfield <span class="member-fn">Finance</span></li>
+            <li>Matthias Heiden <span class="member-fn">Finance</span></li>
+          </ul>
+        </div>
         <div class="group-num">Group 9</div>
         <h4>Finance</h4>
-        <div class="group-meta">5 members &middot; Tech Lead: <span>Danilo Prates</span></div>
+        <div class="group-lead">Tech Lead: <span>Danilo Prates</span></div>
       </div>
+
       <div class="group-card animate-on-scroll">
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul>
+            <li>Goiuri Hern&aacute;ndez <span class="member-fn">Core Sales</span></li>
+            <li>Jorge Garc&iacute;a D&iacute;az <span class="member-fn">IT</span></li>
+            <li>Mubashir Nisar <span class="member-fn">IT</span></li>
+            <li>Robi Gone <span class="member-fn">IT</span></li>
+            <li>Somya Kapoor <span class="member-fn">AI BU</span></li>
+          </ul>
+        </div>
         <div class="group-num">Group 10</div>
         <h4>IT</h4>
-        <div class="group-meta">5 members &middot; Tech Lead: <span>Jorge Garc&iacute;a D&iacute;az</span></div>
+        <div class="group-lead">Tech Lead: <span>Jorge Garc&iacute;a D&iacute;az</span></div>
       </div>
+
       <div class="group-card animate-on-scroll">
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul>
+            <li>Jim Hoefflin <span class="member-fn">M&amp;A</span></li>
+            <li>Lance Olmsted <span class="member-fn">M&amp;A</span></li>
+            <li>Nick Vandivere <span class="member-fn">AI BU</span></li>
+            <li>Rob Hortopp <span class="member-fn">M&amp;A</span></li>
+            <li>Tim Forkner <span class="member-fn">M&amp;A</span></li>
+          </ul>
+        </div>
         <div class="group-num">Group 11</div>
         <h4>M&amp;A</h4>
-        <div class="group-meta">5 members &middot; Tech Lead: <span>Nick Vandivere</span></div>
+        <div class="group-lead">Tech Lead: <span>Nick Vandivere</span></div>
       </div>
+
       <div class="group-card animate-on-scroll">
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul>
+            <li>Herman Niewoudt <span class="member-fn">Core Sales</span></li>
+            <li>Justin Bigger <span class="member-fn">Core Sales</span></li>
+            <li>Mark Buongiorno <span class="member-fn">Core Sales</span></li>
+            <li>Mattias Bolander <span class="member-fn">Core Sales</span></li>
+          </ul>
+        </div>
         <div class="group-num">Group 12</div>
         <h4>Sales &mdash; Team B</h4>
-        <div class="group-meta">4 members &middot; Tech Lead: <span>Justin Bigger</span></div>
+        <div class="group-lead">Tech Lead: <span>Justin Bigger</span></div>
       </div>
+
     </div>
   </div>
 </section>
