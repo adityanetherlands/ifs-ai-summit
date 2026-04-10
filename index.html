@@ -64,6 +64,11 @@ img { max-width: 100%; height: auto; display: block; }
 .ff-ext-edit { display: none !important; }
 body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
 
+/* PRE-READS GRID GLOW – ff-ext-edit: soft indigo radial glow behind card grid */
+body.ff-ext-edit-on #prereads { position: relative; overflow: hidden; }
+body.ff-ext-edit-on .prereads-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 90% 70% at 50% 50%, rgba(99,102,241,0.12) 0%, transparent 65%); }
+body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
+
 /* Skip link */
 .skip-link {
   position: absolute; top: -100px; left: 16px;
@@ -1062,6 +1067,7 @@ body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
      PRE-READ BRIEFS
      ═══════════════════════════════════════════════════ -->
 <section class="section" id="prereads">
+  <div class="ff-ext-edit prereads-glow"></div>
   <div class="container">
     <div class="section-header">
       <div class="section-eyebrow">Preparation</div>
