@@ -34,23 +34,19 @@ body {
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 32px;
 }
 
-.container {
-  max-width: 560px;
-  width: 100%;
+.page-header {
+  max-width: 1100px;
+  margin: 0 auto 24px;
 }
-
 .brand {
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 700;
   color: var(--text-muted);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .brand span { color: var(--accent-indigo-light); }
 
@@ -59,20 +55,48 @@ h1 {
   font-size: 28px;
   font-weight: 800;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
-
 .subtitle {
   color: var(--text-dim);
   font-size: 14px;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
+}
+.info-banner {
+  background: var(--accent-indigo-glow);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.flag-code {
+  display: inline-block;
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--accent-indigo-light);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Two-column layout */
+.layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
 }
 
 .card {
   background: var(--bg-surface);
   border: 1px solid var(--border-default);
   border-radius: 16px;
-  padding: 32px;
+  padding: 28px;
 }
 
 label {
@@ -102,25 +126,23 @@ input:focus, textarea:focus {
   border-color: var(--accent-indigo);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
-input::placeholder, textarea::placeholder {
-  color: var(--text-dim);
-}
-textarea {
-  min-height: 140px;
-  resize: vertical;
-}
+input::placeholder, textarea::placeholder { color: var(--text-dim); }
+textarea { min-height: 100px; resize: vertical; }
 
-.field { margin-bottom: 20px; }
-.field:last-of-type { margin-bottom: 28px; }
+.field { margin-bottom: 16px; }
+.field:last-of-type { margin-bottom: 24px; }
+.password-field input { font-size: 14px; letter-spacing: 0.1em; }
 
-.password-field input {
-  font-size: 14px;
-  letter-spacing: 0.1em;
+/* Inline row for password + button */
+.submit-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
 }
+.submit-row .field { flex: 1; margin-bottom: 0; }
 
 .btn {
-  width: 100%;
-  padding: 14px 28px;
+  padding: 12px 28px;
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 700;
@@ -130,18 +152,16 @@ textarea {
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+  height: 46px;
 }
 .btn:hover { background: var(--accent-indigo-light); }
 .btn:active { transform: scale(0.98); }
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
 .status {
-  margin-top: 16px;
-  padding: 14px 16px;
+  margin-top: 14px;
+  padding: 12px 16px;
   border-radius: 10px;
   font-size: 14px;
   display: none;
@@ -159,38 +179,13 @@ textarea {
   color: #f87171;
 }
 
-.info-banner {
-  background: var(--accent-indigo-glow);
-  border: 1px solid rgba(99, 102, 241, 0.25);
-  border-radius: 10px;
-  padding: 14px 18px;
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 24px;
-  line-height: 1.6;
-}
-.flag-code {
-  display: inline-block;
-  background: rgba(99, 102, 241, 0.15);
-  color: var(--accent-indigo-light);
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-.tracker {
-  margin-top: 16px;
-  display: none;
-}
-.tracker.visible { display: block; }
-.tracker-card {
+/* Right panel: tracker */
+.tracker-panel {
   background: var(--bg-surface);
   border: 1px solid var(--border-default);
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 28px;
+  min-height: 200px;
 }
 .tracker-header {
   font-family: var(--font-display);
@@ -199,13 +194,20 @@ textarea {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+}
+.tracker-empty {
+  color: var(--text-dim);
+  font-size: 13px;
+  font-style: italic;
+  padding: 24px 0;
+  text-align: center;
 }
 .tracker-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 0;
+  padding: 12px 0;
   border-bottom: 1px solid rgba(42, 47, 61, 0.5);
 }
 .tracker-item:last-child { border-bottom: none; }
@@ -214,6 +216,14 @@ textarea {
   color: var(--text-primary);
   flex: 1;
 }
+.tracker-preview {
+  display: none;
+  margin-top: 4px;
+  font-size: 12px;
+}
+.tracker-preview a { color: var(--accent-indigo-light); text-decoration: none; }
+.tracker-preview a:hover { text-decoration: underline; }
+.tracker-preview.visible { display: block; }
 .tracker-badge {
   font-family: var(--font-display);
   font-size: 11px;
@@ -234,18 +244,8 @@ textarea {
   color: #4ade80;
   border: 1px solid rgba(34, 197, 94, 0.25);
 }
-.tracker-preview {
-  display: none;
-  margin-top: 6px;
-  font-size: 12px;
-}
-.tracker-preview a { color: var(--accent-indigo-light); text-decoration: none; }
-.tracker-preview a:hover { text-decoration: underline; }
-.tracker-preview.visible { display: block; }
-
 .spinner {
-  width: 14px;
-  height: 14px;
+  width: 14px; height: 14px;
   border: 2px solid rgba(245, 158, 11, 0.3);
   border-top-color: #fbbf24;
   border-radius: 50%;
@@ -255,26 +255,35 @@ textarea {
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .footer {
+  max-width: 1100px;
+  margin: 24px auto 0;
   text-align: center;
-  margin-top: 24px;
   font-size: 12px;
   color: var(--text-dim);
 }
 .footer a { color: var(--accent-indigo-light); text-decoration: none; }
 .footer a:hover { text-decoration: underline; }
+
+/* Mobile: stack vertically */
+@media (max-width: 768px) {
+  .layout { grid-template-columns: 1fr; }
+  body { padding: 20px; }
+}
 </style>
 </head>
 <body>
 
-<div class="container">
+<div class="page-header">
   <div class="brand">IFS <span>AI Summit</span></div>
   <h1>Submit a Feature Request</h1>
   <p class="subtitle">Describe a change you'd like made to the summit website. An AI agent will implement it automatically.</p>
-
   <div class="info-banner">
     Changes will be deployed behind a feature flag. Preview them by adding <code class="flag-code">?ext_edit=true</code> to the end of the page URL.
   </div>
+</div>
 
+<div class="layout">
+  <!-- Left: Form -->
   <div class="card">
     <form id="requestForm">
       <div class="field">
@@ -287,31 +296,32 @@ textarea {
         <textarea id="body" name="body" placeholder="Be specific about what to add or change, where on the site it should appear, and any style preferences." required></textarea>
       </div>
 
-      <div class="field password-field">
-        <label for="password">Access code</label>
-        <input type="password" id="password" name="password" placeholder="Enter the access code" required>
+      <div class="submit-row">
+        <div class="field password-field">
+          <label for="password">Access code</label>
+          <input type="password" id="password" name="password" placeholder="Enter the access code" required>
+        </div>
+        <button type="submit" class="btn" id="submitBtn">Submit</button>
       </div>
-
-      <button type="submit" class="btn" id="submitBtn">Submit Request</button>
     </form>
 
     <div class="status" id="status"></div>
   </div>
 
-  <div class="tracker" id="tracker">
-    <div class="tracker-card">
-      <div class="tracker-header">Your Requests</div>
-      <div id="trackerList"></div>
+  <!-- Right: Status tracker -->
+  <div class="tracker-panel">
+    <div class="tracker-header">Request Status</div>
+    <div id="trackerList">
+      <div class="tracker-empty">No requests submitted yet</div>
     </div>
-  </div>
-
-  <div class="footer">
-    <a href="/">Back to summit site</a>
   </div>
 </div>
 
+<div class="footer">
+  <a href="/">Back to summit site</a>
+</div>
+
 <script>
-// Track submitted issues in localStorage
 function getTrackedIssues() {
   try { return JSON.parse(localStorage.getItem('ifs_tracked_issues') || '[]'); }
   catch { return []; }
@@ -320,14 +330,15 @@ function saveTrackedIssues(issues) {
   localStorage.setItem('ifs_tracked_issues', JSON.stringify(issues));
 }
 
-// Render tracker
 function renderTracker() {
   const issues = getTrackedIssues();
-  const tracker = document.getElementById('tracker');
   const list = document.getElementById('trackerList');
-  if (!issues.length) { tracker.classList.remove('visible'); return; }
 
-  tracker.classList.add('visible');
+  if (!issues.length) {
+    list.innerHTML = '<div class="tracker-empty">No requests submitted yet</div>';
+    return;
+  }
+
   list.innerHTML = issues.map(issue => `
     <div class="tracker-item" data-issue="${issue.number}">
       <div style="flex:1">
@@ -344,7 +355,6 @@ function renderTracker() {
   `).join('');
 }
 
-// Poll for status updates
 async function pollStatuses() {
   const issues = getTrackedIssues();
   let changed = false;
@@ -367,12 +377,10 @@ async function pollStatuses() {
   }
 }
 
-// Start polling every 15 seconds
 renderTracker();
 setInterval(pollStatuses, 15000);
 pollStatuses();
 
-// Form submission
 document.getElementById('requestForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
@@ -398,14 +406,13 @@ document.getElementById('requestForm').addEventListener('submit', async (e) => {
     const data = await res.json();
 
     if (res.ok) {
-      // Track the issue
       const issues = getTrackedIssues();
       issues.unshift({ number: data.issue_number, title: titleVal, status: 'queued' });
       saveTrackedIssues(issues);
       renderTracker();
 
       status.className = 'status success';
-      status.innerHTML = 'Request submitted! An AI agent is building it now. Watch the status tracker below.';
+      status.innerHTML = 'Request submitted! An AI agent is building it now. Watch the status on the right.';
       status.style.display = 'block';
       document.getElementById('requestForm').reset();
     } else {
@@ -418,7 +425,7 @@ document.getElementById('requestForm').addEventListener('submit', async (e) => {
   }
 
   btn.disabled = false;
-  btn.textContent = 'Submit Request';
+  btn.textContent = 'Submit';
 });
 </script>
 
