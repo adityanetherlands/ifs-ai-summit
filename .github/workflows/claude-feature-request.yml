@@ -20,7 +20,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Claude Code
         id: claude
@@ -31,19 +30,18 @@ jobs:
 
       - name: Auto-merge Claude branch to main
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git fetch origin
-          CLAUDE_BRANCH=$(git branch -r | grep "origin/claude/issue-${{ github.event.issue.number }}" | head -1 | xargs)
-          if [ -n "$CLAUDE_BRANCH" ]; then
-            echo "Found branch: $CLAUDE_BRANCH"
-            git checkout main
-            git pull origin main
-            git merge $CLAUDE_BRANCH --no-edit
-            git push origin main
-            echo "Merged $CLAUDE_BRANCH into main"
+          BRANCH_NAME=$(gh api repos/${{ github.repository }}/branches --jq '.[].name' | grep "claude/issue-${{ github.event.issue.number }}" | head -1)
+          if [ -n "$BRANCH_NAME" ]; then
+            echo "Found branch: $BRANCH_NAME"
+            PR_URL=$(gh pr create --base main --head "$BRANCH_NAME" --title "Auto-merge: ${{ github.event.issue.title }}" --body "Auto-merging feature request from #${{ github.event.issue.number }}" 2>&1 || true)
+            echo "$PR_URL"
+            PR_NUM=$(gh pr list --head "$BRANCH_NAME" --json number -q '.[0].number')
+            if [ -n "$PR_NUM" ]; then
+              gh pr merge "$PR_NUM" --merge --admin
+              echo "Merged PR #$PR_NUM"
+            fi
           else
-            echo "No Claude branch found, skipping merge"
+            echo "No Claude branch found"
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
