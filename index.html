@@ -491,23 +491,21 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .groups-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 14px;
+  gap: 14px; align-items: start;
 }
 /* Dim siblings on hover */
-.groups-grid:hover .group-card { opacity: 0.35; transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease); }
+.groups-grid:hover .group-card { opacity: 0.35; }
 .groups-grid:hover .group-card:hover { opacity: 1; }
 
 .group-card {
   background: var(--bg-surface); border: 1px solid var(--border-default);
   border-radius: 10px; padding: 20px; border-left: 3px solid var(--accent-indigo);
-  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
-  display: flex; flex-direction: column; min-height: 150px; position: relative; cursor: default;
+  transition: opacity 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  display: flex; flex-direction: column; min-height: 150px; cursor: default;
 }
 .group-card:hover {
   border-color: var(--accent-indigo);
-  box-shadow: 0 8px 40px rgba(99,102,241,0.2);
-  transform: translateY(-6px);
-  z-index: 20;
+  box-shadow: 0 8px 32px rgba(99,102,241,0.18);
 }
 .group-card .group-num {
   font-family: var(--font-display); font-size: 11px; font-weight: 700;
@@ -523,26 +521,28 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 6px;
 }
 .group-card .group-lead span { color: var(--accent-amber); font-weight: 600; }
+
+/* Members — inline expand */
 .group-members {
-  position: absolute; bottom: calc(100% + 8px); left: 0; right: 0; z-index: 30;
-  background: var(--bg-surface); border: 1px solid var(--accent-indigo);
-  border-radius: 10px; padding: 16px 20px;
-  box-shadow: 0 12px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.15);
-  opacity: 0; visibility: hidden; transform: translateY(6px);
-  transition: opacity 0.25s var(--ease), visibility 0.25s, transform 0.25s var(--ease);
-  pointer-events: none;
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.4s var(--ease), opacity 0.3s var(--ease), margin 0.4s var(--ease), padding 0.4s var(--ease);
+  border-top: 0px solid var(--border-subtle);
+  margin-top: 0; padding-top: 0;
 }
-.group-card:hover .group-members { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
+.group-card:hover .group-members {
+  max-height: 260px; opacity: 1;
+  border-top-width: 1px; margin-top: 14px; padding-top: 14px;
+}
 .group-members-label {
   font-family: var(--font-display); font-size: 10px; font-weight: 700;
   letter-spacing: 1px; text-transform: uppercase; color: var(--accent-indigo-light);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .group-members ul { list-style: none; padding: 0; margin: 0; }
 .group-members li {
-  font-size: 13px; color: var(--text-secondary); padding: 3px 0; font-weight: 500;
+  font-size: 12px; color: var(--text-secondary); padding: 2px 0; font-weight: 500;
 }
-.group-members li .member-fn { color: var(--text-dim); font-weight: 400; font-size: 11px; margin-left: 6px; }
+.group-members li .member-fn { color: var(--text-dim); font-weight: 400; font-size: 11px; margin-left: 4px; }
 
 /* ═══════════════════════════════════════════════════════════════
    VENUES
@@ -1241,193 +1241,123 @@ img { max-width: 100%; height: auto; display: block; }
     <div class="groups-grid">
 
       <div class="group-card animate-on-scroll">
-        <div class="group-members">
-          <div class="group-members-label">Members</div>
-          <ul>
-            <li>Adi Kumar <span class="member-fn">AI BU</span></li>
-            <li>Darren Roos <span class="member-fn">Exec Team</span></li>
-            <li>Mark Moffat <span class="member-fn">Exec Team</span></li>
-            <li>Fred Brady <span class="member-fn">Exec Team</span></li>
-            <li>Joe Dormani <span class="member-fn">Strategy</span></li>
-          </ul>
-        </div>
         <div class="group-num">Group 1</div>
         <h4>Executive Board / Management</h4>
         <div class="group-lead">Tech Lead: <span>Adi Kumar</span></div>
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul><li>Adi Kumar <span class="member-fn">AI BU</span></li><li>Darren Roos <span class="member-fn">Exec Team</span></li><li>Mark Moffat <span class="member-fn">Exec Team</span></li><li>Fred Brady <span class="member-fn">Exec Team</span></li><li>Joe Dormani <span class="member-fn">Strategy</span></li></ul>
+        </div>
       </div>
 
       <div class="group-card animate-on-scroll">
-        <div class="group-members">
-          <div class="group-members-label">Members</div>
-          <ul>
-            <li>Andre Robberts <span class="member-fn">Core Sales</span></li>
-            <li>Ann Marie Mullally <span class="member-fn">Core Sales</span></li>
-            <li>James Thompson <span class="member-fn">Core Sales</span></li>
-            <li>Ravi Bulusu <span class="member-fn">AI BU</span></li>
-            <li>Simon Niesler <span class="member-fn">Core Sales</span></li>
-          </ul>
-        </div>
         <div class="group-num">Group 2</div>
         <h4>Sales &mdash; Targeting &amp; Account Mgmt</h4>
         <div class="group-lead">Tech Lead: <span>Ravi Bulusu</span></div>
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul><li>Andre Robberts <span class="member-fn">Core Sales</span></li><li>Ann Marie Mullally <span class="member-fn">Core Sales</span></li><li>James Thompson <span class="member-fn">Core Sales</span></li><li>Ravi Bulusu <span class="member-fn">AI BU</span></li><li>Simon Niesler <span class="member-fn">Core Sales</span></li></ul>
+        </div>
       </div>
 
       <div class="group-card animate-on-scroll">
-        <div class="group-members">
-          <div class="group-members-label">Members</div>
-          <ul>
-            <li>James Greaves <span class="member-fn">Core Sales</span></li>
-            <li>Jonathan Hyden <span class="member-fn">AI BU</span></li>
-            <li>Mathieu Daudigny <span class="member-fn">Core Sales</span></li>
-            <li>Stephanie Poore <span class="member-fn">Core Sales</span></li>
-            <li>Travis Johnstone <span class="member-fn">Core Sales</span></li>
-          </ul>
-        </div>
         <div class="group-num">Group 3</div>
         <h4>Pre-Sales &mdash; Technical Demo&rsquo;ing</h4>
         <div class="group-lead">Tech Lead: <span>Jonathan Hyden</span></div>
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul><li>James Greaves <span class="member-fn">Core Sales</span></li><li>Jonathan Hyden <span class="member-fn">AI BU</span></li><li>Mathieu Daudigny <span class="member-fn">Core Sales</span></li><li>Stephanie Poore <span class="member-fn">Core Sales</span></li><li>Travis Johnstone <span class="member-fn">Core Sales</span></li></ul>
+        </div>
       </div>
 
       <div class="group-card animate-on-scroll">
-        <div class="group-members">
-          <div class="group-members-label">Members</div>
-          <ul>
-            <li>Antoine Bisson <span class="member-fn">R&amp;D</span></li>
-            <li>Dan Dutton <span class="member-fn">Core Product / GCS</span></li>
-            <li>Mairi Campbell <span class="member-fn">Core Product / GCS</span></li>
-            <li>Cathie Hall <span class="member-fn">Core Product / GCS</span></li>
-            <li>Gregory Briedenbach <span class="member-fn">Core Product / GCS</span></li>
-          </ul>
-        </div>
         <div class="group-num">Group 4</div>
         <h4>R&amp;D</h4>
         <div class="group-lead">Tech Lead: <span>Dan Dutton</span></div>
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul><li>Antoine Bisson <span class="member-fn">R&amp;D</span></li><li>Dan Dutton <span class="member-fn">Core Product / GCS</span></li><li>Mairi Campbell <span class="member-fn">Core Product / GCS</span></li><li>Cathie Hall <span class="member-fn">Core Product / GCS</span></li><li>Gregory Briedenbach <span class="member-fn">Core Product / GCS</span></li></ul>
+        </div>
       </div>
 
       <div class="group-card animate-on-scroll">
-        <div class="group-members">
-          <div class="group-members-label">Members</div>
-          <ul>
-            <li>Bob De Caux <span class="member-fn">Core Product / GCS</span></li>
-            <li>Kurt Kemmerly <span class="member-fn">AI BU</span></li>
-            <li>Raymond Jones <span class="member-fn">Core Product / GCS</span></li>
-            <li>Tony Johnson <span class="member-fn">Core Product / GCS</span></li>
-          </ul>
-        </div>
         <div class="group-num">Group 5</div>
         <h4>Customer Support &amp; Success</h4>
         <div class="group-lead">Tech Lead: <span>Bob De Caux</span></div>
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul><li>Bob De Caux <span class="member-fn">Core Product / GCS</span></li><li>Kurt Kemmerly <span class="member-fn">AI BU</span></li><li>Raymond Jones <span class="member-fn">Core Product / GCS</span></li><li>Tony Johnson <span class="member-fn">Core Product / GCS</span></li></ul>
+        </div>
       </div>
 
       <div class="group-card animate-on-scroll">
-        <div class="group-members">
-          <div class="group-members-label">Members</div>
-          <ul>
-            <li>Bisher Deirki <span class="member-fn">AI BU</span></li>
-            <li>Jon Zorio <span class="member-fn">AI BU</span></li>
-            <li>Matt Ely <span class="member-fn">AI BU</span></li>
-            <li>Matt Kempson <span class="member-fn">AI BU</span></li>
-            <li>Matt Quinn <span class="member-fn">AI BU</span></li>
-          </ul>
-        </div>
         <div class="group-num">Group 6</div>
         <h4>AI Product Unit</h4>
         <div class="group-lead">Tech Lead: <span>Matt Ely</span></div>
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul><li>Bisher Deirki <span class="member-fn">AI BU</span></li><li>Jon Zorio <span class="member-fn">AI BU</span></li><li>Matt Ely <span class="member-fn">AI BU</span></li><li>Matt Kempson <span class="member-fn">AI BU</span></li><li>Matt Quinn <span class="member-fn">AI BU</span></li></ul>
+        </div>
       </div>
 
       <div class="group-card animate-on-scroll">
-        <div class="group-members">
-          <div class="group-members-label">Members</div>
-          <ul>
-            <li>Andreas Georgiou <span class="member-fn">Marketing</span></li>
-            <li>Elvis Pinjagic <span class="member-fn">AI BU</span></li>
-            <li>Oliver Pilgerstorfer <span class="member-fn">Marketing</span></li>
-            <li>Sara Hill <span class="member-fn">Marketing</span></li>
-            <li>Vaibs Kumar <span class="member-fn">Core Product / GCS</span></li>
-          </ul>
-        </div>
         <div class="group-num">Group 7</div>
         <h4>Marketing</h4>
         <div class="group-lead">Tech Lead: <span>Vaibs Kumar</span></div>
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul><li>Andreas Georgiou <span class="member-fn">Marketing</span></li><li>Elvis Pinjagic <span class="member-fn">AI BU</span></li><li>Oliver Pilgerstorfer <span class="member-fn">Marketing</span></li><li>Sara Hill <span class="member-fn">Marketing</span></li><li>Vaibs Kumar <span class="member-fn">Core Product / GCS</span></li></ul>
+        </div>
       </div>
 
       <div class="group-card animate-on-scroll">
-        <div class="group-members">
-          <div class="group-members-label">Members</div>
-          <ul>
-            <li>Christian Pedersen <span class="member-fn">Strategy</span></li>
-            <li>Kriti Sharma <span class="member-fn">AI BU</span></li>
-            <li>Laura Bennett <span class="member-fn">HR</span></li>
-            <li>Matt Breslin <span class="member-fn">Core Sales</span></li>
-            <li>Mihita Podobnik <span class="member-fn">HR</span></li>
-          </ul>
-        </div>
         <div class="group-num">Group 8</div>
         <h4>HR</h4>
         <div class="group-lead">Tech Lead: <span>Kriti Sharma</span></div>
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul><li>Christian Pedersen <span class="member-fn">Strategy</span></li><li>Kriti Sharma <span class="member-fn">AI BU</span></li><li>Laura Bennett <span class="member-fn">HR</span></li><li>Matt Breslin <span class="member-fn">Core Sales</span></li><li>Mihita Podobnik <span class="member-fn">HR</span></li></ul>
+        </div>
       </div>
 
       <div class="group-card animate-on-scroll">
-        <div class="group-members">
-          <div class="group-members-label">Members</div>
-          <ul>
-            <li>Danilo Prates <span class="member-fn">M&amp;A</span></li>
-            <li>Hannes Liebe <span class="member-fn">Core Sales</span></li>
-            <li>Jonathan Park <span class="member-fn">Finance</span></li>
-            <li>Jordan Setterfield <span class="member-fn">Finance</span></li>
-            <li>Matthias Heiden <span class="member-fn">Finance</span></li>
-          </ul>
-        </div>
         <div class="group-num">Group 9</div>
         <h4>Finance</h4>
         <div class="group-lead">Tech Lead: <span>Danilo Prates</span></div>
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul><li>Danilo Prates <span class="member-fn">M&amp;A</span></li><li>Hannes Liebe <span class="member-fn">Core Sales</span></li><li>Jonathan Park <span class="member-fn">Finance</span></li><li>Jordan Setterfield <span class="member-fn">Finance</span></li><li>Matthias Heiden <span class="member-fn">Finance</span></li></ul>
+        </div>
       </div>
 
       <div class="group-card animate-on-scroll">
-        <div class="group-members">
-          <div class="group-members-label">Members</div>
-          <ul>
-            <li>Goiuri Hern&aacute;ndez <span class="member-fn">Core Sales</span></li>
-            <li>Jorge Garc&iacute;a D&iacute;az <span class="member-fn">IT</span></li>
-            <li>Mubashir Nisar <span class="member-fn">IT</span></li>
-            <li>Robi Gone <span class="member-fn">IT</span></li>
-            <li>Somya Kapoor <span class="member-fn">AI BU</span></li>
-          </ul>
-        </div>
         <div class="group-num">Group 10</div>
         <h4>IT</h4>
         <div class="group-lead">Tech Lead: <span>Jorge Garc&iacute;a D&iacute;az</span></div>
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul><li>Goiuri Hern&aacute;ndez <span class="member-fn">Core Sales</span></li><li>Jorge Garc&iacute;a D&iacute;az <span class="member-fn">IT</span></li><li>Mubashir Nisar <span class="member-fn">IT</span></li><li>Robi Gone <span class="member-fn">IT</span></li><li>Somya Kapoor <span class="member-fn">AI BU</span></li></ul>
+        </div>
       </div>
 
       <div class="group-card animate-on-scroll">
-        <div class="group-members">
-          <div class="group-members-label">Members</div>
-          <ul>
-            <li>Jim Hoefflin <span class="member-fn">M&amp;A</span></li>
-            <li>Lance Olmsted <span class="member-fn">M&amp;A</span></li>
-            <li>Nick Vandivere <span class="member-fn">AI BU</span></li>
-            <li>Rob Hortopp <span class="member-fn">M&amp;A</span></li>
-            <li>Tim Forkner <span class="member-fn">M&amp;A</span></li>
-          </ul>
-        </div>
         <div class="group-num">Group 11</div>
         <h4>M&amp;A</h4>
         <div class="group-lead">Tech Lead: <span>Nick Vandivere</span></div>
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul><li>Jim Hoefflin <span class="member-fn">M&amp;A</span></li><li>Lance Olmsted <span class="member-fn">M&amp;A</span></li><li>Nick Vandivere <span class="member-fn">AI BU</span></li><li>Rob Hortopp <span class="member-fn">M&amp;A</span></li><li>Tim Forkner <span class="member-fn">M&amp;A</span></li></ul>
+        </div>
       </div>
 
       <div class="group-card animate-on-scroll">
-        <div class="group-members">
-          <div class="group-members-label">Members</div>
-          <ul>
-            <li>Herman Niewoudt <span class="member-fn">Core Sales</span></li>
-            <li>Justin Bigger <span class="member-fn">Core Sales</span></li>
-            <li>Mark Buongiorno <span class="member-fn">Core Sales</span></li>
-            <li>Mattias Bolander <span class="member-fn">Core Sales</span></li>
-          </ul>
-        </div>
         <div class="group-num">Group 12</div>
         <h4>Sales &mdash; Team B</h4>
         <div class="group-lead">Tech Lead: <span>Justin Bigger</span></div>
+        <div class="group-members">
+          <div class="group-members-label">Members</div>
+          <ul><li>Herman Niewoudt <span class="member-fn">Core Sales</span></li><li>Justin Bigger <span class="member-fn">Core Sales</span></li><li>Mark Buongiorno <span class="member-fn">Core Sales</span></li><li>Mattias Bolander <span class="member-fn">Core Sales</span></li></ul>
+        </div>
       </div>
 
     </div>
@@ -1647,41 +1577,47 @@ img { max-width: 100%; height: auto; display: block; }
 
   // ─── Calendar .ics download ───
   window.downloadICS = function() {
+    const hotel = 'The Stanford Park Hotel, 100 El Camino Real, Menlo Park, CA 94025';
+    const museum = 'Computer History Museum, 1401 N Shoreline Blvd, Mountain View, CA 94043';
     const events = [
-      {
-        title: 'IFS AI Summit — Day 1: Arrival & Opening Dinner',
-        start: '20260504T180000',
-        end: '20260504T213000',
-        location: 'The Stanford Park Hotel, 100 El Camino Real, Menlo Park, CA 94025',
-        description: '18:00 Opening Note (Mark Moffat & Darren Roos)\\n18:30 Founder Spotlight\\n19:30 Opening Dinner & Networking'
-      },
-      {
-        title: 'IFS AI Summit — Day 2: Show the Team What\'s Possible',
-        start: '20260505T073000',
-        end: '20260505T233000',
-        location: 'Computer History Museum, 1401 N Shoreline Blvd, Mountain View, CA 94043',
-        description: '07:30 Working Breakfast (Hotel)\\n09:00 Transfer to Museum\\n09:30 Opening Keynote\\n10:00 Technical Keynote\\n11:00 Hands-On Block 1 — Vibe Coding with Replit\\n13:00 Lunch\\n13:45 Hands-On Block 2 — Anthropic / Claude\\n16:30 Transfer back\\n19:15 Team Dinner'
-      },
-      {
-        title: 'IFS AI Summit — Day 3: Present, Learn & Plan',
-        start: '20260506T073000',
-        end: '20260506T213000',
-        location: 'The Stanford Park Hotel, 100 El Camino Real, Menlo Park, CA 94025',
-        description: '07:30 Working Breakfast\\n09:00 Keynote: Market Risks in SaaS (Goldman Sachs)\\n10:00 KPIs of the New World\\n11:00 Working Session — Your Function on 1 Jan 2027\\n12:00 Lunch\\n13:00 Working Session continues\\n14:00 Product Launch Strategy\\n15:30 Playback\\n16:30 Closing Remarks\\n19:00 Closing Dinner'
-      }
+      // Day 1 — Mon 4 May
+      { t: 'IFS Summit: Opening Note', s: '20260504T180000', e: '20260504T183000', l: hotel, d: 'Mark Moffat & Darren Roos — Scene setting' },
+      { t: 'IFS Summit: Founder Spotlight', s: '20260504T183000', e: '20260504T193000', l: hotel, d: '10-minute founding stories — inspirational & unfiltered' },
+      { t: 'IFS Summit: Opening Dinner', s: '20260504T193000', e: '20260504T213000', l: hotel, d: 'Seated dinner, informal networking. Get warmed up with Replit for Tuesday.' },
+      // Day 2 — Tue 5 May
+      { t: 'IFS Summit: Explore Working Breakfast', s: '20260505T073000', e: '20260505T090000', l: hotel, d: 'Mingle with 2-3 startup founders over breakfast at the hotel' },
+      { t: 'IFS Summit: Transfer to Museum', s: '20260505T090000', e: '20260505T093000', l: hotel, d: 'IFS-organised transport to Computer History Museum' },
+      { t: 'IFS Summit: Opening Inspirational Keynote', s: '20260505T093000', e: '20260505T100000', l: museum, d: 'Mark Moffat — What to expect today, how the hands-on works' },
+      { t: 'IFS Summit: Technical Keynote', s: '20260505T100000', e: '20260505T104500', l: museum, d: 'Industry luminary — AI market landscape & what\'s coming next' },
+      { t: 'IFS Summit: Hands-On Block 1 — Vibe Coding with Replit', s: '20260505T110000', e: '20260505T130000', l: museum, d: 'Guided session — build something real with AI-assisted coding' },
+      { t: 'IFS Summit: Lunch', s: '20260505T130000', e: '20260505T134500', l: museum, d: '' },
+      { t: 'IFS Summit: Hands-On Block 2 — Anthropic / Claude', s: '20260505T134500', e: '20260505T160000', l: museum, d: 'Breakout teams build skills, agents & automation using Claude' },
+      { t: 'IFS Summit: Transfer back to Hotel', s: '20260505T163000', e: '20260505T170000', l: museum, d: '' },
+      { t: 'IFS Summit: Team Dinner & Mixer', s: '20260505T191500', e: '20260505T233000', l: 'Offsite restaurant (details TBC)', d: 'Punctuated with startup founder conversations' },
+      // Day 3 — Wed 6 May
+      { t: 'IFS Summit: Working Breakfast', s: '20260506T073000', e: '20260506T090000', l: hotel, d: 'Informal catch-up at the hotel' },
+      { t: 'IFS Summit: Keynote — Market Risks in SaaS', s: '20260506T090000', e: '20260506T100000', l: hotel, d: 'Goldman Sachs — The new economics of software & what AI means for unit economics' },
+      { t: 'IFS Summit: KPIs of the New World', s: '20260506T100000', e: '20260506T110000', l: hotel, d: 'Functional groups define the metrics that matter in an AI-native org' },
+      { t: 'IFS Summit: Working Session — Your Function on 1 Jan 2027', s: '20260506T110000', e: '20260506T120000', l: hotel, d: 'Group work: if AI made your team dramatically more productive, what changes?' },
+      { t: 'IFS Summit: Lunch', s: '20260506T120000', e: '20260506T130000', l: hotel, d: '' },
+      { t: 'IFS Summit: Working Session Continues', s: '20260506T130000', e: '20260506T140000', l: hotel, d: 'Functional groups refine their vision & build 90-day action plans' },
+      { t: 'IFS Summit: Product Launch Strategy in an AI-Native World', s: '20260506T140000', e: '20260506T150000', l: hotel, d: 'Andreas Georgiou & team' },
+      { t: 'IFS Summit: Playback of Working Sessions', s: '20260506T153000', e: '20260506T163000', l: hotel, d: 'Each group presents their vision, prototype & commitments' },
+      { t: 'IFS Summit: Closing Remarks & What\'s Next', s: '20260506T163000', e: '20260506T170000', l: hotel, d: 'Mark Moffat & Darren Roos — Concrete next steps, ownership, timelines' },
+      { t: 'IFS Summit: Closing Dinner', s: '20260506T190000', e: '20260506T213000', l: hotel, d: 'Hotel restaurant — celebrate the work done' }
     ];
 
     let ics = 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//IFS AI Summit//EN\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\nX-WR-CALNAME:IFS AI Leadership Summit\r\n';
+    ics += 'BEGIN:VTIMEZONE\r\nTZID:America/Los_Angeles\r\nBEGIN:DAYLIGHT\r\nTZOFFSETFROM:-0800\r\nTZOFFSETTO:-0700\r\nTZNAME:PDT\r\nDTSTART:19700308T020000\r\nRRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU\r\nEND:DAYLIGHT\r\nBEGIN:STANDARD\r\nTZOFFSETFROM:-0700\r\nTZOFFSETTO:-0800\r\nTZNAME:PST\r\nDTSTART:19701101T020000\r\nRRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU\r\nEND:STANDARD\r\nEND:VTIMEZONE\r\n';
 
-    events.forEach(ev => {
-      const uid = ev.start + '@ifs-ai-summit';
+    events.forEach((ev, i) => {
       ics += 'BEGIN:VEVENT\r\n';
-      ics += 'UID:' + uid + '\r\n';
-      ics += 'DTSTART;TZID=America/Los_Angeles:' + ev.start + '\r\n';
-      ics += 'DTEND;TZID=America/Los_Angeles:' + ev.end + '\r\n';
-      ics += 'SUMMARY:' + ev.title + '\r\n';
-      ics += 'LOCATION:' + ev.location + '\r\n';
-      ics += 'DESCRIPTION:' + ev.description + '\r\n';
+      ics += 'UID:ifs-summit-2026-' + i + '@ifs-ai-summit.vercel.app\r\n';
+      ics += 'DTSTART;TZID=America/Los_Angeles:' + ev.s + '\r\n';
+      ics += 'DTEND;TZID=America/Los_Angeles:' + ev.e + '\r\n';
+      ics += 'SUMMARY:' + ev.t + '\r\n';
+      ics += 'LOCATION:' + ev.l + '\r\n';
+      if (ev.d) ics += 'DESCRIPTION:' + ev.d.replace(/\n/g, '\\n') + '\r\n';
       ics += 'STATUS:CONFIRMED\r\n';
       ics += 'END:VEVENT\r\n';
     });
