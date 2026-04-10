@@ -30,25 +30,31 @@ jobs:
 
       - name: Auto-merge Claude branch to main
         run: |
-          BRANCH_NAME=$(gh api repos/${{ github.repository }}/branches --jq '.[].name' | grep "claude/issue-${{ github.event.issue.number }}" | head -1)
+          BRANCH_NAME=$(gh api "repos/${GITHUB_REPOSITORY}/branches" --jq '.[].name' | grep "claude/issue-${ISSUE_NUMBER}" | head -1)
           if [ -n "$BRANCH_NAME" ]; then
             echo "Found branch: $BRANCH_NAME"
-            PR_URL=$(gh pr create --base main --head "$BRANCH_NAME" --title "Auto-merge: ${{ github.event.issue.title }}" --body "Auto-merging feature request from #${{ github.event.issue.number }}" 2>&1 || true)
-            echo "$PR_URL"
+            gh pr create --base main --head "$BRANCH_NAME" --fill-first 2>&1 || true
             PR_NUM=$(gh pr list --head "$BRANCH_NAME" --json number -q '.[0].number')
             if [ -n "$PR_NUM" ]; then
               gh pr merge "$PR_NUM" --merge --admin
               echo "Merged PR #$PR_NUM"
+            else
+              echo "ERROR: Could not find PR for branch $BRANCH_NAME"
+              exit 1
             fi
           else
-            echo "No Claude branch found"
+            echo "ERROR: No Claude branch found for issue #${ISSUE_NUMBER}"
+            exit 1
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
 
       - name: Mark issue as completed
         if: success()
         run: |
-          gh issue edit ${{ github.event.issue.number }} --add-label "completed"
+          gh issue edit "$ISSUE_NUMBER" --add-label "completed"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
