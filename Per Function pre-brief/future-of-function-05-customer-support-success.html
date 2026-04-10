@@ -1,452 +1,773 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Future of Customer Support & Success</title>
+<title>Customer Support &amp; Success — IFS AI Leadership Summit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-  :root { --transition: 0.3s ease; }
-  [data-theme="light"] {
-    --bg: #f8fafc; --bg-sidebar: #ffffff; --surface: #ffffff; --surface2: #f1f5f9; --surface3: #e2e8f0;
-    --border: #e2e8f0; --text: #1e293b; --text-secondary: #334155; --text-muted: #64748b;
-    --accent: #0d7377; --accent2: #14919b; --accent-glow: rgba(13, 115, 119, 0.08);
-    --red-muted: #b85c52; --red-bg: #fef5f4; --green-bg: rgba(13, 115, 119, 0.06);
-    --stat-gradient: linear-gradient(135deg, #0d7377 0%, #14919b 100%);
-  }
-  [data-theme="dark"] {
-    --bg: #0f1117; --bg-sidebar: #0b0d12; --surface: #181b23; --surface2: #1e222d; --surface3: #252a36;
-    --border: #2a2f3d; --text: #e4e6ed; --text-secondary: #c0c4d0; --text-muted: #9498ad;
-    --accent: #14919b; --accent2: #2dd4bf; --accent-glow: rgba(20, 145, 155, 0.12);
-    --red-muted: #f87171; --red-bg: rgba(248, 113, 113, 0.08); --green-bg: rgba(45, 212, 191, 0.06);
-    --stat-gradient: linear-gradient(135deg, #0d7377 0%, #0f766e 100%);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; font-size: 15px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; transition: background var(--transition), color var(--transition); }
-  ::selection { background: var(--accent); color: white; }
-  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-  .layout { display: flex; min-height: 100vh; }
-  .sidebar { width: 240px; position: fixed; top: 0; left: 0; bottom: 0; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 100; transition: background var(--transition), border-color var(--transition); overflow-y: auto; }
-  .sidebar-header { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); }
-  .sidebar-logo { font-size: 11px; font-weight: 700; color: var(--accent2); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
-  .sidebar-title { font-size: 15px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; line-height: 1.3; }
-  .sidebar-nav { flex: 1; padding: 12px 0; }
-  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.15s; cursor: pointer; border-left: 3px solid transparent; }
-  .nav-item:hover { color: var(--text); background: var(--accent-glow); }
-  .nav-item.active { color: var(--accent2); background: var(--accent-glow); border-left-color: var(--accent); font-weight: 600; }
-  .nav-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 6px; background: var(--surface2); border: 1px solid var(--border); font-size: 11px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; transition: all 0.15s; }
-  .nav-item.active .nav-num { background: var(--accent); border-color: var(--accent); color: white; }
-  .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); }
-  .theme-toggle { display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; user-select: none; }
-  .toggle-track { width: 40px; height: 22px; background: var(--surface3); border-radius: 11px; position: relative; transition: background var(--transition); border: 1px solid var(--border); }
-  .toggle-thumb { width: 16px; height: 16px; background: var(--accent); border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: transform var(--transition); }
-  [data-theme="dark"] .toggle-thumb { transform: translateX(18px); }
-  .toggle-icons { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--text-muted); }
-  .main { flex: 1; margin-left: 240px; padding: 0 60px; max-width: calc(100% - 240px); }
-  .header { padding: 48px 0 32px; border-bottom: 2px solid var(--accent); margin-bottom: 44px; }
-  .header h1 { font-size: 38px; font-weight: 800; margin-bottom: 12px; color: var(--text); line-height: 1.15; letter-spacing: -0.5px; }
-  .header .subtitle { font-size: 16px; color: var(--accent); font-weight: 600; letter-spacing: 0.3px; }
-  .header .tagline { font-size: 14px; color: var(--text-muted); margin-top: 8px; font-style: italic; }
-  .section { margin-bottom: 52px; scroll-margin-top: 24px; }
-  h2 { font-size: 26px; font-weight: 800; margin-bottom: 22px; color: var(--text); padding-bottom: 12px; border-bottom: 1px solid var(--border); letter-spacing: -0.3px; }
-  h3 { font-size: 18px; font-weight: 700; margin-top: 26px; margin-bottom: 12px; color: var(--accent); }
-  p { margin-bottom: 14px; font-size: 15px; line-height: 1.7; color: var(--text-secondary); }
-  strong { color: var(--text); font-weight: 700; }
-  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 26px 0; }
-  .stat-card { background: var(--stat-gradient); color: white; padding: 22px; border-radius: 10px; box-shadow: 0 4px 12px rgba(13, 115, 119, 0.2); }
-  .stat-card .label { font-size: 10px; letter-spacing: 1px; opacity: 0.8; margin-bottom: 8px; font-weight: 600; }
-  .stat-card .value { font-size: 28px; font-weight: 800; margin-bottom: 4px; line-height: 1.1; }
-  .stat-card .detail { font-size: 11px; opacity: 0.85; }
-  .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 26px 0; }
-  .ba-col { padding: 22px; border-radius: 10px; transition: background var(--transition), border-color var(--transition); }
-  .ba-col.before { border-left: 4px solid var(--red-muted); background: var(--red-bg); }
-  .ba-col.after { border-left: 4px solid var(--accent); background: var(--green-bg); }
-  .ba-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 14px; text-transform: uppercase; }
-  .ba-col.before h4 { color: var(--red-muted); } .ba-col.after h4 { color: var(--accent); }
-  .ba-col ul { list-style: none; padding: 0; }
-  .ba-col li { font-size: 13px; margin-bottom: 8px; padding-left: 20px; position: relative; line-height: 1.5; color: var(--text-secondary); }
-  .ba-col.before li:before { content: "•"; position: absolute; left: 0; color: var(--red-muted); font-size: 14px; }
-  .ba-col.after li:before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: bold; font-size: 12px; }
-  .framework-item { margin-bottom: 26px; }
-  .framework-item h3 { margin-top: 0; margin-bottom: 10px; }
-  .framework-item p { margin-bottom: 10px; }
-  .north-star-callout { background: var(--accent-glow); border: 2px solid var(--accent); border-radius: 10px; padding: 28px; margin: 30px 0; }
-  .ns-header { margin-bottom: 12px; }
-  .ns-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
-  .ns-title { font-size: 22px; font-weight: 800; color: var(--text); }
-  .ns-title strong { color: var(--accent); }
-  .ns-ratio { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
-  .ns-body { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 0; }
-  .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 24px 0; }
-  .kpi-card { background: var(--surface); border-top: 3px solid var(--accent); padding: 16px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); transition: background var(--transition); }
-  .kpi-card .kpi-label { font-size: 10px; color: var(--accent); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 5px; }
-  .kpi-card .kpi-target { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
-  .kpi-card .kpi-context { font-size: 11px; color: var(--text-muted); }
-  .questions-section { background: var(--accent-glow); padding: 28px; border-radius: 10px; margin: 26px 0; border: 1px solid var(--border); transition: background var(--transition), border-color var(--transition); }
-  .question-category { margin-bottom: 24px; } .question-category:last-child { margin-bottom: 0; }
-  .question-category h4 { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; margin-bottom: 10px; text-transform: uppercase; }
-  .question-category ul { list-style: none; padding: 0; }
-  .question-category li { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; padding-left: 16px; position: relative; line-height: 1.55; }
-  .question-category li:before { content: "–"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
-  .company-section-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-top: 24px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
-  .company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px; }
-  .company-card { background: var(--surface); border-radius: 10px; padding: 18px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); border-left: 3px solid var(--accent); transition: box-shadow 0.2s, transform 0.2s, background var(--transition); text-decoration: none; color: inherit; display: block; }
-  .company-card:hover { box-shadow: 0 4px 16px rgba(13, 115, 119, 0.15); transform: translateY(-2px); }
-  .company-card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-  .company-card .cc-tag { font-size: 10px; font-weight: 600; color: var(--accent); letter-spacing: 0.3px; margin-bottom: 6px; }
-  .company-card .cc-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 6px; }
-  .company-card .cc-url { font-size: 11px; color: var(--accent); font-weight: 600; }
-  .exercise-card { background: var(--surface); border-top: 3px solid var(--accent); padding: 22px; margin: 20px 0; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.04); transition: background var(--transition); }
-  .exercise-card h4 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
-  .exercise-card p { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.6; }
-  .exercise-card p:last-child { margin-bottom: 0; }
-  blockquote { border-left: 4px solid var(--accent); padding-left: 20px; margin: 28px 0; font-size: 16px; font-style: italic; color: var(--text-secondary); line-height: 1.7; }
-  .footer { border-top: 1px solid var(--border); padding-top: 24px; margin-top: 48px; margin-bottom: 48px; text-align: center; color: var(--text-muted); font-size: 12px; }
-  a.inline-link { color: var(--accent); font-weight: 600; text-decoration: none; } a.inline-link:hover { text-decoration: underline; }
-  @media (max-width: 768px) {
-    .sidebar { display: none; } .main { margin-left: 0; padding: 0 20px; max-width: 100%; }
-    .header h1 { font-size: 28px; } .before-after { grid-template-columns: 1fr; }
-    .stats-grid { grid-template-columns: 1fr 1fr; } .kpi-grid { grid-template-columns: 1fr 1fr; }
-    .company-grid { grid-template-columns: 1fr; } h2 { font-size: 22px; }
-  }
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN SYSTEM — Matches index.html exactly
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --bg-primary: #090b10;
+  --bg-secondary: #0f1117;
+  --bg-surface: #181b23;
+  --bg-surface-hover: #1e222d;
+  --border-subtle: #1e222d;
+  --border-default: #2a2f3d;
+  --border-accent: #6366f1;
+  --text-primary: #f0f1f5;
+  --text-secondary: #e4e6ed;
+  --text-muted: #9498ad;
+  --text-dim: #6b7094;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --accent-glow: rgba(99, 102, 241, 0.12);
+  --accent-amber: #f59e0b;
+  --accent-emerald: #22c55e;
+  --accent-cyan: #06b6d4;
+  --accent-red: #ef4444;
+  --red-muted: #f87171;
+  --red-bg: rgba(248, 113, 113, 0.08);
+  --green-bg: rgba(99, 102, 241, 0.06);
+  --stat-gradient: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  --font-display: 'Lexend', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --max-width: 900px;
+  --nav-height: 64px;
+  --tabs-height: 52px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + var(--tabs-height) + 16px); }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.65;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+::selection { background: var(--accent); color: white; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 3px; }
+a { color: var(--accent-light); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   TOP NAVIGATION BAR
+   ═══════════════════════════════════════════════════════════════ */
+.topnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: var(--nav-height);
+  background: rgba(9, 11, 16, 0.92);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex; align-items: center;
+}
+.topnav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 32px;
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+}
+.topnav-back {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--text-muted); text-decoration: none;
+  font-size: 14px; font-weight: 600;
+  transition: color 0.2s; cursor: pointer;
+}
+.topnav-back:hover { color: var(--text-primary); text-decoration: none; }
+.topnav-back svg { width: 18px; height: 18px; }
+.topnav-brand { color: var(--text-primary); }
+.topnav-brand span { color: var(--accent-light); }
+.topnav-title {
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  color: var(--text-primary); text-align: center;
+  position: absolute; left: 50%; transform: translateX(-50%);
+  white-space: nowrap;
+}
+.topnav-nav {
+  display: flex; align-items: center; gap: 6px;
+}
+.topnav-nav a {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  padding: 8px 14px; border-radius: 6px; text-decoration: none;
+  transition: color 0.2s, background 0.2s; cursor: pointer;
+}
+.topnav-nav a:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); text-decoration: none; }
+.topnav-nav a svg { width: 16px; height: 16px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION PILL TABS
+   ═══════════════════════════════════════════════════════════════ */
+.tabs-bar {
+  position: fixed; top: var(--nav-height); left: 0; right: 0; z-index: 999;
+  height: var(--tabs-height);
+  background: rgba(15, 17, 23, 0.92);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: center;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tabs-bar::-webkit-scrollbar { display: none; }
+.tabs-inner {
+  display: flex; gap: 6px; padding: 0 24px;
+}
+.tab-pill {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  padding: 8px 16px; border-radius: 100px; white-space: nowrap;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s var(--ease);
+}
+.tab-pill:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); text-decoration: none; }
+.tab-pill.active {
+  color: var(--accent-light); background: var(--accent-glow);
+  border-color: rgba(99,102,241,0.2);
+}
+.tab-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 6px;
+  background: var(--bg-surface); border: 1px solid var(--border-default);
+  font-size: 10px; font-weight: 700; color: var(--text-dim);
+  transition: all 0.2s;
+}
+.tab-pill.active .tab-num {
+  background: var(--accent); border-color: var(--accent); color: white;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════════════════════════════════════ */
+.main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: calc(var(--nav-height) + var(--tabs-height) + 48px) 32px 0;
+}
+
+/* Header */
+.page-header {
+  margin-bottom: 52px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid var(--accent);
+}
+.page-eyebrow {
+  font-family: var(--font-display); font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light);
+  margin-bottom: 12px;
+}
+.page-header h1 {
+  font-family: var(--font-display); font-size: clamp(30px, 5vw, 40px); font-weight: 800;
+  color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15;
+  margin-bottom: 12px;
+}
+.page-header .subtitle {
+  font-size: 16px; color: var(--accent-light); font-weight: 600; letter-spacing: 0.3px;
+}
+.page-header .tagline {
+  font-size: 14px; color: var(--text-muted); margin-top: 8px; font-style: italic;
+}
+
+/* Sections */
+.section { margin-bottom: 56px; scroll-margin-top: calc(var(--nav-height) + var(--tabs-height) + 16px); }
+h2 {
+  font-family: var(--font-display); font-size: 24px; font-weight: 800;
+  margin-bottom: 22px; color: var(--text-primary);
+  padding-bottom: 12px; border-bottom: 1px solid var(--border-default);
+  letter-spacing: -0.3px;
+}
+h3 {
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  margin-top: 28px; margin-bottom: 12px; color: var(--accent-light);
+}
+p { margin-bottom: 14px; font-size: 15px; line-height: 1.75; color: var(--text-muted); }
+strong { color: var(--text-secondary); font-weight: 700; }
+
+/* Stats Grid */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 28px 0; }
+.stat-card {
+  background: var(--stat-gradient); color: white;
+  padding: 22px; border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
+}
+.stat-card .label { font-size: 10px; letter-spacing: 1px; opacity: 0.8; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; }
+.stat-card .value { font-family: var(--font-display); font-size: 28px; font-weight: 800; margin-bottom: 4px; line-height: 1.1; }
+.stat-card .detail { font-size: 11px; opacity: 0.85; }
+
+/* Before / After */
+.before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 28px 0; }
+.ba-col { padding: 24px; border-radius: 10px; }
+.ba-col.before { border-left: 4px solid var(--red-muted); background: var(--red-bg); }
+.ba-col.after { border-left: 4px solid var(--accent); background: var(--green-bg); }
+.ba-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 14px; text-transform: uppercase; }
+.ba-col.before h4 { color: var(--red-muted); }
+.ba-col.after h4 { color: var(--accent-light); }
+.ba-col ul { list-style: none; padding: 0; }
+.ba-col li { font-size: 13px; margin-bottom: 8px; padding-left: 20px; position: relative; line-height: 1.55; color: var(--text-muted); }
+.ba-col.before li::before { content: "\2022"; position: absolute; left: 0; color: var(--red-muted); font-size: 14px; }
+.ba-col.after li::before { content: "\2713"; position: absolute; left: 0; color: var(--accent-light); font-weight: bold; font-size: 12px; }
+
+/* Framework Items */
+.framework-item { margin-bottom: 28px; }
+.framework-item h3 { margin-top: 0; margin-bottom: 10px; }
+.framework-item p { margin-bottom: 10px; }
+
+/* North Star Callout */
+.north-star-callout {
+  background: var(--accent-glow); border: 2px solid var(--accent);
+  border-radius: 12px; padding: 28px; margin: 32px 0;
+}
+.ns-label { font-size: 11px; font-weight: 700; color: var(--accent-light); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+.ns-title { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; line-height: 1.35; }
+.ns-title strong { color: var(--accent-light); }
+.ns-ratio { font-size: 14px; font-weight: 600; color: var(--accent-light); margin-bottom: 12px; }
+.ns-body { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 0; }
+
+/* KPI Grid */
+.kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 26px 0; }
+.kpi-card {
+  background: var(--bg-surface); border-top: 3px solid var(--accent);
+  padding: 18px; border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+.kpi-card .kpi-label { font-size: 10px; color: var(--accent-light); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; }
+.kpi-card .kpi-target { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--text-primary); margin-bottom: 2px; }
+.kpi-card .kpi-context { font-size: 11px; color: var(--text-dim); }
+
+/* Questions */
+.questions-section {
+  background: var(--accent-glow); padding: 28px; border-radius: 12px;
+  margin: 28px 0; border: 1px solid var(--border-default);
+}
+.question-category { margin-bottom: 24px; }
+.question-category:last-child { margin-bottom: 0; }
+.question-category h4 { font-family: var(--font-display); font-size: 12px; font-weight: 700; color: var(--accent-light); letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase; }
+.question-category ul { list-style: none; padding: 0; }
+.question-category li { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; padding-left: 18px; position: relative; line-height: 1.6; }
+.question-category li::before { content: "\2013"; position: absolute; left: 0; color: var(--accent-light); font-weight: bold; }
+
+/* Company Cards */
+.company-section-label {
+  font-family: var(--font-display); font-size: 11px; font-weight: 700;
+  color: var(--accent-light); letter-spacing: 1.5px; text-transform: uppercase;
+  margin-top: 28px; margin-bottom: 14px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px; }
+.company-card {
+  background: var(--bg-surface); border-radius: 10px; padding: 20px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08); border-left: 3px solid var(--accent);
+  transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+  text-decoration: none; color: inherit; display: block; cursor: pointer;
+}
+.company-card:hover { box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15); transform: translateY(-2px); text-decoration: none; }
+.company-card h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+.company-card .cc-tag { font-size: 10px; font-weight: 600; color: var(--accent-light); letter-spacing: 0.3px; margin-bottom: 8px; }
+.company-card .cc-desc { font-size: 12px; color: var(--text-dim); line-height: 1.55; margin-bottom: 8px; }
+.company-card .cc-url { font-size: 11px; color: var(--accent-light); font-weight: 600; }
+
+/* Exercise Cards */
+.exercise-card {
+  background: var(--bg-surface); border-top: 3px solid var(--accent);
+  padding: 24px; margin: 20px 0; border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.exercise-card h4 { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+.exercise-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.65; }
+.exercise-card p:last-child { margin-bottom: 0; }
+
+/* Blockquote */
+blockquote {
+  border-left: 4px solid var(--accent); padding-left: 22px; margin: 32px 0;
+  font-size: 16px; font-style: italic; color: var(--text-muted); line-height: 1.75;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER NAVIGATION
+   ═══════════════════════════════════════════════════════════════ */
+.page-footer {
+  border-top: 1px solid var(--border-default);
+  padding: 32px 0 64px; margin-top: 56px;
+}
+.footer-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 32px;
+}
+.footer-nav a {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 600; color: var(--text-muted);
+  text-decoration: none; padding: 10px 18px; border-radius: 8px;
+  border: 1px solid var(--border-default);
+  transition: all 0.2s var(--ease); cursor: pointer;
+}
+.footer-nav a:hover { color: var(--accent-light); border-color: var(--accent); background: var(--accent-glow); text-decoration: none; }
+.footer-nav a svg { width: 16px; height: 16px; }
+.footer-nav .back-all {
+  border-color: var(--accent); color: var(--accent-light);
+}
+.footer-meta {
+  text-align: center; font-size: 12px; color: var(--text-dim);
+}
+.footer-meta p { margin-bottom: 4px; font-size: 12px; color: var(--text-dim); }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .topnav-title { display: none; }
+}
+@media (max-width: 768px) {
+  .main { padding-left: 20px; padding-right: 20px; }
+  .page-header h1 { font-size: 28px; }
+  .before-after { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .company-grid { grid-template-columns: 1fr; }
+  h2 { font-size: 20px; }
+  .topnav-inner { padding: 0 16px; }
+  .topnav-nav .nav-label { display: none; }
+  .footer-nav { flex-direction: column; gap: 12px; }
+  .footer-nav a { width: 100%; justify-content: center; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: 0.01ms !important; }
+}
 </style>
 </head>
 <body>
-<div class="layout">
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-logo">Future of Function</div>
-      <div class="sidebar-title">Customer Support & Success</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TOP NAVIGATION
+     ═══════════════════════════════════════════════════ -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="../index.html#prereads" class="topnav-back">
+      <i data-lucide="arrow-left"></i>
+      <span class="topnav-brand">IFS <span>AI Summit</span></span>
+    </a>
+    <div class="topnav-title">Customer Support &amp; Success</div>
+    <div class="topnav-nav">
+      <a href="future-of-function-04-rnd.html" title="Previous: R&amp;D">
+        <i data-lucide="chevron-left"></i>
+        <span class="nav-label">Prev</span>
+      </a>
+      <a href="future-of-function-06-ai-product-unit.html" title="Next: AI Product Unit">
+        <span class="nav-label">Next</span>
+        <i data-lucide="chevron-right"></i>
+      </a>
     </div>
-    <nav class="sidebar-nav">
-      <a href="#section-1" class="nav-item active" data-section="section-1"><span class="nav-num">1</span> Current State</a>
-      <a href="#section-2" class="nav-item" data-section="section-2"><span class="nav-num">2</span> Future Vision</a>
-      <a href="#section-3" class="nav-item" data-section="section-3"><span class="nav-num">3</span> Questions</a>
-      <a href="#section-4" class="nav-item" data-section="section-4"><span class="nav-num">4</span> AI Companies</a>
-      <a href="#section-5" class="nav-item" data-section="section-5"><span class="nav-num">5</span> Hands-On</a>
-      <a href="#section-6" class="nav-item" data-section="section-6"><span class="nav-num">6</span> Homework</a>
-    </nav>
-    <div class="sidebar-footer">
-      <div class="theme-toggle" onclick="toggleTheme()">
-        <div class="toggle-icons">☀️</div>
-        <div class="toggle-track"><div class="toggle-thumb"></div></div>
-        <div class="toggle-icons">🌙</div>
-      </div>
-    </div>
-  </aside>
-  <main class="main">
-    <div class="header">
-      <h1>Future of Customer Support & Success</h1>
-      <div class="subtitle">Rethinking the Resolve-Retain-Grow Lifecycle with AI</div>
-      <div class="tagline">Pre-Read & Action Brief for the IFS Support & Success Organisation</div>
-    </div>
+  </div>
+</nav>
 
-    <div class="section" id="section-1">
-      <h2>1. The Current State</h2>
-      <p>Every customer support & success function runs on the same lifecycle: resolve, then retain, then grow. The Resolve-Retain-Grow process is the operational backbone. And right now, it is broken at every stage.</p>
-      <p><strong>Resolve is inefficient.</strong> L1 agents answer the same 200 questions repeatedly — slow, inconsistent, expensive.</p>
-      <p><strong>Retain is structurally neglected.</strong> CSMs spend 80%+ of time on reactive firefighting, not strategic account health.</p>
-      <p><strong>Grow is reactive.</strong> Churn signals detected only when the customer threatens to leave.</p>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="label">L1 TICKET VOLUME</div>
-          <div class="value">70%</div>
-          <div class="detail">Of tickets are routine, repetitive, and documentable</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">FIRST-CONTACT RESOLUTION</div>
-          <div class="value">45%</div>
-          <div class="detail">Industry average — the rest escalate or repeat</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">MTTR (MEAN TIME TO RESOLVE)</div>
-          <div class="value">4.2 days</div>
-          <div class="detail">Average for enterprise software support</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">PROACTIVE OUTREACH</div>
-          <div class="value"><15%</div>
-          <div class="detail">Of CSM time spent on proactive vs. reactive work</div>
-        </div>
-      </div>
-      <div class="before-after">
-        <div class="ba-col before">
-          <h4>Traditional Resolve-Retain-Grow</h4>
-          <ul>
-            <li>L1 agents answer the same 200 questions repeatedly — slow, inconsistent, expensive</li>
-            <li>Knowledge base is stale: last updated months ago, incomplete, hard to search</li>
-            <li>Escalations bounce between teams — customer repeats context at every handoff</li>
-            <li>CSMs spend 80%+ of time on reactive firefighting, not strategic account health</li>
-            <li>Churn signals detected only when the customer threatens to leave</li>
-            <li>Product feedback from support buried in tickets, rarely reaches R&D systematically</li>
-          </ul>
-        </div>
-        <div class="ba-col after">
-          <h4>AI-Native Resolve-Retain-Grow</h4>
-          <ul>
-            <li>AI resolves 70–80% of tickets at first contact: instant, consistent, 24/7</li>
-            <li>Knowledge base self-maintains: AI generates articles from resolved tickets automatically</li>
-            <li>Full context preserved: AI summarises history so every agent knows the customer's journey</li>
-            <li>CSMs focus on strategic health reviews and expansion — AI handles operational support</li>
-            <li>Churn predicted 3–6 months ahead from usage patterns, ticket trends, and sentiment shifts</li>
-            <li>Product feedback auto-extracted and structured from support tickets into R&D-ready insights</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="section" id="section-2">
-      <h2>2. How to Think About the Future of Customer Support & Success</h2>
-      <p>The Resolve-Retain-Grow lifecycle forces specificity. Not "AI will transform customer support & success" but exactly how each stage changes when AI agents handle the operational layer end-to-end.</p>
-      
-      <div class="framework-item">
-        <h3>The Resolve Stage: From Ticket Queues to Instant AI Resolution</h3>
-        <p>IFS supports 10,000+ customers across complex enterprise software — ERP, EAM, FSM, SCM. Support questions range from 'how do I configure this workflow?' to 'our scheduling optimisation is producing suboptimal results.' AI agents (like those from Ada, Intercom, or purpose-built with IFS domain knowledge) can handle the first category entirely: pulling from product documentation, knowledge bases, and historical ticket resolutions. For complex issues, AI triages, pre-diagnoses, and routes to the right specialist with full context — eliminating the repeat-yourself escalation loop. IFS Cloud's unified platform makes this especially powerful: the AI can actually inspect the customer's configuration and logs to diagnose before a human even sees the ticket.</p>
-      </div>
-      <div class="framework-item">
-        <h3>The Retain Stage: From Reactive CSMs to Predictive Health</h3>
-        <p>Customer retention at IFS depends on product adoption, operational value delivery, and executive relationship health. Today, CSMs track this through quarterly business reviews and gut feel. AI transforms retention into a continuous, data-driven process: product usage analytics identify declining engagement. Support ticket patterns reveal growing frustration. Sentiment analysis across emails and calls detects relationship cooling. Platforms like Gainsight and Totango aggregate these signals into a customer health score that predicts churn risk 3–6 months before the renewal conversation. The CSM shifts from 'checking in' to 'intervening surgically when the data says to.'</p>
-      </div>
-      <div class="framework-item">
-        <h3>The Grow Stage: From Annual Reviews to Continuous Expansion</h3>
-        <p>Growth within the installed base is IFS's most efficient revenue channel. AI makes it systematic: product usage data reveals which modules are approaching capacity or under-adopted. AI generates expansion recommendations with personalised business cases. A manufacturing customer using ERP but not EAM, with rising maintenance costs visible in their operational data, gets an AI-generated proposal for asset management. The QBR becomes a growth conversation backed by data, not a relationship maintenance ritual.</p>
-      </div>
-      <div class="framework-item">
-        <h3>Resolve-Retain-Grow as a Continuous Loop</h3>
-        <p>In the AI-native model, every resolved ticket trains the knowledge base. Every knowledge base improvement reduces future tickets. Lower ticket volume frees CSMs for retention and growth. Growth activity generates new support requirements that AI handles. The loop is self-improving: the support org gets better the more it runs, without adding people.</p>
-      </div>
-      
-      <div class="north-star-callout">
-        <div class="ns-header">
-          <div class="ns-label">NORTH-STAR TARGET</div>
-          <div class="ns-title">From ~400 (L1/L2/L3 Support, CSMs, Support Ops, Knowledge Management, Training) → <strong>200–250</strong> people</div>
-        </div>
-        <div class="ns-ratio">Customers per CSM: from 15–20 to 40–50</div>
-        <p class="ns-body">AI resolves 70–80% of support tickets at first contact without human involvement. L1 support largely disappears. L2 shifts to complex, multi-system issues. CSMs are freed from reactive firefighting to focus on strategic account health and expansion. Knowledge management becomes automated. The support function shrinks in headcount but dramatically improves in resolution speed and customer satisfaction.</p>
-      </div>
-      <h3>Target KPIs</h3>
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-label">AI First-Contact Resolution</div>
-          <div class="kpi-target">70–80%</div>
-          <div class="kpi-context">Up from 45% overall first-contact</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">Mean Time to Resolve</div>
-          <div class="kpi-target"><4 hours</div>
-          <div class="kpi-context">Down from 4.2 days average</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">Support FTE Count</div>
-          <div class="kpi-target">200–250</div>
-          <div class="kpi-context">Down from ~400 at IFS scale</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">Proactive CSM Time</div>
-          <div class="kpi-target">>60%</div>
-          <div class="kpi-context">Up from <15% on proactive work</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">Churn Prediction Lead Time</div>
-          <div class="kpi-target">3–6 months</div>
-          <div class="kpi-context">From reactive to predictive</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">Customers per CSM</div>
-          <div class="kpi-target">40–50</div>
-          <div class="kpi-context">Up from 15–20 today</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section" id="section-3">
-      <h2>3. Challenging Questions for the Room</h2>
-      <p>These are not abstract thought experiments. They are the outcomes your organisation needs to engineer in the next 12 to 24 months.</p>
-      <div class="questions-section">
-
-        <div class="question-category">
-          <h4>Resolve</h4>
-          <ul>
-            <li>How do we achieve 80% AI resolution of IFS Cloud support tickets — including configuration questions, workflow issues, and module-specific troubleshooting — with zero human in the loop and higher CSAT than human agents?</li>
-            <li>What has to be true for an IFS customer to get a diagnosed, contextualised answer to any product question in under 60 seconds — by an AI agent that can actually inspect their system configuration and logs?</li>
-          </ul>
-        </div>
-
-        <div class="question-category">
-          <h4>Retain</h4>
-          <ul>
-            <li>How do we make churn prediction fully automated — where AI continuously monitors usage, support patterns, and sentiment across all 10,000+ customers and generates intervention playbooks for CSMs without anyone manually reviewing health scores?</li>
-            <li>If AI handles all operational support and proactively flags at-risk accounts, what does a CSM at IFS actually spend their time on — and is the role closer to 'strategic account executive' than 'customer firefighter'?</li>
-          </ul>
-        </div>
-
-        <div class="question-category">
-          <h4>Grow</h4>
-          <ul>
-            <li>How do we achieve automatic expansion identification where AI monitors every customer's product usage and generates personalised expansion proposals with ROI models — before the annual QBR, without any CSM manually analysing an account?</li>
-            <li>What has to be true for IFS to increase net revenue retention to 130%+ — driven entirely by AI-detected and AI-prepared expansion opportunities that CSMs validate and execute?</li>
-          </ul>
-        </div>
-
-        <div class="question-category">
-          <h4>North Star</h4>
-          <ul>
-            <li>If we go from ~400 to 200–250 in support and success, what happens to the L1 support team — and is this an ethical transition or a talent waste?</li>
-            <li>How do we reskill support agents for a world where ticket resolution is AI's job — and the human role is complex problem-solving, product advocacy, and strategic account management?</li>
-            <li>If AI captures and structures every support interaction as product feedback, and feeds it directly into R&D planning — does the 'voice of customer' programme even need to exist as a separate function?</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="section" id="section-4">
-      <h2>4. AI Companies Reshaping Customer Support & Success</h2>
-      <p>The market has moved from experimental to production-grade. Spend time on these websites: watch demos, read case studies. Understanding what is possible is the prerequisite for deciding what is right for IFS.</p>
-      
-      <div class="company-section-label">Resolve: AI Support</div>
-      <div class="company-grid">
-        <a href="https://ada.cx" target="_blank" class="company-card">
-          <h4>Ada</h4>
-          <div class="cc-tag">AI Customer Service Automation</div>
-          <div class="cc-desc">Resolves 70%+ of customer queries automatically. Integrates with CRM and knowledge bases. Purpose-built for enterprise support.</div>
-          <div class="cc-url">ada.cx →</div>
-        </a>
-        <a href="https://intercom.com" target="_blank" class="company-card">
-          <h4>Intercom Fin</h4>
-          <div class="cc-tag">AI Support Agent</div>
-          <div class="cc-desc">AI agent that resolves support conversations using your knowledge base. Handles complex multi-turn conversations. Escalates to humans when needed.</div>
-          <div class="cc-url">intercom.com →</div>
-        </a>
-        <a href="https://moveworks.com" target="_blank" class="company-card">
-          <h4>Moveworks</h4>
-          <div class="cc-tag">AI Employee & Customer Service</div>
-          <div class="cc-desc">Resolves IT and HR tickets autonomously. Natural language understanding across enterprise systems. Used by large enterprises.</div>
-          <div class="cc-url">moveworks.com →</div>
-        </a>
-      </div>
-      <div class="company-section-label">Retain: Customer Intelligence</div>
-      <div class="company-grid">
-        <a href="https://gainsight.com" target="_blank" class="company-card">
-          <h4>Gainsight</h4>
-          <div class="cc-tag">Customer Success Platform</div>
-          <div class="cc-desc">Customer health scoring, journey orchestration, and churn prediction. The market leader in customer success management.</div>
-          <div class="cc-url">gainsight.com →</div>
-        </a>
-        <a href="https://totango.com" target="_blank" class="company-card">
-          <h4>Totango</h4>
-          <div class="cc-tag">Customer Success & Revenue</div>
-          <div class="cc-desc">AI-driven customer health monitoring with automated playbooks. Identifies at-risk accounts and expansion opportunities.</div>
-          <div class="cc-url">totango.com →</div>
-        </a>
-        <a href="https://churnzero.com" target="_blank" class="company-card">
-          <h4>ChurnZero</h4>
-          <div class="cc-tag">Customer Retention AI</div>
-          <div class="cc-desc">Real-time churn scoring, automated engagement, and customer journey tracking. Purpose-built for SaaS retention.</div>
-          <div class="cc-url">churnzero.com →</div>
-        </a>
-      </div>
-      <div class="company-section-label">Grow: Expansion Intelligence</div>
-      <div class="company-grid">
-        <a href="https://pocus.com" target="_blank" class="company-card">
-          <h4>Pocus</h4>
-          <div class="cc-tag">Product-Led Growth Intelligence</div>
-          <div class="cc-desc">Identifies expansion opportunities from product usage data. Surfaces buying signals based on feature adoption patterns.</div>
-          <div class="cc-url">pocus.com →</div>
-        </a>
-        <a href="https://catalyst.io" target="_blank" class="company-card">
-          <h4>Catalyst</h4>
-          <div class="cc-tag">Customer Growth Platform</div>
-          <div class="cc-desc">Unified customer data with AI-driven expansion signals. Combines product usage, support data, and CRM for growth playbooks.</div>
-          <div class="cc-url">catalyst.io →</div>
-        </a>
-      </div>
-      <div class="company-section-label">Full Lifecycle: Knowledge & Feedback</div>
-      <div class="company-grid">
-        <a href="https://getguru.com" target="_blank" class="company-card">
-          <h4>Guru</h4>
-          <div class="cc-tag">AI Knowledge Management</div>
-          <div class="cc-desc">AI-powered knowledge base that surfaces verified answers in the flow of work. Self-maintains and identifies knowledge gaps.</div>
-          <div class="cc-url">getguru.com →</div>
-        </a>
-        <a href="https://productboard.com" target="_blank" class="company-card">
-          <h4>Productboard</h4>
-          <div class="cc-tag">AI Product Management</div>
-          <div class="cc-desc">Captures customer feedback from support, sales, and research. AI structures and prioritises it for product roadmap decisions.</div>
-          <div class="cc-url">productboard.com →</div>
-        </a>
-      </div>
-    </div>
-
-    <div class="section" id="section-5">
-      <h2>5. Hands-On Automation Exercises</h2>
-      <p>Do at least one before the session. Do all four if you want to arrive with a working prototype, not an opinion.</p>
-      
-      <div class="exercise-card">
-        <h4>1. The AI Support Agent Prototype</h4>
-        <p>Export your top 50 most common support tickets (anonymised). Feed them plus IFS product documentation into Claude. Build a prototype AI support agent that can answer these questions. Test it against 20 new tickets. Measure: resolution rate, accuracy, and response time vs. human agents.</p>
-        <p><strong>Output:</strong> A working AI support agent prototype with measured performance against real IFS ticket data.</p>
-        <p><strong>Tools:</strong> Claude API, IFS documentation, Python/HTML · <strong>Effort:</strong> 60 min</p>
-      </div>
-      <div class="exercise-card">
-        <h4>2. The Customer Health Dashboard</h4>
-        <p>Pull data for 20 IFS customers: product usage metrics, support ticket volume/severity trends, NPS scores, and renewal dates. Feed it into AI to generate a health score model. Build an interactive dashboard that shows health trajectory, risk flags, and AI-recommended interventions for each account.</p>
-        <p><strong>Output:</strong> An interactive customer health dashboard with AI-generated risk scores and intervention recommendations.</p>
-        <p><strong>Tools:</strong> Python, Claude, CRM/support data, HTML/ECharts · <strong>Effort:</strong> 90 min</p>
-      </div>
-      <div class="exercise-card">
-        <h4>3. The Self-Maintaining Knowledge Base</h4>
-        <p>Take 100 resolved IFS support tickets. Feed them into AI and ask it to: extract the problem-solution pairs, generate knowledge base articles, identify duplicates, and flag gaps where no article exists. Build a pipeline that could run continuously on new tickets.</p>
-        <p><strong>Output:</strong> A set of AI-generated knowledge base articles from real tickets, plus a pipeline design for continuous self-maintenance.</p>
-        <p><strong>Tools:</strong> Claude API, ticketing system export, Markdown/HTML · <strong>Effort:</strong> 60 min</p>
-      </div>
-      <div class="exercise-card">
-        <h4>4. The Product Feedback Extractor</h4>
-        <p>Export 200 support tickets from the last quarter. Use AI to extract and categorise product feedback: feature requests, usability issues, performance complaints, integration gaps. Structure it as a product roadmap input: prioritised by frequency, severity, and customer tier. Deliver it as an interactive report that R&D can filter by module, industry, and severity.</p>
-        <p><strong>Output:</strong> A structured product feedback report extracted from support tickets — ready for R&D roadmap planning.</p>
-        <p><strong>Tools:</strong> Claude, support ticket exports, HTML/ECharts · <strong>Effort:</strong> 2 hours</p>
-      </div>
-    </div>
-
-    <div class="section" id="section-6">
-      <h2>6. What to Research Before the Session</h2>
-      <p>Four tasks to ground the discussion in your reality.</p>
-      
-      <h3>1. Know Your Ticket Taxonomy</h3>
-      <p>Pull the last 500 support tickets. Categorise them: what percentage are routine/repeatable vs. genuinely complex? The routine percentage is your AI automation opportunity. If it's above 60%, the business case is obvious.</p>
-      <h3>2. Audit Your Knowledge Base</h3>
-      <p>Pick 20 random articles from your current knowledge base. Check: are they current? Are they complete? Do they match how customers actually phrase their questions? The gap between your knowledge base and customer language is where AI creates the most value.</p>
-      <h3>3. Explore One Platform</h3>
-      <p>Spend 20 minutes on Gainsight or Ada. Gainsight shows you the future of customer health intelligence. Ada shows you the future of AI-first support. Both are production-grade and used by IFS's peers.</p>
-      <h3>4. Ask the Uncomfortable Question</h3>
-      <p>Ask your head of support: 'If AI resolved 80% of tickets and predicted churn 6 months ahead — what would our 400-person support org actually look like?' If the answer isn't 'half as many people, twice as effective,' the transformation hasn't been imagined ambitiously enough.</p>
-      <blockquote>The support organisations that win customer loyalty will not be the ones with the biggest teams. They will be the ones where every customer gets an instant, accurate answer — and the humans who remain spend their time on the problems that actually require human judgement.</blockquote>
-    </div>
-
-    <div class="footer">
-      <p>Future of Customer Support & Success: Rethinking the Resolve-Retain-Grow Lifecycle with AI</p>
-      <p style="margin-top: 8px; opacity: 0.7;">IFS Internal · Pre-read & action brief · April 2026</p>
-    </div>
-  </main>
+<!-- ═══════════════════════════════════════════════════
+     SECTION PILL TABS
+     ═══════════════════════════════════════════════════ -->
+<div class="tabs-bar">
+  <div class="tabs-inner">
+    <a href="#section-1" class="tab-pill active" data-section="section-1">
+      <span class="tab-num">1</span> Current State
+    </a>
+    <a href="#section-2" class="tab-pill" data-section="section-2">
+      <span class="tab-num">2</span> Future Vision
+    </a>
+    <a href="#section-3" class="tab-pill" data-section="section-3">
+      <span class="tab-num">3</span> Questions
+    </a>
+    <a href="#section-4" class="tab-pill" data-section="section-4">
+      <span class="tab-num">4</span> AI Companies
+    </a>
+    <a href="#section-5" class="tab-pill" data-section="section-5">
+      <span class="tab-num">5</span> Hands-On
+    </a>
+    <a href="#section-6" class="tab-pill" data-section="section-6">
+      <span class="tab-num">6</span> Homework
+    </a>
+  </div>
 </div>
+
+<!-- ═══════════════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════════════ -->
+<main class="main">
+
+  <div class="page-header">
+    <div class="page-eyebrow">Future of Function &mdash; 05</div>
+    <h1>Future of Customer Support &amp; Success</h1>
+    <div class="subtitle">Rethinking the Resolve-Retain-Grow Lifecycle with AI</div>
+    <div class="tagline">Pre-Read &amp; Action Brief for the IFS Leadership Team</div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section" id="section-1">
+    <h2>1. The Current State</h2>
+    <p>Every customer support &amp; success function runs on the same lifecycle: resolve, then retain, then grow. The Resolve-Retain-Grow process is the operational backbone. And right now, it is broken at every stage.</p>
+    <p><strong>Resolve is inefficient.</strong> L1 agents answer the same 200 questions repeatedly &mdash; slow, inconsistent, expensive.</p>
+    <p><strong>Retain is structurally neglected.</strong> CSMs spend 80%+ of time on reactive firefighting, not strategic account health.</p>
+    <p><strong>Grow is reactive.</strong> Churn signals detected only when the customer threatens to leave.</p>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="label">L1 Ticket Volume</div>
+        <div class="value">70%</div>
+        <div class="detail">Of tickets are routine, repetitive, and documentable</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">First-Contact Resolution</div>
+        <div class="value">45%</div>
+        <div class="detail">Industry average &mdash; the rest escalate or repeat</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">MTTR (Mean Time to Resolve)</div>
+        <div class="value">4.2 days</div>
+        <div class="detail">Average for enterprise software support</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Proactive Outreach</div>
+        <div class="value">&lt;15%</div>
+        <div class="detail">Of CSM time spent on proactive vs. reactive work</div>
+      </div>
+    </div>
+    <div class="before-after">
+      <div class="ba-col before">
+        <h4>Traditional Resolve-Retain-Grow</h4>
+        <ul>
+          <li>L1 agents answer the same 200 questions repeatedly &mdash; slow, inconsistent, expensive</li>
+          <li>Knowledge base is stale: last updated months ago, incomplete, hard to search</li>
+          <li>Escalations bounce between teams &mdash; customer repeats context at every handoff</li>
+          <li>CSMs spend 80%+ of time on reactive firefighting, not strategic account health</li>
+          <li>Churn signals detected only when the customer threatens to leave</li>
+          <li>Product feedback from support buried in tickets, rarely reaches R&amp;D systematically</li>
+        </ul>
+      </div>
+      <div class="ba-col after">
+        <h4>AI-Native Resolve-Retain-Grow</h4>
+        <ul>
+          <li>AI resolves 70&ndash;80% of tickets at first contact: instant, consistent, 24/7</li>
+          <li>Knowledge base self-maintains: AI generates articles from resolved tickets automatically</li>
+          <li>Full context preserved: AI summarises history so every agent knows the customer&rsquo;s journey</li>
+          <li>CSMs focus on strategic health reviews and expansion &mdash; AI handles operational support</li>
+          <li>Churn predicted 3&ndash;6 months ahead from usage patterns, ticket trends, and sentiment shifts</li>
+          <li>Product feedback auto-extracted and structured from support tickets into R&amp;D-ready insights</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section" id="section-2">
+    <h2>2. How to Think About the Future of Customer Support &amp; Success</h2>
+    <p>The Resolve-Retain-Grow lifecycle forces specificity. Not &ldquo;AI will transform customer support &amp; success&rdquo; but exactly how each stage changes when AI agents handle the operational layer end-to-end.</p>
+
+    <div class="framework-item">
+      <h3>The Resolve Stage: From Ticket Queues to Instant AI Resolution</h3>
+      <p>IFS supports 10,000+ customers across complex enterprise software &mdash; ERP, EAM, FSM, SCM. Support questions range from &lsquo;how do I configure this workflow?&rsquo; to &lsquo;our scheduling optimisation is producing suboptimal results.&rsquo; AI agents (like those from Ada, Intercom, or purpose-built with IFS domain knowledge) can handle the first category entirely: pulling from product documentation, knowledge bases, and historical ticket resolutions. For complex issues, AI triages, pre-diagnoses, and routes to the right specialist with full context &mdash; eliminating the repeat-yourself escalation loop. IFS Cloud&rsquo;s unified platform makes this especially powerful: the AI can actually inspect the customer&rsquo;s configuration and logs to diagnose before a human even sees the ticket.</p>
+    </div>
+    <div class="framework-item">
+      <h3>The Retain Stage: From Reactive CSMs to Predictive Health</h3>
+      <p>Customer retention at IFS depends on product adoption, operational value delivery, and executive relationship health. Today, CSMs track this through quarterly business reviews and gut feel. AI transforms retention into a continuous, data-driven process: product usage analytics identify declining engagement. Support ticket patterns reveal growing frustration. Sentiment analysis across emails and calls detects relationship cooling. Platforms like Gainsight and Totango aggregate these signals into a customer health score that predicts churn risk 3&ndash;6 months before the renewal conversation. The CSM shifts from &lsquo;checking in&rsquo; to &lsquo;intervening surgically when the data says to.&rsquo;</p>
+    </div>
+    <div class="framework-item">
+      <h3>The Grow Stage: From Annual Reviews to Continuous Expansion</h3>
+      <p>Growth within the installed base is IFS&rsquo;s most efficient revenue channel. AI makes it systematic: product usage data reveals which modules are approaching capacity or under-adopted. AI generates expansion recommendations with personalised business cases. A manufacturing customer using ERP but not EAM, with rising maintenance costs visible in their operational data, gets an AI-generated proposal for asset management. The QBR becomes a growth conversation backed by data, not a relationship maintenance ritual.</p>
+    </div>
+    <div class="framework-item">
+      <h3>Resolve-Retain-Grow as a Continuous Loop</h3>
+      <p>In the AI-native model, every resolved ticket trains the knowledge base. Every knowledge base improvement reduces future tickets. Lower ticket volume frees CSMs for retention and growth. Growth activity generates new support requirements that AI handles. The loop is self-improving: the support org gets better the more it runs, without adding people.</p>
+    </div>
+
+    <div class="north-star-callout">
+      <div class="ns-label">North-Star Target</div>
+      <div class="ns-title">From ~400 (L1/L2/L3 Support, CSMs, Support Ops, Knowledge Management, Training) &rarr; <strong>200&ndash;250</strong> people</div>
+      <div class="ns-ratio">Customers per CSM: from 15&ndash;20 to 40&ndash;50</div>
+      <p class="ns-body">AI resolves 70&ndash;80% of support tickets at first contact without human involvement. L1 support largely disappears. L2 shifts to complex, multi-system issues. CSMs are freed from reactive firefighting to focus on strategic account health and expansion. Knowledge management becomes automated. The support function shrinks in headcount but dramatically improves in resolution speed and customer satisfaction.</p>
+    </div>
+
+    <h3>Target KPIs</h3>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">AI First-Contact Resolution</div>
+        <div class="kpi-target">70&ndash;80%</div>
+        <div class="kpi-context">Up from 45% overall first-contact</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Mean Time to Resolve</div>
+        <div class="kpi-target">&lt;4 hours</div>
+        <div class="kpi-context">Down from 4.2 days average</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Support FTE Count</div>
+        <div class="kpi-target">200&ndash;250</div>
+        <div class="kpi-context">Down from ~400 at IFS scale</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Proactive CSM Time</div>
+        <div class="kpi-target">&gt;60%</div>
+        <div class="kpi-context">Up from &lt;15% on proactive work</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Churn Prediction Lead Time</div>
+        <div class="kpi-target">3&ndash;6 months</div>
+        <div class="kpi-context">From reactive to predictive</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Customers per CSM</div>
+        <div class="kpi-target">40&ndash;50</div>
+        <div class="kpi-context">Up from 15&ndash;20 today</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section" id="section-3">
+    <h2>3. Challenging Questions for the Room</h2>
+    <p>These are not abstract thought experiments. They are the outcomes your organisation needs to engineer in the next 12 to 24 months.</p>
+    <div class="questions-section">
+
+      <div class="question-category">
+        <h4>Resolve</h4>
+        <ul>
+          <li>How do we achieve 80% AI resolution of IFS Cloud support tickets &mdash; including configuration questions, workflow issues, and module-specific troubleshooting &mdash; with zero human in the loop and higher CSAT than human agents?</li>
+          <li>What has to be true for an IFS customer to get a diagnosed, contextualised answer to any product question in under 60 seconds &mdash; by an AI agent that can actually inspect their system configuration and logs?</li>
+        </ul>
+      </div>
+
+      <div class="question-category">
+        <h4>Retain</h4>
+        <ul>
+          <li>How do we make churn prediction fully automated &mdash; where AI continuously monitors usage, support patterns, and sentiment across all 10,000+ customers and generates intervention playbooks for CSMs without anyone manually reviewing health scores?</li>
+          <li>If AI handles all operational support and proactively flags at-risk accounts, what does a CSM at IFS actually spend their time on &mdash; and is the role closer to &lsquo;strategic account executive&rsquo; than &lsquo;customer firefighter&rsquo;?</li>
+        </ul>
+      </div>
+
+      <div class="question-category">
+        <h4>Grow</h4>
+        <ul>
+          <li>How do we achieve automatic expansion identification where AI monitors every customer&rsquo;s product usage and generates personalised expansion proposals with ROI models &mdash; before the annual QBR, without any CSM manually analysing an account?</li>
+          <li>What has to be true for IFS to increase net revenue retention to 130%+ &mdash; driven entirely by AI-detected and AI-prepared expansion opportunities that CSMs validate and execute?</li>
+        </ul>
+      </div>
+
+      <div class="question-category">
+        <h4>North Star</h4>
+        <ul>
+          <li>If we go from ~400 to 200&ndash;250 in support and success, what happens to the L1 support team &mdash; and is this an ethical transition or a talent waste?</li>
+          <li>How do we reskill support agents for a world where ticket resolution is AI&rsquo;s job &mdash; and the human role is complex problem-solving, product advocacy, and strategic account management?</li>
+          <li>If AI captures and structures every support interaction as product feedback, and feeds it directly into R&amp;D planning &mdash; does the &lsquo;voice of customer&rsquo; programme even need to exist as a separate function?</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section" id="section-4">
+    <h2>4. AI Companies Reshaping Customer Support &amp; Success</h2>
+    <p>The market has moved from experimental to production-grade. Spend time on these websites: watch demos, read case studies. Understanding what is possible is the prerequisite for deciding what is right for IFS.</p>
+
+    <div class="company-section-label">Resolve: AI Support</div>
+    <div class="company-grid">
+      <a href="https://ada.cx" target="_blank" rel="noopener" class="company-card">
+        <h4>Ada</h4>
+        <div class="cc-tag">AI Customer Service Automation</div>
+        <div class="cc-desc">Resolves 70%+ of customer queries automatically. Integrates with CRM and knowledge bases. Purpose-built for enterprise support.</div>
+        <div class="cc-url">ada.cx &rarr;</div>
+      </a>
+      <a href="https://intercom.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Intercom Fin</h4>
+        <div class="cc-tag">AI Support Agent</div>
+        <div class="cc-desc">AI agent that resolves support conversations using your knowledge base. Handles complex multi-turn conversations. Escalates to humans when needed.</div>
+        <div class="cc-url">intercom.com &rarr;</div>
+      </a>
+      <a href="https://moveworks.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Moveworks</h4>
+        <div class="cc-tag">AI Employee &amp; Customer Service</div>
+        <div class="cc-desc">Resolves IT and HR tickets autonomously. Natural language understanding across enterprise systems. Used by large enterprises.</div>
+        <div class="cc-url">moveworks.com &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">Retain: Customer Intelligence</div>
+    <div class="company-grid">
+      <a href="https://gainsight.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Gainsight</h4>
+        <div class="cc-tag">Customer Success Platform</div>
+        <div class="cc-desc">Customer health scoring, journey orchestration, and churn prediction. The market leader in customer success management.</div>
+        <div class="cc-url">gainsight.com &rarr;</div>
+      </a>
+      <a href="https://totango.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Totango</h4>
+        <div class="cc-tag">Customer Success &amp; Revenue</div>
+        <div class="cc-desc">AI-driven customer health monitoring with automated playbooks. Identifies at-risk accounts and expansion opportunities.</div>
+        <div class="cc-url">totango.com &rarr;</div>
+      </a>
+      <a href="https://churnzero.com" target="_blank" rel="noopener" class="company-card">
+        <h4>ChurnZero</h4>
+        <div class="cc-tag">Customer Retention AI</div>
+        <div class="cc-desc">Real-time churn scoring, automated engagement, and customer journey tracking. Purpose-built for SaaS retention.</div>
+        <div class="cc-url">churnzero.com &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">Grow: Expansion Intelligence</div>
+    <div class="company-grid">
+      <a href="https://pocus.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Pocus</h4>
+        <div class="cc-tag">Product-Led Growth Intelligence</div>
+        <div class="cc-desc">Identifies expansion opportunities from product usage data. Surfaces buying signals based on feature adoption patterns.</div>
+        <div class="cc-url">pocus.com &rarr;</div>
+      </a>
+      <a href="https://catalyst.io" target="_blank" rel="noopener" class="company-card">
+        <h4>Catalyst</h4>
+        <div class="cc-tag">Customer Growth Platform</div>
+        <div class="cc-desc">Unified customer data with AI-driven expansion signals. Combines product usage, support data, and CRM for growth playbooks.</div>
+        <div class="cc-url">catalyst.io &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">Full Lifecycle: Knowledge &amp; Feedback</div>
+    <div class="company-grid">
+      <a href="https://getguru.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Guru</h4>
+        <div class="cc-tag">AI Knowledge Management</div>
+        <div class="cc-desc">AI-powered knowledge base that surfaces verified answers in the flow of work. Self-maintains and identifies knowledge gaps.</div>
+        <div class="cc-url">getguru.com &rarr;</div>
+      </a>
+      <a href="https://productboard.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Productboard</h4>
+        <div class="cc-tag">AI Product Management</div>
+        <div class="cc-desc">Captures customer feedback from support, sales, and research. AI structures and prioritises it for product roadmap decisions.</div>
+        <div class="cc-url">productboard.com &rarr;</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="section" id="section-5">
+    <h2>5. Hands-On Automation Exercises</h2>
+    <p>Do at least one before the session. Do all four if you want to arrive with a working prototype, not an opinion.</p>
+
+    <div class="exercise-card">
+      <h4>1. The AI Support Agent Prototype</h4>
+      <p>Export your top 50 most common support tickets (anonymised). Feed them plus IFS product documentation into Claude. Build a prototype AI support agent that can answer these questions. Test it against 20 new tickets. Measure: resolution rate, accuracy, and response time vs. human agents.</p>
+      <p><strong>Output:</strong> A working AI support agent prototype with measured performance against real IFS ticket data.</p>
+      <p><strong>Tools:</strong> Claude API, IFS documentation, Python/HTML &middot; <strong>Effort:</strong> 60 min</p>
+    </div>
+    <div class="exercise-card">
+      <h4>2. The Customer Health Dashboard</h4>
+      <p>Pull data for 20 IFS customers: product usage metrics, support ticket volume/severity trends, NPS scores, and renewal dates. Feed it into AI to generate a health score model. Build an interactive dashboard that shows health trajectory, risk flags, and AI-recommended interventions for each account.</p>
+      <p><strong>Output:</strong> An interactive customer health dashboard with AI-generated risk scores and intervention recommendations.</p>
+      <p><strong>Tools:</strong> Python, Claude, CRM/support data, HTML/ECharts &middot; <strong>Effort:</strong> 90 min</p>
+    </div>
+    <div class="exercise-card">
+      <h4>3. The Self-Maintaining Knowledge Base</h4>
+      <p>Take 100 resolved IFS support tickets. Feed them into AI and ask it to: extract the problem-solution pairs, generate knowledge base articles, identify duplicates, and flag gaps where no article exists. Build a pipeline that could run continuously on new tickets.</p>
+      <p><strong>Output:</strong> A set of AI-generated knowledge base articles from real tickets, plus a pipeline design for continuous self-maintenance.</p>
+      <p><strong>Tools:</strong> Claude API, ticketing system export, Markdown/HTML &middot; <strong>Effort:</strong> 60 min</p>
+    </div>
+    <div class="exercise-card">
+      <h4>4. The Product Feedback Extractor</h4>
+      <p>Export 200 support tickets from the last quarter. Use AI to extract and categorise product feedback: feature requests, usability issues, performance complaints, integration gaps. Structure it as a product roadmap input: prioritised by frequency, severity, and customer tier. Deliver it as an interactive report that R&amp;D can filter by module, industry, and severity.</p>
+      <p><strong>Output:</strong> A structured product feedback report extracted from support tickets &mdash; ready for R&amp;D roadmap planning.</p>
+      <p><strong>Tools:</strong> Claude, support ticket exports, HTML/ECharts &middot; <strong>Effort:</strong> 2 hours</p>
+    </div>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="section" id="section-6">
+    <h2>6. What to Research Before the Session</h2>
+    <p>Four tasks to ground the discussion in your reality.</p>
+
+    <h3>1. Know Your Ticket Taxonomy</h3>
+    <p>Pull the last 500 support tickets. Categorise them: what percentage are routine/repeatable vs. genuinely complex? The routine percentage is your AI automation opportunity. If it&rsquo;s above 60%, the business case is obvious.</p>
+    <h3>2. Audit Your Knowledge Base</h3>
+    <p>Pick 20 random articles from your current knowledge base. Check: are they current? Are they complete? Do they match how customers actually phrase their questions? The gap between your knowledge base and customer language is where AI creates the most value.</p>
+    <h3>3. Explore One Platform</h3>
+    <p>Spend 20 minutes on Gainsight or Ada. Gainsight shows you the future of customer health intelligence. Ada shows you the future of AI-first support. Both are production-grade and used by IFS&rsquo;s peers.</p>
+    <h3>4. Ask the Uncomfortable Question</h3>
+    <p>Ask your head of support: &lsquo;If AI resolved 80% of tickets and predicted churn 6 months ahead &mdash; what would our 400-person support org actually look like?&rsquo; If the answer isn&rsquo;t &lsquo;half as many people, twice as effective,&rsquo; the transformation hasn&rsquo;t been imagined ambitiously enough.</p>
+    <blockquote>The support organisations that win customer loyalty will not be the ones with the biggest teams. They will be the ones where every customer gets an instant, accurate answer &mdash; and the humans who remain spend their time on the problems that actually require human judgement.</blockquote>
+  </div>
+
+  <!-- Footer Navigation -->
+  <div class="page-footer">
+    <div class="footer-nav">
+      <a href="future-of-function-04-rnd.html">
+        <i data-lucide="arrow-left"></i> R&amp;D
+      </a>
+      <a href="../index.html#prereads" class="back-all">
+        <i data-lucide="layout-grid"></i> All Briefs
+      </a>
+      <a href="future-of-function-06-ai-product-unit.html">
+        AI Product Unit <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+    <div class="footer-meta">
+      <p>Future of Customer Support &amp; Success: Rethinking the Resolve-Retain-Grow Lifecycle with AI</p>
+      <p>IFS Internal &middot; Pre-read &amp; action brief &middot; April 2026</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════ -->
 <script>
-function toggleTheme() {
-  const html = document.documentElement;
-  html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
-}
-const sections = document.querySelectorAll('.section');
-const navItems = document.querySelectorAll('.nav-item');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navItems.forEach(item => item.classList.remove('active'));
-      const activeNav = document.querySelector(`.nav-item[data-section="${entry.target.id}"]`);
-      if (activeNav) activeNav.classList.add('active');
-    }
+(function() {
+  'use strict';
+
+  // Initialize Lucide icons
+  lucide.createIcons();
+
+  // Scroll-spy for pill tabs
+  const sections = document.querySelectorAll('.section');
+  const tabPills = document.querySelectorAll('.tab-pill');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tabPills.forEach(pill => pill.classList.remove('active'));
+        const activePill = document.querySelector(`.tab-pill[data-section="${entry.target.id}"]`);
+        if (activePill) {
+          activePill.classList.add('active');
+          // Scroll pill into view in tabs bar
+          activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(section => observer.observe(section));
+
+  // Smooth scroll for pill tabs and nav links
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
   });
-}, { rootMargin: '-20% 0px -70% 0px' });
-sections.forEach(section => observer.observe(section));
+})();
 </script>
 </body>
 </html>

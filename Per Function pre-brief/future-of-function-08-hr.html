@@ -1,464 +1,780 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Future of HR</title>
+<title>HR &mdash; IFS AI Leadership Summit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-  :root { --transition: 0.3s ease; }
-  [data-theme="light"] {
-    --bg: #f8fafc; --bg-sidebar: #ffffff; --surface: #ffffff; --surface2: #f1f5f9; --surface3: #e2e8f0;
-    --border: #e2e8f0; --text: #1e293b; --text-secondary: #334155; --text-muted: #64748b;
-    --accent: #0d7377; --accent2: #14919b; --accent-glow: rgba(13, 115, 119, 0.08);
-    --red-muted: #b85c52; --red-bg: #fef5f4; --green-bg: rgba(13, 115, 119, 0.06);
-    --stat-gradient: linear-gradient(135deg, #0d7377 0%, #14919b 100%);
-  }
-  [data-theme="dark"] {
-    --bg: #0f1117; --bg-sidebar: #0b0d12; --surface: #181b23; --surface2: #1e222d; --surface3: #252a36;
-    --border: #2a2f3d; --text: #e4e6ed; --text-secondary: #c0c4d0; --text-muted: #9498ad;
-    --accent: #14919b; --accent2: #2dd4bf; --accent-glow: rgba(20, 145, 155, 0.12);
-    --red-muted: #f87171; --red-bg: rgba(248, 113, 113, 0.08); --green-bg: rgba(45, 212, 191, 0.06);
-    --stat-gradient: linear-gradient(135deg, #0d7377 0%, #0f766e 100%);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; font-size: 15px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; transition: background var(--transition), color var(--transition); }
-  ::selection { background: var(--accent); color: white; }
-  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-  .layout { display: flex; min-height: 100vh; }
-  .sidebar { width: 240px; position: fixed; top: 0; left: 0; bottom: 0; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 100; transition: background var(--transition), border-color var(--transition); overflow-y: auto; }
-  .sidebar-header { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); }
-  .sidebar-logo { font-size: 11px; font-weight: 700; color: var(--accent2); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
-  .sidebar-title { font-size: 15px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; line-height: 1.3; }
-  .sidebar-nav { flex: 1; padding: 12px 0; }
-  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.15s; cursor: pointer; border-left: 3px solid transparent; }
-  .nav-item:hover { color: var(--text); background: var(--accent-glow); }
-  .nav-item.active { color: var(--accent2); background: var(--accent-glow); border-left-color: var(--accent); font-weight: 600; }
-  .nav-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 6px; background: var(--surface2); border: 1px solid var(--border); font-size: 11px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; transition: all 0.15s; }
-  .nav-item.active .nav-num { background: var(--accent); border-color: var(--accent); color: white; }
-  .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); }
-  .theme-toggle { display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; user-select: none; }
-  .toggle-track { width: 40px; height: 22px; background: var(--surface3); border-radius: 11px; position: relative; transition: background var(--transition); border: 1px solid var(--border); }
-  .toggle-thumb { width: 16px; height: 16px; background: var(--accent); border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: transform var(--transition); }
-  [data-theme="dark"] .toggle-thumb { transform: translateX(18px); }
-  .toggle-icons { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--text-muted); }
-  .main { flex: 1; margin-left: 240px; padding: 0 60px; max-width: calc(100% - 240px); }
-  .header { padding: 48px 0 32px; border-bottom: 2px solid var(--accent); margin-bottom: 44px; }
-  .header h1 { font-size: 38px; font-weight: 800; margin-bottom: 12px; color: var(--text); line-height: 1.15; letter-spacing: -0.5px; }
-  .header .subtitle { font-size: 16px; color: var(--accent); font-weight: 600; letter-spacing: 0.3px; }
-  .header .tagline { font-size: 14px; color: var(--text-muted); margin-top: 8px; font-style: italic; }
-  .section { margin-bottom: 52px; scroll-margin-top: 24px; }
-  h2 { font-size: 26px; font-weight: 800; margin-bottom: 22px; color: var(--text); padding-bottom: 12px; border-bottom: 1px solid var(--border); letter-spacing: -0.3px; }
-  h3 { font-size: 18px; font-weight: 700; margin-top: 26px; margin-bottom: 12px; color: var(--accent); }
-  p { margin-bottom: 14px; font-size: 15px; line-height: 1.7; color: var(--text-secondary); }
-  strong { color: var(--text); font-weight: 700; }
-  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 26px 0; }
-  .stat-card { background: var(--stat-gradient); color: white; padding: 22px; border-radius: 10px; box-shadow: 0 4px 12px rgba(13, 115, 119, 0.2); }
-  .stat-card .label { font-size: 10px; letter-spacing: 1px; opacity: 0.8; margin-bottom: 8px; font-weight: 600; }
-  .stat-card .value { font-size: 28px; font-weight: 800; margin-bottom: 4px; line-height: 1.1; }
-  .stat-card .detail { font-size: 11px; opacity: 0.85; }
-  .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 26px 0; }
-  .ba-col { padding: 22px; border-radius: 10px; transition: background var(--transition), border-color var(--transition); }
-  .ba-col.before { border-left: 4px solid var(--red-muted); background: var(--red-bg); }
-  .ba-col.after { border-left: 4px solid var(--accent); background: var(--green-bg); }
-  .ba-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 14px; text-transform: uppercase; }
-  .ba-col.before h4 { color: var(--red-muted); } .ba-col.after h4 { color: var(--accent); }
-  .ba-col ul { list-style: none; padding: 0; }
-  .ba-col li { font-size: 13px; margin-bottom: 8px; padding-left: 20px; position: relative; line-height: 1.5; color: var(--text-secondary); }
-  .ba-col.before li:before { content: "•"; position: absolute; left: 0; color: var(--red-muted); font-size: 14px; }
-  .ba-col.after li:before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: bold; font-size: 12px; }
-  .framework-item { margin-bottom: 26px; }
-  .framework-item h3 { margin-top: 0; margin-bottom: 10px; }
-  .framework-item p { margin-bottom: 10px; }
-  .north-star-callout { background: var(--accent-glow); border: 2px solid var(--accent); border-radius: 10px; padding: 28px; margin: 30px 0; }
-  .ns-header { margin-bottom: 12px; }
-  .ns-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
-  .ns-title { font-size: 22px; font-weight: 800; color: var(--text); }
-  .ns-title strong { color: var(--accent); }
-  .ns-ratio { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
-  .ns-body { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 0; }
-  .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 24px 0; }
-  .kpi-card { background: var(--surface); border-top: 3px solid var(--accent); padding: 16px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); transition: background var(--transition); }
-  .kpi-card .kpi-label { font-size: 10px; color: var(--accent); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 5px; }
-  .kpi-card .kpi-target { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
-  .kpi-card .kpi-context { font-size: 11px; color: var(--text-muted); }
-  .questions-section { background: var(--accent-glow); padding: 28px; border-radius: 10px; margin: 26px 0; border: 1px solid var(--border); transition: background var(--transition), border-color var(--transition); }
-  .question-category { margin-bottom: 24px; } .question-category:last-child { margin-bottom: 0; }
-  .question-category h4 { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; margin-bottom: 10px; text-transform: uppercase; }
-  .question-category ul { list-style: none; padding: 0; }
-  .question-category li { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; padding-left: 16px; position: relative; line-height: 1.55; }
-  .question-category li:before { content: "–"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
-  .company-section-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-top: 24px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
-  .company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px; }
-  .company-card { background: var(--surface); border-radius: 10px; padding: 18px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); border-left: 3px solid var(--accent); transition: box-shadow 0.2s, transform 0.2s, background var(--transition); text-decoration: none; color: inherit; display: block; }
-  .company-card:hover { box-shadow: 0 4px 16px rgba(13, 115, 119, 0.15); transform: translateY(-2px); }
-  .company-card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-  .company-card .cc-tag { font-size: 10px; font-weight: 600; color: var(--accent); letter-spacing: 0.3px; margin-bottom: 6px; }
-  .company-card .cc-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 6px; }
-  .company-card .cc-url { font-size: 11px; color: var(--accent); font-weight: 600; }
-  .exercise-card { background: var(--surface); border-top: 3px solid var(--accent); padding: 22px; margin: 20px 0; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.04); transition: background var(--transition); }
-  .exercise-card h4 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
-  .exercise-card p { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.6; }
-  .exercise-card p:last-child { margin-bottom: 0; }
-  blockquote { border-left: 4px solid var(--accent); padding-left: 20px; margin: 28px 0; font-size: 16px; font-style: italic; color: var(--text-secondary); line-height: 1.7; }
-  .footer { border-top: 1px solid var(--border); padding-top: 24px; margin-top: 48px; margin-bottom: 48px; text-align: center; color: var(--text-muted); font-size: 12px; }
-  a.inline-link { color: var(--accent); font-weight: 600; text-decoration: none; } a.inline-link:hover { text-decoration: underline; }
-  @media (max-width: 768px) {
-    .sidebar { display: none; } .main { margin-left: 0; padding: 0 20px; max-width: 100%; }
-    .header h1 { font-size: 28px; } .before-after { grid-template-columns: 1fr; }
-    .stats-grid { grid-template-columns: 1fr 1fr; } .kpi-grid { grid-template-columns: 1fr 1fr; }
-    .company-grid { grid-template-columns: 1fr; } h2 { font-size: 22px; }
-  }
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN SYSTEM — Matches index.html exactly
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --bg-primary: #090b10;
+  --bg-secondary: #0f1117;
+  --bg-surface: #181b23;
+  --bg-surface-hover: #1e222d;
+  --border-subtle: #1e222d;
+  --border-default: #2a2f3d;
+  --border-accent: #6366f1;
+  --text-primary: #f0f1f5;
+  --text-secondary: #e4e6ed;
+  --text-muted: #9498ad;
+  --text-dim: #6b7094;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --accent-glow: rgba(99, 102, 241, 0.12);
+  --accent-amber: #f59e0b;
+  --accent-emerald: #22c55e;
+  --accent-cyan: #06b6d4;
+  --accent-red: #ef4444;
+  --red-muted: #f87171;
+  --red-bg: rgba(248, 113, 113, 0.08);
+  --green-bg: rgba(99, 102, 241, 0.06);
+  --stat-gradient: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  --font-display: 'Lexend', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --max-width: 900px;
+  --nav-height: 64px;
+  --tabs-height: 52px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + var(--tabs-height) + 16px); }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.65;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+::selection { background: var(--accent); color: white; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 3px; }
+a { color: var(--accent-light); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   TOP NAVIGATION BAR
+   ═══════════════════════════════════════════════════════════════ */
+.topnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: var(--nav-height);
+  background: rgba(9, 11, 16, 0.92);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex; align-items: center;
+}
+.topnav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 32px;
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+}
+.topnav-back {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--text-muted); text-decoration: none;
+  font-size: 14px; font-weight: 600;
+  transition: color 0.2s; cursor: pointer;
+}
+.topnav-back:hover { color: var(--text-primary); text-decoration: none; }
+.topnav-back svg { width: 18px; height: 18px; }
+.topnav-brand { color: var(--text-primary); }
+.topnav-brand span { color: var(--accent-light); }
+.topnav-title {
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  color: var(--text-primary); text-align: center;
+  position: absolute; left: 50%; transform: translateX(-50%);
+  white-space: nowrap;
+}
+.topnav-nav {
+  display: flex; align-items: center; gap: 6px;
+}
+.topnav-nav a {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  padding: 8px 14px; border-radius: 6px; text-decoration: none;
+  transition: color 0.2s, background 0.2s; cursor: pointer;
+}
+.topnav-nav a:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); text-decoration: none; }
+.topnav-nav a svg { width: 16px; height: 16px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION PILL TABS
+   ═══════════════════════════════════════════════════════════════ */
+.tabs-bar {
+  position: fixed; top: var(--nav-height); left: 0; right: 0; z-index: 999;
+  height: var(--tabs-height);
+  background: rgba(15, 17, 23, 0.92);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: center;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tabs-bar::-webkit-scrollbar { display: none; }
+.tabs-inner {
+  display: flex; gap: 6px; padding: 0 24px;
+}
+.tab-pill {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  padding: 8px 16px; border-radius: 100px; white-space: nowrap;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s var(--ease);
+}
+.tab-pill:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); text-decoration: none; }
+.tab-pill.active {
+  color: var(--accent-light); background: var(--accent-glow);
+  border-color: rgba(99,102,241,0.2);
+}
+.tab-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 6px;
+  background: var(--bg-surface); border: 1px solid var(--border-default);
+  font-size: 10px; font-weight: 700; color: var(--text-dim);
+  transition: all 0.2s;
+}
+.tab-pill.active .tab-num {
+  background: var(--accent); border-color: var(--accent); color: white;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════════════════════════════════════ */
+.main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: calc(var(--nav-height) + var(--tabs-height) + 48px) 32px 0;
+}
+
+/* Header */
+.page-header {
+  margin-bottom: 52px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid var(--accent);
+}
+.page-eyebrow {
+  font-family: var(--font-display); font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light);
+  margin-bottom: 12px;
+}
+.page-header h1 {
+  font-family: var(--font-display); font-size: clamp(30px, 5vw, 40px); font-weight: 800;
+  color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15;
+  margin-bottom: 12px;
+}
+.page-header .subtitle {
+  font-size: 16px; color: var(--accent-light); font-weight: 600; letter-spacing: 0.3px;
+}
+.page-header .tagline {
+  font-size: 14px; color: var(--text-muted); margin-top: 8px; font-style: italic;
+}
+
+/* Sections */
+.section { margin-bottom: 56px; scroll-margin-top: calc(var(--nav-height) + var(--tabs-height) + 16px); }
+h2 {
+  font-family: var(--font-display); font-size: 24px; font-weight: 800;
+  margin-bottom: 22px; color: var(--text-primary);
+  padding-bottom: 12px; border-bottom: 1px solid var(--border-default);
+  letter-spacing: -0.3px;
+}
+h3 {
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  margin-top: 28px; margin-bottom: 12px; color: var(--accent-light);
+}
+p { margin-bottom: 14px; font-size: 15px; line-height: 1.75; color: var(--text-muted); }
+strong { color: var(--text-secondary); font-weight: 700; }
+
+/* Stats Grid */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 28px 0; }
+.stat-card {
+  background: var(--stat-gradient); color: white;
+  padding: 22px; border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
+}
+.stat-card .label { font-size: 10px; letter-spacing: 1px; opacity: 0.8; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; }
+.stat-card .value { font-family: var(--font-display); font-size: 28px; font-weight: 800; margin-bottom: 4px; line-height: 1.1; }
+.stat-card .detail { font-size: 11px; opacity: 0.85; }
+
+/* Before / After */
+.before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 28px 0; }
+.ba-col { padding: 24px; border-radius: 10px; }
+.ba-col.before { border-left: 4px solid var(--red-muted); background: var(--red-bg); }
+.ba-col.after { border-left: 4px solid var(--accent); background: var(--green-bg); }
+.ba-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 14px; text-transform: uppercase; }
+.ba-col.before h4 { color: var(--red-muted); }
+.ba-col.after h4 { color: var(--accent-light); }
+.ba-col ul { list-style: none; padding: 0; }
+.ba-col li { font-size: 13px; margin-bottom: 8px; padding-left: 20px; position: relative; line-height: 1.55; color: var(--text-muted); }
+.ba-col.before li::before { content: "\2022"; position: absolute; left: 0; color: var(--red-muted); font-size: 14px; }
+.ba-col.after li::before { content: "\2713"; position: absolute; left: 0; color: var(--accent-light); font-weight: bold; font-size: 12px; }
+
+/* Framework Items */
+.framework-item { margin-bottom: 28px; }
+.framework-item h3 { margin-top: 0; margin-bottom: 10px; }
+.framework-item p { margin-bottom: 10px; }
+
+/* North Star Callout */
+.north-star-callout {
+  background: var(--accent-glow); border: 2px solid var(--accent);
+  border-radius: 12px; padding: 28px; margin: 32px 0;
+}
+.ns-label { font-size: 11px; font-weight: 700; color: var(--accent-light); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+.ns-title { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; line-height: 1.35; }
+.ns-title strong { color: var(--accent-light); }
+.ns-ratio { font-size: 14px; font-weight: 600; color: var(--accent-light); margin-bottom: 12px; }
+.ns-body { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 0; }
+
+/* KPI Grid */
+.kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 26px 0; }
+.kpi-card {
+  background: var(--bg-surface); border-top: 3px solid var(--accent);
+  padding: 18px; border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+.kpi-card .kpi-label { font-size: 10px; color: var(--accent-light); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; }
+.kpi-card .kpi-target { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--text-primary); margin-bottom: 2px; }
+.kpi-card .kpi-context { font-size: 11px; color: var(--text-dim); }
+
+/* Questions */
+.questions-section {
+  background: var(--accent-glow); padding: 28px; border-radius: 12px;
+  margin: 28px 0; border: 1px solid var(--border-default);
+}
+.question-category { margin-bottom: 24px; }
+.question-category:last-child { margin-bottom: 0; }
+.question-category h4 { font-family: var(--font-display); font-size: 12px; font-weight: 700; color: var(--accent-light); letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase; }
+.question-category ul { list-style: none; padding: 0; }
+.question-category li { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; padding-left: 18px; position: relative; line-height: 1.6; }
+.question-category li::before { content: "\2013"; position: absolute; left: 0; color: var(--accent-light); font-weight: bold; }
+
+/* Company Cards */
+.company-section-label {
+  font-family: var(--font-display); font-size: 11px; font-weight: 700;
+  color: var(--accent-light); letter-spacing: 1.5px; text-transform: uppercase;
+  margin-top: 28px; margin-bottom: 14px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px; }
+.company-card {
+  background: var(--bg-surface); border-radius: 10px; padding: 20px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08); border-left: 3px solid var(--accent);
+  transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+  text-decoration: none; color: inherit; display: block; cursor: pointer;
+}
+.company-card:hover { box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15); transform: translateY(-2px); text-decoration: none; }
+.company-card h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+.company-card .cc-tag { font-size: 10px; font-weight: 600; color: var(--accent-light); letter-spacing: 0.3px; margin-bottom: 8px; }
+.company-card .cc-desc { font-size: 12px; color: var(--text-dim); line-height: 1.55; margin-bottom: 8px; }
+.company-card .cc-url { font-size: 11px; color: var(--accent-light); font-weight: 600; }
+
+/* Exercise Cards */
+.exercise-card {
+  background: var(--bg-surface); border-top: 3px solid var(--accent);
+  padding: 24px; margin: 20px 0; border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.exercise-card h4 { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+.exercise-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.65; }
+.exercise-card p:last-child { margin-bottom: 0; }
+
+/* Blockquote */
+blockquote {
+  border-left: 4px solid var(--accent); padding-left: 22px; margin: 32px 0;
+  font-size: 16px; font-style: italic; color: var(--text-muted); line-height: 1.75;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER NAVIGATION
+   ═══════════════════════════════════════════════════════════════ */
+.page-footer {
+  border-top: 1px solid var(--border-default);
+  padding: 32px 0 64px; margin-top: 56px;
+}
+.footer-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 32px;
+}
+.footer-nav a {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 600; color: var(--text-muted);
+  text-decoration: none; padding: 10px 18px; border-radius: 8px;
+  border: 1px solid var(--border-default);
+  transition: all 0.2s var(--ease); cursor: pointer;
+}
+.footer-nav a:hover { color: var(--accent-light); border-color: var(--accent); background: var(--accent-glow); text-decoration: none; }
+.footer-nav a svg { width: 16px; height: 16px; }
+.footer-nav .back-all {
+  border-color: var(--accent); color: var(--accent-light);
+}
+.footer-meta {
+  text-align: center; font-size: 12px; color: var(--text-dim);
+}
+.footer-meta p { margin-bottom: 4px; font-size: 12px; color: var(--text-dim); }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .topnav-title { display: none; }
+}
+@media (max-width: 768px) {
+  .main { padding-left: 20px; padding-right: 20px; }
+  .page-header h1 { font-size: 28px; }
+  .before-after { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .company-grid { grid-template-columns: 1fr; }
+  h2 { font-size: 20px; }
+  .topnav-inner { padding: 0 16px; }
+  .topnav-nav .nav-label { display: none; }
+  .footer-nav { flex-direction: column; gap: 12px; }
+  .footer-nav a { width: 100%; justify-content: center; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: 0.01ms !important; }
+}
 </style>
 </head>
 <body>
-<div class="layout">
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-logo">Future of Function</div>
-      <div class="sidebar-title">HR</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TOP NAVIGATION
+     ═══════════════════════════════════════════════════ -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="../index.html#prereads" class="topnav-back">
+      <i data-lucide="arrow-left"></i>
+      <span class="topnav-brand">IFS <span>AI Summit</span></span>
+    </a>
+    <div class="topnav-title">HR</div>
+    <div class="topnav-nav">
+      <a href="future-of-function-07-marketing.html" title="Previous: Marketing">
+        <i data-lucide="chevron-left"></i>
+        <span class="nav-label">Prev</span>
+      </a>
+      <a href="future-of-function-09-finance.html" title="Next: Finance">
+        <span class="nav-label">Next</span>
+        <i data-lucide="chevron-right"></i>
+      </a>
     </div>
-    <nav class="sidebar-nav">
-      <a href="#section-1" class="nav-item active" data-section="section-1"><span class="nav-num">1</span> Current State</a>
-      <a href="#section-2" class="nav-item" data-section="section-2"><span class="nav-num">2</span> Future Vision</a>
-      <a href="#section-3" class="nav-item" data-section="section-3"><span class="nav-num">3</span> Questions</a>
-      <a href="#section-4" class="nav-item" data-section="section-4"><span class="nav-num">4</span> AI Companies</a>
-      <a href="#section-5" class="nav-item" data-section="section-5"><span class="nav-num">5</span> Hands-On</a>
-      <a href="#section-6" class="nav-item" data-section="section-6"><span class="nav-num">6</span> Homework</a>
-    </nav>
-    <div class="sidebar-footer">
-      <div class="theme-toggle" onclick="toggleTheme()">
-        <div class="toggle-icons">☀️</div>
-        <div class="toggle-track"><div class="toggle-thumb"></div></div>
-        <div class="toggle-icons">🌙</div>
-      </div>
-    </div>
-  </aside>
-  <main class="main">
-    <div class="header">
-      <h1>Future of HR</h1>
-      <div class="subtitle">Rethinking the Joiner-Mover-Leaver Lifecycle with AI</div>
-      <div class="tagline">Pre-Read & Action Brief for the IFS HR Organisation</div>
-    </div>
+  </div>
+</nav>
 
-    <div class="section" id="section-1">
-      <h2>1. The Current State</h2>
-      <p>Every hr function runs on the same lifecycle: joiner, then mover, then leaver. The Joiner-Mover-Leaver process is the operational backbone. And right now, it is broken at every stage.</p>
-      <p><strong>Joiner is inefficient.</strong> 44-day time-to-fill, mostly screening and scheduling.</p>
-      <p><strong>Mover is structurally neglected.</strong> Internal moves require weeks of admin across 8+ systems.</p>
-      <p><strong>Leaver is reactive.</strong> Exit interviews after the resignation letter.</p>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="label">TIME-TO-FILL</div>
-          <div class="value">44 days</div>
-          <div class="detail">Industry average, longer for specialists</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">COST-PER-HIRE</div>
-          <div class="value">$3–5K</div>
-          <div class="detail">Including agency and admin overhead</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">MOVERS VS STAYERS</div>
-          <div class="value">7.4 vs 4.1 yrs</div>
-          <div class="detail">Average tenure with/without internal moves</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">HR AI ADOPTION</div>
-          <div class="value">61%</div>
-          <div class="detail">Large businesses, up from 19% in 2023</div>
-        </div>
-      </div>
-      <div class="before-after">
-        <div class="ba-col before">
-          <h4>Traditional Joiner-Mover-Leaver</h4>
-          <ul>
-            <li>44-day time-to-fill, mostly screening and scheduling</li>
-            <li>Job descriptions based on titles, not skills</li>
-            <li>Onboarding is a checklist emailed on day one</li>
-            <li>Internal moves require weeks of admin across 8+ systems</li>
-            <li>Exit interviews after the resignation letter</li>
-            <li>Knowledge walks out the door with the leaver</li>
-          </ul>
-        </div>
-        <div class="ba-col after">
-          <h4>AI-Native Joiner-Mover-Leaver</h4>
-          <ul>
-            <li>15–20 day time-to-fill, AI handles screening and scheduling</li>
-            <li>Skills-graph matching across 1B+ profiles</li>
-            <li>AI-orchestrated onboarding: systems, training, mentors</li>
-            <li>Automated contracts, cost centres, payroll in hours</li>
-            <li>Predictive attrition flags risk months ahead</li>
-            <li>AI captures knowledge before departure</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="section" id="section-2">
-      <h2>2. How to Think About the Future of HR</h2>
-      <p>The Joiner-Mover-Leaver lifecycle forces specificity. Not "AI will transform hr" but exactly how each stage changes when AI agents handle the operational layer end-to-end.</p>
-      
-      <div class="framework-item">
-        <h3>The Joiner: From Job Descriptions to Skills Matching</h3>
-        <p>The job description is a fiction: a wish list describing the last person in the role. AI platforms like Eightfold have indexed 1.6 billion career profiles and match on skills, not titles. For IFS, hiring across 6 countries and multiple technical domains (Go, TypeScript, React, event-driven architecture), skills-based matching is transformative. Conversational AI (Paradox/Olivia) handles screening and scheduling at scale. Onboarding shifts from checklist to orchestration: AI provisions 15 systems, sequences training, assigns mentors, and tracks milestones. By day 90, the new hire has been productively supported — not abandoned.</p>
-      </div>
-      <div class="framework-item">
-        <h3>The Mover: The Biggest Unlock in HR</h3>
-        <p>Employees who make internal moves stay nearly twice as long (7.4 vs 4.1 years). Yet internal moves at a company like IFS — with entities across multiple countries, different employment contracts, and complex ERP/cost centre structures — are administratively painful. An internal move triggers: contract amendment, cost centre remapping, payroll adjustments, benefits re-enrollment, travel policy updates, reporting line changes, and systems access reconfiguration. AI agents collapse this to hours. Platforms like Gloat and Fuel50 add the talent marketplace layer: surfacing opportunities to employees before they start browsing LinkedIn.</p>
-      </div>
-      <div class="framework-item">
-        <h3>The Leaver: From Reactive to Predictive</h3>
-        <p>Predictive attrition models flag flight risk 3–6 months ahead with up to 95% accuracy. At IFS, where losing a senior engineer or a domain expert in aerospace MRO costs 6–12 months of productivity replacement, early warning is invaluable. AI agents trigger retention interventions: compensation review, opportunity surfacing, or manager prompts. When someone does leave, AI captures institutional knowledge through structured interviews — making it searchable. The cost of attrition drops not because fewer people leave, but because departures are anticipated, managed, and their knowledge is preserved.</p>
-      </div>
-      <div class="framework-item">
-        <h3>JML as a Continuous Loop</h3>
-        <p>In the AI-native model, the boundaries dissolve. An internal move is a mini-join with its own onboarding. A leaver's knowledge persists in the system. Boomerang hires are recognised instantly. The HR function stops being an event processor and becomes a flow manager. The org chart becomes a skills graph, the headcount plan becomes a capability plan, and everything periodic becomes continuous.</p>
-      </div>
-      
-      <div class="north-star-callout">
-        <div class="ns-header">
-          <div class="ns-label">NORTH-STAR TARGET</div>
-          <div class="ns-title">From ~75 (HR Ops, Talent Acquisition, L&D, HRBPs, People Analytics, Compensation & Benefits) → <strong>30–40</strong> people</div>
-        </div>
-        <div class="ns-ratio">HR staff per 1,000 employees: from 11 to 4</div>
-        <p class="ns-body">AI handles 90%+ of transactional HR: recruitment screening, onboarding administration, internal move paperwork, exit processing, and employee query resolution. Talent Acquisition becomes AI-assisted matching. HR Ops largely disappears. The surviving team is HRBPs focused on strategic workforce planning, culture, and organisational design — roles that require human judgement, empathy, and political navigation.</p>
-      </div>
-      <h3>Target KPIs</h3>
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-label">Time-to-Fill</div>
-          <div class="kpi-target">15–20 days</div>
-          <div class="kpi-context">Down from 44 days</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">Cost-per-Hire</div>
-          <div class="kpi-target">$800–1.2K</div>
-          <div class="kpi-context">Down from $3–5K</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">HR FTE Count</div>
-          <div class="kpi-target">30–40</div>
-          <div class="kpi-context">Down from ~75 at IFS (7,000 employees)</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">Internal Move Admin</div>
-          <div class="kpi-target"><48 hours</div>
-          <div class="kpi-context">Down from 4–6 weeks</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">Query Resolution</div>
-          <div class="kpi-target">90% AI</div>
-          <div class="kpi-context">First-contact, no HR involved</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">Regrettable Attrition</div>
-          <div class="kpi-target">-30%</div>
-          <div class="kpi-context">Through predictive intervention</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section" id="section-3">
-      <h2>3. Challenging Questions for the Room</h2>
-      <p>These are not abstract thought experiments. They are the outcomes your organisation needs to engineer in the next 12 to 24 months.</p>
-      <div class="questions-section">
-
-        <div class="question-category">
-          <h4>Joiner</h4>
-          <ul>
-            <li>How do we make the entire IFS hiring process — from requisition to day-90 productive employee — run without a single recruiter manually screening a CV, scheduling an interview, or sending an onboarding checklist?</li>
-            <li>What has to be true for a new IFS engineer in Sri Lanka to have the same seamless, AI-orchestrated onboarding experience as one in Sweden — with AI handling all entity-specific employment and compliance differences?</li>
-          </ul>
-        </div>
-
-        <div class="question-category">
-          <h4>Mover</h4>
-          <ul>
-            <li>How do we make internal mobility at IFS frictionless — where an approved role change triggers automatic contract amendment, cost centre remapping, payroll adjustment, and systems re-provisioning across all entities in under 48 hours, with zero HR ops involvement?</li>
-            <li>If AI removes all admin friction from internal moves, does mobility actually increase at IFS — or is the real blocker that managers won't release their best people?</li>
-          </ul>
-        </div>
-
-        <div class="question-category">
-          <h4>Leaver</h4>
-          <ul>
-            <li>How do we achieve predictive attrition modelling that flags flight risk across IFS's 7,000 employees 3–6 months ahead — using engagement data, manager changes, compensation position, and peer departures — without any HRBP manually monitoring?</li>
-            <li>When AI captures a departing IFS engineer's institutional knowledge (key processes, system quirks, undocumented workarounds) and makes it searchable, does 'irreplaceable' stop being a thing?</li>
-          </ul>
-        </div>
-
-        <div class="question-category">
-          <h4>North Star</h4>
-          <ul>
-            <li>If we go from ~75 to 30–40 in HR for a 7,000-person company, what are the 5 roles that remain — and are they all strategic (workforce planning, culture, org design) rather than operational?</li>
-            <li>How do we manage the transition ethically — is there a role for displaced HR ops staff in the new AI-native org, or do we invest in reskilling them for entirely different functions?</li>
-            <li>If HR administration becomes invisible, how does the CHRO demonstrate strategic value to the IFS board — and does the CHRO role itself need to be redefined?</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="section" id="section-4">
-      <h2>4. AI Companies Reshaping HR</h2>
-      <p>The market has moved from experimental to production-grade. Spend time on these websites: watch demos, read case studies. Understanding what is possible is the prerequisite for deciding what is right for IFS.</p>
-      
-      <div class="company-section-label">Joiner: Recruiting & Onboarding</div>
-      <div class="company-grid">
-        <a href="https://eightfold.ai" target="_blank" class="company-card">
-          <h4>Eightfold AI</h4>
-          <div class="cc-tag">Skills Intelligence & Talent Matching</div>
-          <div class="cc-desc">Deep-learning on 1.6B career profiles. Skills-based matching, not job titles. Agentic AI handles routine recruiting autonomously.</div>
-          <div class="cc-url">eightfold.ai →</div>
-        </a>
-        <a href="https://paradox.ai" target="_blank" class="company-card">
-          <h4>Paradox (Olivia)</h4>
-          <div class="cc-tag">Conversational AI Recruiting</div>
-          <div class="cc-desc">Fully agentic screening, scheduling, and candidate engagement. Integrated into Workday. Cuts time-to-hire by up to 60%.</div>
-          <div class="cc-url">paradox.ai →</div>
-        </a>
-        <a href="https://phenom.com" target="_blank" class="company-card">
-          <h4>Phenom</h4>
-          <div class="cc-tag">Talent Experience Platform</div>
-          <div class="cc-desc">End-to-end: career sites, chatbots, CRM, internal mobility, employee development. Industry-specific AI ontologies.</div>
-          <div class="cc-url">phenom.com →</div>
-        </a>
-        <a href="https://enboarder.com" target="_blank" class="company-card">
-          <h4>Enboarder</h4>
-          <div class="cc-tag">AI Onboarding Orchestration</div>
-          <div class="cc-desc">Turns onboarding from static checklists into adaptive workflows. Sequences provisioning, training, intros, and milestones.</div>
-          <div class="cc-url">enboarder.com →</div>
-        </a>
-      </div>
-      <div class="company-section-label">Mover: Internal Mobility & Career Intelligence</div>
-      <div class="company-grid">
-        <a href="https://gloat.com" target="_blank" class="company-card">
-          <h4>Gloat</h4>
-          <div class="cc-tag">AI Talent Marketplace</div>
-          <div class="cc-desc">Leading internal marketplace. Matches employees to projects, gigs, and roles by skills. Used by Unilever, Schneider Electric, Novartis.</div>
-          <div class="cc-url">gloat.com →</div>
-        </a>
-        <a href="https://fuel50.com" target="_blank" class="company-card">
-          <h4>Fuel50</h4>
-          <div class="cc-tag">Career Pathing & Skills Architecture</div>
-          <div class="cc-desc">AI career path mapping, skills assessment, talent marketplace. Employees discover pathways and identify gaps.</div>
-          <div class="cc-url">fuel50.com →</div>
-        </a>
-        <a href="https://365talents.com" target="_blank" class="company-card">
-          <h4>365Talents</h4>
-          <div class="cc-tag">Skills Intelligence</div>
-          <div class="cc-desc">Continuously maps employee skills from projects, learning, and feedback. No self-maintained profiles needed.</div>
-          <div class="cc-url">365talents.com →</div>
-        </a>
-      </div>
-      <div class="company-section-label">Leaver: Predictive Analytics & Knowledge Transfer</div>
-      <div class="company-grid">
-        <a href="https://visier.com" target="_blank" class="company-card">
-          <h4>Visier</h4>
-          <div class="cc-tag">People Analytics & Attrition</div>
-          <div class="cc-desc">Predicts attrition with up to 95% accuracy. 'What-if' scenario modelling lets HR test retention strategies before acting.</div>
-          <div class="cc-url">visier.com →</div>
-        </a>
-        <a href="https://onemodel.co" target="_blank" class="company-card">
-          <h4>One Model</h4>
-          <div class="cc-tag">People Data Platform</div>
-          <div class="cc-desc">Unifies people data into a single analytics layer. Retention dashboards, attrition prediction, custom metrics.</div>
-          <div class="cc-url">onemodel.co →</div>
-        </a>
-        <a href="https://sensay.io" target="_blank" class="company-card">
-          <h4>Sensay</h4>
-          <div class="cc-tag">AI Knowledge Transfer</div>
-          <div class="cc-desc">First AI offboarding platform. Structured voice interviews capture departing employees' expertise as searchable knowledge.</div>
-          <div class="cc-url">sensay.io →</div>
-        </a>
-      </div>
-      <div class="company-section-label">Full Lifecycle: Employee Experience</div>
-      <div class="company-grid">
-        <a href="https://leena.ai" target="_blank" class="company-card">
-          <h4>Leena AI</h4>
-          <div class="cc-tag">AI Employee Service Desk</div>
-          <div class="cc-desc">Resolves 90% of employee queries at first contact. Benefits, policy, leave, onboarding — all automated.</div>
-          <div class="cc-url">leena.ai →</div>
-        </a>
-        <a href="https://rippling.com" target="_blank" class="company-card">
-          <h4>Rippling</h4>
-          <div class="cc-tag">Unified HR, IT & Finance</div>
-          <div class="cc-desc">Cross-functional JML automation. Onboarding triggers provisioning, payroll, benefits. Offboarding handles deprovisioning and compliance.</div>
-          <div class="cc-url">rippling.com →</div>
-        </a>
-      </div>
-    </div>
-
-    <div class="section" id="section-5">
-      <h2>5. Hands-On Automation Exercises</h2>
-      <p>Do at least one before the session. Do all four if you want to arrive with a working prototype, not an opinion.</p>
-      
-      <div class="exercise-card">
-        <h4>1. The Internal Move Workflow Automator</h4>
-        <p>Document every step triggered when someone changes role internally at IFS: contract amendment, cost centre, payroll, benefits, reporting lines, systems access. Time each step. Calculate total elapsed time. Then build the AI version: design a workflow (in Make or Zapier) that triggers each step automatically from a single 'approved move' event. Target: under 48 hours end-to-end.</p>
-        <p><strong>Output:</strong> A working automated internal move workflow with measured time comparison against today's manual process.</p>
-        <p><strong>Tools:</strong> Make/Zapier, HRIS APIs, DocuSign API, Claude · <strong>Effort:</strong> 90 min</p>
-      </div>
-      <div class="exercise-card">
-        <h4>2. The Skills Graph Builder</h4>
-        <p>Pick a team of 15 IFS employees. Use AI to analyse their LinkedIn profiles, internal project history, and learning records to build a skills graph. Then take 3 open roles and match internal candidates by skills, not current position. How many matches would you never have considered?</p>
-        <p><strong>Output:</strong> A visual skills graph for 15 employees with AI-matched internal candidates for 3 open roles.</p>
-        <p><strong>Tools:</strong> Claude, LinkedIn data, internal HR data, HTML visualisation · <strong>Effort:</strong> 60 min</p>
-      </div>
-      <div class="exercise-card">
-        <h4>3. The Predictive Attrition Prototype</h4>
-        <p>Take anonymised data for 50–100 IFS leavers from the past year: tenure, role changes, compensation band, manager changes, engagement scores. Ask AI to find patterns and build a flight-risk model. Run it against the current population. Compare to what HRBPs know intuitively.</p>
-        <p><strong>Output:</strong> A working flight-risk model with predictions for current employees and a comparison to HRBP intuition.</p>
-        <p><strong>Tools:</strong> Claude, anonymised HR data, Python · <strong>Effort:</strong> 90 min</p>
-      </div>
-      <div class="exercise-card">
-        <h4>4. The Employee Query AI Agent</h4>
-        <p>Compile IFS's top 100 employee HR questions (leave policy, benefits, expense processes, onboarding FAQs). Build an AI agent using Claude that can answer them accurately and conversationally. Test it against 20 real employee queries. Measure accuracy and response time vs. your current HR helpdesk.</p>
-        <p><strong>Output:</strong> A working AI HR agent with measured accuracy and speed benchmarks against the current helpdesk.</p>
-        <p><strong>Tools:</strong> Claude API, HR policy documents, Python/HTML · <strong>Effort:</strong> 2 hours</p>
-      </div>
-    </div>
-
-    <div class="section" id="section-6">
-      <h2>6. What to Research Before the Session</h2>
-      <p>Four tasks to ground the discussion in your reality.</p>
-      
-      <h3>1. Know Your JML Numbers</h3>
-      <p>Pull your actuals: time-to-fill, cost-per-hire, percentage of roles filled internally, time for an internal move to be processed, and regrettable attrition rate. If you don't have some of these, that's a finding — it tells you where your people data has blind spots.</p>
-      <h3>2. Map Your Mover Friction</h3>
-      <p>Talk to someone who recently changed roles internally at IFS. How long from approval to fully operational? What was painful? How many systems needed updating? The answers tell you where AI agents would create the most value.</p>
-      <h3>3. Explore One Platform</h3>
-      <p>Spend 20 minutes on Gloat or Visier. Gloat shows you the future of internal mobility. Visier shows you the future of people analytics. Both represent transformative capabilities for IFS's scale.</p>
-      <h3>4. Ask the Uncomfortable Question</h3>
-      <p>Ask your CHRO: 'If AI handled all JML administration — recruiting, contracts, payroll, benefits, onboarding, offboarding — what would our HR team actually spend their time on?' If the answer is clear, you're ahead. If there's a pause, that's the conversation.</p>
-      <blockquote>The organisations that win the talent war will not be the ones with the best recruiters. They will be the ones where joining is frictionless, moving is encouraged, and leaving is predicted before it happens.</blockquote>
-    </div>
-
-    <div class="footer">
-      <p>Future of HR: Rethinking the Joiner-Mover-Leaver Lifecycle with AI</p>
-      <p style="margin-top: 8px; opacity: 0.7;">IFS Internal · Pre-read & action brief · April 2026</p>
-    </div>
-  </main>
+<!-- ═══════════════════════════════════════════════════
+     SECTION PILL TABS
+     ═══════════════════════════════════════════════════ -->
+<div class="tabs-bar">
+  <div class="tabs-inner">
+    <a href="#section-1" class="tab-pill active" data-section="section-1">
+      <span class="tab-num">1</span> Current State
+    </a>
+    <a href="#section-2" class="tab-pill" data-section="section-2">
+      <span class="tab-num">2</span> Future Vision
+    </a>
+    <a href="#section-3" class="tab-pill" data-section="section-3">
+      <span class="tab-num">3</span> Questions
+    </a>
+    <a href="#section-4" class="tab-pill" data-section="section-4">
+      <span class="tab-num">4</span> AI Companies
+    </a>
+    <a href="#section-5" class="tab-pill" data-section="section-5">
+      <span class="tab-num">5</span> Hands-On
+    </a>
+    <a href="#section-6" class="tab-pill" data-section="section-6">
+      <span class="tab-num">6</span> Homework
+    </a>
+  </div>
 </div>
+
+<!-- ═══════════════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════════════ -->
+<main class="main">
+
+  <div class="page-header">
+    <div class="page-eyebrow">Future of Function &mdash; 08</div>
+    <h1>Future of HR</h1>
+    <div class="subtitle">Rethinking the Joiner-Mover-Leaver Lifecycle with AI</div>
+    <div class="tagline">Pre-Read &amp; Action Brief for the IFS Leadership Team</div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section" id="section-1">
+    <h2>1. The Current State</h2>
+    <p>Every HR function runs on the same lifecycle: joiner, then mover, then leaver. The Joiner-Mover-Leaver process is the operational backbone. And right now, it is broken at every stage.</p>
+    <p><strong>Joiner is inefficient.</strong> 44-day time-to-fill, mostly screening and scheduling.</p>
+    <p><strong>Mover is structurally neglected.</strong> Internal moves require weeks of admin across 8+ systems.</p>
+    <p><strong>Leaver is reactive.</strong> Exit interviews after the resignation letter.</p>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="label">Time-to-Fill</div>
+        <div class="value">44 days</div>
+        <div class="detail">Industry average, longer for specialists</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cost-per-Hire</div>
+        <div class="value">$3&ndash;5K</div>
+        <div class="detail">Including agency and admin overhead</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Movers vs Stayers</div>
+        <div class="value">7.4 vs 4.1 yrs</div>
+        <div class="detail">Average tenure with/without internal moves</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">HR AI Adoption</div>
+        <div class="value">61%</div>
+        <div class="detail">Large businesses, up from 19% in 2023</div>
+      </div>
+    </div>
+    <div class="before-after">
+      <div class="ba-col before">
+        <h4>Traditional Joiner-Mover-Leaver</h4>
+        <ul>
+          <li>44-day time-to-fill, mostly screening and scheduling</li>
+          <li>Job descriptions based on titles, not skills</li>
+          <li>Onboarding is a checklist emailed on day one</li>
+          <li>Internal moves require weeks of admin across 8+ systems</li>
+          <li>Exit interviews after the resignation letter</li>
+          <li>Knowledge walks out the door with the leaver</li>
+        </ul>
+      </div>
+      <div class="ba-col after">
+        <h4>AI-Native Joiner-Mover-Leaver</h4>
+        <ul>
+          <li>15&ndash;20 day time-to-fill, AI handles screening and scheduling</li>
+          <li>Skills-graph matching across 1B+ profiles</li>
+          <li>AI-orchestrated onboarding: systems, training, mentors</li>
+          <li>Automated contracts, cost centres, payroll in hours</li>
+          <li>Predictive attrition flags risk months ahead</li>
+          <li>AI captures knowledge before departure</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section" id="section-2">
+    <h2>2. How to Think About the Future of HR</h2>
+    <p>The Joiner-Mover-Leaver lifecycle forces specificity. Not &ldquo;AI will transform HR&rdquo; but exactly how each stage changes when AI agents handle the operational layer end-to-end.</p>
+
+    <div class="framework-item">
+      <h3>The Joiner: From Job Descriptions to Skills Matching</h3>
+      <p>The job description is a fiction: a wish list describing the last person in the role. AI platforms like Eightfold have indexed 1.6 billion career profiles and match on skills, not titles. For IFS, hiring across 6 countries and multiple technical domains (Go, TypeScript, React, event-driven architecture), skills-based matching is transformative. Conversational AI (Paradox/Olivia) handles screening and scheduling at scale. Onboarding shifts from checklist to orchestration: AI provisions 15 systems, sequences training, assigns mentors, and tracks milestones. By day 90, the new hire has been productively supported &mdash; not abandoned.</p>
+    </div>
+    <div class="framework-item">
+      <h3>The Mover: The Biggest Unlock in HR</h3>
+      <p>Employees who make internal moves stay nearly twice as long (7.4 vs 4.1 years). Yet internal moves at a company like IFS &mdash; with entities across multiple countries, different employment contracts, and complex ERP/cost centre structures &mdash; are administratively painful. An internal move triggers: contract amendment, cost centre remapping, payroll adjustments, benefits re-enrollment, travel policy updates, reporting line changes, and systems access reconfiguration. AI agents collapse this to hours. Platforms like Gloat and Fuel50 add the talent marketplace layer: surfacing opportunities to employees before they start browsing LinkedIn.</p>
+    </div>
+    <div class="framework-item">
+      <h3>The Leaver: From Reactive to Predictive</h3>
+      <p>Predictive attrition models flag flight risk 3&ndash;6 months ahead with up to 95% accuracy. At IFS, where losing a senior engineer or a domain expert in aerospace MRO costs 6&ndash;12 months of productivity replacement, early warning is invaluable. AI agents trigger retention interventions: compensation review, opportunity surfacing, or manager prompts. When someone does leave, AI captures institutional knowledge through structured interviews &mdash; making it searchable. The cost of attrition drops not because fewer people leave, but because departures are anticipated, managed, and their knowledge is preserved.</p>
+    </div>
+    <div class="framework-item">
+      <h3>JML as a Continuous Loop</h3>
+      <p>In the AI-native model, the boundaries dissolve. An internal move is a mini-join with its own onboarding. A leaver&rsquo;s knowledge persists in the system. Boomerang hires are recognised instantly. The HR function stops being an event processor and becomes a flow manager. The org chart becomes a skills graph, the headcount plan becomes a capability plan, and everything periodic becomes continuous.</p>
+    </div>
+
+    <div class="north-star-callout">
+      <div class="ns-label">North-Star Target</div>
+      <div class="ns-title">From ~75 (HR Ops, Talent Acquisition, L&amp;D, HRBPs, People Analytics, Compensation &amp; Benefits) &rarr; <strong>30&ndash;40</strong> people</div>
+      <div class="ns-ratio">HR staff per 1,000 employees: from 11 to 4</div>
+      <p class="ns-body">AI handles 90%+ of transactional HR: recruitment screening, onboarding administration, internal move paperwork, exit processing, and employee query resolution. Talent Acquisition becomes AI-assisted matching. HR Ops largely disappears. The surviving team is HRBPs focused on strategic workforce planning, culture, and organisational design &mdash; roles that require human judgement, empathy, and political navigation.</p>
+    </div>
+
+    <h3>Target KPIs</h3>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Time-to-Fill</div>
+        <div class="kpi-target">15&ndash;20 days</div>
+        <div class="kpi-context">Down from 44 days</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Cost-per-Hire</div>
+        <div class="kpi-target">$800&ndash;1.2K</div>
+        <div class="kpi-context">Down from $3&ndash;5K</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">HR FTE Count</div>
+        <div class="kpi-target">30&ndash;40</div>
+        <div class="kpi-context">Down from ~75 at IFS (7,000 employees)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Internal Move Admin</div>
+        <div class="kpi-target">&lt;48 hours</div>
+        <div class="kpi-context">Down from 4&ndash;6 weeks</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Query Resolution</div>
+        <div class="kpi-target">90% AI</div>
+        <div class="kpi-context">First-contact, no HR involved</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Regrettable Attrition</div>
+        <div class="kpi-target">-30%</div>
+        <div class="kpi-context">Through predictive intervention</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section" id="section-3">
+    <h2>3. Challenging Questions for the Room</h2>
+    <p>These are not abstract thought experiments. They are the outcomes your organisation needs to engineer in the next 12 to 24 months.</p>
+    <div class="questions-section">
+      <div class="question-category">
+        <h4>Joiner</h4>
+        <ul>
+          <li>How do we make the entire IFS hiring process &mdash; from requisition to day-90 productive employee &mdash; run without a single recruiter manually screening a CV, scheduling an interview, or sending an onboarding checklist?</li>
+          <li>What has to be true for a new IFS engineer in Sri Lanka to have the same seamless, AI-orchestrated onboarding experience as one in Sweden &mdash; with AI handling all entity-specific employment and compliance differences?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>Mover</h4>
+        <ul>
+          <li>How do we make internal mobility at IFS frictionless &mdash; where an approved role change triggers automatic contract amendment, cost centre remapping, payroll adjustment, and systems re-provisioning across all entities in under 48 hours, with zero HR ops involvement?</li>
+          <li>If AI removes all admin friction from internal moves, does mobility actually increase at IFS &mdash; or is the real blocker that managers won&rsquo;t release their best people?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>Leaver</h4>
+        <ul>
+          <li>How do we achieve predictive attrition modelling that flags flight risk across IFS&rsquo;s 7,000 employees 3&ndash;6 months ahead &mdash; using engagement data, manager changes, compensation position, and peer departures &mdash; without any HRBP manually monitoring?</li>
+          <li>When AI captures a departing IFS engineer&rsquo;s institutional knowledge (key processes, system quirks, undocumented workarounds) and makes it searchable, does &lsquo;irreplaceable&rsquo; stop being a thing?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>North Star</h4>
+        <ul>
+          <li>If we go from ~75 to 30&ndash;40 in HR for a 7,000-person company, what are the 5 roles that remain &mdash; and are they all strategic (workforce planning, culture, org design) rather than operational?</li>
+          <li>How do we manage the transition ethically &mdash; is there a role for displaced HR ops staff in the new AI-native org, or do we invest in reskilling them for entirely different functions?</li>
+          <li>If HR administration becomes invisible, how does the CHRO demonstrate strategic value to the IFS board &mdash; and does the CHRO role itself need to be redefined?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section" id="section-4">
+    <h2>4. AI Companies Reshaping HR</h2>
+    <p>The market has moved from experimental to production-grade. Spend time on these websites: watch demos, read case studies. Understanding what is possible is the prerequisite for deciding what is right for IFS.</p>
+
+    <div class="company-section-label">Joiner: Recruiting &amp; Onboarding</div>
+    <div class="company-grid">
+      <a href="https://eightfold.ai" target="_blank" rel="noopener" class="company-card">
+        <h4>Eightfold AI</h4>
+        <div class="cc-tag">Skills Intelligence &amp; Talent Matching</div>
+        <div class="cc-desc">Deep-learning on 1.6B career profiles. Skills-based matching, not job titles. Agentic AI handles routine recruiting autonomously.</div>
+        <div class="cc-url">eightfold.ai &rarr;</div>
+      </a>
+      <a href="https://paradox.ai" target="_blank" rel="noopener" class="company-card">
+        <h4>Paradox (Olivia)</h4>
+        <div class="cc-tag">Conversational AI Recruiting</div>
+        <div class="cc-desc">Fully agentic screening, scheduling, and candidate engagement. Integrated into Workday. Cuts time-to-hire by up to 60%.</div>
+        <div class="cc-url">paradox.ai &rarr;</div>
+      </a>
+      <a href="https://phenom.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Phenom</h4>
+        <div class="cc-tag">Talent Experience Platform</div>
+        <div class="cc-desc">End-to-end: career sites, chatbots, CRM, internal mobility, employee development. Industry-specific AI ontologies.</div>
+        <div class="cc-url">phenom.com &rarr;</div>
+      </a>
+      <a href="https://enboarder.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Enboarder</h4>
+        <div class="cc-tag">AI Onboarding Orchestration</div>
+        <div class="cc-desc">Turns onboarding from static checklists into adaptive workflows. Sequences provisioning, training, intros, and milestones.</div>
+        <div class="cc-url">enboarder.com &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">Mover: Internal Mobility &amp; Career Intelligence</div>
+    <div class="company-grid">
+      <a href="https://gloat.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Gloat</h4>
+        <div class="cc-tag">AI Talent Marketplace</div>
+        <div class="cc-desc">Leading internal marketplace. Matches employees to projects, gigs, and roles by skills. Used by Unilever, Schneider Electric, Novartis.</div>
+        <div class="cc-url">gloat.com &rarr;</div>
+      </a>
+      <a href="https://fuel50.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Fuel50</h4>
+        <div class="cc-tag">Career Pathing &amp; Skills Architecture</div>
+        <div class="cc-desc">AI career path mapping, skills assessment, talent marketplace. Employees discover pathways and identify gaps.</div>
+        <div class="cc-url">fuel50.com &rarr;</div>
+      </a>
+      <a href="https://365talents.com" target="_blank" rel="noopener" class="company-card">
+        <h4>365Talents</h4>
+        <div class="cc-tag">Skills Intelligence</div>
+        <div class="cc-desc">Continuously maps employee skills from projects, learning, and feedback. No self-maintained profiles needed.</div>
+        <div class="cc-url">365talents.com &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">Leaver: Predictive Analytics &amp; Knowledge Transfer</div>
+    <div class="company-grid">
+      <a href="https://visier.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Visier</h4>
+        <div class="cc-tag">People Analytics &amp; Attrition</div>
+        <div class="cc-desc">Predicts attrition with up to 95% accuracy. &lsquo;What-if&rsquo; scenario modelling lets HR test retention strategies before acting.</div>
+        <div class="cc-url">visier.com &rarr;</div>
+      </a>
+      <a href="https://onemodel.co" target="_blank" rel="noopener" class="company-card">
+        <h4>One Model</h4>
+        <div class="cc-tag">People Data Platform</div>
+        <div class="cc-desc">Unifies people data into a single analytics layer. Retention dashboards, attrition prediction, custom metrics.</div>
+        <div class="cc-url">onemodel.co &rarr;</div>
+      </a>
+      <a href="https://sensay.io" target="_blank" rel="noopener" class="company-card">
+        <h4>Sensay</h4>
+        <div class="cc-tag">AI Knowledge Transfer</div>
+        <div class="cc-desc">First AI offboarding platform. Structured voice interviews capture departing employees&rsquo; expertise as searchable knowledge.</div>
+        <div class="cc-url">sensay.io &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">Full Lifecycle: Employee Experience</div>
+    <div class="company-grid">
+      <a href="https://leena.ai" target="_blank" rel="noopener" class="company-card">
+        <h4>Leena AI</h4>
+        <div class="cc-tag">AI Employee Service Desk</div>
+        <div class="cc-desc">Resolves 90% of employee queries at first contact. Benefits, policy, leave, onboarding &mdash; all automated.</div>
+        <div class="cc-url">leena.ai &rarr;</div>
+      </a>
+      <a href="https://rippling.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Rippling</h4>
+        <div class="cc-tag">Unified HR, IT &amp; Finance</div>
+        <div class="cc-desc">Cross-functional JML automation. Onboarding triggers provisioning, payroll, benefits. Offboarding handles deprovisioning and compliance.</div>
+        <div class="cc-url">rippling.com &rarr;</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="section" id="section-5">
+    <h2>5. Hands-On Automation Exercises</h2>
+    <p>Do at least one before the session. Do all four if you want to arrive with a working prototype, not an opinion.</p>
+
+    <div class="exercise-card">
+      <h4>1. The Internal Move Workflow Automator</h4>
+      <p>Document every step triggered when someone changes role internally at IFS: contract amendment, cost centre, payroll, benefits, reporting lines, systems access. Time each step. Calculate total elapsed time. Then build the AI version: design a workflow (in Make or Zapier) that triggers each step automatically from a single &lsquo;approved move&rsquo; event. Target: under 48 hours end-to-end.</p>
+      <p><strong>Output:</strong> A working automated internal move workflow with measured time comparison against today&rsquo;s manual process.</p>
+      <p><strong>Tools:</strong> Make/Zapier, HRIS APIs, DocuSign API, Claude &middot; <strong>Effort:</strong> 90 min</p>
+    </div>
+    <div class="exercise-card">
+      <h4>2. The Skills Graph Builder</h4>
+      <p>Pick a team of 15 IFS employees. Use AI to analyse their LinkedIn profiles, internal project history, and learning records to build a skills graph. Then take 3 open roles and match internal candidates by skills, not current position. How many matches would you never have considered?</p>
+      <p><strong>Output:</strong> A visual skills graph for 15 employees with AI-matched internal candidates for 3 open roles.</p>
+      <p><strong>Tools:</strong> Claude, LinkedIn data, internal HR data, HTML visualisation &middot; <strong>Effort:</strong> 60 min</p>
+    </div>
+    <div class="exercise-card">
+      <h4>3. The Predictive Attrition Prototype</h4>
+      <p>Take anonymised data for 50&ndash;100 IFS leavers from the past year: tenure, role changes, compensation band, manager changes, engagement scores. Ask AI to find patterns and build a flight-risk model. Run it against the current population. Compare to what HRBPs know intuitively.</p>
+      <p><strong>Output:</strong> A working flight-risk model with predictions for current employees and a comparison to HRBP intuition.</p>
+      <p><strong>Tools:</strong> Claude, anonymised HR data, Python &middot; <strong>Effort:</strong> 90 min</p>
+    </div>
+    <div class="exercise-card">
+      <h4>4. The Employee Query AI Agent</h4>
+      <p>Compile IFS&rsquo;s top 100 employee HR questions (leave policy, benefits, expense processes, onboarding FAQs). Build an AI agent using Claude that can answer them accurately and conversationally. Test it against 20 real employee queries. Measure accuracy and response time vs. your current HR helpdesk.</p>
+      <p><strong>Output:</strong> A working AI HR agent with measured accuracy and speed benchmarks against the current helpdesk.</p>
+      <p><strong>Tools:</strong> Claude API, HR policy documents, Python/HTML &middot; <strong>Effort:</strong> 2 hours</p>
+    </div>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="section" id="section-6">
+    <h2>6. What to Research Before the Session</h2>
+    <p>Four tasks to ground the discussion in your reality.</p>
+
+    <h3>1. Know Your JML Numbers</h3>
+    <p>Pull your actuals: time-to-fill, cost-per-hire, percentage of roles filled internally, time for an internal move to be processed, and regrettable attrition rate. If you don&rsquo;t have some of these, that&rsquo;s a finding &mdash; it tells you where your people data has blind spots.</p>
+    <h3>2. Map Your Mover Friction</h3>
+    <p>Talk to someone who recently changed roles internally at IFS. How long from approval to fully operational? What was painful? How many systems needed updating? The answers tell you where AI agents would create the most value.</p>
+    <h3>3. Explore One Platform</h3>
+    <p>Spend 20 minutes on Gloat or Visier. Gloat shows you the future of internal mobility. Visier shows you the future of people analytics. Both represent transformative capabilities for IFS&rsquo;s scale.</p>
+    <h3>4. Ask the Uncomfortable Question</h3>
+    <p>Ask your CHRO: &lsquo;If AI handled all JML administration &mdash; recruiting, contracts, payroll, benefits, onboarding, offboarding &mdash; what would our HR team actually spend their time on?&rsquo; If the answer is clear, you&rsquo;re ahead. If there&rsquo;s a pause, that&rsquo;s the conversation.</p>
+    <blockquote>The organisations that win the talent war will not be the ones with the best recruiters. They will be the ones where joining is frictionless, moving is encouraged, and leaving is predicted before it happens.</blockquote>
+  </div>
+
+  <!-- Footer Navigation -->
+  <div class="page-footer">
+    <div class="footer-nav">
+      <a href="future-of-function-07-marketing.html">
+        <i data-lucide="arrow-left"></i> Marketing
+      </a>
+      <a href="../index.html#prereads" class="back-all">
+        <i data-lucide="layout-grid"></i> All Briefs
+      </a>
+      <a href="future-of-function-09-finance.html">
+        Finance <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+    <div class="footer-meta">
+      <p>Future of HR: Rethinking the Joiner-Mover-Leaver Lifecycle with AI</p>
+      <p>IFS Internal &middot; Pre-read &amp; action brief &middot; April 2026</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════ -->
 <script>
-function toggleTheme() {
-  const html = document.documentElement;
-  html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
-}
-const sections = document.querySelectorAll('.section');
-const navItems = document.querySelectorAll('.nav-item');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navItems.forEach(item => item.classList.remove('active'));
-      const activeNav = document.querySelector(`.nav-item[data-section="${entry.target.id}"]`);
-      if (activeNav) activeNav.classList.add('active');
-    }
+(function() {
+  'use strict';
+
+  // Initialize Lucide icons
+  lucide.createIcons();
+
+  // Scroll-spy for pill tabs
+  const sections = document.querySelectorAll('.section');
+  const tabPills = document.querySelectorAll('.tab-pill');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tabPills.forEach(pill => pill.classList.remove('active'));
+        const activePill = document.querySelector(`.tab-pill[data-section="${entry.target.id}"]`);
+        if (activePill) {
+          activePill.classList.add('active');
+          // Scroll pill into view in tabs bar
+          activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(section => observer.observe(section));
+
+  // Smooth scroll for pill tabs and nav links
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
   });
-}, { rootMargin: '-20% 0px -70% 0px' });
-sections.forEach(section => observer.observe(section));
+})();
 </script>
 </body>
 </html>
