@@ -60,6 +60,10 @@ a { color: var(--accent-indigo-light); text-decoration: none; }
 a:hover { text-decoration: underline; }
 img { max-width: 100%; height: auto; display: block; }
 
+/* Feature flags – append ?ext_edit=true to URL to reveal flagged content */
+.ff-ext-edit { display: none !important; }
+body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
+
 /* Skip link */
 .skip-link {
   position: absolute; top: -100px; left: 16px;
@@ -1502,6 +1506,11 @@ img { max-width: 100%; height: auto; display: block; }
 <script>
 (function() {
   'use strict';
+
+  // Feature flags – append ?ext_edit=true to URL to reveal flagged content
+  if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
+    document.body.classList.add('ff-ext-edit-on');
+  }
 
   // Reduced motion check
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

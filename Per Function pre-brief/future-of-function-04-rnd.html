@@ -58,6 +58,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
+/* Feature flags */
+.ff-ext-edit { display: none !important; }
+body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
+
 ::selection { background: var(--accent); color: white; }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
@@ -732,6 +736,11 @@ blockquote {
 <script>
 (function() {
   'use strict';
+
+  // Feature flags
+  if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
+    document.body.classList.add('ff-ext-edit-on');
+  }
 
   // Initialize Lucide icons
   lucide.createIcons();
