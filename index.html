@@ -232,6 +232,22 @@ body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
   margin-bottom: 20px; margin-top: 24px;
   animation: fadeInUp 0.8s var(--ease) both;
 }
+@keyframes wave {
+  0%   { transform: rotate(0deg); }
+  10%  { transform: rotate(14deg); }
+  20%  { transform: rotate(-8deg); }
+  30%  { transform: rotate(14deg); }
+  40%  { transform: rotate(-4deg); }
+  50%  { transform: rotate(10deg); }
+  60%  { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+.wave-emoji {
+  display: inline-block;
+  transform-origin: 70% 70%;
+  animation: wave 2.5s infinite;
+  text-transform: none;
+}
 .hero-title {
   font-family: var(--font-display); font-size: clamp(30px, 4.5vw, 48px); font-weight: 800;
   color: var(--text-primary); letter-spacing: -0.3px; line-height: 1.15; margin-bottom: 18px;
@@ -756,7 +772,7 @@ body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
   <div class="hero-orb hero-orb-1"></div>
   <div class="hero-orb hero-orb-2"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow">IFS AI Leadership Summit</div>
+    <div class="hero-eyebrow">IFS AI Leadership Summit<span class="ff-ext-edit"><span class="wave-emoji">&#x1F44B;</span></span></div>
     <h1 class="hero-title">The Ground Is Shifting</h1>
     <p class="hero-lead">AI-native startups aren&rsquo;t adding features to existing software. They&rsquo;re replacing entire functions with new architectures that make traditional SaaS look slow and bloated. Sales, Marketing, HR, Finance, IT. They&rsquo;re all in the crosshairs. IFS has a window: our industries adopt deliberately, which gives us time to lead. But that window is closing. This event is about making sure every leader here feels the urgency and leaves with a plan.</p>
     <div class="hero-meta">
