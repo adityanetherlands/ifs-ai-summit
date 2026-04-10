@@ -138,14 +138,14 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .nav-inner {
   max-width: var(--max-width); margin: 0 auto; padding: 0 32px;
-  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  width: 100%; display: flex; align-items: center;
 }
 .nav-brand {
   font-family: var(--font-display); font-size: 15px; font-weight: 700;
-  color: var(--text-primary); white-space: nowrap;
+  color: var(--text-primary); white-space: nowrap; margin-right: auto;
 }
 .nav-brand span { color: var(--accent-indigo-light); }
-.nav-links { display: flex; gap: 4px; list-style: none; }
+.nav-links { display: flex; gap: 4px; list-style: none; margin-left: auto; }
 .nav-links a {
   font-size: 13px; font-weight: 600; color: var(--text-muted);
   padding: 8px 14px; border-radius: 6px; text-decoration: none;
@@ -223,21 +223,27 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 32px; }
 .hero-eyebrow {
-  font-family: var(--font-display); font-size: 13px; font-weight: 700;
-  letter-spacing: 3px; text-transform: uppercase; color: var(--accent-indigo-light);
-  margin-bottom: 20px;
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent-indigo-light);
+  margin-bottom: 16px;
   animation: fadeInUp 0.8s var(--ease) both;
 }
 .hero-title {
-  font-family: var(--font-display); font-size: clamp(42px, 7vw, 76px); font-weight: 800;
-  color: var(--text-primary); letter-spacing: -1px; line-height: 1.08; margin-bottom: 20px;
+  font-family: var(--font-display); font-size: clamp(36px, 6vw, 64px); font-weight: 800;
+  color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.12; margin-bottom: 16px;
   animation: fadeInUp 0.8s var(--ease) 0.1s both;
 }
-.hero-subtitle {
-  font-size: 18px; color: var(--text-muted); margin-bottom: 28px; font-weight: 500;
+.hero-lead {
+  font-size: clamp(16px, 2.5vw, 19px); color: var(--text-muted); max-width: 640px; margin: 0 auto 32px;
+  line-height: 1.7; font-weight: 400;
   animation: fadeInUp 0.8s var(--ease) 0.2s both;
 }
-.hero-subtitle .sep { margin: 0 12px; opacity: 0.4; }
+.hero-meta {
+  display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;
+  font-size: 14px; color: var(--text-dim); font-weight: 500; margin-bottom: 28px;
+  animation: fadeInUp 0.8s var(--ease) 0.25s both;
+}
+.hero-meta .sep { margin: 0 4px; opacity: 0.3; }
 .hero-pills {
   display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px;
   animation: fadeInUp 0.8s var(--ease) 0.3s both;
@@ -518,42 +524,37 @@ img { max-width: 100%; height: auto; display: block; }
 .group-card .group-meta span { color: var(--accent-amber); font-weight: 600; }
 
 /* ═══════════════════════════════════════════════════════════════
-   VENUE GALLERY
+   VENUES
    ═══════════════════════════════════════════════════════════════ */
 #venue { background: var(--bg-secondary); }
-.venue-gallery {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+.venue-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.venue-card {
+  background: var(--bg-surface); border: 1px solid var(--border-default);
+  border-radius: 14px; overflow: hidden;
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
-.venue-thumb {
-  border-radius: 12px; overflow: hidden; cursor: pointer;
-  border: 1px solid var(--border-default); aspect-ratio: 4/3;
-  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+.venue-card:hover { border-color: rgba(99,102,241,0.3); box-shadow: 0 8px 32px rgba(99,102,241,0.08); }
+.venue-card-map { width: 100%; height: 280px; border-bottom: 1px solid var(--border-default); }
+.venue-card-map iframe { width: 100%; height: 100%; border: none; display: block; filter: saturate(0.7) brightness(0.85); transition: filter 0.3s; }
+.venue-card:hover .venue-card-map iframe { filter: saturate(0.9) brightness(0.95); }
+.venue-card-body { padding: 24px; }
+.venue-card-days {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px;
+  border-radius: 100px; margin-bottom: 12px;
 }
-.venue-thumb:hover { transform: scale(1.02); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
-.venue-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.venue-caption {
-  font-size: 13px; color: var(--text-dim); text-align: center; margin-top: 16px;
-  font-style: italic;
+.venue-days-hotel { background: rgba(99,102,241,0.15); color: var(--accent-indigo-light); border: 1px solid rgba(99,102,241,0.25); }
+.venue-days-museum { background: rgba(6,182,212,0.15); color: var(--accent-cyan); border: 1px solid rgba(6,182,212,0.25); }
+.venue-card h3 {
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 8px;
 }
-
-/* Lightbox */
-.lightbox {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92);
-  z-index: 2000; align-items: center; justify-content: center; padding: 40px;
-}
-.lightbox.open { display: flex; }
-.lightbox img {
-  max-width: 90vw; max-height: 85vh; border-radius: 12px;
-  box-shadow: 0 12px 48px rgba(0,0,0,0.5);
-}
-.lightbox-close {
-  position: absolute; top: 20px; right: 24px; background: none; border: none;
-  color: white; cursor: pointer; padding: 8px;
-}
-.lightbox-close svg { width: 28px; height: 28px; }
+.venue-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 6px; }
+.venue-card a { color: var(--accent-indigo-light); font-weight: 600; font-size: 13px; }
 
 @media (max-width: 768px) {
-  .venue-gallery { grid-template-columns: 1fr; gap: 12px; }
+  .venue-cards { grid-template-columns: 1fr; }
+  .venue-card-map { height: 220px; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -634,7 +635,6 @@ img { max-width: 100%; height: auto; display: block; }
   <div class="nav-inner">
     <div class="nav-brand">IFS <span>AI Summit</span></div>
     <ul class="nav-links">
-      <li><a href="#why" data-section="why">Why</a></li>
       <li><a href="#agenda" data-section="agenda">Agenda</a></li>
       <li><a href="#prereads" data-section="prereads">Pre-Reads</a></li>
       <li><a href="#homework" data-section="homework">Homework</a></li>
@@ -655,7 +655,6 @@ img { max-width: 100%; height: auto; display: block; }
   <button class="drawer-close" aria-label="Close menu" onclick="toggleDrawer()">
     <i data-lucide="x" style="width:24px;height:24px;"></i>
   </button>
-  <a href="#why" onclick="toggleDrawer()">Why This Matters</a>
   <a href="#agenda" onclick="toggleDrawer()">Agenda</a>
   <a href="#prereads" onclick="toggleDrawer()">Pre-Read Briefs</a>
   <a href="#homework" onclick="toggleDrawer()">Homework</a>
@@ -673,12 +672,18 @@ img { max-width: 100%; height: auto; display: block; }
   <div class="hero-orb hero-orb-1"></div>
   <div class="hero-orb hero-orb-2"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow">IFS Leadership Event</div>
-    <h1 class="hero-title">AI Leadership<br>Summit</h1>
-    <p class="hero-subtitle">Mountain View, California <span class="sep">|</span> Mon 4 &ndash; Thu 7 May 2026</p>
+    <div class="hero-eyebrow">IFS AI Leadership Summit</div>
+    <h1 class="hero-title">The Ground<br>Is Shifting</h1>
+    <p class="hero-lead">AI-native startups aren&rsquo;t adding features &mdash; they&rsquo;re replacing entire functions. The companies that win will be the ones obsessively close to what their customers need. This is where we make sure IFS leads.</p>
+    <div class="hero-meta">
+      <span>Mountain View, California</span>
+      <span class="sep">&middot;</span>
+      <span>4 &ndash; 7 May 2026</span>
+    </div>
     <div class="hero-pills">
-      <span class="hero-pill"><i data-lucide="map-pin"></i> Stanford Park Hotel</span>
-      <span class="hero-pill"><i data-lucide="landmark"></i> Computer History Museum</span>
+      <span class="hero-pill"><i data-lucide="users"></i> 57 Senior Leaders</span>
+      <span class="hero-pill"><i data-lucide="calendar-days"></i> 4 Days</span>
+      <span class="hero-pill"><i data-lucide="zap"></i> 12 Working Groups</span>
     </div>
     <a href="#agenda" class="hero-cta">
       View Agenda <i data-lucide="arrow-down"></i>
@@ -1302,36 +1307,47 @@ img { max-width: 100%; height: auto; display: block; }
 </section>
 
 <!-- ═══════════════════════════════════════════════════
-     VENUE GALLERY
+     VENUES
      ═══════════════════════════════════════════════════ -->
 <section class="section" id="venue">
   <div class="container">
     <div class="section-header">
-      <div class="section-eyebrow">Day 2 Location</div>
-      <h2 class="section-title">The Venue</h2>
-      <p class="section-subtitle">The Learning Lab at the Computer History Museum, Mountain View &mdash; our home for the hands-on sessions on Tuesday.</p>
+      <div class="section-eyebrow">Where We&rsquo;ll Be</div>
+      <h2 class="section-title">The Venues</h2>
+      <p class="section-subtitle">Two locations across the four days &mdash; our hotel base and the hands-on lab at the Computer History Museum.</p>
     </div>
 
-    <div class="venue-gallery animate-on-scroll">
-      <div class="venue-thumb" onclick="openLightbox(this)">
-        <img src="Even Space details/Learning Lab 2.jpeg" alt="Learning Lab at Computer History Museum - wide view" loading="lazy">
+    <div class="venue-cards animate-on-scroll">
+
+      <!-- Hotel -->
+      <div class="venue-card">
+        <div class="venue-card-map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3169.1!2d-122.1748215!3d37.4477562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fbb4af2265e03%3A0x15bd1c80e42bd396!2sThe%20Stanford%20Park%20Hotel!5e0!3m2!1sen!2sus!4v1712700000000" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Stanford Park Hotel location"></iframe>
+        </div>
+        <div class="venue-card-body">
+          <div class="venue-card-days venue-days-hotel">Days 1, 3 &amp; 4 &middot; Hotel Base</div>
+          <h3>The Stanford Park Hotel</h3>
+          <p>Our home for the week. Opening dinner, working sessions, closing dinner, and all breakfasts. Group booking Mon 4 &ndash; Thu 7 May.</p>
+          <p><a href="https://stanfordparkhotel.com" target="_blank" rel="noopener">stanfordparkhotel.com &rarr;</a></p>
+        </div>
       </div>
-      <div class="venue-thumb" onclick="openLightbox(this)">
-        <img src="Even Space details/Learning Lab 3.jpeg" alt="Learning Lab at Computer History Museum - seating view" loading="lazy">
+
+      <!-- Museum -->
+      <div class="venue-card">
+        <div class="venue-card-map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3170.5!2d-122.077409!3d37.4142744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb7569249b39b%3A0xea8071641d7ef4f2!2sComputer%20History%20Museum!5e0!3m2!1sen!2sus!4v1712700000001" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Computer History Museum location"></iframe>
+        </div>
+        <div class="venue-card-body">
+          <div class="venue-card-days venue-days-museum">Day 2 &middot; Hands-On Lab</div>
+          <h3>Computer History Museum</h3>
+          <p>The Learning Lab &mdash; our venue for Tuesday&rsquo;s keynotes, Replit vibe coding, and Anthropic hands-on sessions. IFS-organised transport from hotel.</p>
+          <p><a href="https://computerhistory.org" target="_blank" rel="noopener">computerhistory.org &rarr;</a></p>
+        </div>
       </div>
-      <div class="venue-thumb" onclick="openLightbox(this)">
-        <img src="Even Space details/Learning Lab-2.jpg" alt="Learning Lab at Computer History Museum - detail view" loading="lazy">
-      </div>
+
     </div>
-    <p class="venue-caption">Learning Lab &mdash; Computer History Museum, Mountain View CA. Click any image to enlarge.</p>
   </div>
 </section>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lightbox-close" aria-label="Close lightbox"><i data-lucide="x"></i></button>
-  <img id="lightboxImg" src="" alt="Enlarged venue photo">
-</div>
 
 <!-- ═══════════════════════════════════════════════════
      LOGISTICS
@@ -1489,22 +1505,6 @@ img { max-width: 100%; height: auto; display: block; }
     overlay.classList.toggle('open');
     document.body.style.overflow = isOpen ? '' : 'hidden';
   };
-
-  // ─── Lightbox ───
-  window.openLightbox = function(thumb) {
-    const img = thumb.querySelector('img');
-    document.getElementById('lightboxImg').src = img.src;
-    document.getElementById('lightboxImg').alt = img.alt;
-    document.getElementById('lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
-  window.closeLightbox = function() {
-    document.getElementById('lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-  };
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLightbox();
-  });
 
   // ─── Smooth scroll for nav links ───
   document.querySelectorAll('a[href^="#"]').forEach(link => {
