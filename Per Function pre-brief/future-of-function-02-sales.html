@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future of Sales — Targeting & Account Management</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  :root { --transition: 0.3s ease; }
+  [data-theme="light"] {
+    --bg: #f8fafc; --bg-sidebar: #ffffff; --surface: #ffffff; --surface2: #f1f5f9; --surface3: #e2e8f0;
+    --border: #e2e8f0; --text: #1e293b; --text-secondary: #334155; --text-muted: #64748b;
+    --accent: #0d7377; --accent2: #14919b; --accent-glow: rgba(13, 115, 119, 0.08);
+    --red-muted: #b85c52; --red-bg: #fef5f4; --green-bg: rgba(13, 115, 119, 0.06);
+    --stat-gradient: linear-gradient(135deg, #0d7377 0%, #14919b 100%);
+  }
+  [data-theme="dark"] {
+    --bg: #0f1117; --bg-sidebar: #0b0d12; --surface: #181b23; --surface2: #1e222d; --surface3: #252a36;
+    --border: #2a2f3d; --text: #e4e6ed; --text-secondary: #c0c4d0; --text-muted: #9498ad;
+    --accent: #14919b; --accent2: #2dd4bf; --accent-glow: rgba(20, 145, 155, 0.12);
+    --red-muted: #f87171; --red-bg: rgba(248, 113, 113, 0.08); --green-bg: rgba(45, 212, 191, 0.06);
+    --stat-gradient: linear-gradient(135deg, #0d7377 0%, #0f766e 100%);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; font-size: 15px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; transition: background var(--transition), color var(--transition); }
+  ::selection { background: var(--accent); color: white; }
+  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .layout { display: flex; min-height: 100vh; }
+  .sidebar { width: 240px; position: fixed; top: 0; left: 0; bottom: 0; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 100; transition: background var(--transition), border-color var(--transition); overflow-y: auto; }
+  .sidebar-header { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); }
+  .sidebar-logo { font-size: 11px; font-weight: 700; color: var(--accent2); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .sidebar-title { font-size: 15px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; line-height: 1.3; }
+  .sidebar-nav { flex: 1; padding: 12px 0; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.15s; cursor: pointer; border-left: 3px solid transparent; }
+  .nav-item:hover { color: var(--text); background: var(--accent-glow); }
+  .nav-item.active { color: var(--accent2); background: var(--accent-glow); border-left-color: var(--accent); font-weight: 600; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 6px; background: var(--surface2); border: 1px solid var(--border); font-size: 11px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; transition: all 0.15s; }
+  .nav-item.active .nav-num { background: var(--accent); border-color: var(--accent); color: white; }
+  .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .theme-toggle { display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; user-select: none; }
+  .toggle-track { width: 40px; height: 22px; background: var(--surface3); border-radius: 11px; position: relative; transition: background var(--transition); border: 1px solid var(--border); }
+  .toggle-thumb { width: 16px; height: 16px; background: var(--accent); border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: transform var(--transition); }
+  [data-theme="dark"] .toggle-thumb { transform: translateX(18px); }
+  .toggle-icons { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--text-muted); }
+  .main { flex: 1; margin-left: 240px; padding: 0 60px; max-width: calc(100% - 240px); }
+  .header { padding: 48px 0 32px; border-bottom: 2px solid var(--accent); margin-bottom: 44px; }
+  .header h1 { font-size: 38px; font-weight: 800; margin-bottom: 12px; color: var(--text); line-height: 1.15; letter-spacing: -0.5px; }
+  .header .subtitle { font-size: 16px; color: var(--accent); font-weight: 600; letter-spacing: 0.3px; }
+  .header .tagline { font-size: 14px; color: var(--text-muted); margin-top: 8px; font-style: italic; }
+  .section { margin-bottom: 52px; scroll-margin-top: 24px; }
+  h2 { font-size: 26px; font-weight: 800; margin-bottom: 22px; color: var(--text); padding-bottom: 12px; border-bottom: 1px solid var(--border); letter-spacing: -0.3px; }
+  h3 { font-size: 18px; font-weight: 700; margin-top: 26px; margin-bottom: 12px; color: var(--accent); }
+  p { margin-bottom: 14px; font-size: 15px; line-height: 1.7; color: var(--text-secondary); }
+  strong { color: var(--text); font-weight: 700; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 26px 0; }
+  .stat-card { background: var(--stat-gradient); color: white; padding: 22px; border-radius: 10px; box-shadow: 0 4px 12px rgba(13, 115, 119, 0.2); }
+  .stat-card .label { font-size: 10px; letter-spacing: 1px; opacity: 0.8; margin-bottom: 8px; font-weight: 600; }
+  .stat-card .value { font-size: 28px; font-weight: 800; margin-bottom: 4px; line-height: 1.1; }
+  .stat-card .detail { font-size: 11px; opacity: 0.85; }
+  .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 26px 0; }
+  .ba-col { padding: 22px; border-radius: 10px; transition: background var(--transition), border-color var(--transition); }
+  .ba-col.before { border-left: 4px solid var(--red-muted); background: var(--red-bg); }
+  .ba-col.after { border-left: 4px solid var(--accent); background: var(--green-bg); }
+  .ba-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 14px; text-transform: uppercase; }
+  .ba-col.before h4 { color: var(--red-muted); } .ba-col.after h4 { color: var(--accent); }
+  .ba-col ul { list-style: none; padding: 0; }
+  .ba-col li { font-size: 13px; margin-bottom: 8px; padding-left: 20px; position: relative; line-height: 1.5; color: var(--text-secondary); }
+  .ba-col.before li:before { content: "•"; position: absolute; left: 0; color: var(--red-muted); font-size: 14px; }
+  .ba-col.after li:before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: bold; font-size: 12px; }
+  .framework-item { margin-bottom: 26px; }
+  .framework-item h3 { margin-top: 0; margin-bottom: 10px; }
+  .framework-item p { margin-bottom: 10px; }
+  .north-star-callout { background: var(--accent-glow); border: 2px solid var(--accent); border-radius: 10px; padding: 28px; margin: 30px 0; }
+  .ns-header { margin-bottom: 12px; }
+  .ns-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .ns-title { font-size: 22px; font-weight: 800; color: var(--text); }
+  .ns-title strong { color: var(--accent); }
+  .ns-ratio { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
+  .ns-body { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 0; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 24px 0; }
+  .kpi-card { background: var(--surface); border-top: 3px solid var(--accent); padding: 16px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); transition: background var(--transition); }
+  .kpi-card .kpi-label { font-size: 10px; color: var(--accent); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 5px; }
+  .kpi-card .kpi-target { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+  .kpi-card .kpi-context { font-size: 11px; color: var(--text-muted); }
+  .questions-section { background: var(--accent-glow); padding: 28px; border-radius: 10px; margin: 26px 0; border: 1px solid var(--border); transition: background var(--transition), border-color var(--transition); }
+  .question-category { margin-bottom: 24px; } .question-category:last-child { margin-bottom: 0; }
+  .question-category h4 { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; margin-bottom: 10px; text-transform: uppercase; }
+  .question-category ul { list-style: none; padding: 0; }
+  .question-category li { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; padding-left: 16px; position: relative; line-height: 1.55; }
+  .question-category li:before { content: "–"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+  .company-section-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-top: 24px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .company-card { background: var(--surface); border-radius: 10px; padding: 18px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); border-left: 3px solid var(--accent); transition: box-shadow 0.2s, transform 0.2s, background var(--transition); text-decoration: none; color: inherit; display: block; }
+  .company-card:hover { box-shadow: 0 4px 16px rgba(13, 115, 119, 0.15); transform: translateY(-2px); }
+  .company-card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .company-card .cc-tag { font-size: 10px; font-weight: 600; color: var(--accent); letter-spacing: 0.3px; margin-bottom: 6px; }
+  .company-card .cc-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 6px; }
+  .company-card .cc-url { font-size: 11px; color: var(--accent); font-weight: 600; }
+  .exercise-card { background: var(--surface); border-top: 3px solid var(--accent); padding: 22px; margin: 20px 0; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.04); transition: background var(--transition); }
+  .exercise-card h4 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+  .exercise-card p { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.6; }
+  .exercise-card p:last-child { margin-bottom: 0; }
+  blockquote { border-left: 4px solid var(--accent); padding-left: 20px; margin: 28px 0; font-size: 16px; font-style: italic; color: var(--text-secondary); line-height: 1.7; }
+  .footer { border-top: 1px solid var(--border); padding-top: 24px; margin-top: 48px; margin-bottom: 48px; text-align: center; color: var(--text-muted); font-size: 12px; }
+  a.inline-link { color: var(--accent); font-weight: 600; text-decoration: none; } a.inline-link:hover { text-decoration: underline; }
+  @media (max-width: 768px) {
+    .sidebar { display: none; } .main { margin-left: 0; padding: 0 20px; max-width: 100%; }
+    .header h1 { font-size: 28px; } .before-after { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; } .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .company-grid { grid-template-columns: 1fr; } h2 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">Future of Function</div>
+      <div class="sidebar-title">Sales — Targeting & Account Management</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#section-1" class="nav-item active" data-section="section-1"><span class="nav-num">1</span> Current State</a>
+      <a href="#section-2" class="nav-item" data-section="section-2"><span class="nav-num">2</span> Future Vision</a>
+      <a href="#section-3" class="nav-item" data-section="section-3"><span class="nav-num">3</span> Questions</a>
+      <a href="#section-4" class="nav-item" data-section="section-4"><span class="nav-num">4</span> AI Companies</a>
+      <a href="#section-5" class="nav-item" data-section="section-5"><span class="nav-num">5</span> Hands-On</a>
+      <a href="#section-6" class="nav-item" data-section="section-6"><span class="nav-num">6</span> Homework</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <div class="toggle-icons">☀️</div>
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <div class="toggle-icons">🌙</div>
+      </div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="header">
+      <h1>Future of Sales — Targeting & Account Management</h1>
+      <div class="subtitle">Rethinking the Target-Engage-Expand Cycle with AI</div>
+      <div class="tagline">Pre-Read & Action Brief for the IFS Sales Organisation</div>
+    </div>
+
+    <div class="section" id="section-1">
+      <h2>1. The Current State</h2>
+      <p>Every sales — targeting & account management function runs on the same lifecycle: target, then engage, then expand. The Target-Engage-Expand process is the operational backbone. And right now, it is broken at every stage.</p>
+      <p><strong>Target is inefficient.</strong> Reps spend 5+ hours/week manually researching accounts in LinkedIn, annual reports, and news.</p>
+      <p><strong>Engage is structurally neglected.</strong> Pipeline reviews based on rep gut feel, not predictive signals.</p>
+      <p><strong>Expand is reactive.</strong> Competitive intel gathered ad-hoc before each deal.</p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="label">SELLING TIME</div>
+          <div class="value">28%</div>
+          <div class="detail">Average rep time actually spent selling (rest is admin/research)</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">PIPELINE ACCURACY</div>
+          <div class="value">47%</div>
+          <div class="detail">Win rate on forecasted deals — barely better than a coin flip</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">SDR-TO-MEETING</div>
+          <div class="value">3%</div>
+          <div class="detail">Average cold outreach conversion rate</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">ACCOUNT PLAN STALENESS</div>
+          <div class="value">6+ months</div>
+          <div class="detail">Average age of last-updated strategic account plan</div>
+        </div>
+      </div>
+      <div class="before-after">
+        <div class="ba-col before">
+          <h4>Traditional Target-Engage-Expand</h4>
+          <ul>
+            <li>Reps spend 5+ hours/week manually researching accounts in LinkedIn, annual reports, and news</li>
+            <li>SDRs blast generic sequences to thousands — 3% conversion</li>
+            <li>Account plans are static PowerPoints updated quarterly at best</li>
+            <li>Pipeline reviews based on rep gut feel, not predictive signals</li>
+            <li>Competitive intel gathered ad-hoc before each deal</li>
+            <li>Expansion opportunities found by accident, not systematically</li>
+          </ul>
+        </div>
+        <div class="ba-col after">
+          <h4>AI-Native Target-Engage-Expand</h4>
+          <ul>
+            <li>AI generates real-time account briefs: financials, org charts, pain points, trigger events</li>
+            <li>AI agents send hyper-personalised outreach at scale — 15-20% conversion</li>
+            <li>Living account plans updated continuously with AI-detected signals</li>
+            <li>AI-scored pipeline with predictive win probability and next-best-action</li>
+            <li>Automated competitive battlecards refreshed daily</li>
+            <li>AI identifies whitespace and expansion signals across installed base</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="section-2">
+      <h2>2. How to Think About the Future of Sales — Targeting & Account Management</h2>
+      <p>The Target-Engage-Expand lifecycle forces specificity. Not "AI will transform sales — targeting & account management" but exactly how each stage changes when AI agents handle the operational layer end-to-end.</p>
+      
+      <div class="framework-item">
+        <h3>The Target Stage: From Lists to Intelligent Signals</h3>
+        <p>IFS sells to asset-intensive enterprises across 6 verticals — aerospace MRO, energy & utilities, manufacturing, construction, telco, and field service. The Total Addressable Market is vast but specific. Today, targeting is manual: analysts build account lists, reps research companies one by one, and SDRs blast sequences. AI platforms like 6sense and ZoomInfo use intent data, technographic signals, and buying committee mapping to identify which accounts are actively in-market for ERP, EAM, or FSM — before a rep picks up the phone. Demandbase adds account-based advertising that warms accounts before outreach. For IFS, with its industry-specific positioning, AI targeting is especially powerful: it can match IFS's vertical strengths (e.g., #1 in FSM per Gartner) to accounts with exactly those needs.</p>
+      </div>
+      <div class="framework-item">
+        <h3>The Engage Stage: From Sequences to Conversations</h3>
+        <p>Enterprise software sales at IFS's price point ($500K–$5M+ ACV) require deep, personalised engagement. Today, this preparation is manual and time-consuming. AI transforms engagement by auto-generating pre-call briefs (company financials, recent news, installed tech stack, likely pain points), drafting personalised outreach that references specific operational challenges ('Your fleet's first-time-fix rate is 12 points below the industry benchmark we see with our A&D customers'), and handling follow-up sequences autonomously. Platforms like Gong analyse every sales conversation to identify winning patterns and coach reps in real-time. Salesforce Einstein and Clari provide AI-powered pipeline scoring that tells reps where to focus.</p>
+      </div>
+      <div class="framework-item">
+        <h3>The Expand Stage: From Reactive Renewals to Proactive Growth</h3>
+        <p>IFS's 22% ARR growth is powered partly by expansion within the installed base. But expansion today is largely reactive — account managers notice an opportunity during a QBR, or a customer asks for a new module. AI reverses this: it continuously analyses product usage, support tickets, and operational data to identify expansion signals. An energy customer using EAM but not FSM, with rising field service ticket volumes, gets flagged automatically. A manufacturing customer whose production planning usage is maxing out gets an AI-generated business case for upgrading. The expansion motion becomes predictive and systematic, not opportunistic.</p>
+      </div>
+      <div class="framework-item">
+        <h3>Target-Engage-Expand as a Continuous Loop</h3>
+        <p>In the AI-native model, the sales cycle never really ends. Targeting feeds engagement, engagement generates usage data, usage data drives expansion signals, and expansion success informs future targeting. Every customer interaction — support ticket, product usage pattern, QBR conversation — feeds the AI model. The account plan is never stale because it's never static. The sales org stops being a pipeline machine and becomes a revenue intelligence system.</p>
+      </div>
+      
+      <div class="north-star-callout">
+        <div class="ns-header">
+          <div class="ns-label">NORTH-STAR TARGET</div>
+          <div class="ns-title">From ~500 (AEs, SDRs, Sales Ops, Sales Engineers, Account Managers, Regional VPs) → <strong>300–350</strong> people</div>
+        </div>
+        <div class="ns-ratio">Revenue per sales FTE: from ~$600K to ~$1.2M</div>
+        <p class="ns-body">AI eliminates the research, admin, and low-value prospecting that consumes 60%+ of a rep's week. SDR teams shrink as AI agents handle initial outreach and qualification. Sales Ops is largely automated. Account planning becomes AI-generated. The survivors are pure relationship managers and deal strategists — fewer people, but every one of them selling, not researching.</p>
+      </div>
+      <h3>Target KPIs</h3>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Selling Time</div>
+          <div class="kpi-target">>60%</div>
+          <div class="kpi-context">Up from 28% of rep time</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Pipeline Win Rate</div>
+          <div class="kpi-target">>55%</div>
+          <div class="kpi-context">Up from 47% on forecasted deals</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Sales FTE Count</div>
+          <div class="kpi-target">300–350</div>
+          <div class="kpi-context">Down from ~500 at IFS scale</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Account Plan Freshness</div>
+          <div class="kpi-target">Always current</div>
+          <div class="kpi-context">From 6+ months stale</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">SDR Conversion</div>
+          <div class="kpi-target">15–20%</div>
+          <div class="kpi-context">Up from 3% cold outreach</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Expansion Revenue Ratio</div>
+          <div class="kpi-target">>45%</div>
+          <div class="kpi-context">Of total new ARR from existing accounts</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="section-3">
+      <h2>3. Challenging Questions for the Room</h2>
+      <p>These are not abstract thought experiments. They are the outcomes your organisation needs to engineer in the next 12 to 24 months.</p>
+      <div class="questions-section">
+
+        <div class="question-category">
+          <h4>Target</h4>
+          <ul>
+            <li>How do we get to a state where every outbound motion is triggered by a buying signal — intent data, budget cycle, competitor displacement — with zero manual list-building by SDRs or ops?</li>
+            <li>What has to be true for IFS to know which of the 50,000 asset-intensive enterprises globally are actively evaluating ERP/EAM/FSM right now — and automatically match them to our strongest vertical play?</li>
+          </ul>
+        </div>
+
+        <div class="question-category">
+          <h4>Engage</h4>
+          <ul>
+            <li>How do we make every first meeting a second meeting — where the AI has already delivered a personalised value hypothesis based on the prospect's public financials, operational data, and competitive stack, without a single AE spending time on research?</li>
+            <li>If AI can draft proposals, generate ROI models, and produce custom demo scripts for each prospect, what does an Account Executive actually do that an AI agent cannot?</li>
+          </ul>
+        </div>
+
+        <div class="question-category">
+          <h4>Expand</h4>
+          <ul>
+            <li>How do we achieve automatic expansion identification across our 10,000+ customers — where AI monitors product usage, support patterns, and operational signals to generate a prioritised expansion pipeline without any account manager manually reviewing an account?</li>
+            <li>What has to be true for every renewal to include an AI-generated expansion recommendation with a custom business case — before the account manager even opens the account?</li>
+          </ul>
+        </div>
+
+        <div class="question-category">
+          <h4>North Star</h4>
+          <ul>
+            <li>If we go from ~500 to 300–350 in sales and double revenue per head, what are the 3 new roles that don't exist today — and how do we retrain SDRs and Sales Ops for an AI-native org?</li>
+            <li>How do we reskill a sales force that was hired for research and relationship management into one that's hired for deal strategy and executive negotiation — because AI handles everything else?</li>
+            <li>If AI handles targeting, research, outreach, proposal generation, and expansion identification, is the traditional SDR-AE-AM career path still relevant — or do we need an entirely new model?</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section" id="section-4">
+      <h2>4. AI Companies Reshaping Sales — Targeting & Account Management</h2>
+      <p>The market has moved from experimental to production-grade. Spend time on these websites: watch demos, read case studies. Understanding what is possible is the prerequisite for deciding what is right for IFS.</p>
+      
+      <div class="company-section-label">Target: Intent & Intelligence</div>
+      <div class="company-grid">
+        <a href="https://6sense.com" target="_blank" class="company-card">
+          <h4>6sense</h4>
+          <div class="cc-tag">AI Revenue Intelligence</div>
+          <div class="cc-desc">Intent data, predictive scoring, and account identification. Reveals which accounts are in-market before they raise their hand. Integrates with Salesforce and HubSpot.</div>
+          <div class="cc-url">6sense.com →</div>
+        </a>
+        <a href="https://zoominfo.com" target="_blank" class="company-card">
+          <h4>ZoomInfo</h4>
+          <div class="cc-tag">B2B Contact & Intent Data</div>
+          <div class="cc-desc">Comprehensive contact database with real-time intent signals, org charts, and technographic data. 200M+ business profiles.</div>
+          <div class="cc-url">zoominfo.com →</div>
+        </a>
+        <a href="https://demandbase.com" target="_blank" class="company-card">
+          <h4>Demandbase</h4>
+          <div class="cc-tag">Account-Based Marketing & Sales</div>
+          <div class="cc-desc">AI-powered account identification, advertising, and engagement scoring. Combines intent data with account-based advertising.</div>
+          <div class="cc-url">demandbase.com →</div>
+        </a>
+      </div>
+      <div class="company-section-label">Engage: Conversation & Pipeline</div>
+      <div class="company-grid">
+        <a href="https://gong.io" target="_blank" class="company-card">
+          <h4>Gong</h4>
+          <div class="cc-tag">Revenue AI Platform</div>
+          <div class="cc-desc">Analyses every sales conversation to identify winning patterns. AI coaching, deal intelligence, and pipeline forecasting from actual buyer signals.</div>
+          <div class="cc-url">gong.io →</div>
+        </a>
+        <a href="https://clari.com" target="_blank" class="company-card">
+          <h4>Clari</h4>
+          <div class="cc-tag">AI Revenue Operations</div>
+          <div class="cc-desc">Predictive pipeline scoring, revenue forecasting, and deal health analysis. Eliminates gut-feel forecasting with data-driven predictions.</div>
+          <div class="cc-url">clari.com →</div>
+        </a>
+        <a href="https://outreach.io" target="_blank" class="company-card">
+          <h4>Outreach</h4>
+          <div class="cc-tag">AI Sales Engagement</div>
+          <div class="cc-desc">Automated multi-channel sequences with AI-optimised timing, messaging, and follow-up. Handles SDR workflows at scale.</div>
+          <div class="cc-url">outreach.io →</div>
+        </a>
+      </div>
+      <div class="company-section-label">Expand: Growth Intelligence</div>
+      <div class="company-grid">
+        <a href="https://gainsight.com" target="_blank" class="company-card">
+          <h4>Gainsight</h4>
+          <div class="cc-tag">Customer Success & Expansion</div>
+          <div class="cc-desc">Customer health scoring, expansion signal detection, and automated playbooks for renewals and upsells.</div>
+          <div class="cc-url">gainsight.com →</div>
+        </a>
+        <a href="https://pocus.com" target="_blank" class="company-card">
+          <h4>Pocus</h4>
+          <div class="cc-tag">Product-Led Sales Intelligence</div>
+          <div class="cc-desc">Identifies expansion opportunities from product usage data. Surfaces accounts showing buying signals based on feature adoption.</div>
+          <div class="cc-url">pocus.com →</div>
+        </a>
+      </div>
+      <div class="company-section-label">Full Lifecycle: Sales AI</div>
+      <div class="company-grid">
+        <a href="https://salesforce.com" target="_blank" class="company-card">
+          <h4>Salesforce Einstein</h4>
+          <div class="cc-tag">CRM-Native AI</div>
+          <div class="cc-desc">Embedded AI across the Salesforce platform: lead scoring, opportunity insights, forecasting, and next-best-action recommendations.</div>
+          <div class="cc-url">salesforce.com →</div>
+        </a>
+        <a href="https://apollo.io" target="_blank" class="company-card">
+          <h4>Apollo.io</h4>
+          <div class="cc-tag">AI Sales Intelligence & Engagement</div>
+          <div class="cc-desc">Combined prospecting database, intent signals, and AI-powered outreach in one platform. End-to-end targeting through engagement.</div>
+          <div class="cc-url">apollo.io →</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="section" id="section-5">
+      <h2>5. Hands-On Automation Exercises</h2>
+      <p>Do at least one before the session. Do all four if you want to arrive with a working prototype, not an opinion.</p>
+      
+      <div class="exercise-card">
+        <h4>1. The AI Account Brief Generator</h4>
+        <p>Pick 5 IFS target accounts. Use Claude + web search to auto-generate a comprehensive account brief for each: company overview, recent financials, likely pain points for their industry, current tech stack (if discoverable), and a personalised IFS value hypothesis. Compare to what your AEs would produce manually. Build it as a reusable prompt template that any rep can run.</p>
+        <p><strong>Output:</strong> 5 AI-generated account briefs and a reusable prompt template that any sales rep can use to generate prospect-ready briefs in minutes.</p>
+        <p><strong>Tools:</strong> Claude, web search, company annual reports · <strong>Effort:</strong> 45 min</p>
+      </div>
+      <div class="exercise-card">
+        <h4>2. The Expansion Signal Pipeline</h4>
+        <p>Export product usage data and support ticket data for 20 existing IFS customers. Feed it into AI and ask it to identify expansion signals: underutilised modules, rising support complexity, usage ceiling patterns. Build an automated pipeline that scores each account's expansion readiness and generates a one-page business case for the top 5.</p>
+        <p><strong>Output:</strong> A scored expansion pipeline with AI-generated business cases for the top 5 accounts — ready for an account manager to act on.</p>
+        <p><strong>Tools:</strong> Python, Claude API, CRM/product data exports, HTML · <strong>Effort:</strong> 90 min</p>
+      </div>
+      <div class="exercise-card">
+        <h4>3. The Competitive Battlecard Automator</h4>
+        <p>Build an automated system that monitors IFS's top 3 competitors (SAP, Oracle, ServiceNow) across their websites, press releases, pricing pages, and Gartner/Forrester mentions. Use AI to generate and maintain battlecards that update weekly: competitor strengths/weaknesses, IFS win themes, objection handling, and proof points.</p>
+        <p><strong>Output:</strong> A working automated competitive battlecard system that refreshes weekly without manual analyst effort.</p>
+        <p><strong>Tools:</strong> Make/Zapier, Claude API, web scraping, Google Sheets · <strong>Effort:</strong> 90 min</p>
+      </div>
+      <div class="exercise-card">
+        <h4>4. The Interactive Prospect ROI Calculator</h4>
+        <p>Build an interactive HTML/React calculator that a prospect can use during (or after) a sales meeting. Input: their industry, number of assets, field technicians, current first-time-fix rate, and mean time to repair. Output: projected ROI from IFS Cloud across EAM, FSM, and scheduling optimisation, with IFS customer benchmarks as proof points. Make it visually compelling enough to share with a CFO.</p>
+        <p><strong>Output:</strong> A deployed interactive ROI calculator that IFS AEs can send to prospects post-meeting, personalised to their operational data.</p>
+        <p><strong>Tools:</strong> Claude, React/HTML, IFS benchmark data · <strong>Effort:</strong> 2 hours</p>
+      </div>
+    </div>
+
+    <div class="section" id="section-6">
+      <h2>6. What to Research Before the Session</h2>
+      <p>Four tasks to ground the discussion in your reality.</p>
+      
+      <h3>1. Know Your Selling Time</h3>
+      <p>Ask 5 AEs to log how they spent last week in 30-minute blocks. Calculate the percentage spent actually selling (calls, meetings, demos, negotiations) vs. everything else (research, admin, CRM updates, internal meetings). The industry average is 28%. If yours is higher, you're ahead. If it's lower, that's the opportunity.</p>
+      <h3>2. Audit Your Account Plans</h3>
+      <p>Pull 10 strategic account plans. Check when they were last meaningfully updated (not just a CRM field change). Count how many reference data older than 6 months. The staleness tells you where AI would create the most immediate value.</p>
+      <h3>3. Explore One Platform</h3>
+      <p>Spend 20 minutes on 6sense or Gong. Watch a demo, read a case study. 6sense shows you the future of targeting. Gong shows you the future of deal intelligence. Both are production-grade and used by IFS's peers.</p>
+      <h3>4. Ask the Uncomfortable Question</h3>
+      <p>Ask your CRO: 'If AI handled all account research, outreach sequencing, pipeline scoring, and expansion identification — what would our 500-person sales org actually look like?' If the answer is '300 elite deal strategists,' you're thinking clearly. If the answer is 'the same, but with tools,' you haven't gone far enough.</p>
+      <blockquote>The sales organisations that win the enterprise software market will not be the ones with the most reps. They will be the ones where every rep walks into every meeting knowing more about the prospect's business than the prospect knows about themselves — because AI did the work overnight.</blockquote>
+    </div>
+
+    <div class="footer">
+      <p>Future of Sales — Targeting & Account Management: Rethinking the Target-Engage-Expand Cycle with AI</p>
+      <p style="margin-top: 8px; opacity: 0.7;">IFS Internal · Pre-read & action brief · April 2026</p>
+    </div>
+  </main>
+</div>
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+}
+const sections = document.querySelectorAll('.section');
+const navItems = document.querySelectorAll('.nav-item');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navItems.forEach(item => item.classList.remove('active'));
+      const activeNav = document.querySelector(`.nav-item[data-section="${entry.target.id}"]`);
+      if (activeNav) activeNav.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(section => observer.observe(section));
+</script>
+</body>
+</html>

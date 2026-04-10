@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFS AI Leadership Summit — Attendee Prep Pack</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0f1117;
+    --surface: #181b23;
+    --surface2: #1e222d;
+    --border: #2a2f3d;
+    --text: #e4e6ed;
+    --text-muted: #9498ad;
+    --accent: #6366f1;
+    --accent2: #818cf8;
+    --highlight: #f59e0b;
+    --green: #22c55e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    font-size: 15px;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 32px 44px;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 2px solid var(--accent);
+  }
+  .header-left h1 {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .header-left .subtitle {
+    font-size: 15px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .header-right {
+    text-align: right;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .header-right strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* INTRO */
+  .intro-message {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin-bottom: 22px;
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+  .intro-message p { margin-bottom: 10px; }
+  .intro-message p:last-child { margin-bottom: 0; }
+
+  /* SECTION */
+  .section { margin-bottom: 20px; }
+  .section-title {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+    color: var(--accent2);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* LOGISTICS */
+  .logistics-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .logistics-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .logistics-card .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .logistics-card .value {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .logistics-card .detail {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* AGENDA */
+  .day-header {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 10px 16px;
+    margin-bottom: 6px;
+  }
+  .day-header h3 { font-size: 15px; font-weight: 700; }
+  .day-header .day-theme {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .agenda-grid { display: grid; gap: 2px; margin-bottom: 14px; }
+  .agenda-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 14px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(42,47,61,0.5);
+    align-items: baseline;
+  }
+  .agenda-row:last-child { border-bottom: none; }
+  .agenda-time {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--highlight);
+    font-variant-numeric: tabular-nums;
+  }
+  .agenda-content { font-size: 14px; }
+  .agenda-content strong { font-weight: 600; }
+  .agenda-content .meta { color: var(--text-muted); font-size: 13px; }
+  .break-row .agenda-content { color: var(--text-muted); font-style: italic; }
+
+  /* HOMEWORK */
+  .homework-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .homework-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .homework-card h4 {
+    font-size: 14.5px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .homework-card p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 6px;
+  }
+  .homework-card p:last-child { margin-bottom: 0; }
+  .homework-card .tag {
+    display: inline-block;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-bottom: 8px;
+  }
+  .homework-card .tag.red { background: #b91c1c; }
+  .homework-card .tag.orange { background: #b45309; }
+  .homework-card .tag.blue { background: #1d4ed8; }
+
+  .guidance-box {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-top: 10px;
+  }
+  .guidance-box strong { color: var(--text); font-weight: 600; }
+
+  /* STRATEGIC CONTEXT */
+  .context-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--highlight);
+    border-radius: 6px;
+    padding: 16px 20px;
+  }
+  .context-box h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .context-box p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* TRAVEL */
+  .travel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .travel-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .travel-card h4 { font-size: 14.5px; font-weight: 700; margin-bottom: 5px; }
+  .travel-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.55; }
+  .travel-card a { color: var(--accent2); text-decoration: none; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 22px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.7;
+  }
+  .footer a { color: var(--accent2); text-decoration: none; }
+
+  /* PRINT */
+  @media print {
+    body { background: white; color: #1a1a1a; padding: 16px; font-size: 13px; }
+    .header-left h1 { color: #1a1a1a; }
+    .logistics-card, .homework-card, .travel-card, .context-box, .day-header, .intro-message, .guidance-box { border-color: #ddd; background: #f8f8f8; }
+    .section-title { color: #4338ca; }
+    .section-title::after { background: #ddd; }
+    .agenda-time { color: #92400e; }
+    .agenda-row { border-bottom-color: #eee; }
+    .footer { color: #999; }
+    .intro-message { border-left-color: #4338ca; }
+    .context-box { border-left-color: #d97706; }
+    a { color: #4338ca; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>IFS AI Leadership Summit</h1>
+    <div class="subtitle">Attendee Prep Pack</div>
+  </div>
+  <div class="header-right">
+    <strong>Mountain View, California</strong><br>
+    Mon 4 – Thu 7 May 2026
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-message">
+  <p>Two days of AI immersion in Silicon Valley. If you haven't been — there's no substitute for being at the heart of it.</p>
+  <p>We'll hear from founders and AI luminaries, get hands-on with the tools, and dig into what AI-native really means for how IFS goes to market, runs its operations, and builds product. Not theory. Practice.</p>
+  <p>We've made real progress. It's not enough. This is about embedding that conviction across every leader in the room. You're here because you have a team behind you — the expectation is you leave with action, take it back, and drive change.</p>
+</div>
+
+<!-- LOGISTICS -->
+<div class="logistics-bar">
+  <div class="logistics-card">
+    <div class="label">Where</div>
+    <div class="value">Mountain View, CA</div>
+    <div class="detail">Silicon Valley</div>
+  </div>
+  <div class="logistics-card">
+    <div class="label">Hotel</div>
+    <div class="value">Stanford Park Hotel</div>
+    <div class="detail"><a href="https://stanfordparkhotel.com" style="color:#818cf8;text-decoration:none;">stanfordparkhotel.com</a></div>
+  </div>
+  <div class="logistics-card">
+    <div class="label">Dates</div>
+    <div class="value">4 – 7 May 2026</div>
+    <div class="detail">Mon dinner → Thu depart</div>
+  </div>
+  <div class="logistics-card">
+    <div class="label">Format</div>
+    <div class="value">Hands-On + Strategic</div>
+    <div class="detail">Groups of ~5, tech leads assigned</div>
+  </div>
+</div>
+
+<!-- AGENDA -->
+<div class="section">
+  <div class="section-title">📅 Agenda at a Glance</div>
+
+  <div class="day-header">
+    <h3>Monday 4 May — Arrival & Opening Dinner</h3>
+    <div class="day-theme">Check in, connect, set the tone</div>
+  </div>
+  <div class="agenda-grid">
+    <div class="agenda-row">
+      <div class="agenda-time">Afternoon</div>
+      <div class="agenda-content"><strong>Arrivals & Check-In</strong> <span class="meta">— Stanford Park Hotel</span></div>
+    </div>
+    <div class="agenda-row">
+      <div class="agenda-time">Evening</div>
+      <div class="agenda-content"><strong>Welcome Dinner</strong> <span class="meta">— Informal. Drinks, networking, getting everyone in the room</span></div>
+    </div>
+  </div>
+
+  <div class="day-header" style="margin-top:10px;">
+    <h3>Tuesday 5 May — "Show the Team What's Possible"</h3>
+    <div class="day-theme">See the disruption. Then get your hands dirty.</div>
+  </div>
+  <div class="agenda-grid">
+    <div class="agenda-row">
+      <div class="agenda-time">9:00 – 12:00</div>
+      <div class="agenda-content"><strong>AI Startup Disruption Showcase</strong> <span class="meta">— Founders & live demos from startups reshaping Sales, Marketing, IT, HR & Finance</span></div>
+    </div>
+    <div class="agenda-row break-row">
+      <div class="agenda-time">12:00 – 1:00</div>
+      <div class="agenda-content">Lunch</div>
+    </div>
+    <div class="agenda-row">
+      <div class="agenda-time">1:00 – 5:00</div>
+      <div class="agenda-content"><strong>Hands-On: Automate Real Work</strong> <span class="meta">— In your groups. Use AI to automate a real task from your function. Build something real.</span></div>
+    </div>
+    <div class="agenda-row">
+      <div class="agenda-time">5:00 – 5:30</div>
+      <div class="agenda-content"><strong>Lightning Demos</strong> <span class="meta">— Each group shows what they built</span></div>
+    </div>
+    <div class="agenda-row break-row">
+      <div class="agenda-time">Evening</div>
+      <div class="agenda-content">Team dinner</div>
+    </div>
+  </div>
+
+  <div class="day-header" style="margin-top:10px;">
+    <h3>Wednesday 6 May — "Why Now & What's Next"</h3>
+    <div class="day-theme">From inspiration to action. Design your function's future.</div>
+  </div>
+  <div class="agenda-grid">
+    <div class="agenda-row">
+      <div class="agenda-time">9:00 – 10:30</div>
+      <div class="agenda-content"><strong>Keynote: The New Economics of Software</strong> <span class="meta">— What AI means for unit economics, headcount, and how companies get built</span></div>
+    </div>
+    <div class="agenda-row">
+      <div class="agenda-time">10:30 – 12:30</div>
+      <div class="agenda-content"><strong>Your Function in 2027</strong> <span class="meta">— Group work: if AI made your team dramatically more productive, what changes?</span></div>
+    </div>
+    <div class="agenda-row break-row">
+      <div class="agenda-time">12:30 – 1:30</div>
+      <div class="agenda-content">Lunch</div>
+    </div>
+    <div class="agenda-row">
+      <div class="agenda-time">1:30 – 3:30</div>
+      <div class="agenda-content"><strong>Hands-On: Build an App</strong> <span class="meta">— Go deeper. Prototype something real for your function using AI dev tools</span></div>
+    </div>
+    <div class="agenda-row">
+      <div class="agenda-time">3:30 – 4:30</div>
+      <div class="agenda-content"><strong>Team Presentations & Commitments</strong> <span class="meta">— Your vision, your prototype, your 90-day action plan</span></div>
+    </div>
+    <div class="agenda-row">
+      <div class="agenda-time">4:30 – 5:00</div>
+      <div class="agenda-content"><strong>Closing Remarks</strong></div>
+    </div>
+    <div class="agenda-row break-row">
+      <div class="agenda-time">Evening</div>
+      <div class="agenda-content">Closing dinner</div>
+    </div>
+  </div>
+
+  <div class="day-header" style="margin-top:10px;">
+    <h3>Thursday 7 May — Departures</h3>
+    <div class="day-theme">Breakfast, checkout, transfers</div>
+  </div>
+  <div class="agenda-grid">
+    <div class="agenda-row">
+      <div class="agenda-time">Morning</div>
+      <div class="agenda-content"><strong>Breakfast & Checkout</strong> <span class="meta">— Airport transfers grouped. Optional small sessions for late flights.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY THIS MATTERS -->
+<div class="section">
+  <div class="section-title">🔥 Why This Matters</div>
+
+  <div class="context-box">
+    <h4>The Ground Is Shifting</h4>
+    <p>AI-native startups aren't adding features to existing software. They're replacing entire functions with new architectures that make traditional SaaS look slow and bloated. Sales, Marketing, HR, Finance, IT — they're all in the crosshairs. The companies that win will be the ones obsessively close to what their customers actually need. IFS has a window: our industries adopt deliberately, which gives us time to lead. But that window is closing. This event is about making sure every leader here feels the urgency and leaves with a plan.</p>
+  </div>
+</div>
+
+<!-- HOMEWORK -->
+<div class="section">
+  <div class="section-title">📋 Your Homework</div>
+  <div class="homework-grid">
+    <div class="homework-card">
+      <div class="tag red">Required</div>
+      <h4>1. Map Your Function's AI Landscape</h4>
+      <p>Which 3–5 AI-native startups could replace parts of what your team does today? What can they do that your current stack can't?</p>
+      <p><strong style="color:var(--text)">Where to start:</strong> Search "AI-native [your function]" on Google and Product Hunt. Check Crunchbase for recent funding. Look at Clay, Glean, 11x.ai, Aisera — then find the equivalents for your domain.</p>
+    </div>
+    <div class="homework-card">
+      <div class="tag red">Required</div>
+      <h4>2. The 10% Thought Experiment</h4>
+      <p>10% of today's headcount. Same budget — the rest spent on AI tooling. What do you automate first? What 2–5 things must be true to get there by Jan 2027?</p>
+      <p><strong style="color:var(--text)">How to think about it:</strong> List your team's top 10 tasks by time spent. For each: "Could AI do 80% of this today?" Then ask what your people do with the freed-up capacity. That's the real value.</p>
+    </div>
+    <div class="homework-card">
+      <div class="tag blue">Heads Up</div>
+      <h4>3. Hands-On AI Sessions</h4>
+      <p>You'll use AI tools intensively on both Tuesday and Wednesday. No prior experience needed — but you'll get far more out of it if you've experimented beforehand. Tools and access details to follow.</p>
+    </div>
+  </div>
+  <div class="guidance-box">
+    <strong>Pre-reading pack:</strong> Articles, podcasts, and briefing materials will be circulated shortly.
+  </div>
+</div>
+
+<!-- TRAVEL -->
+<div class="section">
+  <div class="section-title">🧳 Travel & Logistics</div>
+  <div class="travel-grid">
+    <div class="travel-card">
+      <h4>Hotel</h4>
+      <p>Group booking at <strong style="color:var(--text)">The Stanford Park Hotel</strong>, Mon 4 – Thu 7 May.<br><a href="https://stanfordparkhotel.com">stanfordparkhotel.com</a></p>
+    </div>
+    <div class="travel-card">
+      <h4>Flights & Transfers</h4>
+      <p>Send your flight details to <strong style="color:var(--text)">Kate Joyce</strong> (<a href="mailto:kate.joyce@ifs.com">kate.joyce@ifs.com</a>) so we can group airport transfers.</p>
+    </div>
+    <div class="travel-card">
+      <h4>What to Bring</h4>
+      <p>Laptop with local admin rights (check with IT). Chargers. Business cards — you'll meet founders. An open mind.</p>
+    </div>
+    <div class="travel-card">
+      <h4>Dress Code</h4>
+      <p>Smart casual. This is the Valley, not a boardroom. Come ready to work.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  IFS AI Leadership Summit · 4–7 May 2026 · Mountain View, California<br>
+  Questions? <a href="mailto:kate.joyce@ifs.com">Kate Joyce</a> · Group assignments & reading pack to follow
+</div>
+
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future of Marketing</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  :root { --transition: 0.3s ease; }
+  [data-theme="light"] {
+    --bg: #f8fafc; --bg-sidebar: #ffffff; --surface: #ffffff; --surface2: #f1f5f9; --surface3: #e2e8f0;
+    --border: #e2e8f0; --text: #1e293b; --text-secondary: #334155; --text-muted: #64748b;
+    --accent: #0d7377; --accent2: #14919b; --accent-glow: rgba(13, 115, 119, 0.08);
+    --red-muted: #b85c52; --red-bg: #fef5f4; --green-bg: rgba(13, 115, 119, 0.06);
+    --stat-gradient: linear-gradient(135deg, #0d7377 0%, #14919b 100%);
+  }
+  [data-theme="dark"] {
+    --bg: #0f1117; --bg-sidebar: #0b0d12; --surface: #181b23; --surface2: #1e222d; --surface3: #252a36;
+    --border: #2a2f3d; --text: #e4e6ed; --text-secondary: #c0c4d0; --text-muted: #9498ad;
+    --accent: #14919b; --accent2: #2dd4bf; --accent-glow: rgba(20, 145, 155, 0.12);
+    --red-muted: #f87171; --red-bg: rgba(248, 113, 113, 0.08); --green-bg: rgba(45, 212, 191, 0.06);
+    --stat-gradient: linear-gradient(135deg, #0d7377 0%, #0f766e 100%);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; font-size: 15px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; transition: background var(--transition), color var(--transition); }
+  ::selection { background: var(--accent); color: white; }
+  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .layout { display: flex; min-height: 100vh; }
+  .sidebar { width: 240px; position: fixed; top: 0; left: 0; bottom: 0; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; z-index: 100; transition: background var(--transition), border-color var(--transition); overflow-y: auto; }
+  .sidebar-header { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); }
+  .sidebar-logo { font-size: 11px; font-weight: 700; color: var(--accent2); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .sidebar-title { font-size: 15px; font-weight: 800; color: var(--text); letter-spacing: -0.3px; line-height: 1.3; }
+  .sidebar-nav { flex: 1; padding: 12px 0; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.15s; cursor: pointer; border-left: 3px solid transparent; }
+  .nav-item:hover { color: var(--text); background: var(--accent-glow); }
+  .nav-item.active { color: var(--accent2); background: var(--accent-glow); border-left-color: var(--accent); font-weight: 600; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 6px; background: var(--surface2); border: 1px solid var(--border); font-size: 11px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; transition: all 0.15s; }
+  .nav-item.active .nav-num { background: var(--accent); border-color: var(--accent); color: white; }
+  .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .theme-toggle { display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; user-select: none; }
+  .toggle-track { width: 40px; height: 22px; background: var(--surface3); border-radius: 11px; position: relative; transition: background var(--transition); border: 1px solid var(--border); }
+  .toggle-thumb { width: 16px; height: 16px; background: var(--accent); border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: transform var(--transition); }
+  [data-theme="dark"] .toggle-thumb { transform: translateX(18px); }
+  .toggle-icons { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--text-muted); }
+  .main { flex: 1; margin-left: 240px; padding: 0 60px; max-width: calc(100% - 240px); }
+  .header { padding: 48px 0 32px; border-bottom: 2px solid var(--accent); margin-bottom: 44px; }
+  .header h1 { font-size: 38px; font-weight: 800; margin-bottom: 12px; color: var(--text); line-height: 1.15; letter-spacing: -0.5px; }
+  .header .subtitle { font-size: 16px; color: var(--accent); font-weight: 600; letter-spacing: 0.3px; }
+  .header .tagline { font-size: 14px; color: var(--text-muted); margin-top: 8px; font-style: italic; }
+  .section { margin-bottom: 52px; scroll-margin-top: 24px; }
+  h2 { font-size: 26px; font-weight: 800; margin-bottom: 22px; color: var(--text); padding-bottom: 12px; border-bottom: 1px solid var(--border); letter-spacing: -0.3px; }
+  h3 { font-size: 18px; font-weight: 700; margin-top: 26px; margin-bottom: 12px; color: var(--accent); }
+  p { margin-bottom: 14px; font-size: 15px; line-height: 1.7; color: var(--text-secondary); }
+  strong { color: var(--text); font-weight: 700; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 26px 0; }
+  .stat-card { background: var(--stat-gradient); color: white; padding: 22px; border-radius: 10px; box-shadow: 0 4px 12px rgba(13, 115, 119, 0.2); }
+  .stat-card .label { font-size: 10px; letter-spacing: 1px; opacity: 0.8; margin-bottom: 8px; font-weight: 600; }
+  .stat-card .value { font-size: 28px; font-weight: 800; margin-bottom: 4px; line-height: 1.1; }
+  .stat-card .detail { font-size: 11px; opacity: 0.85; }
+  .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 26px 0; }
+  .ba-col { padding: 22px; border-radius: 10px; transition: background var(--transition), border-color var(--transition); }
+  .ba-col.before { border-left: 4px solid var(--red-muted); background: var(--red-bg); }
+  .ba-col.after { border-left: 4px solid var(--accent); background: var(--green-bg); }
+  .ba-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 14px; text-transform: uppercase; }
+  .ba-col.before h4 { color: var(--red-muted); } .ba-col.after h4 { color: var(--accent); }
+  .ba-col ul { list-style: none; padding: 0; }
+  .ba-col li { font-size: 13px; margin-bottom: 8px; padding-left: 20px; position: relative; line-height: 1.5; color: var(--text-secondary); }
+  .ba-col.before li:before { content: "•"; position: absolute; left: 0; color: var(--red-muted); font-size: 14px; }
+  .ba-col.after li:before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: bold; font-size: 12px; }
+  .framework-item { margin-bottom: 26px; }
+  .framework-item h3 { margin-top: 0; margin-bottom: 10px; }
+  .framework-item p { margin-bottom: 10px; }
+  .north-star-callout { background: var(--accent-glow); border: 2px solid var(--accent); border-radius: 10px; padding: 28px; margin: 30px 0; }
+  .ns-header { margin-bottom: 12px; }
+  .ns-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .ns-title { font-size: 22px; font-weight: 800; color: var(--text); }
+  .ns-title strong { color: var(--accent); }
+  .ns-ratio { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
+  .ns-body { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 0; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 24px 0; }
+  .kpi-card { background: var(--surface); border-top: 3px solid var(--accent); padding: 16px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); transition: background var(--transition); }
+  .kpi-card .kpi-label { font-size: 10px; color: var(--accent); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 5px; }
+  .kpi-card .kpi-target { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+  .kpi-card .kpi-context { font-size: 11px; color: var(--text-muted); }
+  .questions-section { background: var(--accent-glow); padding: 28px; border-radius: 10px; margin: 26px 0; border: 1px solid var(--border); transition: background var(--transition), border-color var(--transition); }
+  .question-category { margin-bottom: 24px; } .question-category:last-child { margin-bottom: 0; }
+  .question-category h4 { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; margin-bottom: 10px; text-transform: uppercase; }
+  .question-category ul { list-style: none; padding: 0; }
+  .question-category li { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; padding-left: 16px; position: relative; line-height: 1.55; }
+  .question-category li:before { content: "–"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+  .company-section-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-top: 24px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .company-card { background: var(--surface); border-radius: 10px; padding: 18px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); border-left: 3px solid var(--accent); transition: box-shadow 0.2s, transform 0.2s, background var(--transition); text-decoration: none; color: inherit; display: block; }
+  .company-card:hover { box-shadow: 0 4px 16px rgba(13, 115, 119, 0.15); transform: translateY(-2px); }
+  .company-card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .company-card .cc-tag { font-size: 10px; font-weight: 600; color: var(--accent); letter-spacing: 0.3px; margin-bottom: 6px; }
+  .company-card .cc-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 6px; }
+  .company-card .cc-url { font-size: 11px; color: var(--accent); font-weight: 600; }
+  .exercise-card { background: var(--surface); border-top: 3px solid var(--accent); padding: 22px; margin: 20px 0; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.04); transition: background var(--transition); }
+  .exercise-card h4 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+  .exercise-card p { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.6; }
+  .exercise-card p:last-child { margin-bottom: 0; }
+  blockquote { border-left: 4px solid var(--accent); padding-left: 20px; margin: 28px 0; font-size: 16px; font-style: italic; color: var(--text-secondary); line-height: 1.7; }
+  .footer { border-top: 1px solid var(--border); padding-top: 24px; margin-top: 48px; margin-bottom: 48px; text-align: center; color: var(--text-muted); font-size: 12px; }
+  a.inline-link { color: var(--accent); font-weight: 600; text-decoration: none; } a.inline-link:hover { text-decoration: underline; }
+  @media (max-width: 768px) {
+    .sidebar { display: none; } .main { margin-left: 0; padding: 0 20px; max-width: 100%; }
+    .header h1 { font-size: 28px; } .before-after { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; } .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .company-grid { grid-template-columns: 1fr; } h2 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">Future of Function</div>
+      <div class="sidebar-title">Marketing</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#section-1" class="nav-item active" data-section="section-1"><span class="nav-num">1</span> Current State</a>
+      <a href="#section-2" class="nav-item" data-section="section-2"><span class="nav-num">2</span> Future Vision</a>
+      <a href="#section-3" class="nav-item" data-section="section-3"><span class="nav-num">3</span> Questions</a>
+      <a href="#section-4" class="nav-item" data-section="section-4"><span class="nav-num">4</span> AI Companies</a>
+      <a href="#section-5" class="nav-item" data-section="section-5"><span class="nav-num">5</span> Hands-On</a>
+      <a href="#section-6" class="nav-item" data-section="section-6"><span class="nav-num">6</span> Homework</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <div class="toggle-icons">☀️</div>
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <div class="toggle-icons">🌙</div>
+      </div>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="header">
+      <h1>Future of Marketing</h1>
+      <div class="subtitle">Rethinking the Attract-Convert-Amplify Funnel with AI</div>
+      <div class="tagline">Pre-Read & Action Brief for the IFS Marketing Organisation</div>
+    </div>
+
+    <div class="section" id="section-1">
+      <h2>1. The Current State</h2>
+      <p>Every marketing function runs on the same lifecycle: attract, then convert, then amplify. The Attract-Convert-Amplify process is the operational backbone. And right now, it is broken at every stage.</p>
+      <p><strong>Attract is inefficient.</strong> Content takes 3–5 days per piece — briefing, writing, editing, design, approval.</p>
+      <p><strong>Convert is structurally neglected.</strong> Attribution is broken: can't tie marketing spend to revenue impact.</p>
+      <p><strong>Amplify is reactive.</strong> Field marketing runs 200+ events/year with heavy logistical overhead.</p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="label">CONTENT PRODUCTION</div>
+          <div class="value">3–5 days</div>
+          <div class="detail">Average time to produce a single long-form content piece</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">MQL-TO-SQL CONVERSION</div>
+          <div class="value">13%</div>
+          <div class="detail">Industry average — 87% of MQLs go nowhere</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">CAMPAIGN ROI VISIBILITY</div>
+          <div class="value">30%</div>
+          <div class="detail">Of marketers who can attribute revenue to specific campaigns</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">PERSONALISATION GAP</div>
+          <div class="value">71%</div>
+          <div class="detail">Of buyers expect personalisation; 76% frustrated when they don't get it</div>
+        </div>
+      </div>
+      <div class="before-after">
+        <div class="ba-col before">
+          <h4>Traditional Attract-Convert-Amplify</h4>
+          <ul>
+            <li>Content takes 3–5 days per piece — briefing, writing, editing, design, approval</li>
+            <li>Campaigns planned quarterly, optimised monthly — too slow for market signals</li>
+            <li>Generic messaging across all 6 IFS verticals — one-size-fits-none</li>
+            <li>Attribution is broken: can't tie marketing spend to revenue impact</li>
+            <li>Field marketing runs 200+ events/year with heavy logistical overhead</li>
+            <li>Brand consistency enforced manually through review processes</li>
+          </ul>
+        </div>
+        <div class="ba-col after">
+          <h4>AI-Native Attract-Convert-Amplify</h4>
+          <ul>
+            <li>AI produces first-draft content in minutes — humans edit, brand-check, and refine</li>
+            <li>Campaigns dynamically optimised daily based on engagement signals and intent data</li>
+            <li>Hyper-personalised messaging per vertical, per persona, per buying stage — at scale</li>
+            <li>AI-powered attribution connects every touchpoint to pipeline and revenue</li>
+            <li>Events automated: AI handles logistics, personalised agendas, and follow-up</li>
+            <li>Brand voice enforced by AI across all channels automatically</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="section-2">
+      <h2>2. How to Think About the Future of Marketing</h2>
+      <p>The Attract-Convert-Amplify lifecycle forces specificity. Not "AI will transform marketing" but exactly how each stage changes when AI agents handle the operational layer end-to-end.</p>
+      
+      <div class="framework-item">
+        <h3>The Attract Stage: From Content Calendars to Intelligent Publishing</h3>
+        <p>IFS markets to 6 distinct verticals, each with its own language, regulatory context, and buying triggers. Today, creating vertical-specific content is expensive and slow. AI transforms this: a single research brief becomes 6 vertical-specific articles, 12 social posts, 3 email sequences, and a webinar script — in hours. Jasper, Writer, and Claude can generate content at vertical depth. The IFS marketing team shifts from 'producing content' to 'curating and elevating AI output.' SEO becomes AI-driven: platforms like Surfer SEO and Clearscope ensure every piece is optimised before publication. The Chelsea FC and Sri Lanka Cricket partnerships? AI generates dozens of localised activations from a single campaign brief.</p>
+      </div>
+      <div class="framework-item">
+        <h3>The Convert Stage: From MQLs to Revenue Intelligence</h3>
+        <p>The MQL is dying. Only 13% convert to SQL — the rest are noise. AI replaces the volume game with precision: intent-based targeting (6sense, Demandbase) identifies accounts showing buying signals. AI-personalised nurture sequences adapt to each prospect's engagement pattern. Conversational marketing (Drift, Qualified) engages high-intent visitors in real-time. For IFS, with complex enterprise buying committees (8–12 people per deal), AI maps the committee, personalises messaging per role, and orchestrates multi-threaded engagement. The metric shifts from 'MQLs generated' to 'pipeline influenced with attribution.'</p>
+      </div>
+      <div class="framework-item">
+        <h3>The Amplify Stage: From Campaigns to Community Intelligence</h3>
+        <p>IFS's brand momentum (Gartner Customers' Choice, 22% ARR growth, the O'Hare billboard Guinness Record) needs amplification that's faster than quarterly campaign cycles. AI enables real-time amplification: customer wins are turned into case studies within days, not months. Analyst report mentions become social campaigns within hours. Employee advocacy content is AI-generated and brand-consistent. The IFS Connect events become content engines where AI captures, synthesises, and distributes insights across every channel — automatically.</p>
+      </div>
+      <div class="framework-item">
+        <h3>Attract-Convert-Amplify as a Continuous Loop</h3>
+        <p>In the AI-native model, every customer interaction becomes content. Every piece of content generates engagement data. Every engagement signal informs targeting. Every conversion teaches the model what works. Marketing stops being a campaign factory and becomes a revenue intelligence engine that learns and improves continuously.</p>
+      </div>
+      
+      <div class="north-star-callout">
+        <div class="ns-header">
+          <div class="ns-label">NORTH-STAR TARGET</div>
+          <div class="ns-title">From ~150 (Brand, Content, Demand Gen, Events, Digital, Field Marketing, Marketing Ops, Comms) → <strong>80–100</strong> people</div>
+        </div>
+        <div class="ns-ratio">MQLs per marketing FTE: from ~200 to ~600</div>
+        <p class="ns-body">AI automates 60% of content production, media planning, and campaign execution. Content writers shift from producing to curating and editing AI output. Demand gen becomes algorithmic. Events shift from logistics-heavy to experience-driven with smaller teams. The survivors are brand strategists, creative directors, and AI-native campaign architects.</p>
+      </div>
+      <h3>Target KPIs</h3>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Content Production</div>
+          <div class="kpi-target"><4 hours</div>
+          <div class="kpi-context">Down from 3–5 days per piece</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">MQL-to-SQL Conversion</div>
+          <div class="kpi-target">>25%</div>
+          <div class="kpi-context">Up from 13% industry average</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Marketing FTE Count</div>
+          <div class="kpi-target">80–100</div>
+          <div class="kpi-context">Down from ~150 at IFS scale</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Attribution Clarity</div>
+          <div class="kpi-target">>80%</div>
+          <div class="kpi-context">Of pipeline with clear marketing attribution</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Vertical Personalisation</div>
+          <div class="kpi-target">100%</div>
+          <div class="kpi-context">Every campaign personalised by vertical, persona, stage</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Content Velocity</div>
+          <div class="kpi-target">10x</div>
+          <div class="kpi-context">Volume of vertical-specific content produced</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="section-3">
+      <h2>3. Challenging Questions for the Room</h2>
+      <p>These are not abstract thought experiments. They are the outcomes your organisation needs to engineer in the next 12 to 24 months.</p>
+      <div class="questions-section">
+
+        <div class="question-category">
+          <h4>Attract</h4>
+          <ul>
+            <li>How do we achieve a state where one research brief automatically becomes 6 vertical-specific content assets across 4 formats (article, social, email, video script) — with zero manual writing, only human editorial review?</li>
+            <li>What has to be true for IFS's SEO to be fully AI-driven — where content gaps are identified, articles drafted, optimised, and published without a single marketer in the loop for standard keyword targeting?</li>
+          </ul>
+        </div>
+
+        <div class="question-category">
+          <h4>Convert</h4>
+          <ul>
+            <li>How do we replace the MQL with an intent-qualified pipeline signal — where every account entering our pipeline has been AI-scored for buying intent, committee mapped, and pre-nurtured through personalised sequences, without any demand gen team manually qualifying leads?</li>
+            <li>If AI personalises every touchpoint per vertical, per persona, and per buying stage, what does the demand generation team actually do — and is the answer 'strategic campaign architecture' or 'nothing the AI can't handle'?</li>
+          </ul>
+        </div>
+
+        <div class="question-category">
+          <h4>Amplify</h4>
+          <ul>
+            <li>How do we make every IFS customer win an automatic content engine — where AI generates the case study, social posts, email sequence, and sales enablement asset within 48 hours of deal close, without any writer or designer involved?</li>
+            <li>What has to be true for IFS Connect events to produce 50+ pieces of original content (session summaries, customer stories, thought leadership) within 24 hours of the event — using AI to capture, synthesise, and distribute at journalist speed?</li>
+          </ul>
+        </div>
+
+        <div class="question-category">
+          <h4>North Star</h4>
+          <ul>
+            <li>If we go from ~150 to 80–100 in marketing, which roles disappear entirely, which transform, and which are new — and is 'AI Campaign Architect' a real role title by 2027?</li>
+            <li>How do we reskill content writers for a world where AI produces the first draft — and the human value is in brand voice, strategic narrative, and editorial judgement?</li>
+            <li>If AI handles production and personalisation, does IFS's marketing org become smaller and more strategic — or does it use the freed capacity to 10x content volume and go after new segments?</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section" id="section-4">
+      <h2>4. AI Companies Reshaping Marketing</h2>
+      <p>The market has moved from experimental to production-grade. Spend time on these websites: watch demos, read case studies. Understanding what is possible is the prerequisite for deciding what is right for IFS.</p>
+      
+      <div class="company-section-label">Attract: Content & SEO</div>
+      <div class="company-grid">
+        <a href="https://jasper.ai" target="_blank" class="company-card">
+          <h4>Jasper</h4>
+          <div class="cc-tag">AI Content Platform</div>
+          <div class="cc-desc">Enterprise-grade AI content generation with brand voice training. Produces blog posts, emails, social, and ads at scale. Brand consistency built in.</div>
+          <div class="cc-url">jasper.ai →</div>
+        </a>
+        <a href="https://writer.com" target="_blank" class="company-card">
+          <h4>Writer</h4>
+          <div class="cc-tag">AI Writing & Brand Governance</div>
+          <div class="cc-desc">AI content generation with built-in brand, tone, and compliance rules. Enterprise-focused with governance controls.</div>
+          <div class="cc-url">writer.com →</div>
+        </a>
+        <a href="https://surferseo.com" target="_blank" class="company-card">
+          <h4>Surfer SEO</h4>
+          <div class="cc-tag">AI-Powered SEO Content</div>
+          <div class="cc-desc">AI analyses top-ranking content and generates SEO-optimised outlines and articles. Ensures every piece is competitive before publication.</div>
+          <div class="cc-url">surferseo.com →</div>
+        </a>
+      </div>
+      <div class="company-section-label">Convert: Demand Gen & ABM</div>
+      <div class="company-grid">
+        <a href="https://6sense.com" target="_blank" class="company-card">
+          <h4>6sense</h4>
+          <div class="cc-tag">AI Revenue Intelligence</div>
+          <div class="cc-desc">Intent data, predictive scoring, and account identification. Reveals in-market accounts before they raise their hand.</div>
+          <div class="cc-url">6sense.com →</div>
+        </a>
+        <a href="https://qualified.com" target="_blank" class="company-card">
+          <h4>Qualified</h4>
+          <div class="cc-tag">AI Conversational Marketing</div>
+          <div class="cc-desc">Real-time website engagement with AI-powered conversations. Identifies high-value visitors and routes to sales instantly.</div>
+          <div class="cc-url">qualified.com →</div>
+        </a>
+        <a href="https://hubspot.com" target="_blank" class="company-card">
+          <h4>HubSpot AI</h4>
+          <div class="cc-tag">AI Marketing Automation</div>
+          <div class="cc-desc">AI-powered email, content, and campaign optimisation within the HubSpot platform. Predictive lead scoring and content recommendations.</div>
+          <div class="cc-url">hubspot.com →</div>
+        </a>
+      </div>
+      <div class="company-section-label">Amplify: Distribution & Analytics</div>
+      <div class="company-grid">
+        <a href="https://sproutsocial.com" target="_blank" class="company-card">
+          <h4>Sprout Social</h4>
+          <div class="cc-tag">AI Social Media Management</div>
+          <div class="cc-desc">AI-optimised posting, engagement analysis, and social listening. Manages brand presence across all channels with predictive analytics.</div>
+          <div class="cc-url">sproutsocial.com →</div>
+        </a>
+        <a href="https://metadata.io" target="_blank" class="company-card">
+          <h4>Metadata.io</h4>
+          <div class="cc-tag">AI Campaign Optimisation</div>
+          <div class="cc-desc">Autonomous campaign execution: AI launches, tests, and optimises paid campaigns across channels. Revenue-focused attribution.</div>
+          <div class="cc-url">metadata.io →</div>
+        </a>
+      </div>
+      <div class="company-section-label">Full Lifecycle: Analytics & Attribution</div>
+      <div class="company-grid">
+        <a href="https://dreamdata.io" target="_blank" class="company-card">
+          <h4>Dreamdata</h4>
+          <div class="cc-tag">B2B Revenue Attribution</div>
+          <div class="cc-desc">Multi-touch revenue attribution for B2B. Maps the full buyer journey and ties marketing activity to pipeline and revenue.</div>
+          <div class="cc-url">dreamdata.io →</div>
+        </a>
+        <a href="https://mutiny.com" target="_blank" class="company-card">
+          <h4>Mutiny</h4>
+          <div class="cc-tag">AI Website Personalisation</div>
+          <div class="cc-desc">Personalises web experiences per account, industry, and buying stage. Turns IFS.com into a dynamic, account-specific experience.</div>
+          <div class="cc-url">mutiny.com →</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="section" id="section-5">
+      <h2>5. Hands-On Automation Exercises</h2>
+      <p>Do at least one before the session. Do all four if you want to arrive with a working prototype, not an opinion.</p>
+      
+      <div class="exercise-card">
+        <h4>1. The Vertical Content Engine</h4>
+        <p>Take one IFS thought leadership topic (e.g., 'Industrial AI for predictive maintenance'). Use AI to produce: one long-form article tailored to aerospace MRO, one for energy utilities, one for manufacturing, 6 LinkedIn posts (2 per vertical), and 3 email subject lines per vertical. Measure time vs. what your content team would take.</p>
+        <p><strong>Output:</strong> 18 pieces of vertical-specific content from a single brief — with a time comparison against manual production.</p>
+        <p><strong>Tools:</strong> Claude, Jasper, IFS brand guidelines · <strong>Effort:</strong> 45 min</p>
+      </div>
+      <div class="exercise-card">
+        <h4>2. The Intent-to-Pipeline Dashboard</h4>
+        <p>Pull data from your marketing automation and CRM. Build an interactive dashboard showing: MQL-to-SQL conversion by source, campaign attribution to pipeline, intent signals from 6sense/ZoomInfo, and AI-recommended next-best-action per account. Make it update-ready for weekly marketing ops review.</p>
+        <p><strong>Output:</strong> An interactive marketing attribution dashboard that connects spend to pipeline with AI-powered recommendations.</p>
+        <p><strong>Tools:</strong> Python, CRM/marketing data exports, HTML/ECharts · <strong>Effort:</strong> 90 min</p>
+      </div>
+      <div class="exercise-card">
+        <h4>3. The Event Content Accelerator</h4>
+        <p>Take recordings or transcripts from the last IFS Connect event. Use AI to produce: session summaries, key takeaways, customer quote extracts, social posts, and a highlights newsletter — all within 2 hours. Compare to how long this currently takes post-event.</p>
+        <p><strong>Output:</strong> A complete post-event content package produced in under 2 hours by AI — ready for distribution.</p>
+        <p><strong>Tools:</strong> Claude, event transcripts, brand templates · <strong>Effort:</strong> 90 min</p>
+      </div>
+      <div class="exercise-card">
+        <h4>4. The Prospect Engagement Report</h4>
+        <p>Build an interactive, personalised one-pager that can be sent to a prospect after an initial engagement. Input: their industry, company size, and expressed interests. Output: a branded IFS report showing relevant benchmarks, customer success stories from their vertical, and a curated product overview — auto-generated and ready to send.</p>
+        <p><strong>Output:</strong> An auto-generated, personalised prospect engagement report that any marketer or AE can trigger in minutes.</p>
+        <p><strong>Tools:</strong> Claude, HTML, IFS case study library, brand assets · <strong>Effort:</strong> 2 hours</p>
+      </div>
+    </div>
+
+    <div class="section" id="section-6">
+      <h2>6. What to Research Before the Session</h2>
+      <p>Four tasks to ground the discussion in your reality.</p>
+      
+      <h3>1. Time Your Content Pipeline</h3>
+      <p>Map the last 5 content pieces from brief to published. Calculate total elapsed time and human-hours. Then estimate what percentage of each step could be AI-assisted. The typical answer: 60–80% of production time is automatable.</p>
+      <h3>2. Audit Your Personalisation</h3>
+      <p>Take your last 3 demand gen campaigns. Were they personalised by vertical? By persona? By buying stage? Count the number of unique variants created. If the answer is fewer than 6, you're under-personalising — and that's exactly what AI solves at zero marginal cost.</p>
+      <h3>3. Explore One Platform</h3>
+      <p>Spend 20 minutes on Jasper or 6sense. Jasper shows you the future of AI content at scale. 6sense shows you the future of intent-driven demand gen. Both are production-grade and used by IFS's enterprise software peers.</p>
+      <h3>4. Ask the Uncomfortable Question</h3>
+      <p>Ask your CMO: 'If AI handled all content production, campaign optimisation, and personalisation — what would our 150-person marketing org actually look like?' If the answer is '80 strategists and creatives,' you're thinking correctly. If it's 'the same team with better tools,' the ambition isn't high enough.</p>
+      <blockquote>The marketing organisations that dominate enterprise software will not be the ones with the biggest content teams. They will be the ones where every prospect receives a message that feels handcrafted for their industry, their role, and their moment — because AI made mass personalisation free.</blockquote>
+    </div>
+
+    <div class="footer">
+      <p>Future of Marketing: Rethinking the Attract-Convert-Amplify Funnel with AI</p>
+      <p style="margin-top: 8px; opacity: 0.7;">IFS Internal · Pre-read & action brief · April 2026</p>
+    </div>
+  </main>
+</div>
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+}
+const sections = document.querySelectorAll('.section');
+const navItems = document.querySelectorAll('.nav-item');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navItems.forEach(item => item.classList.remove('active'));
+      const activeNav = document.querySelector(`.nav-item[data-section="${entry.target.id}"]`);
+      if (activeNav) activeNav.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(section => observer.observe(section));
+</script>
+</body>
+</html>
