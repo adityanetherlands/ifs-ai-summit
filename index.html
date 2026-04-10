@@ -654,6 +654,39 @@ body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
   .agenda-item { grid-template-columns: 100px 1fr; gap: 12px; }
   .nav-inner { padding: 0 20px; }
 }
+
+/* ─── Back-to-top button (feature flagged) ─── */
+#back-to-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
+  z-index: 900;
+  pointer-events: none;
+}
+#back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+#back-to-top:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--border-accent);
+  color: var(--accent-indigo-light);
+}
+#back-to-top svg { width: 18px; height: 18px; }
 </style>
 </head>
 <body>
@@ -1510,6 +1543,13 @@ body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
   </div>
 </footer>
 
+<!-- Back-to-top button (feature flagged) -->
+<div class="ff-ext-edit">
+  <button id="back-to-top" aria-label="Back to top" title="Back to top">
+    <i data-lucide="arrow-up"></i>
+  </button>
+</div>
+
 <!-- ═══════════════════════════════════════════════════
      JAVASCRIPT
      ═══════════════════════════════════════════════════ -->
@@ -1623,6 +1663,17 @@ body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
     overlay.classList.toggle('open');
     document.body.style.overflow = isOpen ? '' : 'hidden';
   };
+
+  // ─── Back-to-top button ───
+  const backToTop = document.getElementById('back-to-top');
+  if (backToTop) {
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 300);
+    }, { passive: true });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    });
+  }
 
   // ─── Smooth scroll for nav links ───
   document.querySelectorAll('a[href^="#"]').forEach(link => {
