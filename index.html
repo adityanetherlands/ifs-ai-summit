@@ -711,6 +711,86 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   background: linear-gradient(90deg, transparent 0%, var(--accent-indigo) 50%, transparent 100%);
   opacity: 0.6;
 }
+
+/* ─── Mobile Agenda Redesign (feature flag: issue #13) ─── */
+@media (max-width: 768px) {
+  /* Accordion header: allow wrap so venue tag drops to its own row */
+  body.ff-ext-edit-on .day-toggle {
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    padding: 14px 16px;
+    align-items: center;
+  }
+  body.ff-ext-edit-on .day-toggle .day-info {
+    flex: 1;
+    min-width: 0;
+  }
+  body.ff-ext-edit-on .day-toggle .day-info h3 {
+    font-size: 14px;
+    line-height: 1.35;
+    white-space: normal;
+  }
+  body.ff-ext-edit-on .day-toggle .day-info p {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+  body.ff-ext-edit-on .day-venue {
+    order: 5;
+    flex-basis: 100%;
+    font-size: 10px;
+    padding: 3px 8px;
+    white-space: normal;
+    align-self: flex-start;
+  }
+  body.ff-ext-edit-on .toggle-icon {
+    align-self: center;
+  }
+  /* Tighter content padding on mobile */
+  body.ff-ext-edit-on .day-content-inner {
+    padding: 0 16px 20px;
+  }
+  /* Agenda items: stacked layout (time above title and meta) */
+  body.ff-ext-edit-on .agenda-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 12px 0;
+    align-items: flex-start;
+  }
+  body.ff-ext-edit-on .agenda-time {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  body.ff-ext-edit-on .agenda-title {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+  body.ff-ext-edit-on .agenda-meta {
+    font-size: 12px;
+    margin-top: 1px;
+  }
+  /* Break items: compact and visually quieter */
+  body.ff-ext-edit-on .agenda-item.break-item {
+    padding: 7px 0;
+    border-bottom-color: rgba(42,47,61,0.25);
+  }
+  body.ff-ext-edit-on .agenda-item.break-item .agenda-time {
+    font-size: 10px;
+    letter-spacing: 0.4px;
+  }
+  /* Calendar download button: full-width on mobile */
+  body.ff-ext-edit-on .agenda-download {
+    justify-content: stretch;
+  }
+  body.ff-ext-edit-on .cal-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
 </style>
 </head>
 <body>
