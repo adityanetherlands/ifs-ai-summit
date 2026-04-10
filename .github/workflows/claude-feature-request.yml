@@ -6,7 +6,9 @@ on:
 
 jobs:
   implement-feature:
-    if: contains(github.event.issue.labels.*.name, 'feature-request')
+    if: |
+      contains(github.event.issue.labels.*.name, 'feature-request') &&
+      !contains(github.event.issue.labels.*.name, 'completed')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -30,9 +32,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Find the Claude branch
           git fetch origin
-          CLAUDE_BRANCH=$(git branch -r | grep 'origin/claude/issue-${{ github.event.issue.number }}' | head -1 | xargs)
+          CLAUDE_BRANCH=$(git branch -r | grep "origin/claude/issue-${{ github.event.issue.number }}" | head -1 | xargs)
           if [ -n "$CLAUDE_BRANCH" ]; then
             echo "Found branch: $CLAUDE_BRANCH"
             git checkout main
@@ -43,3 +44,10 @@ jobs:
           else
             echo "No Claude branch found, skipping merge"
           fi
+
+      - name: Mark issue as completed
+        if: success()
+        run: |
+          gh issue edit ${{ github.event.issue.number }} --add-label "completed"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
