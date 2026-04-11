@@ -355,9 +355,9 @@ body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
   <!-- Left: Form -->
   <div class="card">
     <form id="requestForm">
-      <div class="field ff-ext-edit">
+      <div class="field">
         <label for="name">Your name</label>
-        <input type="text" id="name" name="name" placeholder="e.g. Aditya">
+        <input type="text" id="name" name="name" placeholder="e.g. Aditya" required>
       </div>
 
       <div class="field">
@@ -370,7 +370,7 @@ body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
         <textarea id="body" name="body" placeholder="Be specific about what to add or change, where on the site it should appear, and any style preferences." required></textarea>
       </div>
 
-      <div class="field ff-ext-edit">
+      <div class="field">
         <label for="attachments">Attachments <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional &ndash; images, .md, .txt)</span></label>
         <div class="file-drop-zone" id="dropZone">
           <input type="file" id="attachments" multiple accept=".md,.txt,.png,.jpg,.jpeg,.gif,.webp">
