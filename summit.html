@@ -589,10 +589,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   border-top: 0px solid var(--border-subtle);
   margin-top: 0; padding-top: 0;
 }
-.group-card:hover .group-members {
-  max-height: 260px; opacity: 1;
-  border-top-width: 1px; margin-top: 14px; padding-top: 14px;
-}
+/* Desktop: avatar stack replaces member-list hover expand */
 .group-members-label {
   font-family: var(--font-display); font-size: 10px; font-weight: 700;
   letter-spacing: 1px; text-transform: uppercase; color: var(--accent-indigo-light);
@@ -603,6 +600,44 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   font-size: 12px; color: var(--text-secondary); padding: 2px 0; font-weight: 500;
 }
 .group-members li .member-fn { color: var(--text-dim); font-weight: 400; font-size: 11px; margin-left: 4px; }
+
+/* Avatar Stack */
+.avatar-row {
+  display: flex; align-items: center;
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+  min-height: 48px;
+}
+.avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 10px; font-weight: 700;
+  color: white; border: 2px solid var(--bg-surface);
+  margin-left: -8px; position: relative; cursor: default; flex-shrink: 0;
+  transition: margin 0.35s var(--ease), transform 0.25s var(--ease);
+}
+.avatar:first-child { margin-left: 0; }
+.avatar:nth-child(odd) { background: var(--accent-indigo); }
+.avatar:nth-child(even) { background: #4f46e5; }
+.avatar-row:hover .avatar { margin-left: 4px; }
+.avatar-row:hover .avatar:first-child { margin-left: 0; }
+.avatar:hover { transform: translateY(-4px); z-index: 20; }
+.avatar-tooltip {
+  position: absolute; bottom: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%) scale(0.9); opacity: 0;
+  background: var(--bg-primary); border: 1px solid var(--border-default);
+  padding: 6px 12px; border-radius: 8px; white-space: nowrap;
+  font-family: var(--font-body); font-size: 11px; font-weight: 500;
+  color: var(--text-primary); pointer-events: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.avatar-tooltip .tooltip-fn { color: var(--text-dim); font-size: 10px; margin-left: 4px; }
+.avatar:hover .avatar-tooltip { opacity: 1; transform: translateX(-50%) scale(1); }
+.avatar-tooltip::after {
+  content: ''; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--border-default);
+}
 
 /* ═══════════════════════════════════════════════════════════════
    VENUES
@@ -885,6 +920,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   }
 
   /* 3. Working groups: disable sibling-dim and hover-expand on mobile */
+  body.ff-ext-edit-on .avatar-row { display: none; }
   body.ff-ext-edit-on .groups-grid:hover .group-card {
     opacity: 1;
   }
@@ -1599,6 +1635,13 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 1</div>
         <h4>Executive Board / Management</h4>
         <div class="group-lead">Tech Lead: <span>Adi Kumar</span></div>
+        <div class="avatar-row">
+          <div class="avatar"><span class="avatar-tooltip">Adi Kumar <span class="tooltip-fn">AI BU</span></span>AK</div>
+          <div class="avatar"><span class="avatar-tooltip">Darren Roos <span class="tooltip-fn">Exec Team</span></span>DR</div>
+          <div class="avatar"><span class="avatar-tooltip">Mark Moffat <span class="tooltip-fn">Exec Team</span></span>MM</div>
+          <div class="avatar"><span class="avatar-tooltip">Fred Brady <span class="tooltip-fn">Exec Team</span></span>FB</div>
+          <div class="avatar"><span class="avatar-tooltip">Joe Dormani <span class="tooltip-fn">Strategy</span></span>JD</div>
+        </div>
         <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1610,6 +1653,13 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 2</div>
         <h4>Sales &ndash; Targeting &amp; Account Mgmt</h4>
         <div class="group-lead">Tech Lead: <span>Ravi Bulusu</span></div>
+        <div class="avatar-row">
+          <div class="avatar"><span class="avatar-tooltip">Andre Robberts <span class="tooltip-fn">Core Sales</span></span>AR</div>
+          <div class="avatar"><span class="avatar-tooltip">Ann Marie Mullally <span class="tooltip-fn">Core Sales</span></span>AM</div>
+          <div class="avatar"><span class="avatar-tooltip">James Thompson <span class="tooltip-fn">Core Sales</span></span>JT</div>
+          <div class="avatar"><span class="avatar-tooltip">Ravi Bulusu <span class="tooltip-fn">AI BU</span></span>RB</div>
+          <div class="avatar"><span class="avatar-tooltip">Simon Niesler <span class="tooltip-fn">Core Sales</span></span>SN</div>
+        </div>
         <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1621,6 +1671,13 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 3</div>
         <h4>Pre-Sales &ndash; Technical Demo&rsquo;ing</h4>
         <div class="group-lead">Tech Lead: <span>Jonathan Hyden</span></div>
+        <div class="avatar-row">
+          <div class="avatar"><span class="avatar-tooltip">James Greaves <span class="tooltip-fn">Core Sales</span></span>JG</div>
+          <div class="avatar"><span class="avatar-tooltip">Jonathan Hyden <span class="tooltip-fn">AI BU</span></span>JH</div>
+          <div class="avatar"><span class="avatar-tooltip">Mathieu Daudigny <span class="tooltip-fn">Core Sales</span></span>MD</div>
+          <div class="avatar"><span class="avatar-tooltip">Stephanie Poore <span class="tooltip-fn">Core Sales</span></span>SP</div>
+          <div class="avatar"><span class="avatar-tooltip">Travis Johnstone <span class="tooltip-fn">Core Sales</span></span>TJ</div>
+        </div>
         <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1632,6 +1689,13 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 4</div>
         <h4>R&amp;D</h4>
         <div class="group-lead">Tech Lead: <span>Dan Dutton</span></div>
+        <div class="avatar-row">
+          <div class="avatar"><span class="avatar-tooltip">Antoine Bisson <span class="tooltip-fn">R&amp;D</span></span>AB</div>
+          <div class="avatar"><span class="avatar-tooltip">Dan Dutton <span class="tooltip-fn">Core Product / GCS</span></span>DD</div>
+          <div class="avatar"><span class="avatar-tooltip">Mairi Campbell <span class="tooltip-fn">Core Product / GCS</span></span>MC</div>
+          <div class="avatar"><span class="avatar-tooltip">Cathie Hall <span class="tooltip-fn">Core Product / GCS</span></span>CH</div>
+          <div class="avatar"><span class="avatar-tooltip">Gregory Briedenbach <span class="tooltip-fn">Core Product / GCS</span></span>GB</div>
+        </div>
         <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1643,6 +1707,12 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 5</div>
         <h4>Customer Support &amp; Success</h4>
         <div class="group-lead">Tech Lead: <span>Bob De Caux</span></div>
+        <div class="avatar-row">
+          <div class="avatar"><span class="avatar-tooltip">Bob De Caux <span class="tooltip-fn">Core Product / GCS</span></span>BD</div>
+          <div class="avatar"><span class="avatar-tooltip">Kurt Kemmerly <span class="tooltip-fn">AI BU</span></span>KK</div>
+          <div class="avatar"><span class="avatar-tooltip">Raymond Jones <span class="tooltip-fn">Core Product / GCS</span></span>RJ</div>
+          <div class="avatar"><span class="avatar-tooltip">Tony Johnson <span class="tooltip-fn">Core Product / GCS</span></span>TJ</div>
+        </div>
         <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1654,6 +1724,13 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 6</div>
         <h4>AI Product Unit</h4>
         <div class="group-lead">Tech Lead: <span>Matt Ely</span></div>
+        <div class="avatar-row">
+          <div class="avatar"><span class="avatar-tooltip">Bisher Deirki <span class="tooltip-fn">AI BU</span></span>BD</div>
+          <div class="avatar"><span class="avatar-tooltip">Jon Zorio <span class="tooltip-fn">AI BU</span></span>JZ</div>
+          <div class="avatar"><span class="avatar-tooltip">Matt Ely <span class="tooltip-fn">AI BU</span></span>ME</div>
+          <div class="avatar"><span class="avatar-tooltip">Matt Kempson <span class="tooltip-fn">AI BU</span></span>MK</div>
+          <div class="avatar"><span class="avatar-tooltip">Matt Quinn <span class="tooltip-fn">AI BU</span></span>MQ</div>
+        </div>
         <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1665,6 +1742,13 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 7</div>
         <h4>Marketing</h4>
         <div class="group-lead">Tech Lead: <span>Vaibs Kumar</span></div>
+        <div class="avatar-row">
+          <div class="avatar"><span class="avatar-tooltip">Andreas Georgiou <span class="tooltip-fn">Marketing</span></span>AG</div>
+          <div class="avatar"><span class="avatar-tooltip">Elvis Pinjagic <span class="tooltip-fn">AI BU</span></span>EP</div>
+          <div class="avatar"><span class="avatar-tooltip">Oliver Pilgerstorfer <span class="tooltip-fn">Marketing</span></span>OP</div>
+          <div class="avatar"><span class="avatar-tooltip">Sara Hill <span class="tooltip-fn">Marketing</span></span>SH</div>
+          <div class="avatar"><span class="avatar-tooltip">Vaibs Kumar <span class="tooltip-fn">Core Product / GCS</span></span>VK</div>
+        </div>
         <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1676,6 +1760,13 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 8</div>
         <h4>HR</h4>
         <div class="group-lead">Tech Lead: <span>Kriti Sharma</span></div>
+        <div class="avatar-row">
+          <div class="avatar"><span class="avatar-tooltip">Christian Pedersen <span class="tooltip-fn">Strategy</span></span>CP</div>
+          <div class="avatar"><span class="avatar-tooltip">Kriti Sharma <span class="tooltip-fn">AI BU</span></span>KS</div>
+          <div class="avatar"><span class="avatar-tooltip">Laura Bennett <span class="tooltip-fn">HR</span></span>LB</div>
+          <div class="avatar"><span class="avatar-tooltip">Matt Breslin <span class="tooltip-fn">Core Sales</span></span>MB</div>
+          <div class="avatar"><span class="avatar-tooltip">Mihita Podobnik <span class="tooltip-fn">HR</span></span>MP</div>
+        </div>
         <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1687,6 +1778,13 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 9</div>
         <h4>Finance</h4>
         <div class="group-lead">Tech Lead: <span>Danilo Prates</span></div>
+        <div class="avatar-row">
+          <div class="avatar"><span class="avatar-tooltip">Danilo Prates <span class="tooltip-fn">M&amp;A</span></span>DP</div>
+          <div class="avatar"><span class="avatar-tooltip">Hannes Liebe <span class="tooltip-fn">Core Sales</span></span>HL</div>
+          <div class="avatar"><span class="avatar-tooltip">Jonathan Park <span class="tooltip-fn">Finance</span></span>JP</div>
+          <div class="avatar"><span class="avatar-tooltip">Jordan Setterfield <span class="tooltip-fn">Finance</span></span>JS</div>
+          <div class="avatar"><span class="avatar-tooltip">Matthias Heiden <span class="tooltip-fn">Finance</span></span>MH</div>
+        </div>
         <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1698,6 +1796,13 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 10</div>
         <h4>IT</h4>
         <div class="group-lead">Tech Lead: <span>Jorge Garc&iacute;a D&iacute;az</span></div>
+        <div class="avatar-row">
+          <div class="avatar"><span class="avatar-tooltip">Goiuri Hern&aacute;ndez <span class="tooltip-fn">Core Sales</span></span>GH</div>
+          <div class="avatar"><span class="avatar-tooltip">Jorge Garc&iacute;a D&iacute;az <span class="tooltip-fn">IT</span></span>JG</div>
+          <div class="avatar"><span class="avatar-tooltip">Mubashir Nisar <span class="tooltip-fn">IT</span></span>MN</div>
+          <div class="avatar"><span class="avatar-tooltip">Robi Gone <span class="tooltip-fn">IT</span></span>RG</div>
+          <div class="avatar"><span class="avatar-tooltip">Somya Kapoor <span class="tooltip-fn">AI BU</span></span>SK</div>
+        </div>
         <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1709,6 +1814,13 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 11</div>
         <h4>M&amp;A</h4>
         <div class="group-lead">Tech Lead: <span>Nick Vandivere</span></div>
+        <div class="avatar-row">
+          <div class="avatar"><span class="avatar-tooltip">Jim Hoefflin <span class="tooltip-fn">M&amp;A</span></span>JH</div>
+          <div class="avatar"><span class="avatar-tooltip">Lance Olmsted <span class="tooltip-fn">M&amp;A</span></span>LO</div>
+          <div class="avatar"><span class="avatar-tooltip">Nick Vandivere <span class="tooltip-fn">AI BU</span></span>NV</div>
+          <div class="avatar"><span class="avatar-tooltip">Rob Hortopp <span class="tooltip-fn">M&amp;A</span></span>RH</div>
+          <div class="avatar"><span class="avatar-tooltip">Tim Forkner <span class="tooltip-fn">M&amp;A</span></span>TF</div>
+        </div>
         <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
@@ -1720,6 +1832,12 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 12</div>
         <h4>Sales &ndash; Team B</h4>
         <div class="group-lead">Tech Lead: <span>Justin Bigger</span></div>
+        <div class="avatar-row">
+          <div class="avatar"><span class="avatar-tooltip">Herman Niewoudt <span class="tooltip-fn">Core Sales</span></span>HN</div>
+          <div class="avatar"><span class="avatar-tooltip">Justin Bigger <span class="tooltip-fn">Core Sales</span></span>JB</div>
+          <div class="avatar"><span class="avatar-tooltip">Mark Buongiorno <span class="tooltip-fn">Core Sales</span></span>MB</div>
+          <div class="avatar"><span class="avatar-tooltip">Mattias Bolander <span class="tooltip-fn">Core Sales</span></span>MB</div>
+        </div>
         <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
