@@ -973,7 +973,14 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255,255,255,0.12);
+    left: 0;
+    transform: translateX(0) scale(0.9);
   }
+  body.ff-ext-edit-on .avatar.mobile-active .avatar-tooltip {
+    transform: translateX(0) scale(1);
+  }
+  body.ff-ext-edit-on .avatar-tooltip .tooltip-fn { display: none; }
+  body.ff-ext-edit-on .avatar-tooltip::after { display: none; }
 }
 
 /* ─── Agenda: shortened mobile header text (feature flag: issue #15) ─── */
