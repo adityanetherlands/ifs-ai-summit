@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HR &mdash; IFS AI Leadership Summit</title>
+<title>HR &ndash; IFS AI Leadership Summit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -27,6 +27,9 @@
   --accent: #6366f1;
   --accent-light: #818cf8;
   --accent-glow: rgba(99, 102, 241, 0.12);
+  --accent-indigo: var(--accent);
+  --accent-indigo-light: var(--accent-light);
+  --accent-indigo-glow: var(--accent-glow);
   --accent-amber: #f59e0b;
   --accent-emerald: #22c55e;
   --accent-cyan: #06b6d4;
@@ -39,7 +42,6 @@
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --max-width: 900px;
   --nav-height: 64px;
-  --tabs-height: 52px;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -47,7 +49,7 @@
    RESET & BASE
    ═══════════════════════════════════════════════════════════════ */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + var(--tabs-height) + 16px); }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 24px); }
 body {
   font-family: var(--font-body);
   background: var(--bg-primary);
@@ -71,123 +73,231 @@ a:hover { text-decoration: underline; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ═══════════════════════════════════════════════════════════════
-   TOP NAVIGATION BAR
+   MAIN NAVBAR (from index.html)
    ═══════════════════════════════════════════════════════════════ */
-.topnav {
+.nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  height: var(--nav-height);
-  background: rgba(9, 11, 16, 0.92);
-  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border-subtle);
+  display: flex; justify-content: center;
+  padding: 18px 32px;
+  pointer-events: none;
+}
+.nav-inner {
   display: flex; align-items: center;
+  background: linear-gradient(135deg, rgba(20, 23, 32, 0.55) 0%, rgba(30, 34, 45, 0.45) 50%, rgba(99, 102, 241, 0.05) 100%);
+  backdrop-filter: blur(40px) saturate(1.3); -webkit-backdrop-filter: blur(40px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  padding: 8px 10px 8px 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 48px rgba(99,102,241,0.04), inset 0 1px 0 rgba(255,255,255,0.06);
+  pointer-events: auto;
+  max-width: 860px;
+  width: auto;
+  gap: 6px;
 }
-.topnav-inner {
-  max-width: 1200px; margin: 0 auto; padding: 0 32px;
-  width: 100%; display: flex; align-items: center; justify-content: space-between;
+.nav-brand {
+  font-family: var(--font-display); font-size: 16px; font-weight: 800;
+  white-space: nowrap; margin-right: 16px;
+  color: #f0f1f5;
+  letter-spacing: -0.3px;
+  text-decoration: none;
 }
-.topnav-back {
-  display: flex; align-items: center; gap: 10px;
-  color: var(--text-muted); text-decoration: none;
-  font-size: 14px; font-weight: 600;
-  transition: color 0.2s; cursor: pointer;
+.nav-brand:hover { text-decoration: none; opacity: 0.85; }
+.nav-brand span {
+  font-weight: 400;
+  background: linear-gradient(135deg, #818cf8, #06b6d4);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.topnav-back:hover { color: var(--text-primary); text-decoration: none; }
-.topnav-back svg { width: 18px; height: 18px; }
-.topnav-brand { color: var(--text-primary); }
-.topnav-brand span { color: var(--accent-light); }
-.topnav-title {
-  font-family: var(--font-display); font-size: 14px; font-weight: 700;
-  color: var(--text-primary); text-align: center;
-  position: absolute; left: 50%; transform: translateX(-50%);
-  white-space: nowrap;
-}
-.topnav-nav {
-  display: flex; align-items: center; gap: 6px;
-}
-.topnav-nav a {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 13px; font-weight: 600; color: var(--text-muted);
-  padding: 8px 14px; border-radius: 6px; text-decoration: none;
+.nav-links { display: flex; gap: 2px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; color: var(--text-dim);
+  padding: 10px 16px; border-radius: 100px; text-decoration: none;
   transition: color 0.2s, background 0.2s; cursor: pointer;
+  letter-spacing: 0.1px;
 }
-.topnav-nav a:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); text-decoration: none; }
-.topnav-nav a svg { width: 16px; height: 16px; }
+.nav-links a:hover { color: #f0f1f5; background: rgba(255,255,255,0.1); text-decoration: none; }
+.nav-links a.active { color: white; background: var(--accent); }
+
+.nav.scrolled .nav-inner {
+  background: linear-gradient(135deg, rgba(20, 23, 32, 0.7) 0%, rgba(30, 34, 45, 0.6) 50%, rgba(99, 102, 241, 0.06) 100%);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Hamburger */
+.nav-hamburger {
+  display: none; background: none; border: none; color: var(--text-muted);
+  cursor: pointer; padding: 8px; border-radius: 100px;
+}
+.nav-hamburger:hover { background: rgba(255,255,255,0.1); }
+
+/* Mobile drawer */
+.nav-drawer {
+  display: none; position: fixed; top: 0; right: 0; bottom: 0;
+  width: 280px; background: var(--bg-surface); border-left: 1px solid var(--border-default);
+  z-index: 1001; transform: translateX(100%); transition: transform 0.3s var(--ease);
+  padding: 80px 24px 24px; flex-direction: column; gap: 4px;
+}
+.nav-drawer.open { transform: translateX(0); display: flex; }
+.nav-drawer a {
+  font-size: 15px; font-weight: 600; color: var(--text-muted);
+  padding: 14px 16px; border-radius: 8px; text-decoration: none;
+  transition: color 0.2s, background 0.2s; display: block;
+}
+.nav-drawer a:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); text-decoration: none; }
+.nav-drawer a.active { color: var(--accent-light); background: var(--accent-glow); }
+.nav-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 1000;
+}
+.nav-overlay.open { display: block; }
+.drawer-close {
+  position: absolute; top: 16px; right: 16px; background: none; border: none;
+  color: var(--text-muted); cursor: pointer; padding: 8px; border-radius: 6px;
+}
+.drawer-close:hover { color: var(--text-primary); background: rgba(255,255,255,0.06); }
+
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+  .nav-drawer.open { display: flex; }
+}
 
 /* ═══════════════════════════════════════════════════════════════
-   SECTION PILL TABS
+   BRIEF HERO
    ═══════════════════════════════════════════════════════════════ */
-.tabs-bar {
-  position: fixed; top: var(--nav-height); left: 0; right: 0; z-index: 999;
-  height: var(--tabs-height);
-  background: rgba(15, 17, 23, 0.92);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+.brief-hero {
+  padding: calc(var(--nav-height) + 56px) 32px 48px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 30%, rgba(6, 182, 212, 0.11) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 50% at 85% 75%, rgba(236, 72, 153, 0.10) 0%, transparent 65%),
+    var(--bg-secondary);
   border-bottom: 1px solid var(--border-subtle);
-  display: flex; align-items: center; justify-content: center;
-  overflow-x: auto; -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
 }
-.tabs-bar::-webkit-scrollbar { display: none; }
-.tabs-inner {
-  display: flex; gap: 6px; padding: 0 24px;
+.brief-hero-inner {
+  max-width: 720px;
+  margin: 0 auto;
 }
-.tab-pill {
-  display: flex; align-items: center; gap: 8px;
+.brief-hero-eyebrow {
+  font-family: var(--font-display); font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light);
+  margin-bottom: 16px;
+}
+.brief-hero-title {
+  font-family: var(--font-display); font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+  color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15;
+  margin-bottom: 12px;
+}
+.brief-hero-subtitle {
+  font-size: 17px; color: var(--accent-light); font-weight: 600; letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+.brief-hero-tagline {
+  font-size: 14px; color: var(--text-muted); font-style: italic;
+  margin-bottom: 28px;
+}
+.brief-hero-nav {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.brief-nav-btn {
+  display: inline-flex; align-items: center; gap: 8px;
   font-size: 13px; font-weight: 600; color: var(--text-muted);
-  padding: 8px 16px; border-radius: 100px; white-space: nowrap;
-  text-decoration: none; cursor: pointer;
-  border: 1px solid transparent;
+  padding: 10px 20px; border-radius: 100px;
+  border: 1px solid var(--border-default);
+  text-decoration: none;
   transition: all 0.2s var(--ease);
 }
-.tab-pill:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); text-decoration: none; }
-.tab-pill.active {
-  color: var(--accent-light); background: var(--accent-glow);
-  border-color: rgba(99,102,241,0.2);
+.brief-nav-btn:hover {
+  color: var(--accent-light); border-color: var(--accent);
+  background: var(--accent-glow); text-decoration: none;
 }
-.tab-num {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 20px; height: 20px; border-radius: 6px;
-  background: var(--bg-surface); border: 1px solid var(--border-default);
-  font-size: 10px; font-weight: 700; color: var(--text-dim);
-  transition: all 0.2s;
+.brief-nav-btn svg { width: 16px; height: 16px; }
+.brief-nav-all {
+  border-color: var(--accent); color: var(--accent-light);
 }
-.tab-pill.active .tab-num {
-  background: var(--accent); border-color: var(--accent); color: white;
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTENT LAYOUT (sidebar + main)
+   ═══════════════════════════════════════════════════════════════ */
+.content-layout {
+  display: flex;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 32px;
+  gap: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STICKY SIDEBAR TOC
+   ═══════════════════════════════════════════════════════════════ */
+.toc-sidebar {
+  width: 180px;
+  flex-shrink: 0;
+  padding-top: 48px;
+}
+.toc-nav {
+  position: sticky;
+  top: calc(var(--nav-height) + 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toc-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-dim);
+  font-size: 13px; font-weight: 500;
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+  cursor: pointer;
+  position: relative;
+}
+.toc-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 3px; border-radius: 2px;
+  background: transparent;
+  transition: background 0.2s var(--ease);
+}
+.toc-item:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.03);
+  text-decoration: none;
+}
+.toc-item.active {
+  color: var(--accent-light);
+  background: rgba(99, 102, 241, 0.06);
+}
+.toc-item.active::before {
+  background: var(--accent);
+}
+.toc-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border-default);
+  flex-shrink: 0;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.toc-item.active .toc-dot {
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
 }
 
 /* ═══════════════════════════════════════════════════════════════
    MAIN CONTENT
    ═══════════════════════════════════════════════════════════════ */
 .main {
+  flex: 1;
+  min-width: 0;
   max-width: var(--max-width);
-  margin: 0 auto;
-  padding: calc(var(--nav-height) + var(--tabs-height) + 48px) 32px 0;
-}
-
-/* Header */
-.page-header {
-  margin-bottom: 52px;
-  padding-bottom: 32px;
-  border-bottom: 2px solid var(--accent);
-}
-.page-eyebrow {
-  font-family: var(--font-display); font-size: 12px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light);
-  margin-bottom: 12px;
-}
-.page-header h1 {
-  font-family: var(--font-display); font-size: clamp(30px, 5vw, 40px); font-weight: 800;
-  color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15;
-  margin-bottom: 12px;
-}
-.page-header .subtitle {
-  font-size: 16px; color: var(--accent-light); font-weight: 600; letter-spacing: 0.3px;
-}
-.page-header .tagline {
-  font-size: 14px; color: var(--text-muted); margin-top: 8px; font-style: italic;
+  padding: 48px 0 0 48px;
 }
 
 /* Sections */
-.section { margin-bottom: 56px; scroll-margin-top: calc(var(--nav-height) + var(--tabs-height) + 16px); }
+.section { margin-bottom: 56px; scroll-margin-top: calc(var(--nav-height) + 24px); }
+.section + .section { border-top: 1px solid var(--border-subtle); padding-top: 48px; }
 h2 {
   font-family: var(--font-display); font-size: 24px; font-weight: 800;
   margin-bottom: 22px; color: var(--text-primary);
@@ -301,6 +411,24 @@ blockquote {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   BACK TO TOP
+   ═══════════════════════════════════════════════════════════════ */
+#back-to-top {
+  position: fixed; bottom: 32px; right: 32px; z-index: 900;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--bg-surface); border: 1px solid var(--border-default);
+  color: var(--text-muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), border-color 0.2s, color 0.2s;
+  pointer-events: none;
+}
+#back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#back-to-top:hover { border-color: var(--accent); color: var(--accent-light); }
+#back-to-top svg { width: 20px; height: 20px; }
+
+/* ═══════════════════════════════════════════════════════════════
    FOOTER NAVIGATION
    ═══════════════════════════════════════════════════════════════ */
 .page-footer {
@@ -333,20 +461,25 @@ blockquote {
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .topnav-title { display: none; }
+  .nav-inner { padding: 8px 10px 8px 20px; }
+  .toc-sidebar { display: none; }
+  .main { padding-left: 0; }
+  .content-layout { max-width: var(--max-width); }
 }
 @media (max-width: 768px) {
-  .main { padding-left: 20px; padding-right: 20px; }
-  .page-header h1 { font-size: 28px; }
+  .main { padding-left: 0; padding-right: 0; }
+  .content-layout { padding-left: 20px; padding-right: 20px; }
+  .brief-hero { padding-left: 20px; padding-right: 20px; }
+  .brief-hero-title { font-size: 26px; }
+  .brief-nav-btn { padding: 8px 16px; font-size: 12px; }
   .before-after { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .kpi-grid { grid-template-columns: 1fr 1fr; }
   .company-grid { grid-template-columns: 1fr; }
   h2 { font-size: 20px; }
-  .topnav-inner { padding: 0 16px; }
-  .topnav-nav .nav-label { display: none; }
   .footer-nav { flex-direction: column; gap: 12px; }
   .footer-nav a { width: 100%; justify-content: center; }
+  .nav { padding: 12px 16px; }
 }
 
 /* Reduced motion */
@@ -359,65 +492,95 @@ blockquote {
 <body>
 
 <!-- ═══════════════════════════════════════════════════
-     TOP NAVIGATION
+     MAIN NAVBAR
      ═══════════════════════════════════════════════════ -->
-<nav class="topnav">
-  <div class="topnav-inner">
-    <a href="../index.html#prereads" class="topnav-back">
-      <i data-lucide="arrow-left"></i>
-      <span class="topnav-brand">IFS <span>AI Summit</span></span>
-    </a>
-    <div class="topnav-title">HR</div>
-    <div class="topnav-nav">
-      <a href="future-of-function-07-marketing.html" title="Previous: Marketing">
-        <i data-lucide="chevron-left"></i>
-        <span class="nav-label">Prev</span>
-      </a>
-      <a href="future-of-function-09-finance.html" title="Next: Finance">
-        <span class="nav-label">Next</span>
-        <i data-lucide="chevron-right"></i>
-      </a>
-    </div>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-brand">IFS <span>AI Summit</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#agenda">Agenda</a></li>
+      <li><a href="../index.html#prereads" class="active">Pre-Reads</a></li>
+      <li><a href="../index.html#homework">Homework</a></li>
+      <li><a href="../index.html#speakers">Speakers</a></li>
+      <li><a href="../index.html#groups">Groups</a></li>
+      <li><a href="../index.html#venue">Venue</a></li>
+      <li><a href="../index.html#logistics">Logistics</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Open menu" onclick="toggleDrawer()">
+      <i data-lucide="menu" style="width:24px;height:24px;"></i>
+    </button>
   </div>
 </nav>
 
-<!-- ═══════════════════════════════════════════════════
-     SECTION PILL TABS
-     ═══════════════════════════════════════════════════ -->
-<div class="tabs-bar">
-  <div class="tabs-inner">
-    <a href="#section-1" class="tab-pill active" data-section="section-1">
-      <span class="tab-num">1</span> Current State
-    </a>
-    <a href="#section-2" class="tab-pill" data-section="section-2">
-      <span class="tab-num">2</span> Future Vision
-    </a>
-    <a href="#section-3" class="tab-pill" data-section="section-3">
-      <span class="tab-num">3</span> Questions
-    </a>
-    <a href="#section-4" class="tab-pill" data-section="section-4">
-      <span class="tab-num">4</span> AI Companies
-    </a>
-    <a href="#section-5" class="tab-pill" data-section="section-5">
-      <span class="tab-num">5</span> Hands-On
-    </a>
-    <a href="#section-6" class="tab-pill" data-section="section-6">
-      <span class="tab-num">6</span> Homework
-    </a>
-  </div>
+<!-- Mobile Drawer -->
+<div class="nav-overlay" id="navOverlay" onclick="toggleDrawer()"></div>
+<div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu">
+  <button class="drawer-close" aria-label="Close menu" onclick="toggleDrawer()">
+    <i data-lucide="x" style="width:24px;height:24px;"></i>
+  </button>
+  <a href="../index.html#agenda" onclick="toggleDrawer()">Agenda</a>
+  <a href="../index.html#prereads" class="active" onclick="toggleDrawer()">Pre-Read Briefs</a>
+  <a href="../index.html#homework" onclick="toggleDrawer()">Homework</a>
+  <a href="../index.html#speakers" onclick="toggleDrawer()">Speakers</a>
+  <a href="../index.html#groups" onclick="toggleDrawer()">Groups</a>
+  <a href="../index.html#venue" onclick="toggleDrawer()">Venue</a>
+  <a href="../index.html#logistics" onclick="toggleDrawer()">Logistics</a>
 </div>
 
 <!-- ═══════════════════════════════════════════════════
-     MAIN CONTENT
+     BRIEF HERO
      ═══════════════════════════════════════════════════ -->
-<main class="main">
-
-  <div class="page-header">
-    <div class="page-eyebrow">Future of Function &mdash; 08</div>
-    <h1>Future of HR</h1>
-    <div class="subtitle">Rethinking the Joiner-Mover-Leaver Lifecycle with AI</div>
-    <div class="tagline">Pre-Read &amp; Action Brief for the IFS Leadership Team</div>
+<section class="brief-hero">
+  <div class="brief-hero-inner">
+    <div class="brief-hero-eyebrow">Future of Function &ndash; 08</div>
+    <h1 class="brief-hero-title">Future of HR</h1>
+    <p class="brief-hero-subtitle">Rethinking the Joiner-Mover-Leaver Lifecycle with AI</p>
+    <p class="brief-hero-tagline">Pre-Read &amp; Action Brief for the IFS Leadership Team</p>
+    <div class="brief-hero-nav">
+      <a href="future-of-function-07-marketing.html" class="brief-nav-btn">
+        <i data-lucide="arrow-left"></i> Marketing
+      </a>
+      <a href="../index.html#prereads" class="brief-nav-btn brief-nav-all">
+        <i data-lucide="layout-grid"></i> All Briefs
+      </a>
+      <a href="future-of-function-09-finance.html" class="brief-nav-btn">
+        Finance <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
   </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     CONTENT LAYOUT
+     ═══════════════════════════════════════════════════ -->
+<div class="content-layout">
+
+  <!-- Sticky Sidebar TOC -->
+  <aside class="toc-sidebar">
+    <nav class="toc-nav" aria-label="Page sections">
+      <a href="#section-1" class="toc-item" data-section="section-1">
+        <span class="toc-dot"></span> Current State
+      </a>
+      <a href="#section-2" class="toc-item" data-section="section-2">
+        <span class="toc-dot"></span> Future Vision
+      </a>
+      <a href="#section-3" class="toc-item" data-section="section-3">
+        <span class="toc-dot"></span> Questions
+      </a>
+      <a href="#section-4" class="toc-item" data-section="section-4">
+        <span class="toc-dot"></span> AI Companies
+      </a>
+      <a href="#section-5" class="toc-item" data-section="section-5">
+        <span class="toc-dot"></span> Hands-On
+      </a>
+      <a href="#section-6" class="toc-item" data-section="section-6">
+        <span class="toc-dot"></span> Homework
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
 
   <!-- Section 1 -->
   <div class="section" id="section-1">
@@ -737,6 +900,13 @@ blockquote {
 
 </main>
 
+</div><!-- .content-layout -->
+
+<!-- Back to Top -->
+<button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i data-lucide="arrow-up"></i>
+</button>
+
 <!-- ═══════════════════════════════════════════════════
      JAVASCRIPT
      ═══════════════════════════════════════════════════ -->
@@ -752,31 +922,55 @@ blockquote {
   // Initialize Lucide icons
   lucide.createIcons();
 
-  // Scroll-spy for pill tabs
-  const sections = document.querySelectorAll('.section');
-  const tabPills = document.querySelectorAll('.tab-pill');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        tabPills.forEach(pill => pill.classList.remove('active'));
-        const activePill = document.querySelector(`.tab-pill[data-section="${entry.target.id}"]`);
-        if (activePill) {
-          activePill.classList.add('active');
-          // Scroll pill into view in tabs bar
-          activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        }
-      }
-    });
-  }, { rootMargin: '-20% 0px -70% 0px' });
-
-  sections.forEach(section => observer.observe(section));
-
-  // Smooth scroll for pill tabs and nav links
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const target = document.querySelector(link.getAttribute('href'));
+
+  // Navbar scroll state
+  const nav = document.querySelector('.nav');
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+        var btn = document.getElementById('back-to-top');
+        if (btn) btn.classList.toggle('visible', window.scrollY > 400);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile drawer toggle
+  window.toggleDrawer = function() {
+    var drawer = document.getElementById('navDrawer');
+    var overlay = document.getElementById('navOverlay');
+    var isOpen = drawer.classList.contains('open');
+    drawer.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  };
+
+  // Sidebar TOC scroll-spy
+  var sections = document.querySelectorAll('.section[id]');
+  var tocItems = document.querySelectorAll('.toc-item');
+  if (tocItems.length) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          tocItems.forEach(function(c) { c.classList.remove('active'); });
+          var match = document.querySelector('.toc-item[data-section="' + entry.target.id + '"]');
+          if (match) match.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(function(s) { observer.observe(s); });
+  }
+
+  // Smooth scroll for internal links
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var target = document.querySelector(link.getAttribute('href'));
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
