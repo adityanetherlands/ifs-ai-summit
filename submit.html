@@ -95,6 +95,20 @@ h1 {
   font-size: 12px;
   font-weight: 600;
 }
+.download-briefs-btn {
+  margin-top: 12px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  height: 44px;
+}
+.download-briefs-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
 
 /* Two-column layout */
 .layout {
@@ -349,6 +363,9 @@ textarea { min-height: 100px; resize: vertical; }
   <div class="info-banner">
     Changes will be deployed behind a feature flag. Preview them by adding <code class="flag-code">?ext_edit=true</code> to the end of the page URL.
   </div>
+  <button class="btn download-briefs-btn" id="downloadBriefsBtn" onclick="downloadBriefsMd()">
+    Click here to download the .md files for all briefs
+  </button>
 </div>
 
 <div class="layout">
@@ -403,7 +420,55 @@ textarea { min-height: 100px; resize: vertical; }
 </div>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
+// --- Download all briefs as zip ---
+async function downloadBriefsMd() {
+  const btn = document.getElementById('downloadBriefsBtn');
+  btn.disabled = true;
+  btn.textContent = 'Preparing download...';
+
+  const files = [
+    '01-executive-board.md',
+    '02-sales.md',
+    '03-presales.md',
+    '04-rnd.md',
+    '05-customer-support-success.md',
+    '06-ai-product-unit.md',
+    '07-marketing.md',
+    '08-hr.md',
+    '09-finance.md',
+    '10-it.md',
+    '11-mna.md'
+  ];
+
+  try {
+    const zip = new JSZip();
+    const results = await Promise.all(
+      files.map(f => fetch('/downloads/briefs/' + f).then(r => {
+        if (!r.ok) throw new Error('Failed to fetch ' + f);
+        return r.text();
+      }))
+    );
+    files.forEach((name, i) => zip.file(name, results[i]));
+
+    const blob = await zip.generateAsync({ type: 'blob' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'ifs-ai-summit-briefs.zip';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    alert('Download failed: ' + err.message);
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Click here to download the .md files for all briefs';
+}
+
 // --- File attachment handling ---
 const ALLOWED_EXTENSIONS = ['.md', '.txt', '.png', '.jpg', '.jpeg', '.gif', '.webp'];
 const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
