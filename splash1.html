@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFS AI Leadership Summit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #090b10;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* tsParticles container */
+        #tsparticles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Animation stage */
+        .animation-stage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .main-title {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 800;
+            font-size: 6rem;
+            background: linear-gradient(135deg, #6366f1 0%, #818cf8 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        .tagline {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #e2e8f0;
+            margin-top: 1rem;
+            opacity: 0;
+            will-change: transform, opacity;
+            display: flex;
+            gap: 0.4em;
+        }
+
+        /* Glitch effect */
+        .glitch {
+            position: relative;
+            display: inline-block;
+            color: #e2e8f0;
+            animation: glitch-jitter 0.1s infinite;
+        }
+
+        .glitch[data-text]::before,
+        .glitch[data-text]::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .glitch[data-text]::before {
+            color: #06b6d4;
+            animation: glitch-top 2s infinite linear alternate-reverse;
+            clip-path: inset(0 0 65% 0);
+            transform: translateX(-2px);
+        }
+
+        .glitch[data-text]::after {
+            color: #f59e0b;
+            animation: glitch-bottom 2.5s infinite linear alternate-reverse;
+            clip-path: inset(65% 0 0 0);
+            transform: translateX(2px);
+        }
+
+        @keyframes glitch-jitter {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(1px, -1px); }
+            60% { transform: translate(-1px, -1px); }
+            80% { transform: translate(1px, 1px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        @keyframes glitch-top {
+            0% { clip-path: inset(0 0 65% 0); transform: translateX(-2px); }
+            20% { clip-path: inset(5% 0 60% 0); transform: translateX(-3px); }
+            40% { clip-path: inset(0 0 70% 0); transform: translateX(-1px); }
+            60% { clip-path: inset(10% 0 55% 0); transform: translateX(-2px); }
+            80% { clip-path: inset(0 0 65% 0); transform: translateX(-3px); }
+            100% { clip-path: inset(5% 0 60% 0); transform: translateX(-2px); }
+        }
+
+        @keyframes glitch-bottom {
+            0% { clip-path: inset(65% 0 0 0); transform: translateX(2px); }
+            25% { clip-path: inset(60% 0 5% 0); transform: translateX(3px); }
+            50% { clip-path: inset(70% 0 0 0); transform: translateX(1px); }
+            75% { clip-path: inset(55% 0 10% 0); transform: translateX(2px); }
+            100% { clip-path: inset(65% 0 0 0); transform: translateX(2px); }
+        }
+
+        /* Burst particles (CSS-based explosion) */
+        .burst-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            pointer-events: none;
+            will-change: transform, opacity;
+        }
+
+        /* Password overlay */
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            background: rgba(9, 11, 16, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .password-overlay.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .password-card {
+            background: rgba(24, 27, 35, 0.85);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            width: 90%;
+            max-width: 420px;
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                0 0 80px rgba(99, 102, 241, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .card-title {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 800;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #6366f1 0%, #818cf8 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-tagline {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            display: flex;
+            gap: 0.3em;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            background: rgba(9, 11, 16, 0.8);
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .password-input::placeholder {
+            color: rgba(226, 232, 240, 0.4);
+        }
+
+        .password-input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6366f1, #818cf8);
+            color: #ffffff;
+            font-family: 'Lexend', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Shake animation for wrong password */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .animation-stage {
+                display: none;
+            }
+            #tsparticles {
+                display: none;
+            }
+            .password-overlay {
+                opacity: 1;
+                pointer-events: all;
+            }
+            .glitch {
+                animation: none;
+            }
+            .glitch::before,
+            .glitch::after {
+                animation: none;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 4rem;
+            }
+            .tagline {
+                font-size: 1.1rem;
+            }
+            .password-card {
+                padding: 2rem 1.5rem;
+            }
+            .card-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="tsparticles"></div>
+
+    <div class="animation-stage">
+        <h1 class="main-title">IFS</h1>
+        <p class="tagline">
+            <span>The Ground Is</span>
+            <span class="glitch" data-text="Shifting">Shifting</span>
+        </p>
+    </div>
+
+    <div class="password-overlay" id="passwordOverlay">
+        <div class="password-card" id="passwordCard">
+            <h2 class="card-title">IFS</h2>
+            <p class="card-tagline">
+                <span>The Ground Is</span>
+                <span class="glitch" data-text="Shifting">Shifting</span>
+            </p>
+            <input
+                type="password"
+                class="password-input"
+                id="passwordInput"
+                placeholder="Enter the motto"
+                autocomplete="off"
+            >
+            <button class="submit-btn" id="submitBtn">Enter</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2/tsparticles.slim.bundle.min.js"></script>
+    <script>
+        (function() {
+            // Reduced motion check
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.getElementById('passwordOverlay').classList.add('visible');
+                document.getElementById('passwordInput').focus();
+                return;
+            }
+
+            const isMobile = window.innerWidth < 768;
+            const particleCount = isMobile ? 40 : 80;
+
+            const particleConfig = {
+                fullScreen: false,
+                particles: {
+                    number: {
+                        value: particleCount,
+                        density: { enable: false }
+                    },
+                    color: {
+                        value: ['#6366f1', '#818cf8', '#06b6d4']
+                    },
+                    shape: { type: 'circle' },
+                    opacity: {
+                        value: { min: 0.3, max: 0.7 },
+                        animation: {
+                            enable: true,
+                            speed: 0.5,
+                            minimumValue: 0.2
+                        }
+                    },
+                    size: {
+                        value: { min: 2, max: 4 }
+                    },
+                    links: {
+                        enable: true,
+                        color: '#6366f1',
+                        opacity: 0.15,
+                        distance: 120,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: 'none',
+                        random: true,
+                        straight: false,
+                        outModes: { default: 'bounce' }
+                    }
+                },
+                interactivity: {
+                    events: {
+                        onHover: { enable: false },
+                        onClick: { enable: false }
+                    }
+                },
+                detectRetina: true
+            };
+
+            tsParticles.load("tsparticles", particleConfig).then(function(container) {
+                var tl = gsap.timeline();
+
+                // 0.5s: Enable attract mode by increasing speed toward center
+                tl.to({}, {
+                    duration: 0.5,
+                    onComplete: function() {
+                        // Simulate attract by setting move direction toward center
+                        var particles = container.particles;
+                        particles.filter(function() { return true; }).forEach(function(p) {
+                            var cx = window.innerWidth / 2;
+                            var cy = window.innerHeight / 2;
+                            var dx = cx - p.position.x;
+                            var dy = cy - p.position.y;
+                            var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+                            p.velocity.x = (dx / dist) * 2;
+                            p.velocity.y = (dy / dist) * 2;
+                        });
+                    }
+                });
+
+                // 1.5s: Title fades in
+                tl.to('.main-title', {
+                    duration: 0.6,
+                    opacity: 1,
+                    scale: 1,
+                    ease: 'back.out(1.7)',
+                    delay: 0.5
+                }, 0.5);
+
+                gsap.set('.main-title', { scale: 0.8 });
+
+                // 2.0s: Particle explosion (fade out particles + CSS burst)
+                tl.to('#tsparticles', {
+                    duration: 0.5,
+                    opacity: 0,
+                    ease: 'power2.in'
+                }, 1.5);
+
+                tl.add(function() {
+                    createBurstEffect();
+                }, 1.5);
+
+                // 2.5s: Tagline fades up
+                tl.to('.tagline', {
+                    duration: 0.5,
+                    opacity: 1,
+                    y: 0,
+                    ease: 'power3.out'
+                }, 2.0);
+
+                gsap.set('.tagline', { y: 30 });
+
+                // 3.5s: Show password overlay
+                tl.add(function() {
+                    document.getElementById('passwordOverlay').classList.add('visible');
+                    setTimeout(function() {
+                        document.getElementById('passwordInput').focus();
+                    }, 300);
+                }, 3.0);
+            });
+
+            function createBurstEffect() {
+                var stage = document.querySelector('.animation-stage');
+                var colors = ['#6366f1', '#818cf8', '#06b6d4', '#f59e0b'];
+                var count = 24;
+
+                for (var i = 0; i < count; i++) {
+                    var particle = document.createElement('div');
+                    particle.className = 'burst-particle';
+                    particle.style.background = colors[i % colors.length];
+                    particle.style.boxShadow = '0 0 6px ' + colors[i % colors.length];
+                    stage.appendChild(particle);
+
+                    var angle = (i / count) * Math.PI * 2;
+                    var distance = 200 + Math.random() * 300;
+                    var tx = Math.cos(angle) * distance;
+                    var ty = Math.sin(angle) * distance;
+
+                    gsap.to(particle, {
+                        duration: 0.8 + Math.random() * 0.4,
+                        x: tx,
+                        y: ty,
+                        opacity: 0,
+                        scale: Math.random() * 2 + 0.5,
+                        ease: 'power2.out',
+                        delay: Math.random() * 0.1,
+                        onComplete: function() {
+                            particle.remove();
+                        }
+                    });
+                }
+            }
+
+            // Password handling
+            var submitBtn = document.getElementById('submitBtn');
+            var passwordInput = document.getElementById('passwordInput');
+            var passwordCard = document.getElementById('passwordCard');
+
+            function checkPassword() {
+                var value = passwordInput.value.trim().toLowerCase();
+                if (value === 'the ground is shifting') {
+                    window.location.href = '/';
+                } else {
+                    passwordCard.classList.add('shake');
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                    setTimeout(function() {
+                        passwordCard.classList.remove('shake');
+                    }, 500);
+                }
+            }
+
+            submitBtn.addEventListener('click', checkPassword);
+            passwordInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    checkPassword();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

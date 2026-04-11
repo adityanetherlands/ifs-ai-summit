@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFS AI Leadership Summit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #090b10;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Reveal Stage */
+        .reveal-stage {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .reveal-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #6366f1;
+            transform: scaleX(0);
+            transform-origin: center;
+            z-index: 10;
+        }
+
+        .curtain-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: #090b10;
+            z-index: 5;
+        }
+
+        .curtain-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: #090b10;
+            z-index: 5;
+        }
+
+        .reveal-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, #12151f 0%, #090b10 70%);
+            z-index: 1;
+        }
+
+        /* Title */
+        .reveal-title {
+            position: relative;
+            z-index: 20;
+            font-family: 'Lexend', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.8rem, 5vw, 3.5rem);
+            text-align: center;
+            letter-spacing: -0.02em;
+            opacity: 0;
+        }
+
+        .reveal-title .char {
+            display: inline-block;
+            opacity: 0;
+        }
+
+        .reveal-title.glow {
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.6), 0 0 40px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Tagline */
+        .reveal-tagline {
+            position: absolute;
+            z-index: 20;
+            font-family: 'Lexend', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.5rem, 4vw, 2.8rem);
+            text-align: center;
+            opacity: 0;
+            letter-spacing: -0.01em;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            display: inline-block;
+            color: #ffffff;
+            animation: glitch-jitter 0.3s infinite;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .glitch::before {
+            color: #06b6d4;
+            left: -2px;
+            animation: glitch-clip-top 2s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            color: #f59e0b;
+            left: 2px;
+            animation: glitch-clip-bottom 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-jitter {
+            0% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(1px, -1px); }
+            60% { transform: translate(-1px, -1px); }
+            80% { transform: translate(1px, 1px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-clip-top {
+            0% { clip-path: inset(0 0 70% 0); }
+            20% { clip-path: inset(0 0 60% 0); }
+            40% { clip-path: inset(10% 0 50% 0); }
+            60% { clip-path: inset(0 0 65% 0); }
+            80% { clip-path: inset(5% 0 55% 0); }
+            100% { clip-path: inset(0 0 70% 0); }
+        }
+
+        @keyframes glitch-clip-bottom {
+            0% { clip-path: inset(65% 0 0 0); }
+            20% { clip-path: inset(55% 0 0 0); }
+            40% { clip-path: inset(70% 0 0 0); }
+            60% { clip-path: inset(60% 0 0 0); }
+            80% { clip-path: inset(50% 0 0 0); }
+            100% { clip-path: inset(65% 0 0 0); }
+        }
+
+        /* Password Overlay */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(9, 11, 16, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+        }
+
+        .overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .overlay.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .card {
+            background: rgba(24, 27, 35, 0.85);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.15), 0 2px 8px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .card-brand {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 800;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #6366f1, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .card-tagline {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #e2e8f0;
+        }
+
+        .card-tagline .glitch {
+            font-size: inherit;
+        }
+
+        .card-input {
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            border-radius: 10px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            background: rgba(9, 11, 16, 0.8);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-input::placeholder {
+            color: rgba(148, 163, 184, 0.6);
+        }
+
+        .card-input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        .card-btn {
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .card-btn:active {
+            transform: translateY(0);
+        }
+
+        .card-error {
+            color: #f87171;
+            font-size: 0.875rem;
+            min-height: 1.25rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-error.show {
+            opacity: 1;
+        }
+
+        /* Shake animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 50%, 90% { transform: translateX(-6px); }
+            30%, 70% { transform: translateX(6px); }
+        }
+
+        .card.shake {
+            animation: shake 0.5s ease;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal-stage {
+                display: none !important;
+            }
+
+            .overlay {
+                opacity: 1;
+                pointer-events: all;
+                transition: none;
+            }
+
+            .overlay.hidden {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .glitch {
+                animation: none;
+            }
+
+            .glitch::before,
+            .glitch::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Reveal Animation Stage -->
+    <div class="reveal-stage">
+        <div class="reveal-bg"></div>
+        <div class="curtain-top"></div>
+        <div class="curtain-bottom"></div>
+        <div class="reveal-line"></div>
+        <div class="reveal-title" id="revealTitle">IFS AI Leadership Summit</div>
+        <div class="reveal-tagline" id="revealTagline">The Ground Is <span class="glitch" data-text="Shifting">Shifting</span></div>
+    </div>
+
+    <!-- Password Overlay -->
+    <div class="overlay hidden" id="passwordOverlay">
+        <div class="card" id="passwordCard">
+            <div class="card-brand">IFS</div>
+            <div class="card-tagline">The Ground Is <span class="glitch" data-text="Shifting">Shifting</span></div>
+            <input type="password" class="card-input" id="passwordInput" placeholder="Enter the motto" autocomplete="off">
+            <button class="card-btn" id="submitBtn">Enter</button>
+            <div class="card-error" id="errorMsg">Incorrect. Try again.</div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (prefersReduced) {
+                document.getElementById('passwordOverlay').classList.remove('hidden');
+                document.getElementById('passwordOverlay').classList.add('visible');
+                document.getElementById('passwordInput').focus();
+                return;
+            }
+
+            // Split title into characters
+            const titleEl = document.getElementById('revealTitle');
+            const titleText = titleEl.textContent;
+            titleEl.innerHTML = '';
+            for (let i = 0; i < titleText.length; i++) {
+                const span = document.createElement('span');
+                span.className = 'char';
+                if (titleText[i] === ' ') {
+                    span.innerHTML = '&nbsp;';
+                } else {
+                    span.textContent = titleText[i];
+                }
+                titleEl.appendChild(span);
+            }
+
+            const tl = gsap.timeline();
+
+            // Step 1: Line draws from center
+            tl.to('.reveal-line', {
+                scaleX: 1,
+                duration: 0.6,
+                ease: 'power2.out',
+                delay: 0.3
+            });
+
+            // Step 2: Curtains split
+            tl.to('.curtain-top', {
+                yPercent: -100,
+                duration: 0.8,
+                ease: 'power3.inOut'
+            }, '+=0.1')
+            .to('.curtain-bottom', {
+                yPercent: 100,
+                duration: 0.8,
+                ease: 'power3.inOut'
+            }, '<')
+            .to('.reveal-line', {
+                opacity: 0,
+                duration: 0.3
+            }, '<+=0.4');
+
+            // Step 3: Title appears letter by letter
+            tl.set(titleEl, { opacity: 1 })
+            .to(titleEl.querySelectorAll('.char'), {
+                opacity: 1,
+                y: 0,
+                duration: 0.05,
+                stagger: 0.04,
+                ease: 'power2.out',
+                onStart: function() {
+                    gsap.set(titleEl.querySelectorAll('.char'), { y: 15 });
+                }
+            }, '+=0.1')
+            .add(function() {
+                titleEl.classList.add('glow');
+            }, '+=0.2');
+
+            // Step 4: Title fades out
+            tl.to(titleEl, {
+                opacity: 0,
+                scale: 0.95,
+                duration: 0.5,
+                ease: 'power2.in'
+            }, '+=0.6');
+
+            // Step 5: Tagline appears
+            tl.to('#revealTagline', {
+                opacity: 1,
+                duration: 0.6,
+                ease: 'power2.out'
+            }, '+=0.1');
+
+            // Step 6: Fade out stage, show overlay
+            tl.to('.reveal-stage', {
+                opacity: 0,
+                duration: 0.5,
+                ease: 'power2.in',
+                onComplete: function() {
+                    document.querySelector('.reveal-stage').style.display = 'none';
+                    const overlay = document.getElementById('passwordOverlay');
+                    overlay.classList.remove('hidden');
+                    overlay.classList.add('visible');
+                    setTimeout(function() {
+                        document.getElementById('passwordInput').focus();
+                    }, 300);
+                }
+            }, '+=0.7');
+
+            // Password logic
+            const input = document.getElementById('passwordInput');
+            const btn = document.getElementById('submitBtn');
+            const card = document.getElementById('passwordCard');
+            const errorMsg = document.getElementById('errorMsg');
+
+            function attempt() {
+                const val = input.value.trim().toLowerCase();
+                if (val === 'the ground is shifting') {
+                    window.location.href = '/';
+                } else {
+                    errorMsg.classList.add('show');
+                    card.classList.add('shake');
+                    input.value = '';
+                    input.focus();
+                    setTimeout(function() {
+                        card.classList.remove('shake');
+                    }, 500);
+                    setTimeout(function() {
+                        errorMsg.classList.remove('show');
+                    }, 3000);
+                }
+            }
+
+            btn.addEventListener('click', attempt);
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') attempt();
+            });
+        });
+    </script>
+</body>
+</html>

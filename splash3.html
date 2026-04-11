@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFS AI Leadership Summit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #090b10;
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Orbs */
+        .orb {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+            will-change: transform, opacity;
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            width: 90px;
+            height: 90px;
+            background: #6366f1;
+            filter: blur(30px);
+            animation: float-1 4s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 80px;
+            height: 80px;
+            background: #6366f1;
+            filter: blur(28px);
+            animation: float-2 3.5s ease-in-out infinite;
+        }
+
+        .orb-3 {
+            width: 100px;
+            height: 100px;
+            background: #06b6d4;
+            filter: blur(35px);
+            animation: float-3 4.2s ease-in-out infinite;
+        }
+
+        .orb-4 {
+            width: 70px;
+            height: 70px;
+            background: #06b6d4;
+            filter: blur(25px);
+            animation: float-4 3.8s ease-in-out infinite;
+        }
+
+        .orb-5 {
+            width: 75px;
+            height: 75px;
+            background: #f59e0b;
+            filter: blur(28px);
+            animation: float-5 4.5s ease-in-out infinite;
+        }
+
+        .orb-6 {
+            width: 85px;
+            height: 85px;
+            background: #818cf8;
+            filter: blur(32px);
+            animation: float-6 3.6s ease-in-out infinite;
+        }
+
+        .orb-7 {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6366f1, #06b6d4);
+            filter: blur(25px);
+            animation: float-7 4.1s ease-in-out infinite;
+        }
+
+        /* Ambient floating animations */
+        @keyframes float-1 {
+            0%, 100% { margin-top: 0; margin-left: 0; }
+            50% { margin-top: -8px; margin-left: 5px; }
+        }
+        @keyframes float-2 {
+            0%, 100% { margin-top: 0; margin-left: 0; }
+            50% { margin-top: 6px; margin-left: -7px; }
+        }
+        @keyframes float-3 {
+            0%, 100% { margin-top: 0; margin-left: 0; }
+            50% { margin-top: -10px; margin-left: -4px; }
+        }
+        @keyframes float-4 {
+            0%, 100% { margin-top: 0; margin-left: 0; }
+            50% { margin-top: 7px; margin-left: 8px; }
+        }
+        @keyframes float-5 {
+            0%, 100% { margin-top: 0; margin-left: 0; }
+            50% { margin-top: -5px; margin-left: -9px; }
+        }
+        @keyframes float-6 {
+            0%, 100% { margin-top: 0; margin-left: 0; }
+            50% { margin-top: 9px; margin-left: 3px; }
+        }
+        @keyframes float-7 {
+            0%, 100% { margin-top: 0; margin-left: 0; }
+            50% { margin-top: -6px; margin-left: 7px; }
+        }
+
+        /* Center text */
+        .center-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .ifs-title {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 800;
+            font-size: 6rem;
+            background: linear-gradient(135deg, #6366f1, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            line-height: 1.1;
+        }
+
+        .tagline {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 1rem;
+            opacity: 0;
+            letter-spacing: -0.02em;
+        }
+
+        /* Ripple rings */
+        .ripple {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(99, 102, 241, 0.6);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Glitch effect */
+        .glitch {
+            position: relative;
+            display: inline-block;
+            animation: glitch-jitter 0.1s infinite;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .glitch::before {
+            color: #06b6d4;
+            left: -2px;
+            animation: glitch-clip-top 2s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            color: #f59e0b;
+            left: 2px;
+            animation: glitch-clip-bottom 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-jitter {
+            0% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(1px, -1px); }
+            60% { transform: translate(-1px, -1px); }
+            80% { transform: translate(1px, 1px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-clip-top {
+            0% { clip-path: inset(0 0 80% 0); }
+            20% { clip-path: inset(0 0 60% 0); }
+            40% { clip-path: inset(10% 0 70% 0); }
+            60% { clip-path: inset(0 0 85% 0); }
+            80% { clip-path: inset(5% 0 65% 0); }
+            100% { clip-path: inset(0 0 75% 0); }
+        }
+
+        @keyframes glitch-clip-bottom {
+            0% { clip-path: inset(70% 0 0 0); }
+            20% { clip-path: inset(80% 0 0 0); }
+            40% { clip-path: inset(60% 0 0 0); }
+            60% { clip-path: inset(75% 0 0 0); }
+            80% { clip-path: inset(85% 0 0 0); }
+            100% { clip-path: inset(65% 0 0 0); }
+        }
+
+        /* Password overlay */
+        .password-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(9, 11, 16, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .password-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .password-card {
+            background: rgba(24, 27, 35, 0.85);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 25px 60px rgba(99, 102, 241, 0.15), 0 0 40px rgba(99, 102, 241, 0.05);
+        }
+
+        .password-card .card-title {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 800;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #6366f1, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .password-card .card-tagline {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 2rem;
+        }
+
+        .password-card .card-tagline .glitch {
+            font-size: inherit;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(9, 11, 16, 0.8);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .password-input::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .password-input:focus {
+            border-color: rgba(99, 102, 241, 0.6);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #6366f1, #818cf8);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Lexend', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: #f87171;
+            font-size: 0.875rem;
+            margin-top: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-message.visible {
+            opacity: 1;
+        }
+
+        /* Shake animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 50%, 90% { transform: translateX(-6px); }
+            30%, 70% { transform: translateX(6px); }
+        }
+
+        .password-card.shake {
+            animation: shake 0.5s ease;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .orb {
+                display: none;
+            }
+            .ifs-title,
+            .tagline {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            .glitch {
+                animation: none;
+            }
+            .glitch::before,
+            .glitch::after {
+                display: none;
+            }
+            .password-overlay {
+                opacity: 1;
+                visibility: visible;
+            }
+            .center-text {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Orbs -->
+    <div class="orb orb-1" id="orb1"></div>
+    <div class="orb orb-2" id="orb2"></div>
+    <div class="orb orb-3" id="orb3"></div>
+    <div class="orb orb-4" id="orb4"></div>
+    <div class="orb orb-5" id="orb5"></div>
+    <div class="orb orb-6" id="orb6"></div>
+    <div class="orb orb-7" id="orb7"></div>
+
+    <!-- Ripple rings -->
+    <div class="ripple" id="ripple1"></div>
+    <div class="ripple" id="ripple2"></div>
+
+    <!-- Center text -->
+    <div class="center-text">
+        <div class="ifs-title" id="ifsTitle">IFS</div>
+        <div class="tagline" id="tagline">The Ground Is <span class="glitch" data-text="Shifting">Shifting</span></div>
+    </div>
+
+    <!-- Password overlay -->
+    <div class="password-overlay" id="passwordOverlay">
+        <div class="password-card" id="passwordCard">
+            <div class="card-title">IFS</div>
+            <div class="card-tagline">The Ground Is <span class="glitch" data-text="Shifting">Shifting</span></div>
+            <input type="password" class="password-input" id="passwordInput" placeholder="Enter the motto" autocomplete="off">
+            <button class="submit-btn" id="submitBtn">Enter</button>
+            <div class="error-message" id="errorMessage">Incorrect. Try again.</div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+            // Check reduced motion
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                return;
+            }
+
+            const tl = gsap.timeline();
+
+            // Initial positions - orbs far off-screen
+            const orbs = [
+                { el: '#orb1', x: '-120vw', y: '-30vh' },
+                { el: '#orb2', x: '110vw', y: '40vh' },
+                { el: '#orb3', x: '-80vw', y: '90vh' },
+                { el: '#orb4', x: '100vw', y: '-60vh' },
+                { el: '#orb5', x: '0vw', y: '-120vh' },
+                { el: '#orb6', x: '-110vw', y: '20vh' },
+                { el: '#orb7', x: '90vw', y: '80vh' }
+            ];
+
+            // Set initial orb positions
+            orbs.forEach(function (orb) {
+                gsap.set(orb.el, {
+                    x: orb.x,
+                    y: orb.y,
+                    scale: 1.3
+                });
+            });
+
+            // Orbs converge toward center (0s - 1.8s)
+            orbs.forEach(function (orb, i) {
+                tl.to(orb.el, {
+                    x: 0,
+                    y: 0,
+                    scale: 0.8,
+                    duration: 1.8,
+                    ease: 'power2.inOut'
+                }, i * 0.1);
+            });
+
+            // Orbs fade out at center (1.8s)
+            tl.to('.orb', {
+                opacity: 0,
+                scale: 0,
+                duration: 0.4,
+                ease: 'power2.in',
+                stagger: 0.03
+            }, 1.8);
+
+            // IFS text pops in (2.0s)
+            tl.fromTo('#ifsTitle', {
+                scale: 0.5,
+                opacity: 0
+            }, {
+                scale: 1,
+                opacity: 1,
+                duration: 0.6,
+                ease: 'back.out(2)'
+            }, 2.0);
+
+            // Ripple 1 (2.2s)
+            tl.to('#ripple1', {
+                opacity: 1,
+                duration: 0.01
+            }, 2.2);
+            tl.to('#ripple1', {
+                scale: 4,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power1.out'
+            }, 2.2);
+
+            // Ripple 2 (2.4s)
+            tl.to('#ripple2', {
+                opacity: 1,
+                duration: 0.01
+            }, 2.4);
+            tl.to('#ripple2', {
+                scale: 4,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power1.out'
+            }, 2.4);
+
+            // Tagline fades up (2.8s)
+            tl.fromTo('#tagline', {
+                y: 20,
+                opacity: 0
+            }, {
+                y: 0,
+                opacity: 1,
+                duration: 0.6,
+                ease: 'power2.out'
+            }, 2.8);
+
+            // Show password overlay (3.5s)
+            tl.call(function () {
+                document.getElementById('passwordOverlay').classList.add('visible');
+                document.getElementById('passwordInput').focus();
+            }, null, 3.5);
+
+            // Password logic
+            var passwordInput = document.getElementById('passwordInput');
+            var submitBtn = document.getElementById('submitBtn');
+            var passwordCard = document.getElementById('passwordCard');
+            var errorMessage = document.getElementById('errorMessage');
+
+            function attemptLogin() {
+                var value = passwordInput.value.trim().toLowerCase();
+                if (value === 'the ground is shifting') {
+                    window.location.href = '/';
+                } else {
+                    passwordCard.classList.add('shake');
+                    errorMessage.classList.add('visible');
+                    passwordInput.value = '';
+                    setTimeout(function () {
+                        passwordCard.classList.remove('shake');
+                    }, 500);
+                    setTimeout(function () {
+                        errorMessage.classList.remove('visible');
+                    }, 3000);
+                }
+            }
+
+            submitBtn.addEventListener('click', attemptLogin);
+            passwordInput.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    attemptLogin();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
