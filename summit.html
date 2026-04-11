@@ -877,13 +877,24 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     transform: translateX(-50%);
     margin-right: 0;
   }
-  /* Drawer: glassmorphism style */
+  /* Drawer: slide from left, ultra-glassy */
   body.ff-ext-edit-on .nav-drawer {
-    background: linear-gradient(135deg, rgba(20,23,32,0.8) 0%, rgba(30,34,45,0.7) 50%, rgba(99,102,241,0.05) 100%);
-    backdrop-filter: blur(40px) saturate(1.3);
-    -webkit-backdrop-filter: blur(40px) saturate(1.3);
-    border-left: 1px solid rgba(255,255,255,0.1);
-    box-shadow: -8px 0 32px rgba(0,0,0,0.4);
+    right: auto;
+    left: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(135deg, rgba(20,23,32,0.45) 0%, rgba(30,34,45,0.35) 50%, rgba(99,102,241,0.08) 100%);
+    backdrop-filter: blur(60px) saturate(1.6);
+    -webkit-backdrop-filter: blur(60px) saturate(1.6);
+    border-left: none;
+    border-right: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 8px 0 40px rgba(0,0,0,0.5), inset 0 0 80px rgba(99,102,241,0.03);
+  }
+  body.ff-ext-edit-on .nav-drawer.open {
+    transform: translateX(0);
+  }
+  body.ff-ext-edit-on .nav-drawer .drawer-close {
+    left: auto;
+    right: 16px;
   }
   body.ff-ext-edit-on .nav-drawer a {
     border-radius: 10px;
@@ -987,18 +998,21 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   body.ff-ext-edit-on .prebrief-grid {
     display: flex !important;
     overflow-x: auto;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     gap: 12px;
     padding-bottom: 8px;
     scrollbar-width: none;
+    align-items: stretch;
   }
   body.ff-ext-edit-on .prebrief-grid::-webkit-scrollbar { display: none; }
   body.ff-ext-edit-on .prebrief-card {
-    min-width: 240px;
-    max-width: 280px;
+    min-width: 260px;
+    max-width: 300px;
     flex-shrink: 0;
     scroll-snap-align: start;
+    height: auto;
   }
 
   body.ff-ext-edit-on .speakers-keynote {
@@ -1021,11 +1035,13 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   body.ff-ext-edit-on .groups-grid {
     display: flex !important;
     overflow-x: auto;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     gap: 12px;
     padding-bottom: 8px;
     scrollbar-width: none;
+    align-items: stretch;
   }
   body.ff-ext-edit-on .groups-grid::-webkit-scrollbar { display: none; }
   body.ff-ext-edit-on .group-card {
@@ -1033,6 +1049,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     max-width: 300px;
     flex-shrink: 0;
     scroll-snap-align: start;
+    height: auto;
   }
   body.ff-ext-edit-on .groups-grid:hover .group-card { opacity: 1; }
 
