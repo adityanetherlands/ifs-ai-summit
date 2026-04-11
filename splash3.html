@@ -182,19 +182,17 @@
             100% { transform: translate(2px, 1px); }
         }
 
-        /* Password card - no full overlay, floats over the last frame */
+        /* Password card - centered liquid glass over the last frame */
         .password-card-wrapper {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            inset: 0;
             display: flex;
+            align-items: center;
             justify-content: center;
-            padding-bottom: 12vh;
             z-index: 100;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
         }
 
         .password-card-wrapper.visible {
@@ -203,33 +201,81 @@
         }
 
         .password-card {
-            background: rgba(24, 27, 35, 0.7);
-            border: 1px solid rgba(99, 102, 241, 0.25);
-            border-radius: 20px;
+            position: relative;
+            background: linear-gradient(
+                135deg,
+                rgba(15, 17, 23, 0.65) 0%,
+                rgba(24, 27, 35, 0.55) 40%,
+                rgba(99, 102, 241, 0.08) 100%
+            );
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
             padding: 2.5rem 2.5rem 2rem;
             text-align: center;
             max-width: 380px;
             width: 90%;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(99, 102, 241, 0.08);
+            backdrop-filter: blur(40px) saturate(1.4);
+            -webkit-backdrop-filter: blur(40px) saturate(1.4);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                0 0 60px rgba(99, 102, 241, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        /* Liquid glass shimmer highlight */
+        .password-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                ellipse at 30% 20%,
+                rgba(255, 255, 255, 0.06) 0%,
+                transparent 50%
+            );
+            pointer-events: none;
+        }
+
+        /* Subtle refraction edge glow */
+        .password-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.15) 20%,
+                rgba(129, 140, 248, 0.2) 50%,
+                rgba(255, 255, 255, 0.15) 80%,
+                transparent 100%
+            );
+            pointer-events: none;
         }
 
         .card-label {
             font-family: 'Lexend', sans-serif;
             font-weight: 600;
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 1rem;
-            letter-spacing: 0.02em;
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.03em;
+            position: relative;
         }
 
         .password-input {
             width: 100%;
             padding: 14px 18px;
-            background: rgba(9, 11, 16, 0.6);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 10px;
+            background: rgba(9, 11, 16, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            position: relative;
             color: #fff;
             font-family: 'Inter', sans-serif;
             font-size: 1rem;
@@ -245,17 +291,19 @@
         }
 
         .password-input:focus {
-            border-color: rgba(99, 102, 241, 0.5);
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.12);
+            border-color: rgba(129, 140, 248, 0.35);
+            box-shadow: 0 0 24px rgba(99, 102, 241, 0.15), inset 0 0 12px rgba(99, 102, 241, 0.05);
         }
 
         .submit-btn {
             width: 100%;
             padding: 13px;
             margin-top: 0.75rem;
-            background: linear-gradient(135deg, #6366f1, #818cf8);
-            border: none;
-            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.7), rgba(129, 140, 248, 0.5));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             color: #fff;
             font-family: 'Lexend', sans-serif;
             font-weight: 600;
@@ -347,7 +395,7 @@
 
             var shiftingEl = document.getElementById('shiftingText');
 
-            // Intermittent vibrate: shake for ~0.3s, pause for ~1.2s, repeat a few times then stop
+            // Intermittent vibrate: quick short bursts with brief pauses, then stops
             function runIntermittentShake(times, onDone) {
                 var count = 0;
                 function burst() {
@@ -360,8 +408,8 @@
                     setTimeout(function () {
                         shiftingEl.classList.remove('shaking');
                         count++;
-                        setTimeout(burst, 800 + Math.random() * 600);
-                    }, 250 + Math.random() * 150);
+                        setTimeout(burst, 400 + Math.random() * 300);
+                    }, 150 + Math.random() * 100);
                 }
                 burst();
             }
@@ -388,27 +436,27 @@
                 });
             });
 
-            // Orbs converge toward center (0s - 2.5s) - slower, more dramatic
+            // Orbs converge toward center (0s - 4.0s) - slow, cinematic
             orbs.forEach(function (orb, i) {
                 tl.to(orb.el, {
                     x: 0,
                     y: 0,
                     scale: 0.8,
-                    duration: 2.5,
+                    duration: 4.0,
                     ease: 'power2.inOut'
-                }, i * 0.12);
+                }, i * 0.15);
             });
 
-            // Orbs fade out at center (2.5s)
+            // Orbs fade out at center (4.0s)
             tl.to('.orb', {
                 opacity: 0,
                 scale: 0,
-                duration: 0.5,
+                duration: 0.6,
                 ease: 'power2.in',
                 stagger: 0.04
-            }, 2.5);
+            }, 4.0);
 
-            // IFS text pops in (2.8s)
+            // IFS text pops in (4.4s)
             tl.fromTo('#ifsTitle', {
                 scale: 0.5,
                 opacity: 0
@@ -417,33 +465,33 @@
                 opacity: 1,
                 duration: 0.7,
                 ease: 'back.out(2)'
-            }, 2.8);
+            }, 4.4);
 
-            // Ripple 1 (3.0s)
+            // Ripple 1 (4.6s)
             tl.to('#ripple1', {
                 opacity: 1,
                 duration: 0.01
-            }, 3.0);
+            }, 4.6);
             tl.to('#ripple1', {
                 scale: 5,
                 opacity: 0,
                 duration: 1.0,
                 ease: 'power1.out'
-            }, 3.0);
+            }, 4.6);
 
-            // Ripple 2 (3.3s)
+            // Ripple 2 (4.9s)
             tl.to('#ripple2', {
                 opacity: 1,
                 duration: 0.01
-            }, 3.3);
+            }, 4.9);
             tl.to('#ripple2', {
                 scale: 5,
                 opacity: 0,
                 duration: 1.0,
                 ease: 'power1.out'
-            }, 3.3);
+            }, 4.9);
 
-            // Tagline fades up (3.6s)
+            // Tagline fades up (5.2s)
             tl.fromTo('#tagline', {
                 y: 25,
                 opacity: 0
@@ -452,18 +500,18 @@
                 opacity: 1,
                 duration: 0.7,
                 ease: 'power2.out'
-            }, 3.6);
+            }, 5.2);
 
-            // Start intermittent vibrate on "Shifting" (4.3s) - 4 bursts then stops
+            // Start intermittent vibrate on "Shifting" - 3 quick bursts then stops
             tl.call(function () {
-                runIntermittentShake(4, function () {
+                runIntermittentShake(3, function () {
                     // After shaking stops, show the password card
                     document.getElementById('cardWrapper').classList.add('visible');
                     setTimeout(function () {
                         document.getElementById('passwordInput').focus();
                     }, 400);
                 });
-            }, null, 4.5);
+            }, null, 6.0);
 
             // Password logic
             var passwordInput = document.getElementById('passwordInput');
