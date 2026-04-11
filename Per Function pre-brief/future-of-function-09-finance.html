@@ -64,9 +64,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
-/* Feature flags */
-.ff-ext-edit { display: none !important; }
-body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
 
 ::selection { background: var(--accent); color: white; }
 ::-webkit-scrollbar { width: 6px; }
@@ -494,10 +491,10 @@ blockquote {
 
 /* ─── Mobile Nav: full-width bar + glassy drawer (feature flag) ─── */
 @media (max-width: 1024px) {
-  body.ff-ext-edit-on .nav {
+  .nav {
     padding: 0;
   }
-  body.ff-ext-edit-on .nav-inner {
+  .nav-inner {
     border-radius: 0;
     border: none;
     border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -508,16 +505,16 @@ blockquote {
     background: linear-gradient(135deg, rgba(20,23,32,0.85) 0%, rgba(30,34,45,0.75) 50%, rgba(99,102,241,0.06) 100%);
     position: relative;
   }
-  body.ff-ext-edit-on .nav-hamburger {
+  .nav-hamburger {
     order: -1;
   }
-  body.ff-ext-edit-on .nav-brand {
+  .nav-brand {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     margin-right: 0;
   }
-  body.ff-ext-edit-on .nav-drawer {
+  .nav-drawer {
     right: auto;
     left: 0;
     transform: translateX(-100%);
@@ -528,20 +525,20 @@ blockquote {
     border-right: 1px solid rgba(255,255,255,0.15);
     box-shadow: 8px 0 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
   }
-  body.ff-ext-edit-on .nav-drawer.open {
+  .nav-drawer.open {
     transform: translateX(0);
   }
-  body.ff-ext-edit-on .nav-drawer .drawer-close {
+  .nav-drawer .drawer-close {
     left: auto;
     right: 16px;
   }
-  body.ff-ext-edit-on .nav-drawer a {
+  .nav-drawer a {
     border-radius: 10px;
   }
-  body.ff-ext-edit-on .nav-drawer a:hover {
+  .nav-drawer a:hover {
     background: rgba(255,255,255,0.08);
   }
-  body.ff-ext-edit-on .nav-drawer a.active {
+  .nav-drawer a.active {
     background: rgba(99,102,241,0.15);
     border: 1px solid rgba(99,102,241,0.2);
   }
@@ -965,11 +962,6 @@ blockquote {
 <script>
 (function() {
   'use strict';
-
-  // Feature flags
-  if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
-    document.body.classList.add('ff-ext-edit-on');
-  }
 
   // Initialize Lucide icons
   lucide.createIcons();

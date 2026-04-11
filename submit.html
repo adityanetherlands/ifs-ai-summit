@@ -333,10 +333,6 @@ textarea { min-height: 100px; resize: vertical; }
   margin-top: 6px;
 }
 
-/* Feature flag */
-.ff-ext-edit { display: none !important; }
-body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
-
 /* Mobile: stack vertically */
 @media (max-width: 768px) {
   .layout { grid-template-columns: 1fr; }
@@ -408,11 +404,6 @@ body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
 
 
 <script>
-// Feature flag toggle
-if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
-  document.body.classList.add('ff-ext-edit-on');
-}
-
 // --- File attachment handling ---
 const ALLOWED_EXTENSIONS = ['.md', '.txt', '.png', '.jpg', '.jpeg', '.gif', '.webp'];
 const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];

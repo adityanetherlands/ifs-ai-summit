@@ -65,13 +65,10 @@ a:hover { text-decoration: underline; }
 img { max-width: 100%; height: auto; display: block; }
 
 /* Feature flags – append ?ext_edit=true to URL to reveal flagged content */
-.ff-ext-edit { display: none !important; }
-body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
-
-/* PRE-READS GRID GLOW – ff-ext-edit: soft indigo radial glow behind card grid */
-body.ff-ext-edit-on #prereads { position: relative; overflow: hidden; }
-body.ff-ext-edit-on .prereads-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 90% 70% at 50% 50%, rgba(99,102,241,0.12) 0%, transparent 65%); }
-body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
+/* PRE-READS GRID GLOW: soft indigo radial glow behind card grid */
+#prereads { position: relative; overflow: hidden; }
+.prereads-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 90% 70% at 50% 50%, rgba(99,102,241,0.12) 0%, transparent 65%); }
+#prereads .container { position: relative; z-index: 1; }
 
 /* Skip link */
 .skip-link {
@@ -737,7 +734,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   .why-stats { flex-direction: column; align-items: center; }
   .agenda-item { grid-template-columns: 100px 1fr; gap: 12px; }
   .nav-inner { padding: 0 20px; }
-  body.ff-ext-edit-on .hero { padding-top: var(--nav-height); } /* fix: hero/nav overlap on mobile */
+  .hero { padding-top: var(--nav-height); } /* fix: hero/nav overlap on mobile */
 }
 
 /* ─── Back-to-top button (feature flagged) ─── */
@@ -794,56 +791,56 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 /* ─── Mobile Agenda Redesign (feature flag: issue #13) ─── */
 @media (max-width: 768px) {
   /* Accordion header: compact layout */
-  body.ff-ext-edit-on .day-toggle {
+  .day-toggle {
     align-items: center;
   }
-  body.ff-ext-edit-on .day-toggle .day-info {
+  .day-toggle .day-info {
     flex: 1;
     min-width: 0;
   }
-  body.ff-ext-edit-on .toggle-icon {
+  .toggle-icon {
     align-self: center;
   }
   /* Tighter content padding on mobile */
-  body.ff-ext-edit-on .day-content-inner {
+  .day-content-inner {
     padding: 0 16px 20px;
   }
   /* Agenda items: stacked layout (time above title and meta) */
-  body.ff-ext-edit-on .agenda-item {
+  .agenda-item {
     display: flex;
     flex-direction: column;
     gap: 3px;
     padding: 12px 0;
     align-items: flex-start;
   }
-  body.ff-ext-edit-on .agenda-time {
+  .agenda-time {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.5px;
     text-transform: uppercase;
   }
-  body.ff-ext-edit-on .agenda-title {
+  .agenda-title {
     font-size: 14px;
     line-height: 1.3;
   }
-  body.ff-ext-edit-on .agenda-meta {
+  .agenda-meta {
     font-size: 12px;
     margin-top: 1px;
   }
   /* Break items: compact and visually quieter */
-  body.ff-ext-edit-on .agenda-item.break-item {
+  .agenda-item.break-item {
     padding: 7px 0;
     border-bottom-color: rgba(42,47,61,0.25);
   }
-  body.ff-ext-edit-on .agenda-item.break-item .agenda-time {
+  .agenda-item.break-item .agenda-time {
     font-size: 10px;
     letter-spacing: 0.4px;
   }
   /* Calendar download button: full-width on mobile */
-  body.ff-ext-edit-on .agenda-download {
+  .agenda-download {
     justify-content: stretch;
   }
-  body.ff-ext-edit-on .cal-btn {
+  .cal-btn {
     width: 100%;
     justify-content: center;
     padding: 12px 20px;
@@ -858,10 +855,10 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 
 /* 1. Nav: full-width sticky bar on mobile (no pill), hamburger left-aligned */
 @media (max-width: 1024px) {
-  body.ff-ext-edit-on .nav {
+  .nav {
     padding: 0;
   }
-  body.ff-ext-edit-on .nav-inner {
+  .nav-inner {
     border-radius: 0;
     border: none;
     border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -872,17 +869,17 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     background: linear-gradient(135deg, rgba(20,23,32,0.85) 0%, rgba(30,34,45,0.75) 50%, rgba(99,102,241,0.06) 100%);
     position: relative;
   }
-  body.ff-ext-edit-on .nav-hamburger {
+  .nav-hamburger {
     order: -1;
   }
-  body.ff-ext-edit-on .nav-brand {
+  .nav-brand {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     margin-right: 0;
   }
   /* Drawer: slide from left, ultra-glassy */
-  body.ff-ext-edit-on .nav-drawer {
+  .nav-drawer {
     right: auto;
     left: 0;
     transform: translateX(-100%);
@@ -893,21 +890,21 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     border-right: 1px solid rgba(255,255,255,0.15);
     box-shadow: 8px 0 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
   }
-  body.ff-ext-edit-on .nav-drawer.open {
+  .nav-drawer.open {
     transform: translateX(0);
   }
-  body.ff-ext-edit-on .nav-drawer .drawer-close {
+  .nav-drawer .drawer-close {
     left: auto;
     right: 16px;
   }
-  body.ff-ext-edit-on .nav-drawer a {
+  .nav-drawer a {
     border-radius: 10px;
     transition: color 0.2s, background 0.2s;
   }
-  body.ff-ext-edit-on .nav-drawer a:hover {
+  .nav-drawer a:hover {
     background: rgba(255,255,255,0.08);
   }
-  body.ff-ext-edit-on .nav-drawer a.active {
+  .nav-drawer a.active {
     background: rgba(99,102,241,0.15);
     border: 1px solid rgba(99,102,241,0.2);
   }
@@ -915,40 +912,40 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 
 @media (max-width: 768px) {
   /* 2. Agenda: hide venue pill on mobile, compact collapsed header */
-  body.ff-ext-edit-on .day-venue {
+  .day-venue {
     display: none !important;
   }
-  body.ff-ext-edit-on .day-toggle {
+  .day-toggle {
     padding: 12px 16px;
     gap: 10px;
   }
-  body.ff-ext-edit-on .day-badge {
+  .day-badge {
     font-size: 10px;
     padding: 4px 10px;
     min-width: auto;
   }
 
   /* 3. Working groups: avatar-row with tap-to-reveal name on mobile */
-  body.ff-ext-edit-on .groups-grid:hover .group-card {
+  .groups-grid:hover .group-card {
     opacity: 1;
   }
-  body.ff-ext-edit-on .group-card:hover .group-members {
+  .group-card:hover .group-members {
     max-height: 0;
     opacity: 0;
     border-top-width: 0;
     margin-top: 0;
     padding-top: 0;
   }
-  body.ff-ext-edit-on .group-members { display: none !important; }
-  body.ff-ext-edit-on .group-tap-hint { display: none !important; }
+  .group-members { display: none !important; }
+  .group-tap-hint { display: none !important; }
 
   /* Show avatar-row on mobile (desktop hides it via the existing rule at 928) */
-  body.ff-ext-edit-on .avatar-row {
+  .avatar-row {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
   }
-  body.ff-ext-edit-on .avatar {
+  .avatar {
     margin-left: 0;
     width: 38px;
     height: 38px;
@@ -956,15 +953,15 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     cursor: pointer;
     transition: box-shadow 0.2s;
   }
-  body.ff-ext-edit-on .avatar.mobile-active {
+  .avatar.mobile-active {
     box-shadow: 0 0 12px rgba(99,102,241,0.4);
   }
   /* Hide the built-in tooltips on mobile — we use a floating one instead */
-  body.ff-ext-edit-on .avatar-tooltip {
+  .avatar-tooltip {
     display: none !important;
   }
   /* Floating tooltip (appended to body via JS) */
-  body.ff-ext-edit-on .mobile-float-tooltip {
+  .mobile-float-tooltip {
     position: fixed;
     z-index: 99999;
     background: rgba(15,17,23,0.95);
@@ -983,7 +980,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     opacity: 0;
     transition: opacity 0.15s;
   }
-  body.ff-ext-edit-on .mobile-float-tooltip.visible {
+  .mobile-float-tooltip.visible {
     opacity: 1;
   }
 }
@@ -991,17 +988,17 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 /* ─── Agenda: shortened mobile header text (feature flag: issue #15) ─── */
 @media (max-width: 768px) {
   /* Hide the full-length day title and subtitle on mobile */
-  body.ff-ext-edit-on .day-toggle .day-info h3 { display: none; }
-  body.ff-ext-edit-on .day-toggle .day-info p { display: none; }
+  .day-toggle .day-info h3 { display: none; }
+  .day-toggle .day-info p { display: none; }
   /* Show the compact mobile title/subtitle instead */
-  body.ff-ext-edit-on .day-title-mobile {
+  .day-title-mobile {
     font-family: var(--font-display);
     font-size: 15px;
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.2;
   }
-  body.ff-ext-edit-on .day-subtitle-mobile {
+  .day-subtitle-mobile {
     font-size: 12px;
     color: var(--text-muted);
     font-weight: 500;
@@ -1012,7 +1009,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 
 /* ─── Mobile carousels (feature flag) ─── */
 @media (max-width: 768px) {
-  body.ff-ext-edit-on .prebrief-grid {
+  .prebrief-grid {
     display: flex !important;
     overflow-x: auto;
     overflow-y: hidden;
@@ -1024,8 +1021,8 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     scrollbar-width: none;
     align-items: stretch;
   }
-  body.ff-ext-edit-on .prebrief-grid::-webkit-scrollbar { display: none; }
-  body.ff-ext-edit-on .prebrief-card {
+  .prebrief-grid::-webkit-scrollbar { display: none; }
+  .prebrief-card {
     min-width: 260px;
     max-width: 300px;
     flex-shrink: 0;
@@ -1033,7 +1030,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     height: auto;
   }
 
-  body.ff-ext-edit-on .speakers-keynote {
+  .speakers-keynote {
     display: flex !important;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -1043,15 +1040,15 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     padding-bottom: 8px;
     scrollbar-width: none;
   }
-  body.ff-ext-edit-on .speakers-keynote::-webkit-scrollbar { display: none; }
-  body.ff-ext-edit-on .speaker-card {
+  .speakers-keynote::-webkit-scrollbar { display: none; }
+  .speaker-card {
     min-width: 260px;
     max-width: 300px;
     flex-shrink: 0;
     scroll-snap-align: start;
   }
 
-  body.ff-ext-edit-on .groups-grid {
+  .groups-grid {
     display: flex !important;
     overflow-x: auto;
     overflow-y: hidden;
@@ -1063,30 +1060,30 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     scrollbar-width: none;
     align-items: stretch;
   }
-  body.ff-ext-edit-on .groups-grid::-webkit-scrollbar { display: none; }
-  body.ff-ext-edit-on .group-card {
+  .groups-grid::-webkit-scrollbar { display: none; }
+  .group-card {
     min-width: 260px;
     max-width: 300px;
     flex-shrink: 0;
     scroll-snap-align: start;
     height: auto;
   }
-  body.ff-ext-edit-on .groups-grid:hover .group-card { opacity: 1; }
+  .groups-grid:hover .group-card { opacity: 1; }
 
-  body.ff-ext-edit-on .carousel-dots {
+  .carousel-dots {
     display: flex !important;
     justify-content: center;
     gap: 6px;
     padding: 12px 0 4px;
   }
-  body.ff-ext-edit-on .carousel-dot {
+  .carousel-dot {
     width: 6px;
     height: 6px;
     border-radius: 3px;
     background: var(--border-default);
     transition: background 0.2s var(--ease), width 0.2s var(--ease);
   }
-  body.ff-ext-edit-on .carousel-dot.active {
+  .carousel-dot.active {
     width: 18px;
     background: var(--accent-indigo);
   }
@@ -1186,8 +1183,8 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
           <div class="day-info">
             <h3>Monday 4 May &ndash; Arrival &amp; Opening Dinner</h3>
             <p>Check in, connect, set the tone</p>
-            <div class="ff-ext-edit day-title-mobile">Mon 4 May</div>
-            <div class="ff-ext-edit day-subtitle-mobile">Arrival &amp; Opening Dinner</div>
+            <div class="day-title-mobile">Mon 4 May</div>
+            <div class="day-subtitle-mobile">Arrival &amp; Opening Dinner</div>
           </div>
           <div class="day-venue">Stanford Park Hotel</div>
           <i data-lucide="chevron-down" class="toggle-icon"></i>
@@ -1233,8 +1230,8 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
           <div class="day-info">
             <h3>Tuesday 5 May &ndash; "Show the Team What's Possible"</h3>
             <p>See the disruption. Then get your hands dirty.</p>
-            <div class="ff-ext-edit day-title-mobile">Tue 5 May</div>
-            <div class="ff-ext-edit day-subtitle-mobile">Hands-On AI Day</div>
+            <div class="day-title-mobile">Tue 5 May</div>
+            <div class="day-subtitle-mobile">Hands-On AI Day</div>
           </div>
           <div class="day-venue">Computer History Museum</div>
           <i data-lucide="chevron-down" class="toggle-icon"></i>
@@ -1314,8 +1311,8 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
           <div class="day-info">
             <h3>Wednesday 6 May &ndash; "Present, Learn &amp; Plan"</h3>
             <p>How do we transform IFS to AI-native? Exercise + Play Back</p>
-            <div class="ff-ext-edit day-title-mobile">Wed 6 May</div>
-            <div class="ff-ext-edit day-subtitle-mobile">Present, Learn &amp; Plan</div>
+            <div class="day-title-mobile">Wed 6 May</div>
+            <div class="day-subtitle-mobile">Present, Learn &amp; Plan</div>
           </div>
           <div class="day-venue">Stanford Park Hotel</div>
           <i data-lucide="chevron-down" class="toggle-icon"></i>
@@ -1404,8 +1401,8 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
           <div class="day-info">
             <h3>Thursday 7 May &ndash; Departures</h3>
             <p>Breakfast, checkout, optional factory visit</p>
-            <div class="ff-ext-edit day-title-mobile">Thu 7 May</div>
-            <div class="ff-ext-edit day-subtitle-mobile">Departures</div>
+            <div class="day-title-mobile">Thu 7 May</div>
+            <div class="day-subtitle-mobile">Departures</div>
           </div>
           <div class="day-venue">Stanford Park Hotel</div>
           <i data-lucide="chevron-down" class="toggle-icon"></i>
@@ -1452,7 +1449,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
      PRE-READ BRIEFS
      ═══════════════════════════════════════════════════ -->
 <section class="section" id="prereads">
-  <div class="ff-ext-edit prereads-glow"></div>
+  <div class="prereads-glow"></div>
   <div class="container">
     <div class="section-header">
       <div class="section-eyebrow">Preparation</div>
@@ -1551,7 +1548,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
       </a>
 
     </div>
-    <div class="carousel-dots prebrief-dots ff-ext-edit" aria-hidden="true"></div>
+    <div class="carousel-dots prebrief-dots" aria-hidden="true"></div>
   </div>
 </section>
 
@@ -1666,7 +1663,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         </div>
       </div>
     </div>
-    <div class="carousel-dots speakers-dots ff-ext-edit" aria-hidden="true"></div>
+    <div class="carousel-dots speakers-dots" aria-hidden="true"></div>
 
     <div class="speaker-section-label">AI Startup Showcase <span style="font-weight:400;font-size:10px;letter-spacing:0.5px;opacity:0.6;margin-left:8px;">Subject to change</span></div>
     <div class="startup-grid animate-on-scroll">
@@ -1950,7 +1947,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
       </div>
 
     </div>
-    <div class="carousel-dots groups-dots ff-ext-edit" aria-hidden="true"></div>
+    <div class="carousel-dots groups-dots" aria-hidden="true"></div>
   </div>
 </section>
 
@@ -2018,7 +2015,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     <p><strong style="color:var(--text-muted)">IFS AI Leadership Summit</strong> &middot; 4&ndash;7 May 2026 &middot; Mountain View, California</p>
     <p>Questions? <a href="mailto:kate.joyce@ifs.com">Kate Joyce</a></p>
     <p class="footer-conf">Confidential &ndash; for IFS Leadership Team only</p>
-    <div class="ff-ext-edit"><p style="font-size:12px;color:var(--text-dim);margin-top:8px;">Last updated: April 2026</p></div>
+    <p style="font-size:12px;color:var(--text-dim);margin-top:8px;">Last updated: April 2026</p>
   </div>
 </footer>
 
@@ -2033,11 +2030,6 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 <script>
 (function() {
   'use strict';
-
-  // Feature flags – append ?ext_edit=true to URL to reveal flagged content
-  if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
-    document.body.classList.add('ff-ext-edit-on');
-  }
 
   // Reduced motion check
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2234,8 +2226,8 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     URL.revokeObjectURL(url);
   };
 
-  // ─── Working groups: mobile avatar tap-to-reveal name (ff-ext-edit) ───
-  if (document.body.classList.contains('ff-ext-edit-on') && window.innerWidth <= 768) {
+  // ─── Working groups: mobile avatar tap-to-reveal name ───
+  if (window.innerWidth <= 768) {
     // Create a single floating tooltip element on body
     const floatTip = document.createElement('div');
     floatTip.className = 'mobile-float-tooltip';
@@ -2284,7 +2276,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   }
 
   // ─── Mobile carousels: dot indicators (feature flag) ───
-  if (document.body.classList.contains('ff-ext-edit-on') && window.innerWidth <= 768) {
+  if (window.innerWidth <= 768) {
     function initCarouselDots(containerSel, dotsSel) {
       const container = document.querySelector(containerSel);
       const dotsEl = document.querySelector(dotsSel);
