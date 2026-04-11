@@ -264,6 +264,75 @@ textarea { min-height: 100px; resize: vertical; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* File drop zone */
+.file-drop-zone {
+  position: relative;
+  background: var(--bg-primary);
+  border: 2px dashed var(--border-default);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.file-drop-zone:hover,
+.file-drop-zone.dragover {
+  border-color: var(--accent-indigo);
+  background: var(--accent-indigo-glow);
+}
+.file-drop-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.file-drop-zone p {
+  color: var(--text-dim);
+  font-size: 13px;
+  margin: 0;
+}
+.file-drop-zone .drop-hint {
+  color: var(--accent-indigo-light);
+  font-size: 12px;
+  margin-top: 4px;
+}
+.file-list {
+  margin-top: 10px;
+  text-align: left;
+}
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: rgba(99, 102, 241, 0.08);
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.file-item .file-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-item .file-size { color: var(--text-dim); font-size: 12px; margin: 0 10px; flex-shrink: 0; }
+.file-item .file-remove {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0 4px;
+  line-height: 1;
+}
+.file-item .file-remove:hover { color: #f87171; }
+.file-error {
+  color: #f87171;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+/* Feature flag */
+.ff-ext-edit { display: none !important; }
+body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
+
 /* Mobile: stack vertically */
 @media (max-width: 768px) {
   .layout { grid-template-columns: 1fr; }
@@ -286,6 +355,11 @@ textarea { min-height: 100px; resize: vertical; }
   <!-- Left: Form -->
   <div class="card">
     <form id="requestForm">
+      <div class="field ff-ext-edit">
+        <label for="name">Your name</label>
+        <input type="text" id="name" name="name" placeholder="e.g. Aditya">
+      </div>
+
       <div class="field">
         <label for="title">What do you want to change?</label>
         <input type="text" id="title" name="title" placeholder="e.g. Add a countdown timer to the hero section" required>
@@ -294,6 +368,17 @@ textarea { min-height: 100px; resize: vertical; }
       <div class="field">
         <label for="body">Describe the change in detail</label>
         <textarea id="body" name="body" placeholder="Be specific about what to add or change, where on the site it should appear, and any style preferences." required></textarea>
+      </div>
+
+      <div class="field ff-ext-edit">
+        <label for="attachments">Attachments <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional &ndash; images, .md, .txt)</span></label>
+        <div class="file-drop-zone" id="dropZone">
+          <input type="file" id="attachments" multiple accept=".md,.txt,.png,.jpg,.jpeg,.gif,.webp">
+          <p>Drag &amp; drop or click to attach files</p>
+          <p class="drop-hint">Max 5 files, 2 MB each</p>
+          <div class="file-list" id="fileList"></div>
+        </div>
+        <div class="file-error" id="fileError"></div>
       </div>
 
       <div class="submit-row">
@@ -319,6 +404,98 @@ textarea { min-height: 100px; resize: vertical; }
 
 
 <script>
+// Feature flag toggle
+if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
+  document.body.classList.add('ff-ext-edit-on');
+}
+
+// --- File attachment handling ---
+const ALLOWED_EXTENSIONS = ['.md', '.txt', '.png', '.jpg', '.jpeg', '.gif', '.webp'];
+const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+const MAX_FILES = 5;
+const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
+const MAX_TOTAL_SIZE = 3 * 1024 * 1024; // 3 MB
+
+let selectedFiles = []; // array of { file, name, type, base64 }
+
+function getFileExt(name) {
+  return name.slice(name.lastIndexOf('.')).toLowerCase();
+}
+
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  return (bytes / 1024).toFixed(1) + ' KB';
+}
+
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderFileList() {
+  const list = document.getElementById('fileList');
+  if (!selectedFiles.length) { list.innerHTML = ''; return; }
+  list.innerHTML = selectedFiles.map((f, i) => `
+    <div class="file-item">
+      <span class="file-name">${f.name}</span>
+      <span class="file-size">${formatSize(f.file.size)}</span>
+      <button type="button" class="file-remove" onclick="removeFile(${i})">&times;</button>
+    </div>
+  `).join('');
+}
+
+function removeFile(index) {
+  selectedFiles.splice(index, 1);
+  renderFileList();
+  document.getElementById('fileError').textContent = '';
+}
+
+async function addFiles(fileListObj) {
+  const errorEl = document.getElementById('fileError');
+  errorEl.textContent = '';
+
+  for (const file of Array.from(fileListObj)) {
+    const ext = getFileExt(file.name);
+    if (!ALLOWED_EXTENSIONS.includes(ext)) {
+      errorEl.textContent = `"${file.name}" is not a supported file type.`;
+      continue;
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      errorEl.textContent = `"${file.name}" exceeds 2 MB limit.`;
+      continue;
+    }
+    if (selectedFiles.length >= MAX_FILES) {
+      errorEl.textContent = `Maximum ${MAX_FILES} files allowed.`;
+      break;
+    }
+    const totalSize = selectedFiles.reduce((s, f) => s + f.file.size, 0) + file.size;
+    if (totalSize > MAX_TOTAL_SIZE) {
+      errorEl.textContent = 'Total file size exceeds 3 MB.';
+      break;
+    }
+    if (selectedFiles.some(f => f.name === file.name)) continue; // skip duplicates
+
+    const base64 = await readFileAsBase64(file);
+    selectedFiles.push({ file, name: file.name, type: file.type, base64 });
+  }
+  renderFileList();
+}
+
+// Drag-and-drop + click (guarded for feature flag)
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('attachments');
+if (dropZone && fileInput) {
+  dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); addFiles(e.dataTransfer.files); });
+  fileInput.addEventListener('change', () => { addFiles(fileInput.files); fileInput.value = ''; });
+}
+
+// --- Tracker ---
 function getTrackedIssues() {
   try { return JSON.parse(localStorage.getItem('ifs_tracked_issues') || '[]'); }
   catch { return []; }
@@ -395,9 +572,11 @@ document.getElementById('requestForm').addEventListener('submit', async (e) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        name: (document.getElementById('name') || {}).value || '',
         title: titleVal,
         body: document.getElementById('body').value,
         password: document.getElementById('password').value,
+        attachments: selectedFiles.map(f => ({ name: f.name, type: f.type, base64: f.base64 })),
       }),
     });
 
@@ -413,6 +592,8 @@ document.getElementById('requestForm').addEventListener('submit', async (e) => {
       status.innerHTML = 'Request submitted! An AI agent is building it now. Watch the status on the right.';
       status.style.display = 'block';
       document.getElementById('requestForm').reset();
+      selectedFiles = [];
+      renderFileList();
     } else {
       throw new Error(data.error || 'Something went wrong');
     }

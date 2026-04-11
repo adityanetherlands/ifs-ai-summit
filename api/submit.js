@@ -1,3 +1,11 @@
+const REPO = 'adityanetherlands/ifs-ai-summit';
+const TEXT_EXTENSIONS = ['.md', '.txt'];
+const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+
+function getFileExt(name) {
+  return name.slice(name.lastIndexOf('.')).toLowerCase();
+}
+
 export default async function handler(req, res) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -7,7 +15,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { title, body, password } = req.body;
+  const { name, title, body, password, attachments = [] } = req.body;
 
   // Simple password gate
   if (password !== process.env.SUBMIT_PASSWORD) {
@@ -18,26 +26,83 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Title and description are required' });
   }
 
-  // Create GitHub issue
-  const response = await fetch('https://api.github.com/repos/adityanetherlands/ifs-ai-summit/issues', {
+  const ghHeaders = {
+    'Authorization': `Bearer ${process.env.GH_ISSUE_TOKEN}`,
+    'Content-Type': 'application/json',
+    'Accept': 'application/vnd.github+json',
+  };
+
+  // --- Build issue body ---
+  let issueBody = '';
+  if (name) {
+    issueBody += `**Requested by:** ${name}\n\n---\n\n`;
+  }
+  issueBody += body;
+
+  // Inline text file contents
+  for (const att of attachments) {
+    const ext = getFileExt(att.name);
+    if (TEXT_EXTENSIONS.includes(ext)) {
+      const content = Buffer.from(att.base64, 'base64').toString('utf-8');
+      issueBody += `\n\n---\n\n### Attached: ${att.name}\n\n${content}`;
+    }
+  }
+
+  // --- Step 1: Create the GitHub issue ---
+  const issueRes = await fetch(`https://api.github.com/repos/${REPO}/issues`, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${process.env.GH_ISSUE_TOKEN}`,
-      'Content-Type': 'application/json',
-      'Accept': 'application/vnd.github+json',
-    },
+    headers: ghHeaders,
     body: JSON.stringify({
       title: `Feature Request: ${title}`,
-      body: body,
+      body: issueBody,
       labels: ['feature-request'],
     }),
   });
 
-  if (!response.ok) {
-    const err = await response.text();
+  if (!issueRes.ok) {
+    const err = await issueRes.text();
     return res.status(500).json({ error: 'Failed to create issue', details: err });
   }
 
-  const issue = await response.json();
-  return res.status(200).json({ success: true, issue_number: issue.number, url: issue.html_url });
+  const issue = await issueRes.json();
+  const issueNumber = issue.number;
+
+  // --- Step 2: Upload image attachments to repo ---
+  const imageAttachments = attachments.filter(att => IMAGE_EXTENSIONS.includes(getFileExt(att.name)));
+
+  if (imageAttachments.length > 0) {
+    const imageLinks = [];
+
+    for (const att of imageAttachments) {
+      const path = `_uploads/issue-${issueNumber}/${att.name}`;
+      const uploadRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
+        method: 'PUT',
+        headers: ghHeaders,
+        body: JSON.stringify({
+          message: `Upload attachment for issue #${issueNumber}`,
+          content: att.base64,
+          branch: 'main',
+        }),
+      });
+
+      if (uploadRes.ok) {
+        const uploadData = await uploadRes.json();
+        imageLinks.push({ name: att.name, url: uploadData.content.download_url });
+      }
+    }
+
+    // Update issue body with image links
+    if (imageLinks.length > 0) {
+      let imageSection = '\n\n---\n\n### Attached images\n\n';
+      imageSection += imageLinks.map(img => `![${img.name}](${img.url})`).join('\n\n');
+
+      await fetch(`https://api.github.com/repos/${REPO}/issues/${issueNumber}`, {
+        method: 'PATCH',
+        headers: ghHeaders,
+        body: JSON.stringify({ body: issueBody + imageSection }),
+      });
+    }
+  }
+
+  return res.status(200).json({ success: true, issue_number: issueNumber, url: issue.html_url });
 }
