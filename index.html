@@ -140,7 +140,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 }
 .nav-inner {
   display: flex; align-items: center;
-  background: linear-gradient(135deg, rgba(15, 17, 23, 0.7) 0%, rgba(24, 27, 35, 0.6) 50%, rgba(99, 102, 241, 0.06) 100%);
+  background: linear-gradient(135deg, rgba(20, 23, 32, 0.55) 0%, rgba(30, 34, 45, 0.45) 50%, rgba(99, 102, 241, 0.05) 100%);
   backdrop-filter: blur(40px) saturate(1.3); -webkit-backdrop-filter: blur(40px) saturate(1.3);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 100px;
@@ -154,12 +154,15 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 .nav-brand {
   font-family: var(--font-display); font-size: 16px; font-weight: 800;
   white-space: nowrap; margin-right: 16px;
-  background: linear-gradient(135deg, #f0f1f5, #818cf8);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #f0f1f5;
   letter-spacing: -0.3px;
 }
-.nav-brand span { font-weight: 800; }
+.nav-brand span {
+  font-weight: 400;
+  background: linear-gradient(135deg, #818cf8, #06b6d4);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 .nav-links { display: flex; gap: 2px; list-style: none; }
 .nav-links a {
   font-size: 13px; font-weight: 500; color: var(--text-dim);
@@ -171,7 +174,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 .nav-links a.active { color: white; background: var(--accent-indigo); }
 
 .nav.scrolled .nav-inner {
-  background: linear-gradient(135deg, rgba(15, 17, 23, 0.85) 0%, rgba(24, 27, 35, 0.75) 50%, rgba(99, 102, 241, 0.08) 100%);
+  background: linear-gradient(135deg, rgba(20, 23, 32, 0.7) 0%, rgba(30, 34, 45, 0.6) 50%, rgba(99, 102, 241, 0.06) 100%);
   border-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -1382,7 +1385,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="hw-tag hw-tag-red">Required</div>
         <h3>1. Map Your Function's AI Landscape</h3>
         <p>Which 3&ndash;5 AI-native startups could replace parts of what your team does today? What can they do that your current stack can't?</p>
-        <p><span class="hw-tip">Where to start:</span> Search "AI-native [your function]" on Google and Product Hunt. Check Crunchbase for recent funding. Look at Clay, Glean, 11x.ai, Aisera &ndash; then find the equivalents for your domain.</p>
+        <p><span class="hw-tip">Where to start:</span> Search "AI-native [your function]" on Google and Product Hunt. Check Crunchbase for recent funding. Look at Clay, Glean, 11x.ai &ndash; then find the equivalents for your domain.</p>
       </div>
 
       <div class="homework-card animate-on-scroll">
@@ -1510,10 +1513,6 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
       <a href="https://mutinyhq.com" target="_blank" rel="noopener" class="startup-card">
         <img src="https://www.google.com/s2/favicons?sz=128&domain=mutinyhq.com" alt="Mutiny" class="startup-logo" onerror="this.style.display='none'">
         <h4>Mutiny</h4><p>Web Personalization</p>
-      </a>
-      <a href="https://aisera.com" target="_blank" rel="noopener" class="startup-card">
-        <img src="https://www.google.com/s2/favicons?sz=128&domain=aisera.com" alt="Aisera" class="startup-logo" onerror="this.style.display='none'">
-        <h4>Aisera</h4><p>IT / HR Automation</p>
       </a>
       <a href="https://glean.com" target="_blank" rel="noopener" class="startup-card">
         <img src="https://www.google.com/s2/favicons?sz=128&domain=glean.com" alt="Glean" class="startup-logo" onerror="this.style.display='none'">
