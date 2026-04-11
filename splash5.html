@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFS AI Leadership Summit &ndash; The Tipping Point</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #090b10;
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Three.js canvas */
+        #webgl-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Glitch overlay */
+        .glitch-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .glitch-bar {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            background: rgba(99, 102, 241, 0.15);
+        }
+
+        /* Statement text */
+        .statement {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .statement-title {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2rem, 6vw, 4.5rem);
+            color: #fff;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+        }
+
+        /* Intermittent vibrate on "Shifting" */
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch.shaking {
+            animation: glitch-jitter 0.06s steps(2) infinite;
+        }
+
+        @keyframes glitch-jitter {
+            0% { transform: translate(0); }
+            25% { transform: translate(-2px, 1px); }
+            50% { transform: translate(1px, -2px); }
+            75% { transform: translate(-1px, -1px); }
+            100% { transform: translate(2px, 1px); }
+        }
+
+        /* Password card */
+        .password-card-wrapper {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
+        }
+
+        .password-card-wrapper.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .password-card {
+            position: relative;
+            background: linear-gradient(
+                135deg,
+                rgba(15, 17, 23, 0.65) 0%,
+                rgba(24, 27, 35, 0.55) 40%,
+                rgba(99, 102, 241, 0.08) 100%
+            );
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2.5rem 2.5rem 2rem;
+            text-align: center;
+            max-width: 380px;
+            width: 90%;
+            backdrop-filter: blur(40px) saturate(1.4);
+            -webkit-backdrop-filter: blur(40px) saturate(1.4);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                0 0 60px rgba(99, 102, 241, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        /* Liquid glass shimmer highlight */
+        .password-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                ellipse at 30% 20%,
+                rgba(255, 255, 255, 0.06) 0%,
+                transparent 50%
+            );
+            pointer-events: none;
+        }
+
+        /* Subtle refraction edge glow */
+        .password-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.15) 20%,
+                rgba(129, 140, 248, 0.2) 50%,
+                rgba(255, 255, 255, 0.15) 80%,
+                transparent 100%
+            );
+            pointer-events: none;
+        }
+
+        .card-label {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.03em;
+            position: relative;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(9, 11, 16, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            position: relative;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            text-align: center;
+            letter-spacing: 0.05em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .password-input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+            letter-spacing: 0.02em;
+        }
+
+        .password-input:focus {
+            border-color: rgba(129, 140, 248, 0.35);
+            box-shadow: 0 0 24px rgba(99, 102, 241, 0.15), inset 0 0 12px rgba(99, 102, 241, 0.05);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            margin-top: 0.75rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.7), rgba(129, 140, 248, 0.5));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #fff;
+            font-family: 'Lexend', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: #f87171;
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-message.visible {
+            opacity: 1;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 50%, 90% { transform: translateX(-6px); }
+            30%, 70% { transform: translateX(6px); }
+        }
+
+        .password-card.shake {
+            animation: shake 0.5s ease;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            #webgl-canvas { display: none; }
+            .statement { display: none; }
+            .glitch-overlay { display: none; }
+            .password-card-wrapper {
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Three.js renders here -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Glitch overlay for Phase 3 -->
+    <div class="glitch-overlay" id="glitchOverlay">
+        <div class="glitch-bar" style="top:12%; height:8px;"></div>
+        <div class="glitch-bar" style="top:37%; height:4px;"></div>
+        <div class="glitch-bar" style="top:58%; height:12px;"></div>
+        <div class="glitch-bar" style="top:81%; height:6px;"></div>
+    </div>
+
+    <!-- Statement text for Phase 5 -->
+    <div class="statement" id="statement">
+        <div class="statement-title">The Ground Is <span class="glitch" id="shiftingText">Shifting</span></div>
+    </div>
+
+    <!-- Password card -->
+    <div class="password-card-wrapper" id="cardWrapper">
+        <div class="password-card" id="passwordCard">
+            <div class="card-label">Enter the motto</div>
+            <input type="password" class="password-input" id="passwordInput" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="off">
+            <button class="submit-btn" id="submitBtn">Enter</button>
+            <div class="error-message" id="errorMessage">Incorrect. Try again.</div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+    (function () {
+        'use strict';
+
+        // Reduced motion check
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return;
+        }
+
+        var isMobile = window.innerWidth < 768;
+        var canvas = document.getElementById('webgl-canvas');
+        var renderer, scene, camera, clock;
+        var animationId;
+
+        // Phase tracking
+        var phaseInitialized = [false, false, false, false, false];
+        var currentPhase = 0;
+
+        // Scene objects
+        var cubeGroup, cubes = [];
+        var ambientLight, pointLight;
+        var crackPlane, glowPlane;
+        var particleSystem;
+        var cyanLight;
+        var cubeVelocities = [];
+        var cameraShaketween;
+
+        // Configuration
+        var CUBE_GRID = isMobile ? { x: 8, y: 8, z: 2 } : { x: 10, y: 10, z: 3 };
+        var PARTICLE_COUNT = isMobile ? 1500 : 2500;
+
+        // WebGL fallback
+        try {
+            renderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                antialias: true,
+                alpha: false
+            });
+        } catch (e) {
+            // WebGL not supported, show card immediately
+            canvas.style.display = 'none';
+            document.getElementById('cardWrapper').classList.add('visible');
+            document.getElementById('passwordInput').focus();
+            return;
+        }
+
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x090b10, 1);
+
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0, 30);
+
+        clock = new THREE.Clock();
+
+        // Resize handler
+        window.addEventListener('resize', function () {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // -------------------------------------------------------
+        // Phase 1: TENSION - Corporate cube grid
+        // -------------------------------------------------------
+        function initPhase1() {
+            phaseInitialized[0] = true;
+
+            ambientLight = new THREE.AmbientLight(0x1a1a2e, 0.3);
+            scene.add(ambientLight);
+
+            pointLight = new THREE.PointLight(0x6366f1, 0.2, 100);
+            pointLight.position.set(0, 0, 15);
+            scene.add(pointLight);
+
+            cubeGroup = new THREE.Group();
+            var geo = new THREE.BoxGeometry(0.4, 0.4, 0.4);
+            var mat = new THREE.MeshStandardMaterial({
+                color: 0x1a1d2e,
+                metalness: 0.8,
+                roughness: 0.3
+            });
+
+            var gx = CUBE_GRID.x;
+            var gy = CUBE_GRID.y;
+            var gz = CUBE_GRID.z;
+            var spacing = 1.0;
+            var offsetX = (gx - 1) * spacing * 0.5;
+            var offsetY = (gy - 1) * spacing * 0.5;
+            var offsetZ = (gz - 1) * spacing * 0.5;
+
+            for (var ix = 0; ix < gx; ix++) {
+                for (var iy = 0; iy < gy; iy++) {
+                    for (var iz = 0; iz < gz; iz++) {
+                        var cube = new THREE.Mesh(geo, mat.clone());
+                        cube.position.set(
+                            ix * spacing - offsetX,
+                            iy * spacing - offsetY,
+                            iz * spacing - offsetZ
+                        );
+                        cube.userData.baseY = cube.position.y;
+                        cube.userData.index = cubes.length;
+                        cubeGroup.add(cube);
+                        cubes.push(cube);
+                    }
+                }
+            }
+
+            scene.add(cubeGroup);
+        }
+
+        function updatePhase1(elapsed, delta) {
+            if (!cubeGroup) return;
+            cubeGroup.rotation.y += 0.001;
+            for (var i = 0; i < cubes.length; i++) {
+                cubes[i].position.y = cubes[i].userData.baseY +
+                    Math.sin(elapsed + i * 0.1) * 0.02;
+            }
+        }
+
+        // -------------------------------------------------------
+        // Phase 2: CRACK - The rupture
+        // -------------------------------------------------------
+        function initPhase2() {
+            phaseInitialized[1] = true;
+
+            // Bright vertical crack
+            var crackGeo = new THREE.PlaneGeometry(0.1, 50);
+            var crackMat = new THREE.MeshBasicMaterial({
+                color: 0x6366f1,
+                transparent: true,
+                opacity: 1,
+                side: THREE.DoubleSide
+            });
+            crackPlane = new THREE.Mesh(crackGeo, crackMat);
+            crackPlane.position.z = 5;
+            crackPlane.scale.x = 0;
+            scene.add(crackPlane);
+
+            // Glow plane behind
+            var glowGeo = new THREE.PlaneGeometry(0.5, 55);
+            var glowMat = new THREE.MeshBasicMaterial({
+                color: 0x818cf8,
+                transparent: true,
+                opacity: 0.3,
+                side: THREE.DoubleSide
+            });
+            glowPlane = new THREE.Mesh(glowGeo, glowMat);
+            glowPlane.position.z = 4.5;
+            glowPlane.scale.x = 0;
+            scene.add(glowPlane);
+
+            // GSAP: crack widens
+            gsap.to(crackPlane.scale, {
+                x: 15,
+                duration: 1,
+                ease: 'power2.out'
+            });
+            gsap.to(glowPlane.scale, {
+                x: 20,
+                duration: 1.2,
+                ease: 'power2.out'
+            });
+
+            // Light intensity ramp
+            gsap.to(pointLight, {
+                intensity: 4.0,
+                duration: 1,
+                ease: 'power2.out'
+            });
+
+            // Camera shake
+            cameraShaketween = gsap.to(camera.position, {
+                x: 'random(-0.1, 0.1)',
+                y: 'random(-0.1, 0.1)',
+                duration: 0.05,
+                repeat: -1,
+                yoyo: true,
+                ease: 'none'
+            });
+        }
+
+        var destabilizeStrength = 0;
+        function updatePhase2(elapsed, delta) {
+            if (!cubeGroup) return;
+            destabilizeStrength += delta * 2;
+            for (var i = 0; i < cubes.length; i++) {
+                cubes[i].position.x += (Math.random() - 0.5) * destabilizeStrength * 0.02;
+                cubes[i].position.y += (Math.random() - 0.5) * destabilizeStrength * 0.02;
+                cubes[i].position.z += (Math.random() - 0.5) * destabilizeStrength * 0.01;
+            }
+        }
+
+        // -------------------------------------------------------
+        // Phase 3: COLLAPSE - Explosion
+        // -------------------------------------------------------
+        function initPhase3() {
+            phaseInitialized[2] = true;
+
+            // Stop camera shake
+            if (cameraShaketween) {
+                cameraShaketween.kill();
+                gsap.to(camera.position, { x: 0, y: 0, duration: 0.3 });
+            }
+
+            // Calculate explosion velocities
+            var center = new THREE.Vector3(0, 0, 0);
+            for (var i = 0; i < cubes.length; i++) {
+                var dir = cubes[i].position.clone().sub(center).normalize();
+                var speed = 3 + Math.random() * 5;
+                cubeVelocities.push(dir.multiplyScalar(speed));
+            }
+
+            // Remove crack planes
+            if (crackPlane) {
+                gsap.to(crackPlane.material, { opacity: 0, duration: 0.3 });
+            }
+            if (glowPlane) {
+                gsap.to(glowPlane.material, { opacity: 0, duration: 0.3 });
+            }
+
+            // Light flash then dim
+            gsap.to(pointLight, {
+                intensity: 8,
+                duration: 0.15,
+                yoyo: true,
+                repeat: 1,
+                onComplete: function () {
+                    gsap.to(pointLight, { intensity: 0.5, duration: 1 });
+                }
+            });
+
+            // CSS glitch overlay
+            var overlay = document.getElementById('glitchOverlay');
+            gsap.to(overlay, {
+                opacity: 1,
+                duration: 0.05,
+                onComplete: function () {
+                    // Randomize bars a few times
+                    var bars = overlay.querySelectorAll('.glitch-bar');
+                    var glitchCount = 0;
+                    var glitchInterval = setInterval(function () {
+                        for (var b = 0; b < bars.length; b++) {
+                            bars[b].style.top = (Math.random() * 100) + '%';
+                            bars[b].style.height = (2 + Math.random() * 14) + 'px';
+                            bars[b].style.opacity = Math.random() * 0.3;
+                        }
+                        glitchCount++;
+                        if (glitchCount > 12) {
+                            clearInterval(glitchInterval);
+                            gsap.to(overlay, { opacity: 0, duration: 0.4 });
+                        }
+                    }, 60);
+                }
+            });
+        }
+
+        var collapseElapsed = 0;
+        function updatePhase3(elapsed, delta) {
+            collapseElapsed += delta;
+            for (var i = 0; i < cubes.length; i++) {
+                if (cubeVelocities[i]) {
+                    cubes[i].position.x += cubeVelocities[i].x * delta;
+                    cubes[i].position.y += cubeVelocities[i].y * delta;
+                    cubes[i].position.z += cubeVelocities[i].z * delta;
+                }
+                // Shrink
+                var s = Math.max(0, 1 - collapseElapsed * 0.5);
+                cubes[i].scale.set(s, s, s);
+                // Wild rotation
+                cubes[i].rotation.x += (Math.random() - 0.3) * 3 * delta;
+                cubes[i].rotation.y += (Math.random() - 0.3) * 3 * delta;
+                cubes[i].rotation.z += (Math.random() - 0.3) * 3 * delta;
+            }
+        }
+
+        // -------------------------------------------------------
+        // Phase 4: DAWN - Particle rebirth
+        // -------------------------------------------------------
+        function initPhase4() {
+            phaseInitialized[3] = true;
+
+            // Remove cubes
+            if (cubeGroup) {
+                scene.remove(cubeGroup);
+                cubeGroup = null;
+            }
+            // Remove crack planes
+            if (crackPlane) { scene.remove(crackPlane); crackPlane = null; }
+            if (glowPlane) { scene.remove(glowPlane); glowPlane = null; }
+
+            // Ramp ambient
+            gsap.to(ambientLight, { intensity: 0.6, duration: 2, ease: 'power2.inOut' });
+
+            // Cyan light
+            cyanLight = new THREE.PointLight(0x06b6d4, 0, 100);
+            cyanLight.position.set(0, 0, 10);
+            scene.add(cyanLight);
+            gsap.to(cyanLight, { intensity: 2, duration: 2, ease: 'power2.inOut' });
+
+            // Particle system
+            var positions = new Float32Array(PARTICLE_COUNT * 3);
+            var colors = new Float32Array(PARTICLE_COUNT * 3);
+
+            for (var i = 0; i < PARTICLE_COUNT; i++) {
+                // Random positions in a sphere of radius 15
+                var theta = Math.random() * Math.PI * 2;
+                var phi = Math.acos(2 * Math.random() - 1);
+                var r = Math.random() * 15;
+                positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+                positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+                positions[i * 3 + 2] = r * Math.cos(phi);
+
+                // Alternate indigo and cyan
+                if (i % 2 === 0) {
+                    colors[i * 3] = 0.39;
+                    colors[i * 3 + 1] = 0.40;
+                    colors[i * 3 + 2] = 0.95;
+                } else {
+                    colors[i * 3] = 0.02;
+                    colors[i * 3 + 1] = 0.71;
+                    colors[i * 3 + 2] = 0.83;
+                }
+            }
+
+            var pGeo = new THREE.BufferGeometry();
+            pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            pGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            var pMat = new THREE.PointsMaterial({
+                size: 0.08,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+
+            particleSystem = new THREE.Points(pGeo, pMat);
+            scene.add(particleSystem);
+
+            // Fade point light down
+            gsap.to(pointLight, { intensity: 0.1, duration: 1 });
+        }
+
+        function updatePhase4(elapsed, delta) {
+            if (!particleSystem) return;
+            var positions = particleSystem.geometry.attributes.position.array;
+
+            for (var i = 0; i < PARTICLE_COUNT; i++) {
+                var i3 = i * 3;
+                // Sine-wave flow
+                positions[i3] += Math.sin(elapsed * 2 + i * 0.01) * 0.03;
+                positions[i3 + 1] += Math.cos(elapsed * 1.5 + i * 0.02) * 0.02;
+                positions[i3 + 2] += Math.sin(elapsed + i * 0.005) * 0.01;
+
+                // Converge toward center
+                positions[i3] *= 0.998;
+                positions[i3 + 1] *= 0.998;
+                positions[i3 + 2] *= 0.998;
+            }
+
+            particleSystem.geometry.attributes.position.needsUpdate = true;
+
+            // Gentle rotation
+            particleSystem.rotation.y += 0.002;
+        }
+
+        // -------------------------------------------------------
+        // Phase 5: STATEMENT
+        // -------------------------------------------------------
+        function initPhase5() {
+            phaseInitialized[4] = true;
+
+            // Stop animation loop (will be canceled after this frame)
+            cancelAnimationFrame(animationId);
+            animationId = null;
+
+            // Fade canvas
+            gsap.to(canvas, { opacity: 0.2, duration: 1 });
+
+            // Show statement text
+            var statement = document.getElementById('statement');
+            statement.style.visibility = 'visible';
+            gsap.to(statement, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+                onStart: function () {
+                    gsap.set(statement, { y: 30 });
+                }
+            });
+
+            // Intermittent vibrate on "Shifting"
+            var shiftingEl = document.getElementById('shiftingText');
+            runIntermittentShake(shiftingEl, 3, function () {
+                // Show password card
+                document.getElementById('cardWrapper').classList.add('visible');
+                setTimeout(function () {
+                    document.getElementById('passwordInput').focus();
+                }, 400);
+            });
+
+            // Dispose Three.js resources after a delay
+            setTimeout(function () {
+                disposeScene();
+            }, 2000);
+        }
+
+        // Intermittent shake helper
+        function runIntermittentShake(el, times, onDone) {
+            var count = 0;
+            function burst() {
+                if (count >= times) {
+                    el.classList.remove('shaking');
+                    if (onDone) onDone();
+                    return;
+                }
+                el.classList.add('shaking');
+                setTimeout(function () {
+                    el.classList.remove('shaking');
+                    count++;
+                    setTimeout(burst, 400 + Math.random() * 300);
+                }, 150 + Math.random() * 100);
+            }
+            burst();
+        }
+
+        // Dispose THREE objects
+        function disposeScene() {
+            if (renderer) {
+                renderer.dispose();
+            }
+            // Traverse and dispose geometries/materials
+            if (scene) {
+                scene.traverse(function (obj) {
+                    if (obj.geometry) obj.geometry.dispose();
+                    if (obj.material) {
+                        if (Array.isArray(obj.material)) {
+                            obj.material.forEach(function (m) { m.dispose(); });
+                        } else {
+                            obj.material.dispose();
+                        }
+                    }
+                });
+            }
+        }
+
+        // -------------------------------------------------------
+        // Main animation loop
+        // -------------------------------------------------------
+        var startTime = null;
+
+        function animate() {
+            animationId = requestAnimationFrame(animate);
+
+            var delta = clock.getDelta();
+            var elapsed = clock.getElapsedTime();
+
+            if (startTime === null) startTime = elapsed;
+            var t = elapsed - startTime;
+
+            // Determine phase
+            if (t < 3) {
+                currentPhase = 0;
+            } else if (t < 4) {
+                currentPhase = 1;
+            } else if (t < 6) {
+                currentPhase = 2;
+            } else if (t < 8) {
+                currentPhase = 3;
+            } else {
+                currentPhase = 4;
+            }
+
+            // Init phases once
+            if (currentPhase >= 0 && !phaseInitialized[0]) initPhase1();
+            if (currentPhase >= 1 && !phaseInitialized[1]) initPhase2();
+            if (currentPhase >= 2 && !phaseInitialized[2]) initPhase3();
+            if (currentPhase >= 3 && !phaseInitialized[3]) initPhase4();
+            if (currentPhase >= 4 && !phaseInitialized[4]) {
+                initPhase5();
+                return; // Stop loop
+            }
+
+            // Update current phase
+            if (currentPhase === 0) updatePhase1(elapsed, delta);
+            if (currentPhase === 1) {
+                updatePhase1(elapsed, delta);
+                updatePhase2(elapsed, delta);
+            }
+            if (currentPhase === 2) updatePhase3(elapsed, delta);
+            if (currentPhase === 3) updatePhase4(elapsed, delta);
+
+            renderer.render(scene, camera);
+        }
+
+        // Start
+        initPhase1();
+        animate();
+
+        // -------------------------------------------------------
+        // Password logic
+        // -------------------------------------------------------
+        var passwordInput = document.getElementById('passwordInput');
+        var submitBtn = document.getElementById('submitBtn');
+        var passwordCard = document.getElementById('passwordCard');
+        var errorMessage = document.getElementById('errorMessage');
+
+        function attemptLogin() {
+            var value = passwordInput.value.trim().toLowerCase();
+            if (value === 'the ground is shifting') {
+                window.location.href = '/';
+            } else {
+                passwordCard.classList.add('shake');
+                errorMessage.classList.add('visible');
+                passwordInput.value = '';
+                setTimeout(function () {
+                    passwordCard.classList.remove('shake');
+                }, 500);
+                setTimeout(function () {
+                    errorMessage.classList.remove('visible');
+                }, 3000);
+            }
+        }
+
+        submitBtn.addEventListener('click', attemptLogin);
+        passwordInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                attemptLogin();
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

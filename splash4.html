@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFS AI Leadership Summit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #090b10;
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Fullscreen video */
+        .video-container {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Statement text */
+        .statement-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            font-family: 'Lexend', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.8rem, 5vw, 3.5rem);
+            color: #fff;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            white-space: nowrap;
+        }
+
+        /* Glitch/vibrate effect */
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch.shaking {
+            animation: glitch-jitter 0.06s steps(2) infinite;
+        }
+
+        @keyframes glitch-jitter {
+            0% { transform: translate(0); }
+            25% { transform: translate(-2px, 1px); }
+            50% { transform: translate(1px, -2px); }
+            75% { transform: translate(-1px, -1px); }
+            100% { transform: translate(2px, 1px); }
+        }
+
+        /* Password card wrapper */
+        .password-card-wrapper {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
+        }
+
+        .password-card-wrapper.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .password-card {
+            position: relative;
+            background: linear-gradient(
+                135deg,
+                rgba(15, 17, 23, 0.65) 0%,
+                rgba(24, 27, 35, 0.55) 40%,
+                rgba(99, 102, 241, 0.08) 100%
+            );
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2.5rem 2.5rem 2rem;
+            text-align: center;
+            max-width: 380px;
+            width: 90%;
+            backdrop-filter: blur(40px) saturate(1.4);
+            -webkit-backdrop-filter: blur(40px) saturate(1.4);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                0 0 60px rgba(99, 102, 241, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        /* Liquid glass shimmer highlight */
+        .password-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                ellipse at 30% 20%,
+                rgba(255, 255, 255, 0.06) 0%,
+                transparent 50%
+            );
+            pointer-events: none;
+        }
+
+        /* Subtle refraction edge glow */
+        .password-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.15) 20%,
+                rgba(129, 140, 248, 0.2) 50%,
+                rgba(255, 255, 255, 0.15) 80%,
+                transparent 100%
+            );
+            pointer-events: none;
+        }
+
+        .card-label {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.03em;
+            position: relative;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(9, 11, 16, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            position: relative;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            text-align: center;
+            letter-spacing: 0.05em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .password-input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+            letter-spacing: 0.02em;
+        }
+
+        .password-input:focus {
+            border-color: rgba(129, 140, 248, 0.35);
+            box-shadow: 0 0 24px rgba(99, 102, 241, 0.15), inset 0 0 12px rgba(99, 102, 241, 0.05);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            margin-top: 0.75rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.7), rgba(129, 140, 248, 0.5));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #fff;
+            font-family: 'Lexend', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: #f87171;
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-message.visible {
+            opacity: 1;
+        }
+
+        /* Shake animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 50%, 90% { transform: translateX(-6px); }
+            30%, 70% { transform: translateX(6px); }
+        }
+
+        .password-card.shake {
+            animation: shake 0.5s ease;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .video-container { display: none; }
+            .statement-text { display: none; }
+            .glitch { animation: none; }
+            .password-card-wrapper {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fullscreen video -->
+    <div class="video-container" id="videoContainer">
+        <video id="splashVideo" autoplay muted playsinline preload="auto">
+            <source src="/assets/tipping-point.webm" type="video/webm">
+            <source src="/assets/tipping-point.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Statement text -->
+    <div class="statement-text" id="statementText">The Ground Is <span class="glitch" id="shiftingText">Shifting</span></div>
+
+    <!-- Password card -->
+    <div class="password-card-wrapper" id="cardWrapper">
+        <div class="password-card" id="passwordCard">
+            <div class="card-label">Enter the motto</div>
+            <input type="password" class="password-input" id="passwordInput" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="off">
+            <button class="submit-btn" id="submitBtn">Enter</button>
+            <div class="error-message" id="errorMessage">Incorrect. Try again.</div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+            // Check reduced motion - skip everything, card is already visible via CSS
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                initPasswordLogic();
+                return;
+            }
+
+            var video = document.getElementById('splashVideo');
+            var videoContainer = document.getElementById('videoContainer');
+            var statementText = document.getElementById('statementText');
+            var shiftingEl = document.getElementById('shiftingText');
+            var cardWrapper = document.getElementById('cardWrapper');
+            var sequenceStarted = false;
+
+            // Fallback timeout - skip to card if video takes too long
+            var fallbackTimer = setTimeout(function () {
+                if (!sequenceStarted) {
+                    sequenceStarted = true;
+                    skipToCard();
+                }
+            }, 12000);
+
+            // Video ended - start post-video sequence
+            video.addEventListener('ended', function () {
+                if (!sequenceStarted) {
+                    sequenceStarted = true;
+                    clearTimeout(fallbackTimer);
+                    startPostVideoSequence();
+                }
+            });
+
+            // Video error - skip to card
+            video.addEventListener('error', function () {
+                if (!sequenceStarted) {
+                    sequenceStarted = true;
+                    clearTimeout(fallbackTimer);
+                    skipToCard();
+                }
+            });
+
+            function skipToCard() {
+                gsap.set(videoContainer, { opacity: 0.3 });
+                cardWrapper.classList.add('visible');
+                setTimeout(function () {
+                    document.getElementById('passwordInput').focus();
+                }, 400);
+            }
+
+            function startPostVideoSequence() {
+                var tl = gsap.timeline();
+
+                // 1. Fade video to 30% opacity
+                tl.to(videoContainer, {
+                    opacity: 0.3,
+                    duration: 1,
+                    ease: 'power2.inOut'
+                });
+
+                // 2. Statement text fades in from below
+                tl.to(statementText, {
+                    opacity: 1,
+                    visibility: 'visible',
+                    y: 0,
+                    scale: 1,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                }, '+=0.2');
+
+                // 3. After text appears, run intermittent vibrate on "Shifting"
+                tl.call(function () {
+                    runIntermittentShake(3, function () {
+                        // 4. After vibrate stops, show password card
+                        cardWrapper.classList.add('visible');
+                        setTimeout(function () {
+                            document.getElementById('passwordInput').focus();
+                        }, 400);
+                    });
+                }, null, '+=0.3');
+
+                // Set initial state for statement text animation
+                gsap.set(statementText, {
+                    opacity: 0,
+                    visibility: 'hidden',
+                    y: 30,
+                    scale: 0.95
+                });
+
+                // Play timeline
+                tl.play();
+            }
+
+            // Set initial state for statement text
+            gsap.set(statementText, {
+                opacity: 0,
+                visibility: 'hidden',
+                y: 30,
+                scale: 0.95
+            });
+
+            // Intermittent vibrate: 3 quick bursts with pauses
+            function runIntermittentShake(times, onDone) {
+                var count = 0;
+                function burst() {
+                    if (count >= times) {
+                        shiftingEl.classList.remove('shaking');
+                        if (onDone) onDone();
+                        return;
+                    }
+                    shiftingEl.classList.add('shaking');
+                    setTimeout(function () {
+                        shiftingEl.classList.remove('shaking');
+                        count++;
+                        setTimeout(burst, 400 + Math.random() * 300);
+                    }, 150 + Math.random() * 100);
+                }
+                burst();
+            }
+
+            initPasswordLogic();
+        });
+
+        function initPasswordLogic() {
+            var passwordInput = document.getElementById('passwordInput');
+            var submitBtn = document.getElementById('submitBtn');
+            var passwordCard = document.getElementById('passwordCard');
+            var errorMessage = document.getElementById('errorMessage');
+
+            function attemptLogin() {
+                var value = passwordInput.value.trim().toLowerCase();
+                if (value === 'the ground is shifting') {
+                    window.location.href = '/';
+                } else {
+                    passwordCard.classList.add('shake');
+                    errorMessage.classList.add('visible');
+                    passwordInput.value = '';
+                    setTimeout(function () {
+                        passwordCard.classList.remove('shake');
+                    }, 500);
+                    setTimeout(function () {
+                        errorMessage.classList.remove('visible');
+                    }, 3000);
+                }
+            }
+
+            submitBtn.addEventListener('click', attemptLogin);
+            passwordInput.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    attemptLogin();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
