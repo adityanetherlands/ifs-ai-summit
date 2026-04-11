@@ -955,36 +955,37 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     font-size: 11px;
     cursor: pointer;
     transition: box-shadow 0.2s;
-    position: relative;
   }
-  body.ff-ext-edit-on .avatar:hover,
   body.ff-ext-edit-on .avatar.mobile-active {
     box-shadow: 0 0 12px rgba(99,102,241,0.4);
-    z-index: 9999;
   }
-  /* Tooltip: show on tap (mobile-active class) */
-  body.ff-ext-edit-on .avatar.mobile-active .avatar-tooltip {
-    opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
-  }
+  /* Hide the built-in tooltips on mobile — we use a floating one instead */
   body.ff-ext-edit-on .avatar-tooltip {
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%) scale(0.9);
+    display: none !important;
+  }
+  /* Floating tooltip (appended to body via JS) */
+  body.ff-ext-edit-on .mobile-float-tooltip {
+    position: fixed;
+    z-index: 99999;
     background: rgba(15,17,23,0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255,255,255,0.12);
-    z-index: 10000;
+    padding: 6px 12px;
+    border-radius: 8px;
     white-space: nowrap;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-primary);
+    pointer-events: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: opacity 0.15s;
   }
-  body.ff-ext-edit-on .avatar.mobile-active .avatar-tooltip {
-    transform: translateX(-50%) scale(1);
+  body.ff-ext-edit-on .mobile-float-tooltip.visible {
+    opacity: 1;
   }
-  body.ff-ext-edit-on .avatar-tooltip .tooltip-fn { display: none; }
-  body.ff-ext-edit-on .avatar-tooltip::after { display: none; }
 }
 
 /* ─── Agenda: shortened mobile header text (feature flag: issue #15) ─── */
@@ -1017,6 +1018,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
     gap: 12px;
     padding-bottom: 8px;
     scrollbar-width: none;
@@ -1036,6 +1038,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
     gap: 12px;
     padding-bottom: 8px;
     scrollbar-width: none;
@@ -1051,13 +1054,12 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   body.ff-ext-edit-on .groups-grid {
     display: flex !important;
     overflow-x: auto;
-    overflow-y: visible;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
     gap: 12px;
     padding-bottom: 8px;
-    padding-top: 50px;
-    margin-top: -50px;
     scrollbar-width: none;
     align-items: stretch;
   }
@@ -1068,7 +1070,6 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     flex-shrink: 0;
     scroll-snap-align: start;
     height: auto;
-    overflow: visible;
   }
   body.ff-ext-edit-on .groups-grid:hover .group-card { opacity: 1; }
 
@@ -2235,46 +2236,51 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 
   // ─── Working groups: mobile avatar tap-to-reveal name (ff-ext-edit) ───
   if (document.body.classList.contains('ff-ext-edit-on') && window.innerWidth <= 768) {
+    // Create a single floating tooltip element on body
+    const floatTip = document.createElement('div');
+    floatTip.className = 'mobile-float-tooltip';
+    document.body.appendChild(floatTip);
+    let activeAvatar = null;
+
+    function hideFloatTip() {
+      floatTip.classList.remove('visible');
+      if (activeAvatar) { activeAvatar.classList.remove('mobile-active'); activeAvatar = null; }
+    }
+
+    function showFloatTip(avatar) {
+      const tooltip = avatar.querySelector('.avatar-tooltip');
+      if (!tooltip) return;
+      // Get just the name text (first text node), excluding .tooltip-fn
+      const name = Array.from(tooltip.childNodes).filter(n => n.nodeType === 3).map(n => n.textContent.trim()).join('') || '';
+      if (!name) return;
+      floatTip.textContent = name;
+      floatTip.classList.add('visible');
+      avatar.classList.add('mobile-active');
+      activeAvatar = avatar;
+      // Position above the avatar, centered
+      requestAnimationFrame(() => {
+        const ar = avatar.getBoundingClientRect();
+        const tr = floatTip.getBoundingClientRect();
+        let left = ar.left + ar.width / 2 - tr.width / 2;
+        // Clamp to viewport edges
+        if (left < 8) left = 8;
+        if (left + tr.width > window.innerWidth - 8) left = window.innerWidth - 8 - tr.width;
+        floatTip.style.left = left + 'px';
+        floatTip.style.top = (ar.top - tr.height - 8) + 'px';
+      });
+    }
+
     document.querySelectorAll('.avatar').forEach(avatar => {
       avatar.addEventListener('click', function(e) {
         e.stopPropagation();
-        const wasActive = this.classList.contains('mobile-active');
-        // Clear all active avatars and reset tooltip positioning
-        document.querySelectorAll('.avatar.mobile-active').forEach(a => {
-          a.classList.remove('mobile-active');
-          const t = a.querySelector('.avatar-tooltip');
-          if (t) { t.style.left = ''; t.style.transform = ''; }
-        });
-        if (!wasActive) {
-          this.classList.add('mobile-active');
-          // Adjust tooltip so it doesn't overflow viewport edges
-          const tooltip = this.querySelector('.avatar-tooltip');
-          if (tooltip) {
-            tooltip.style.left = '50%';
-            tooltip.style.transform = 'translateX(-50%) scale(1)';
-            requestAnimationFrame(() => {
-              const rect = tooltip.getBoundingClientRect();
-              const vw = window.innerWidth;
-              if (rect.right > vw - 8) {
-                const shift = rect.right - vw + 8;
-                tooltip.style.left = `calc(50% - ${shift}px)`;
-              } else if (rect.left < 8) {
-                const shift = 8 - rect.left;
-                tooltip.style.left = `calc(50% + ${shift}px)`;
-              }
-            });
-          }
-        }
+        if (activeAvatar === this) { hideFloatTip(); return; }
+        hideFloatTip();
+        showFloatTip(this);
       });
     });
-    // Dismiss tooltip on tap outside
-    document.addEventListener('click', function() {
-      document.querySelectorAll('.avatar.mobile-active').forEach(a => {
-        a.classList.remove('mobile-active');
-        const t = a.querySelector('.avatar-tooltip');
-        if (t) { t.style.left = ''; t.style.transform = ''; }
-      });
-    });
+    document.addEventListener('click', hideFloatTip);
+    // Hide on scroll to prevent stale positioning
+    document.querySelector('.groups-grid')?.addEventListener('scroll', hideFloatTip);
   }
 
   // ─── Mobile carousels: dot indicators (feature flag) ───
