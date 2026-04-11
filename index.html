@@ -1848,6 +1848,17 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 
   sections.forEach(section => spyObserver.observe(section));
 
+  // Clear active state when at the top (hero visible)
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    const heroObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        navLinks.forEach(link => link.classList.remove('active'));
+      }
+    }, { threshold: 0.3 });
+    heroObserver.observe(hero);
+  }
+
   // ─── Agenda toggle ───
   document.querySelectorAll('.day-toggle').forEach(toggle => {
     const day = toggle.closest('.agenda-day');
