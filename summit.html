@@ -954,30 +954,34 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     height: 38px;
     font-size: 11px;
     cursor: pointer;
-    transition: transform 0.2s var(--ease), box-shadow 0.2s;
+    transition: box-shadow 0.2s;
+    position: relative;
   }
   body.ff-ext-edit-on .avatar:hover,
   body.ff-ext-edit-on .avatar.mobile-active {
-    transform: scale(1.15);
     box-shadow: 0 0 12px rgba(99,102,241,0.4);
-    z-index: 20;
+    z-index: 9999;
   }
   /* Tooltip: show on tap (mobile-active class) */
   body.ff-ext-edit-on .avatar.mobile-active .avatar-tooltip {
     opacity: 1;
-    transform: translateX(-50%) scale(1);
+    transform: scale(1);
     pointer-events: auto;
   }
   body.ff-ext-edit-on .avatar-tooltip {
-    background: rgba(15,17,23,0.9);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    background: rgba(15,17,23,0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255,255,255,0.12);
-    left: 0;
-    transform: translateX(0) scale(0.9);
+    z-index: 10000;
+    white-space: nowrap;
   }
   body.ff-ext-edit-on .avatar.mobile-active .avatar-tooltip {
-    transform: translateX(0) scale(1);
+    transform: translateX(-50%) scale(1);
   }
   body.ff-ext-edit-on .avatar-tooltip .tooltip-fn { display: none; }
   body.ff-ext-edit-on .avatar-tooltip::after { display: none; }
@@ -1047,11 +1051,13 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   body.ff-ext-edit-on .groups-grid {
     display: flex !important;
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: visible;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     gap: 12px;
     padding-bottom: 8px;
+    padding-top: 50px;
+    margin-top: -50px;
     scrollbar-width: none;
     align-items: stretch;
   }
@@ -1062,6 +1068,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     flex-shrink: 0;
     scroll-snap-align: start;
     height: auto;
+    overflow: visible;
   }
   body.ff-ext-edit-on .groups-grid:hover .group-card { opacity: 1; }
 
@@ -2232,13 +2239,41 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
       avatar.addEventListener('click', function(e) {
         e.stopPropagation();
         const wasActive = this.classList.contains('mobile-active');
-        document.querySelectorAll('.avatar.mobile-active').forEach(a => a.classList.remove('mobile-active'));
-        if (!wasActive) this.classList.add('mobile-active');
+        // Clear all active avatars and reset tooltip positioning
+        document.querySelectorAll('.avatar.mobile-active').forEach(a => {
+          a.classList.remove('mobile-active');
+          const t = a.querySelector('.avatar-tooltip');
+          if (t) { t.style.left = ''; t.style.transform = ''; }
+        });
+        if (!wasActive) {
+          this.classList.add('mobile-active');
+          // Adjust tooltip so it doesn't overflow viewport edges
+          const tooltip = this.querySelector('.avatar-tooltip');
+          if (tooltip) {
+            tooltip.style.left = '50%';
+            tooltip.style.transform = 'translateX(-50%) scale(1)';
+            requestAnimationFrame(() => {
+              const rect = tooltip.getBoundingClientRect();
+              const vw = window.innerWidth;
+              if (rect.right > vw - 8) {
+                const shift = rect.right - vw + 8;
+                tooltip.style.left = `calc(50% - ${shift}px)`;
+              } else if (rect.left < 8) {
+                const shift = 8 - rect.left;
+                tooltip.style.left = `calc(50% + ${shift}px)`;
+              }
+            });
+          }
+        }
       });
     });
     // Dismiss tooltip on tap outside
     document.addEventListener('click', function() {
-      document.querySelectorAll('.avatar.mobile-active').forEach(a => a.classList.remove('mobile-active'));
+      document.querySelectorAll('.avatar.mobile-active').forEach(a => {
+        a.classList.remove('mobile-active');
+        const t = a.querySelector('.avatar-tooltip');
+        if (t) { t.style.left = ''; t.style.transform = ''; }
+      });
     });
   }
 
