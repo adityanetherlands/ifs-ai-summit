@@ -274,7 +274,7 @@ textarea { min-height: 100px; resize: vertical; }
 <body>
 
 <div class="page-header">
-  <a href="/" class="brand-link"><div class="brand">IFS <span>AI Summit</span></div></a>
+  <a href="/summit" class="brand-link"><div class="brand">IFS <span>AI Summit</span></div></a>
   <h1>Submit a Feature Request</h1>
   <p class="subtitle">Describe a change you'd like made to the summit website. An AI agent will implement it automatically.</p>
   <div class="info-banner">
@@ -342,7 +342,7 @@ function renderTracker() {
       <div style="flex:1">
         <div class="tracker-title">${issue.title}</div>
         <div class="tracker-preview ${issue.status === 'completed' ? 'visible' : ''}" id="preview-${issue.number}">
-          Ready to review: <a href="/?ext_edit=true" target="_blank">preview with feature flag</a>
+          Ready to review: <a href="/summit?ext_edit=true" target="_blank">preview with feature flag</a>
         </div>
       </div>
       ${issue.status === 'completed'
