@@ -361,61 +361,61 @@
                 });
             });
 
-            // Phase 1: Orbs converge to center (0s - 3.0s)
+            // Phase 1: Orbs converge to center (0s - 2.0s)
             orbs.forEach(function (orb, i) {
                 tl.to(orb.el, {
                     x: 0,
                     y: 0,
                     scale: 0.6,
-                    duration: 3.0,
+                    duration: 2.0,
                     ease: 'power2.inOut'
-                }, i * 0.1);
+                }, i * 0.06);
             });
 
-            // Phase 2: Orbs shrink and fade into center (3.0s)
+            // Phase 2: Orbs shrink and fade into center (2.0s)
             tl.to('.orb', {
                 opacity: 0,
                 scale: 0,
-                duration: 0.8,
+                duration: 0.5,
                 ease: 'power3.in',
-                stagger: 0.05
-            }, 3.0);
+                stagger: 0.03
+            }, 2.0);
 
-            // Phase 3: Center glow orb blooms large (3.3s)
+            // Phase 3: Center glow orb blooms large (2.2s)
             tl.fromTo('#centerGlow', {
                 opacity: 0,
                 scale: 0.2
             }, {
                 opacity: 1,
                 scale: 1,
-                duration: 1.2,
+                duration: 0.8,
                 ease: 'power2.out'
-            }, 3.3);
+            }, 2.2);
 
-            // Phase 3b: Intensify the glow briefly (4.3s)
+            // Phase 3b: Intensify the glow briefly (2.8s)
             tl.to('#centerGlow', {
                 scale: 1.15,
                 filter: 'blur(20px)',
-                duration: 0.6,
+                duration: 0.4,
                 ease: 'power1.inOut'
-            }, 4.3);
+            }, 2.8);
 
-            // Phase 4: Glow dims slightly and settles (4.9s)
+            // Phase 4: Glow dims slightly and settles (3.2s)
             tl.to('#centerGlow', {
                 scale: 0.9,
                 opacity: 0.5,
                 filter: 'blur(40px)',
-                duration: 1.2,
+                duration: 0.8,
                 ease: 'power2.inOut'
-            }, 4.9);
+            }, 3.2);
 
-            // Phase 5: Password card fades in (6.3s)
+            // Phase 5: Password card fades in (3.8s)
             tl.call(function () {
                 document.getElementById('cardWrapper').classList.add('visible');
                 setTimeout(function () {
                     document.getElementById('passwordInput').focus();
-                }, 500);
-            }, null, 6.3);
+                }, 300);
+            }, null, 3.8);
 
             // Password logic
             var passwordInput = document.getElementById('passwordInput');
