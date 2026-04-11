@@ -581,7 +581,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
    VENUES
    ═══════════════════════════════════════════════════════════════ */
 #venue { background: var(--bg-secondary); }
-.venue-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.venue-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .venue-card {
   background: var(--bg-surface); border: 1px solid var(--border-default);
   border-radius: 14px; overflow: hidden;
@@ -599,6 +599,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 }
 .venue-days-hotel { background: rgba(99,102,241,0.15); color: var(--accent-indigo-light); border: 1px solid rgba(99,102,241,0.25); }
 .venue-days-museum { background: rgba(6,182,212,0.15); color: var(--accent-cyan); border: 1px solid rgba(6,182,212,0.25); }
+.venue-days-dinner { background: rgba(245,158,11,0.15); color: var(--accent-amber); border: 1px solid rgba(245,158,11,0.25); }
 .venue-card h3 {
   font-family: var(--font-display); font-size: 18px; font-weight: 700;
   color: var(--text-primary); margin-bottom: 8px;
@@ -606,6 +607,9 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 .venue-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 6px; }
 .venue-card a { color: var(--accent-indigo-light); font-weight: 600; font-size: 13px; }
 
+@media (max-width: 1024px) {
+  .venue-cards { grid-template-columns: 1fr 1fr; }
+}
 @media (max-width: 768px) {
   .venue-cards { grid-template-columns: 1fr; }
   .venue-card-map { height: 220px; }
@@ -1692,7 +1696,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     <div class="section-header">
       <div class="section-eyebrow">Where We&rsquo;ll Be</div>
       <h2 class="section-title">The Venues</h2>
-      <p class="section-subtitle">Two locations across the four days &ndash; our hotel base and the hands-on lab at the Computer History Museum.</p>
+      <p class="section-subtitle">Three locations across the four days &ndash; our hotel base, the hands-on lab at the Computer History Museum, and dinner at Evvia Estiatorio.</p>
     </div>
 
     <div class="venue-cards animate-on-scroll">
@@ -1720,6 +1724,19 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
           <h3>Computer History Museum</h3>
           <p>The Learning Lab &ndash; our venue for Tuesday&rsquo;s keynotes, Replit vibe coding, and Anthropic hands-on sessions. IFS-organised transport from hotel.</p>
           <p><a href="https://computerhistory.org" target="_blank" rel="noopener">computerhistory.org &rarr;</a></p>
+        </div>
+      </div>
+
+      <!-- Dinner -->
+      <div class="venue-card">
+        <div class="venue-card-map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3169.5!2d-122.1663742!3d37.4451329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fbb37673c2507%3A0x4b12cc71ee9fa7b4!2sEvvia%20Estiatorio!5e0!3m2!1sen!2sus!4v1712700000002" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Evvia Estiatorio location"></iframe>
+        </div>
+        <div class="venue-card-body">
+          <div class="venue-card-days venue-days-dinner">Day 2 &middot; Dinner</div>
+          <h3>Evvia Estiatorio</h3>
+          <p>Tuesday evening dinner venue. Greek-Mediterranean fine dining in downtown Palo Alto. Transport arranged from the museum.</p>
+          <p><a href="https://evvia.net" target="_blank" rel="noopener">evvia.net &rarr;</a></p>
         </div>
       </div>
 
