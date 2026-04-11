@@ -157,6 +157,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   color: #f0f1f5;
   letter-spacing: -0.3px;
 }
+.nav-brand:hover { text-decoration: none; opacity: 0.85; }
 .nav-brand span {
   font-weight: 400;
   background: linear-gradient(135deg, #818cf8, #06b6d4);
@@ -915,7 +916,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
      ═══════════════════════════════════════════════════ -->
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
-    <div class="nav-brand">IFS <span>AI Summit</span></div>
+    <a href="#" class="nav-brand" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">IFS <span>AI Summit</span></a>
     <ul class="nav-links">
       <li><a href="#agenda" data-section="agenda">Agenda</a></li>
       <li><a href="#prereads" data-section="prereads">Pre-Reads</a></li>
