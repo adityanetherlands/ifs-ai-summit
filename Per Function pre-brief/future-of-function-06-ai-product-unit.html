@@ -487,6 +487,225 @@ blockquote {
   html { scroll-behavior: auto; }
   * { transition-duration: 0.01ms !important; }
 }
+
+/* ─── Mobile Hub Pattern (feature flag) ─── */
+.mobile-hub, .mobile-back-bar, .mobile-section-nav { display: none; }
+@media (max-width: 768px) {
+  body.ff-ext-edit-on .mobile-hub {
+    display: block !important;
+    padding: calc(var(--nav-height) + 24px) 20px 32px;
+    min-height: 100vh;
+    position: relative;
+  }
+  body.ff-ext-edit-on .mobile-hub::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 200px;
+    background: radial-gradient(ellipse, rgba(99,102,241,0.06), transparent 70%);
+    pointer-events: none;
+  }
+  body.ff-ext-edit-on .mobile-hub-header {
+    text-align: center;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  body.ff-ext-edit-on .mobile-hub-eyebrow {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 8px;
+  }
+  body.ff-ext-edit-on .mobile-hub-title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+  body.ff-ext-edit-on .mobile-hub-count {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+  body.ff-ext-edit-on .mobile-hub-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+  }
+  body.ff-ext-edit-on .mobile-hub-card {
+    height: 60px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
+  }
+  body.ff-ext-edit-on .mobile-hub-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.5), rgba(139,92,246,0.5), transparent);
+  }
+  body.ff-ext-edit-on .mobile-hub-card:active {
+    transform: scale(0.98);
+  }
+  body.ff-ext-edit-on .mobile-hub-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(139,92,246,0.15));
+    border: 1px solid rgba(99,102,241,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+  body.ff-ext-edit-on .mobile-hub-icon::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 14px;
+    background: radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%);
+    z-index: -1;
+  }
+  body.ff-ext-edit-on .mobile-hub-icon svg {
+    width: 18px;
+    height: 18px;
+    color: var(--accent-light);
+  }
+  body.ff-ext-edit-on .mobile-hub-text {
+    flex: 1;
+    min-width: 0;
+  }
+  body.ff-ext-edit-on .mobile-hub-card-title {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  body.ff-ext-edit-on .mobile-hub-card-sub {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  body.ff-ext-edit-on .mobile-hub-chevron {
+    width: 24px;
+    height: 24px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  body.ff-ext-edit-on .mobile-hub-chevron svg {
+    width: 14px;
+    height: 14px;
+    color: var(--accent-light);
+    opacity: 0.7;
+  }
+  body.ff-ext-edit-on .mobile-back-bar {
+    display: none;
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    z-index: 998;
+    height: 44px;
+    background: linear-gradient(135deg, rgba(20,23,32,0.7), rgba(30,34,45,0.6), rgba(99,102,241,0.06));
+    backdrop-filter: blur(40px) saturate(1.3);
+    -webkit-backdrop-filter: blur(40px) saturate(1.3);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 0 16px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+  }
+  body.ff-ext-edit-on.mobile-section-active .mobile-back-bar { display: flex; }
+  body.ff-ext-edit-on.mobile-section-active .mobile-hub { display: none !important; }
+  body.ff-ext-edit-on .mobile-back-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent-light);
+    text-decoration: none;
+    font-weight: 600;
+    font-family: var(--font-display);
+  }
+  body.ff-ext-edit-on .mobile-back-link svg {
+    width: 16px;
+    height: 16px;
+  }
+  body.ff-ext-edit-on .mobile-section-pos {
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+  body.ff-ext-edit-on.mobile-hub-active .content-layout,
+  body.ff-ext-edit-on.mobile-hub-active .brief-hero,
+  body.ff-ext-edit-on.mobile-hub-active .footer-nav-section {
+    display: none !important;
+  }
+  body.ff-ext-edit-on.mobile-section-active .toc-sidebar { display: none !important; }
+  body.ff-ext-edit-on.mobile-section-active .brief-hero { display: none !important; }
+  body.ff-ext-edit-on.mobile-section-active .main {
+    padding-top: calc(var(--nav-height) + 44px + 16px);
+  }
+  body.ff-ext-edit-on.mobile-section-active .section { display: none; }
+  body.ff-ext-edit-on.mobile-section-active .section.active-section { display: block; }
+  body.ff-ext-edit-on .mobile-section-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  body.ff-ext-edit-on .mobile-section-nav a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--font-display);
+    transition: border-color 0.2s var(--ease);
+  }
+  body.ff-ext-edit-on .mobile-section-nav a:hover {
+    border-color: rgba(99,102,241,0.3);
+  }
+}
 </style>
 </head>
 <body>
@@ -549,6 +768,76 @@ blockquote {
     </div>
   </div>
 </section>
+
+<!-- ═══════════════════════════════════════════════════
+     MOBILE HUB (feature flag)
+     ═══════════════════════════════════════════════════ -->
+<div class="mobile-hub">
+  <div class="mobile-hub-header">
+    <div class="mobile-hub-eyebrow">Function 06</div>
+    <div class="mobile-hub-title">AI Product Unit</div>
+    <div class="mobile-hub-count">6 sections to explore</div>
+  </div>
+  <div class="mobile-hub-cards">
+    <a href="#section-1" class="mobile-hub-card" data-section="1">
+      <div class="mobile-hub-icon"><i data-lucide="bar-chart-3"></i></div>
+      <div class="mobile-hub-text">
+        <div class="mobile-hub-card-title">Current State</div>
+        <div class="mobile-hub-card-sub">4 stats &middot; Before vs After</div>
+      </div>
+      <div class="mobile-hub-chevron"><i data-lucide="chevron-right"></i></div>
+    </a>
+    <a href="#section-2" class="mobile-hub-card" data-section="2">
+      <div class="mobile-hub-icon"><i data-lucide="compass"></i></div>
+      <div class="mobile-hub-text">
+        <div class="mobile-hub-card-title">Future Vision</div>
+        <div class="mobile-hub-card-sub">Framework &middot; North Star &middot; 3 KPIs</div>
+      </div>
+      <div class="mobile-hub-chevron"><i data-lucide="chevron-right"></i></div>
+    </a>
+    <a href="#section-3" class="mobile-hub-card" data-section="3">
+      <div class="mobile-hub-icon"><i data-lucide="help-circle"></i></div>
+      <div class="mobile-hub-text">
+        <div class="mobile-hub-card-title">Discussion Questions</div>
+        <div class="mobile-hub-card-sub">Structured prompts for prep</div>
+      </div>
+      <div class="mobile-hub-chevron"><i data-lucide="chevron-right"></i></div>
+    </a>
+    <a href="#section-4" class="mobile-hub-card" data-section="4">
+      <div class="mobile-hub-icon"><i data-lucide="monitor"></i></div>
+      <div class="mobile-hub-text">
+        <div class="mobile-hub-card-title">AI Companies</div>
+        <div class="mobile-hub-card-sub">10+ companies across categories</div>
+      </div>
+      <div class="mobile-hub-chevron"><i data-lucide="chevron-right"></i></div>
+    </a>
+    <a href="#section-5" class="mobile-hub-card" data-section="5">
+      <div class="mobile-hub-icon"><i data-lucide="wrench"></i></div>
+      <div class="mobile-hub-text">
+        <div class="mobile-hub-card-title">Hands-On Exercises</div>
+        <div class="mobile-hub-card-sub">4 tasks &middot; 45min&ndash;2hr each</div>
+      </div>
+      <div class="mobile-hub-chevron"><i data-lucide="chevron-right"></i></div>
+    </a>
+    <a href="#section-6" class="mobile-hub-card" data-section="6">
+      <div class="mobile-hub-icon"><i data-lucide="book-open"></i></div>
+      <div class="mobile-hub-text">
+        <div class="mobile-hub-card-title">What to Research</div>
+        <div class="mobile-hub-card-sub">4 homework items with rationale</div>
+      </div>
+      <div class="mobile-hub-chevron"><i data-lucide="chevron-right"></i></div>
+    </a>
+  </div>
+</div>
+
+<!-- Mobile back bar (feature flag) -->
+<div class="mobile-back-bar">
+  <a href="#" class="mobile-back-link" id="mobileBackLink">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg>
+    AI Product Unit
+  </a>
+  <span class="mobile-section-pos" id="mobileSectionPos">1 of 6</span>
+</div>
 
 <!-- ═══════════════════════════════════════════════════
      CONTENT LAYOUT
@@ -964,6 +1253,75 @@ blockquote {
       }
     });
   });
+
+  // ─── Mobile hub pattern (feature flag) ───
+  const isMobile = () => window.innerWidth <= 768;
+  if (document.body.classList.contains('ff-ext-edit-on') && isMobile()) {
+    const sectionNames = ['Current State', 'Future Vision', 'Discussion Questions', 'AI Companies', 'Hands-On Exercises', 'What to Research'];
+    const sections = document.querySelectorAll('.section');
+    const hub = document.querySelector('.mobile-hub');
+    const backBar = document.querySelector('.mobile-back-bar');
+    const backLink = document.getElementById('mobileBackLink');
+    const posLabel = document.getElementById('mobileSectionPos');
+
+    function showHub() {
+      document.body.classList.add('mobile-hub-active');
+      document.body.classList.remove('mobile-section-active');
+      sections.forEach(s => s.classList.remove('active-section'));
+      document.querySelectorAll('.mobile-section-nav').forEach(n => n.remove());
+      window.scrollTo(0, 0);
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+
+    function showSection(num) {
+      document.body.classList.remove('mobile-hub-active');
+      document.body.classList.add('mobile-section-active');
+      sections.forEach(s => s.classList.remove('active-section'));
+      const target = document.getElementById('section-' + num);
+      if (target) {
+        target.classList.add('active-section');
+        posLabel.textContent = num + ' of 6';
+        let oldNav = target.querySelector('.mobile-section-nav');
+        if (oldNav) oldNav.remove();
+        const nav = document.createElement('div');
+        nav.className = 'mobile-section-nav';
+        let prevHTML = '', nextHTML = '';
+        if (num > 1) prevHTML = '<a href="#" data-goto="' + (num - 1) + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg> ' + sectionNames[num - 2] + '</a>';
+        if (num < 6) nextHTML = '<a href="#" data-goto="' + (num + 1) + '">' + sectionNames[num] + ' <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg></a>';
+        nav.innerHTML = prevHTML + nextHTML;
+        target.appendChild(nav);
+        nav.querySelectorAll('a').forEach(a => {
+          a.addEventListener('click', function(e) {
+            e.preventDefault();
+            showSection(parseInt(this.dataset.goto));
+          });
+        });
+        window.scrollTo(0, 0);
+      }
+    }
+
+    document.querySelectorAll('.mobile-hub-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        e.preventDefault();
+        showSection(parseInt(this.dataset.section));
+      });
+    });
+
+    if (backLink) {
+      backLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        showHub();
+      });
+    }
+
+    const hash = window.location.hash;
+    if (hash && hash.match(/^#section-\d+$/)) {
+      showSection(parseInt(hash.replace('#section-', '')));
+    } else {
+      showHub();
+    }
+  }
+
 })();
 </script>
 </body>

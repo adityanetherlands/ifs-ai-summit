@@ -964,6 +964,79 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     margin-top: 2px;
   }
 }
+
+/* ─── Mobile carousels (feature flag) ─── */
+@media (max-width: 768px) {
+  body.ff-ext-edit-on .prebrief-grid {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 12px;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+  body.ff-ext-edit-on .prebrief-grid::-webkit-scrollbar { display: none; }
+  body.ff-ext-edit-on .prebrief-card {
+    min-width: 240px;
+    max-width: 280px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  body.ff-ext-edit-on .speakers-keynote {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 12px;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+  body.ff-ext-edit-on .speakers-keynote::-webkit-scrollbar { display: none; }
+  body.ff-ext-edit-on .speaker-card {
+    min-width: 260px;
+    max-width: 300px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  body.ff-ext-edit-on .groups-grid {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 12px;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+  body.ff-ext-edit-on .groups-grid::-webkit-scrollbar { display: none; }
+  body.ff-ext-edit-on .group-card {
+    min-width: 260px;
+    max-width: 300px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+  body.ff-ext-edit-on .groups-grid:hover .group-card { opacity: 1; }
+
+  body.ff-ext-edit-on .carousel-dots {
+    display: flex !important;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 0 4px;
+  }
+  body.ff-ext-edit-on .carousel-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border-default);
+    transition: background 0.2s var(--ease), width 0.2s var(--ease);
+  }
+  body.ff-ext-edit-on .carousel-dot.active {
+    width: 18px;
+    background: var(--accent-indigo);
+  }
+}
 </style>
 </head>
 <body>
@@ -1424,6 +1497,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
       </a>
 
     </div>
+    <div class="carousel-dots prebrief-dots ff-ext-edit" aria-hidden="true"></div>
   </div>
 </section>
 
@@ -1538,6 +1612,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         </div>
       </div>
     </div>
+    <div class="carousel-dots speakers-dots ff-ext-edit" aria-hidden="true"></div>
 
     <div class="speaker-section-label">AI Startup Showcase <span style="font-weight:400;font-size:10px;letter-spacing:0.5px;opacity:0.6;margin-left:8px;">Subject to change</span></div>
     <div class="startup-grid animate-on-scroll">
@@ -1821,6 +1896,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
       </div>
 
     </div>
+    <div class="carousel-dots groups-dots ff-ext-edit" aria-hidden="true"></div>
   </div>
 </section>
 
@@ -2116,6 +2192,37 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         lucide.createIcons({ attrs: { 'stroke-width': 2 } });
       });
     });
+  }
+
+  // ─── Mobile carousels: dot indicators (feature flag) ───
+  if (document.body.classList.contains('ff-ext-edit-on') && window.innerWidth <= 768) {
+    function initCarouselDots(containerSel, dotsSel) {
+      const container = document.querySelector(containerSel);
+      const dotsEl = document.querySelector(dotsSel);
+      if (!container || !dotsEl) return;
+      const cards = Array.from(container.children).filter(
+        el => !el.classList.contains('carousel-dots') && !el.classList.contains('prereads-glow')
+      );
+      cards.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dotsEl.appendChild(dot);
+      });
+      const dots = dotsEl.querySelectorAll('.carousel-dot');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const idx = cards.indexOf(entry.target);
+            dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+          }
+        });
+      }, { root: container, threshold: 0.5 });
+      cards.forEach(card => observer.observe(card));
+    }
+    initCarouselDots('.prebrief-grid', '.prebrief-dots');
+    initCarouselDots('.speakers-keynote', '.speakers-dots');
+    initCarouselDots('.groups-grid', '.groups-dots');
   }
 
 })();
