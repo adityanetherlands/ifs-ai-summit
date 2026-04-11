@@ -791,6 +791,81 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     font-size: 14px;
   }
 }
+
+/* ─── Mobile component changes (feature flag: issue #14) ─── */
+
+/* Tap hint hidden on desktop (shown only on mobile via media query below) */
+.group-tap-hint { display: none; }
+
+/* 1. Nav: hamburger left, brand centred on mobile */
+@media (max-width: 1024px) {
+  body.ff-ext-edit-on .nav-inner {
+    position: relative;
+  }
+  body.ff-ext-edit-on .nav-hamburger {
+    order: -1;
+  }
+  body.ff-ext-edit-on .nav-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 2. Agenda pill: natural width aligned with day text */
+  body.ff-ext-edit-on .day-venue {
+    flex-basis: auto !important;
+    white-space: nowrap !important;
+    margin-left: 78px; /* badge width (~68px) + column-gap (10px) */
+  }
+
+  /* 3. Working groups: disable sibling-dim and hover-expand on mobile */
+  body.ff-ext-edit-on .groups-grid:hover .group-card {
+    opacity: 1;
+  }
+  body.ff-ext-edit-on .group-card:hover .group-members {
+    max-height: 0;
+    opacity: 0;
+    border-top-width: 0;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  /* Expand members when card has .mobile-expanded class */
+  body.ff-ext-edit-on .group-card.mobile-expanded .group-members {
+    max-height: 300px;
+    opacity: 1;
+    border-top-width: 1px;
+    margin-top: 14px;
+    padding-top: 14px;
+  }
+  /* Tap hint: subtle chevron indicator on each card */
+  body.ff-ext-edit-on .group-tap-hint {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 8px;
+    transition: color 0.2s;
+  }
+  body.ff-ext-edit-on .group-tap-hint svg {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s var(--ease);
+    flex-shrink: 0;
+  }
+  body.ff-ext-edit-on .group-card.mobile-expanded .group-tap-hint {
+    color: var(--accent-indigo-light);
+  }
+  body.ff-ext-edit-on .group-card.mobile-expanded .group-tap-hint svg {
+    transform: rotate(180deg);
+  }
+  body.ff-ext-edit-on .group-card {
+    cursor: pointer;
+  }
+}
 </style>
 </head>
 <body>
@@ -1436,6 +1511,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 1</div>
         <h4>Executive Board / Management</h4>
         <div class="group-lead">Tech Lead: <span>Adi Kumar</span></div>
+        <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
           <ul><li>Adi Kumar <span class="member-fn">AI BU</span></li><li>Darren Roos <span class="member-fn">Exec Team</span></li><li>Mark Moffat <span class="member-fn">Exec Team</span></li><li>Fred Brady <span class="member-fn">Exec Team</span></li><li>Joe Dormani <span class="member-fn">Strategy</span></li></ul>
@@ -1446,6 +1522,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 2</div>
         <h4>Sales &ndash; Targeting &amp; Account Mgmt</h4>
         <div class="group-lead">Tech Lead: <span>Ravi Bulusu</span></div>
+        <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
           <ul><li>Andre Robberts <span class="member-fn">Core Sales</span></li><li>Ann Marie Mullally <span class="member-fn">Core Sales</span></li><li>James Thompson <span class="member-fn">Core Sales</span></li><li>Ravi Bulusu <span class="member-fn">AI BU</span></li><li>Simon Niesler <span class="member-fn">Core Sales</span></li></ul>
@@ -1456,6 +1533,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 3</div>
         <h4>Pre-Sales &ndash; Technical Demo&rsquo;ing</h4>
         <div class="group-lead">Tech Lead: <span>Jonathan Hyden</span></div>
+        <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
           <ul><li>James Greaves <span class="member-fn">Core Sales</span></li><li>Jonathan Hyden <span class="member-fn">AI BU</span></li><li>Mathieu Daudigny <span class="member-fn">Core Sales</span></li><li>Stephanie Poore <span class="member-fn">Core Sales</span></li><li>Travis Johnstone <span class="member-fn">Core Sales</span></li></ul>
@@ -1466,6 +1544,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 4</div>
         <h4>R&amp;D</h4>
         <div class="group-lead">Tech Lead: <span>Dan Dutton</span></div>
+        <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
           <ul><li>Antoine Bisson <span class="member-fn">R&amp;D</span></li><li>Dan Dutton <span class="member-fn">Core Product / GCS</span></li><li>Mairi Campbell <span class="member-fn">Core Product / GCS</span></li><li>Cathie Hall <span class="member-fn">Core Product / GCS</span></li><li>Gregory Briedenbach <span class="member-fn">Core Product / GCS</span></li></ul>
@@ -1476,6 +1555,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 5</div>
         <h4>Customer Support &amp; Success</h4>
         <div class="group-lead">Tech Lead: <span>Bob De Caux</span></div>
+        <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
           <ul><li>Bob De Caux <span class="member-fn">Core Product / GCS</span></li><li>Kurt Kemmerly <span class="member-fn">AI BU</span></li><li>Raymond Jones <span class="member-fn">Core Product / GCS</span></li><li>Tony Johnson <span class="member-fn">Core Product / GCS</span></li></ul>
@@ -1486,6 +1566,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 6</div>
         <h4>AI Product Unit</h4>
         <div class="group-lead">Tech Lead: <span>Matt Ely</span></div>
+        <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
           <ul><li>Bisher Deirki <span class="member-fn">AI BU</span></li><li>Jon Zorio <span class="member-fn">AI BU</span></li><li>Matt Ely <span class="member-fn">AI BU</span></li><li>Matt Kempson <span class="member-fn">AI BU</span></li><li>Matt Quinn <span class="member-fn">AI BU</span></li></ul>
@@ -1496,6 +1577,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 7</div>
         <h4>Marketing</h4>
         <div class="group-lead">Tech Lead: <span>Vaibs Kumar</span></div>
+        <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
           <ul><li>Andreas Georgiou <span class="member-fn">Marketing</span></li><li>Elvis Pinjagic <span class="member-fn">AI BU</span></li><li>Oliver Pilgerstorfer <span class="member-fn">Marketing</span></li><li>Sara Hill <span class="member-fn">Marketing</span></li><li>Vaibs Kumar <span class="member-fn">Core Product / GCS</span></li></ul>
@@ -1506,6 +1588,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 8</div>
         <h4>HR</h4>
         <div class="group-lead">Tech Lead: <span>Kriti Sharma</span></div>
+        <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
           <ul><li>Christian Pedersen <span class="member-fn">Strategy</span></li><li>Kriti Sharma <span class="member-fn">AI BU</span></li><li>Laura Bennett <span class="member-fn">HR</span></li><li>Matt Breslin <span class="member-fn">Core Sales</span></li><li>Mihita Podobnik <span class="member-fn">HR</span></li></ul>
@@ -1516,6 +1599,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 9</div>
         <h4>Finance</h4>
         <div class="group-lead">Tech Lead: <span>Danilo Prates</span></div>
+        <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
           <ul><li>Danilo Prates <span class="member-fn">M&amp;A</span></li><li>Hannes Liebe <span class="member-fn">Core Sales</span></li><li>Jonathan Park <span class="member-fn">Finance</span></li><li>Jordan Setterfield <span class="member-fn">Finance</span></li><li>Matthias Heiden <span class="member-fn">Finance</span></li></ul>
@@ -1526,6 +1610,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 10</div>
         <h4>IT</h4>
         <div class="group-lead">Tech Lead: <span>Jorge Garc&iacute;a D&iacute;az</span></div>
+        <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
           <ul><li>Goiuri Hern&aacute;ndez <span class="member-fn">Core Sales</span></li><li>Jorge Garc&iacute;a D&iacute;az <span class="member-fn">IT</span></li><li>Mubashir Nisar <span class="member-fn">IT</span></li><li>Robi Gone <span class="member-fn">IT</span></li><li>Somya Kapoor <span class="member-fn">AI BU</span></li></ul>
@@ -1536,6 +1621,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 11</div>
         <h4>M&amp;A</h4>
         <div class="group-lead">Tech Lead: <span>Nick Vandivere</span></div>
+        <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
           <ul><li>Jim Hoefflin <span class="member-fn">M&amp;A</span></li><li>Lance Olmsted <span class="member-fn">M&amp;A</span></li><li>Nick Vandivere <span class="member-fn">AI BU</span></li><li>Rob Hortopp <span class="member-fn">M&amp;A</span></li><li>Tim Forkner <span class="member-fn">M&amp;A</span></li></ul>
@@ -1546,6 +1632,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
         <div class="group-num">Group 12</div>
         <h4>Sales &ndash; Team B</h4>
         <div class="group-lead">Tech Lead: <span>Justin Bigger</span></div>
+        <div class="group-tap-hint"><i data-lucide="chevrons-down" style="width:12px;height:12px;"></i><span>See members</span></div>
         <div class="group-members">
           <div class="group-members-label">Members</div>
           <ul><li>Herman Niewoudt <span class="member-fn">Core Sales</span></li><li>Justin Bigger <span class="member-fn">Core Sales</span></li><li>Mark Buongiorno <span class="member-fn">Core Sales</span></li><li>Mattias Bolander <span class="member-fn">Core Sales</span></li></ul>
@@ -1848,6 +1935,20 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
+
+  // ─── Working groups: mobile tap-to-expand (issue #14, ff-ext-edit) ───
+  if (document.body.classList.contains('ff-ext-edit-on')) {
+    const isMobile = () => window.innerWidth <= 768;
+    document.querySelectorAll('.group-card').forEach(card => {
+      card.addEventListener('click', function() {
+        if (!isMobile()) return;
+        const wasExpanded = this.classList.contains('mobile-expanded');
+        document.querySelectorAll('.group-card.mobile-expanded').forEach(c => c.classList.remove('mobile-expanded'));
+        if (!wasExpanded) this.classList.add('mobile-expanded');
+        lucide.createIcons({ attrs: { 'stroke-width': 2 } });
+      });
+    });
+  }
 
 })();
 </script>
