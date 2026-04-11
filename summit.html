@@ -696,41 +696,6 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   LOGISTICS
-   ═══════════════════════════════════════════════════════════════ */
-#logistics {
-  background: var(--bg-primary);
-  background-image:
-    radial-gradient(ellipse 70% 65% at 90% 30%, rgba(99, 102, 241, 0.13) 0%, transparent 60%),
-    radial-gradient(ellipse 55% 55% at 5% 85%, rgba(168, 85, 247, 0.1) 0%, transparent 60%),
-    radial-gradient(ellipse 45% 40% at 50% 10%, rgba(6, 182, 212, 0.07) 0%, transparent 65%);
-}
-.logistics-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
-}
-.logistics-card {
-  background: var(--bg-surface); border: 1px solid var(--border-default);
-  border-radius: 12px; padding: 24px;
-}
-.logistics-card .logi-icon {
-  width: 40px; height: 40px; border-radius: 10px;
-  background: var(--accent-indigo-glow); border: 1px solid rgba(99,102,241,0.15);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 14px;
-}
-.logistics-card .logi-icon svg { width: 20px; height: 20px; color: var(--accent-indigo-light); }
-.logistics-card h4 {
-  font-family: var(--font-display); font-size: 15px; font-weight: 700;
-  color: var(--text-primary); margin-bottom: 8px;
-}
-.logistics-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
-.logistics-card a { color: var(--accent-indigo-light); font-weight: 600; }
-
-@media (max-width: 768px) {
-  .logistics-grid { grid-template-columns: 1fr; }
-}
-
-/* ═══════════════════════════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════════════════════════ */
 .site-footer {
@@ -1019,7 +984,6 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
       <li><a href="#speakers" data-section="speakers">Speakers</a></li>
       <li><a href="#groups" data-section="groups">Groups</a></li>
       <li><a href="#venue" data-section="venue">Venue</a></li>
-      <li><a href="#logistics" data-section="logistics">Logistics</a></li>
     </ul>
     <button class="nav-hamburger" aria-label="Open menu" onclick="toggleDrawer()">
       <i data-lucide="menu" style="width:24px;height:24px;"></i>
@@ -1039,7 +1003,6 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   <a href="#speakers" onclick="toggleDrawer()">Speakers</a>
   <a href="#groups" onclick="toggleDrawer()">Groups</a>
   <a href="#venue" onclick="toggleDrawer()">Venue</a>
-  <a href="#logistics" onclick="toggleDrawer()">Logistics</a>
 </div>
 
 <!-- ═══════════════════════════════════════════════════
@@ -1918,49 +1881,12 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
 </section>
 
 <!-- ═══════════════════════════════════════════════════
-     LOGISTICS
-     ═══════════════════════════════════════════════════ -->
-<section class="section" id="logistics">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-eyebrow">Getting There</div>
-      <h2 class="section-title">Travel &amp; Logistics</h2>
-    </div>
-
-    <div class="logistics-grid animate-on-scroll">
-      <div class="logistics-card">
-        <div class="logi-icon"><i data-lucide="building-2"></i></div>
-        <h4>Hotel</h4>
-        <p>Group booking at <strong style="color:var(--text-primary)">The Stanford Park Hotel</strong>, Mon 4 &ndash; Thu 7 May.</p>
-        <p><a href="https://stanfordparkhotel.com" target="_blank" rel="noopener">stanfordparkhotel.com</a></p>
-      </div>
-      <div class="logistics-card">
-        <div class="logi-icon"><i data-lucide="plane"></i></div>
-        <h4>Flights &amp; Transfers</h4>
-        <p>Send your flight details to <strong style="color:var(--text-primary)">Kate Joyce</strong> (<a href="mailto:kate.joyce@ifs.com">kate.joyce@ifs.com</a>) so we can group airport transfers.</p>
-        <p style="margin-top:8px;font-size:13px;color:var(--text-dim);">Do not book taxis to the museum &ndash; IFS-organised transport on Day 2.</p>
-      </div>
-      <div class="logistics-card">
-        <div class="logi-icon"><i data-lucide="laptop"></i></div>
-        <h4>What to Bring</h4>
-        <p>Laptop with local admin rights (check with IT). Chargers. Business cards &ndash; you'll meet founders. An open mind.</p>
-      </div>
-      <div class="logistics-card">
-        <div class="logi-icon"><i data-lucide="shirt"></i></div>
-        <h4>Dress Code</h4>
-        <p>Smart casual. This is the Valley, not a boardroom. Come ready to work.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════
      FOOTER
      ═══════════════════════════════════════════════════ -->
 <footer class="site-footer" id="main">
   <div class="container">
     <p><strong style="color:var(--text-muted)">IFS AI Leadership Summit</strong> &middot; 4&ndash;7 May 2026 &middot; Mountain View, California</p>
-    <p>Questions? <a href="mailto:kate.joyce@ifs.com">Kate Joyce</a> &middot; Group assignments &amp; reading pack to follow</p>
+    <p>Questions? <a href="mailto:kate.joyce@ifs.com">Kate Joyce</a></p>
     <p class="footer-conf">Confidential &ndash; for IFS Leadership Team only</p>
     <div class="ff-ext-edit"><p style="font-size:12px;color:var(--text-dim);margin-top:8px;">Last updated: April 2026</p></div>
   </div>
