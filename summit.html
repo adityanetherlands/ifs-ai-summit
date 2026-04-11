@@ -886,12 +886,12 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     right: auto;
     left: 0;
     transform: translateX(-100%);
-    background: linear-gradient(135deg, rgba(20,23,32,0.45) 0%, rgba(30,34,45,0.35) 50%, rgba(99,102,241,0.08) 100%);
-    backdrop-filter: blur(60px) saturate(1.6);
-    -webkit-backdrop-filter: blur(60px) saturate(1.6);
+    background: linear-gradient(135deg, rgba(20,23,32,0.3) 0%, rgba(30,34,45,0.2) 50%, rgba(99,102,241,0.06) 100%);
+    backdrop-filter: blur(80px) saturate(1.8);
+    -webkit-backdrop-filter: blur(80px) saturate(1.8);
     border-left: none;
-    border-right: 1px solid rgba(255,255,255,0.12);
-    box-shadow: 8px 0 40px rgba(0,0,0,0.5), inset 0 0 80px rgba(99,102,241,0.03);
+    border-right: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 8px 0 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
   }
   body.ff-ext-edit-on .nav-drawer.open {
     transform: translateX(0);
@@ -928,8 +928,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     min-width: auto;
   }
 
-  /* 3. Working groups: disable sibling-dim and hover-expand on mobile */
-  body.ff-ext-edit-on .avatar-row { display: none; }
+  /* 3. Working groups: avatar-row with tap-to-reveal name on mobile */
   body.ff-ext-edit-on .groups-grid:hover .group-card {
     opacity: 1;
   }
@@ -940,38 +939,40 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     margin-top: 0;
     padding-top: 0;
   }
-  /* Expand members when card has .mobile-expanded class */
-  body.ff-ext-edit-on .group-card.mobile-expanded .group-members {
-    max-height: 300px;
-    opacity: 1;
-    border-top-width: 1px;
-    margin-top: 14px;
-    padding-top: 14px;
-  }
-  /* Tap hint: subtle chevron indicator on each card */
-  body.ff-ext-edit-on .group-tap-hint {
+  body.ff-ext-edit-on .group-members { display: none !important; }
+  body.ff-ext-edit-on .group-tap-hint { display: none !important; }
+
+  /* Show avatar-row on mobile (desktop hides it via the existing rule at 928) */
+  body.ff-ext-edit-on .avatar-row {
     display: flex;
-    align-items: center;
-    gap: 4px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  body.ff-ext-edit-on .avatar {
+    margin-left: 0;
+    width: 38px;
+    height: 38px;
     font-size: 11px;
-    color: var(--text-dim);
-    margin-top: 8px;
-    transition: color 0.2s;
-  }
-  body.ff-ext-edit-on .group-tap-hint svg {
-    width: 12px;
-    height: 12px;
-    transition: transform 0.3s var(--ease);
-    flex-shrink: 0;
-  }
-  body.ff-ext-edit-on .group-card.mobile-expanded .group-tap-hint {
-    color: var(--accent-indigo-light);
-  }
-  body.ff-ext-edit-on .group-card.mobile-expanded .group-tap-hint svg {
-    transform: rotate(180deg);
-  }
-  body.ff-ext-edit-on .group-card {
     cursor: pointer;
+    transition: transform 0.2s var(--ease), box-shadow 0.2s;
+  }
+  body.ff-ext-edit-on .avatar:hover,
+  body.ff-ext-edit-on .avatar.mobile-active {
+    transform: scale(1.15);
+    box-shadow: 0 0 12px rgba(99,102,241,0.4);
+    z-index: 20;
+  }
+  /* Tooltip: show on tap (mobile-active class) */
+  body.ff-ext-edit-on .avatar.mobile-active .avatar-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    pointer-events: auto;
+  }
+  body.ff-ext-edit-on .avatar-tooltip {
+    background: rgba(15,17,23,0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12);
   }
 }
 
@@ -2218,17 +2219,19 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
     URL.revokeObjectURL(url);
   };
 
-  // ─── Working groups: mobile tap-to-expand (issue #14, ff-ext-edit) ───
-  if (document.body.classList.contains('ff-ext-edit-on')) {
-    const isMobile = () => window.innerWidth <= 768;
-    document.querySelectorAll('.group-card').forEach(card => {
-      card.addEventListener('click', function() {
-        if (!isMobile()) return;
-        const wasExpanded = this.classList.contains('mobile-expanded');
-        document.querySelectorAll('.group-card.mobile-expanded').forEach(c => c.classList.remove('mobile-expanded'));
-        if (!wasExpanded) this.classList.add('mobile-expanded');
-        lucide.createIcons({ attrs: { 'stroke-width': 2 } });
+  // ─── Working groups: mobile avatar tap-to-reveal name (ff-ext-edit) ───
+  if (document.body.classList.contains('ff-ext-edit-on') && window.innerWidth <= 768) {
+    document.querySelectorAll('.avatar').forEach(avatar => {
+      avatar.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const wasActive = this.classList.contains('mobile-active');
+        document.querySelectorAll('.avatar.mobile-active').forEach(a => a.classList.remove('mobile-active'));
+        if (!wasActive) this.classList.add('mobile-active');
       });
+    });
+    // Dismiss tooltip on tap outside
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.avatar.mobile-active').forEach(a => a.classList.remove('mobile-active'));
     });
   }
 
