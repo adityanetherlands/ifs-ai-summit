@@ -134,42 +134,47 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
    ═══════════════════════════════════════════════════════════════ */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  height: var(--nav-height);
-  display: flex; align-items: center;
-  background: rgba(9, 11, 16, 0.4);
-  border-bottom: 1px solid transparent;
-  transition: background 0.3s var(--ease), border-color 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
-}
-.nav.scrolled {
-  background: rgba(9, 11, 16, 0.88);
-  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border-bottom-color: var(--border-subtle);
+  display: flex; justify-content: center;
+  padding: 16px 32px;
+  pointer-events: none;
 }
 .nav-inner {
-  max-width: var(--max-width); margin: 0 auto; padding: 0 32px;
-  width: 100%; display: flex; align-items: center;
+  display: flex; align-items: center;
+  background: rgba(240, 241, 245, 0.95);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-radius: 100px;
+  padding: 6px 8px 6px 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.1);
+  pointer-events: auto;
+  max-width: 800px;
+  width: auto;
+  gap: 4px;
 }
 .nav-brand {
-  font-family: var(--font-display); font-size: 15px; font-weight: 700;
-  color: var(--text-primary); white-space: nowrap; margin-right: auto;
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  color: #1a1a2e; white-space: nowrap; margin-right: 12px;
 }
-.nav-brand span { color: var(--accent-indigo-light); }
-.nav-links { display: flex; gap: 4px; list-style: none; margin-left: auto; }
+.nav-brand span { color: #1a1a2e; font-weight: 800; }
+.nav-links { display: flex; gap: 2px; list-style: none; }
 .nav-links a {
-  font-size: 13px; font-weight: 600; color: var(--text-muted);
-  padding: 8px 14px; border-radius: 6px; text-decoration: none;
+  font-size: 13px; font-weight: 500; color: #4a4a5a;
+  padding: 8px 14px; border-radius: 100px; text-decoration: none;
   transition: color 0.2s, background 0.2s; cursor: pointer;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.1px;
 }
-.nav-links a:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); }
-.nav-links a.active { color: var(--accent-indigo-light); background: var(--accent-indigo-glow); }
+.nav-links a:hover { color: #1a1a2e; background: rgba(0,0,0,0.06); }
+.nav-links a.active { color: white; background: var(--accent-indigo); }
+
+.nav.scrolled .nav-inner {
+  background: rgba(240, 241, 245, 0.98);
+}
 
 /* Hamburger */
 .nav-hamburger {
-  display: none; background: none; border: none; color: var(--text-primary);
-  cursor: pointer; padding: 8px; border-radius: 6px;
+  display: none; background: none; border: none; color: #4a4a5a;
+  cursor: pointer; padding: 8px; border-radius: 100px;
 }
-.nav-hamburger:hover { background: rgba(255,255,255,0.06); }
+.nav-hamburger:hover { background: rgba(0,0,0,0.06); }
 
 /* Mobile drawer */
 .nav-drawer {
@@ -253,6 +258,7 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   animation: fadeInUp 0.8s var(--ease) 0.25s both;
 }
 .hero-meta .sep { margin: 0 4px; opacity: 0.3; }
+.hero-meta-item { display: inline-flex; align-items: center; gap: 5px; }
 .hero-pills {
   display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px;
   animation: fadeInUp 0.8s var(--ease) 0.3s both;
@@ -939,13 +945,12 @@ body.ff-ext-edit-on #prereads .container { position: relative; z-index: 1; }
   <div class="hero-orb hero-orb-1"></div>
   <div class="hero-orb hero-orb-2"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow">IFS AI Leadership Summit</div>
     <h1 class="hero-title">The Ground Is Shifting</h1>
     <p class="hero-lead">AI-native startups aren&rsquo;t adding features to existing software. They&rsquo;re replacing entire functions with new architectures that make traditional SaaS look slow and bloated. Sales, Marketing, HR, Finance, IT. They&rsquo;re all in the crosshairs. IFS has a window: our industries adopt deliberately, which gives us time to lead. But that window is closing. This event is about making sure every leader here feels the urgency and leaves with a plan.</p>
     <div class="hero-meta">
-      <span>Mountain View, California</span>
+      <span class="hero-meta-item"><i data-lucide="map-pin" style="width:14px;height:14px;opacity:0.5;"></i> Mountain View, California</span>
       <span class="sep">&middot;</span>
-      <span>4 &ndash; 7 May 2026</span>
+      <span class="hero-meta-item"><i data-lucide="calendar" style="width:14px;height:14px;opacity:0.5;"></i> 4 &ndash; 7 May 2026</span>
     </div>
     <div class="hero-pills">
       <span class="hero-pill"><i data-lucide="users"></i> 50+ Senior Leaders</span>
