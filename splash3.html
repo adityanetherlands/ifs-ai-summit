@@ -164,151 +164,102 @@
             pointer-events: none;
         }
 
-        /* Glitch effect */
+        /* Intermittent vibrate effect on Shifting - no color change */
         .glitch {
             position: relative;
             display: inline-block;
-            animation: glitch-jitter 0.1s infinite;
         }
 
-        .glitch::before,
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .glitch::before {
-            color: #06b6d4;
-            left: -2px;
-            animation: glitch-clip-top 2s infinite linear alternate-reverse;
-        }
-
-        .glitch::after {
-            color: #f59e0b;
-            left: 2px;
-            animation: glitch-clip-bottom 2.5s infinite linear alternate-reverse;
+        .glitch.shaking {
+            animation: glitch-jitter 0.06s steps(2) infinite;
         }
 
         @keyframes glitch-jitter {
             0% { transform: translate(0); }
-            20% { transform: translate(-1px, 1px); }
-            40% { transform: translate(1px, -1px); }
-            60% { transform: translate(-1px, -1px); }
-            80% { transform: translate(1px, 1px); }
-            100% { transform: translate(0); }
+            25% { transform: translate(-2px, 1px); }
+            50% { transform: translate(1px, -2px); }
+            75% { transform: translate(-1px, -1px); }
+            100% { transform: translate(2px, 1px); }
         }
 
-        @keyframes glitch-clip-top {
-            0% { clip-path: inset(0 0 80% 0); }
-            20% { clip-path: inset(0 0 60% 0); }
-            40% { clip-path: inset(10% 0 70% 0); }
-            60% { clip-path: inset(0 0 85% 0); }
-            80% { clip-path: inset(5% 0 65% 0); }
-            100% { clip-path: inset(0 0 75% 0); }
-        }
-
-        @keyframes glitch-clip-bottom {
-            0% { clip-path: inset(70% 0 0 0); }
-            20% { clip-path: inset(80% 0 0 0); }
-            40% { clip-path: inset(60% 0 0 0); }
-            60% { clip-path: inset(75% 0 0 0); }
-            80% { clip-path: inset(85% 0 0 0); }
-            100% { clip-path: inset(65% 0 0 0); }
-        }
-
-        /* Password overlay */
-        .password-overlay {
+        /* Password card - no full overlay, floats over the last frame */
+        .password-card-wrapper {
             position: fixed;
-            inset: 0;
-            background: rgba(9, 11, 16, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            bottom: 0;
+            left: 0;
+            right: 0;
             display: flex;
-            align-items: center;
             justify-content: center;
+            padding-bottom: 12vh;
             z-index: 100;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
-        .password-overlay.visible {
+        .password-card-wrapper.visible {
             opacity: 1;
             visibility: visible;
         }
 
         .password-card {
-            background: rgba(24, 27, 35, 0.85);
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            background: rgba(24, 27, 35, 0.7);
+            border: 1px solid rgba(99, 102, 241, 0.25);
             border-radius: 20px;
-            padding: 3rem 2.5rem;
+            padding: 2.5rem 2.5rem 2rem;
             text-align: center;
-            max-width: 420px;
+            max-width: 380px;
             width: 90%;
-            box-shadow: 0 25px 60px rgba(99, 102, 241, 0.15), 0 0 40px rgba(99, 102, 241, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(99, 102, 241, 0.08);
         }
 
-        .password-card .card-title {
-            font-family: 'Lexend', sans-serif;
-            font-weight: 800;
-            font-size: 3rem;
-            background: linear-gradient(135deg, #6366f1, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .password-card .card-tagline {
+        .card-label {
             font-family: 'Lexend', sans-serif;
             font-weight: 600;
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 2rem;
-        }
-
-        .password-card .card-tagline .glitch {
-            font-size: inherit;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
         }
 
         .password-input {
             width: 100%;
             padding: 14px 18px;
-            background: rgba(9, 11, 16, 0.8);
-            border: 1px solid rgba(99, 102, 241, 0.25);
+            background: rgba(9, 11, 16, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 10px;
             color: #fff;
             font-family: 'Inter', sans-serif;
             font-size: 1rem;
             outline: none;
+            text-align: center;
+            letter-spacing: 0.05em;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 1rem;
         }
 
         .password-input::placeholder {
-            color: rgba(255, 255, 255, 0.35);
+            color: rgba(255, 255, 255, 0.25);
+            letter-spacing: 0.02em;
         }
 
         .password-input:focus {
-            border-color: rgba(99, 102, 241, 0.6);
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.12);
         }
 
         .submit-btn {
             width: 100%;
-            padding: 14px;
+            padding: 13px;
+            margin-top: 0.75rem;
             background: linear-gradient(135deg, #6366f1, #818cf8);
             border: none;
             border-radius: 10px;
             color: #fff;
             font-family: 'Lexend', sans-serif;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
@@ -324,7 +275,7 @@
 
         .error-message {
             color: #f87171;
-            font-size: 0.875rem;
+            font-size: 0.85rem;
             margin-top: 0.75rem;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -347,28 +298,12 @@
 
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
-            .orb {
-                display: none;
-            }
+            .orb { display: none; }
             .ifs-title,
-            .tagline {
-                opacity: 1 !important;
-                transform: none !important;
-            }
-            .glitch {
-                animation: none;
-            }
-            .glitch::before,
-            .glitch::after {
-                display: none;
-            }
-            .password-overlay {
-                opacity: 1;
-                visibility: visible;
-            }
-            .center-text {
-                display: none;
-            }
+            .tagline { opacity: 1 !important; transform: none !important; }
+            .glitch { animation: none; }
+            .password-card-wrapper { opacity: 1; visibility: visible; }
+            .center-text { display: none; }
         }
     </style>
 </head>
@@ -386,18 +321,17 @@
     <div class="ripple" id="ripple1"></div>
     <div class="ripple" id="ripple2"></div>
 
-    <!-- Center text -->
+    <!-- Center text - stays visible as last frame -->
     <div class="center-text">
         <div class="ifs-title" id="ifsTitle">IFS</div>
-        <div class="tagline" id="tagline">The Ground Is <span class="glitch" data-text="Shifting">Shifting</span></div>
+        <div class="tagline" id="tagline">The Ground Is <span class="glitch" id="shiftingText" data-text="Shifting">Shifting</span></div>
     </div>
 
-    <!-- Password overlay -->
-    <div class="password-overlay" id="passwordOverlay">
+    <!-- Password card - floats over the last frame, no full overlay -->
+    <div class="password-card-wrapper" id="cardWrapper">
         <div class="password-card" id="passwordCard">
-            <div class="card-title">IFS</div>
-            <div class="card-tagline">The Ground Is <span class="glitch" data-text="Shifting">Shifting</span></div>
-            <input type="password" class="password-input" id="passwordInput" placeholder="Enter the motto" autocomplete="off">
+            <div class="card-label">Enter the motto</div>
+            <input type="password" class="password-input" id="passwordInput" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="off">
             <button class="submit-btn" id="submitBtn">Enter</button>
             <div class="error-message" id="errorMessage">Incorrect. Try again.</div>
         </div>
@@ -411,10 +345,31 @@
                 return;
             }
 
-            const tl = gsap.timeline();
+            var shiftingEl = document.getElementById('shiftingText');
+
+            // Intermittent vibrate: shake for ~0.3s, pause for ~1.2s, repeat a few times then stop
+            function runIntermittentShake(times, onDone) {
+                var count = 0;
+                function burst() {
+                    if (count >= times) {
+                        shiftingEl.classList.remove('shaking');
+                        if (onDone) onDone();
+                        return;
+                    }
+                    shiftingEl.classList.add('shaking');
+                    setTimeout(function () {
+                        shiftingEl.classList.remove('shaking');
+                        count++;
+                        setTimeout(burst, 800 + Math.random() * 600);
+                    }, 250 + Math.random() * 150);
+                }
+                burst();
+            }
+
+            var tl = gsap.timeline();
 
             // Initial positions - orbs far off-screen
-            const orbs = [
+            var orbs = [
                 { el: '#orb1', x: '-120vw', y: '-30vh' },
                 { el: '#orb2', x: '110vw', y: '40vh' },
                 { el: '#orb3', x: '-80vw', y: '90vh' },
@@ -433,77 +388,82 @@
                 });
             });
 
-            // Orbs converge toward center (0s - 1.8s)
+            // Orbs converge toward center (0s - 2.5s) - slower, more dramatic
             orbs.forEach(function (orb, i) {
                 tl.to(orb.el, {
                     x: 0,
                     y: 0,
                     scale: 0.8,
-                    duration: 1.8,
+                    duration: 2.5,
                     ease: 'power2.inOut'
-                }, i * 0.1);
+                }, i * 0.12);
             });
 
-            // Orbs fade out at center (1.8s)
+            // Orbs fade out at center (2.5s)
             tl.to('.orb', {
                 opacity: 0,
                 scale: 0,
-                duration: 0.4,
+                duration: 0.5,
                 ease: 'power2.in',
-                stagger: 0.03
-            }, 1.8);
+                stagger: 0.04
+            }, 2.5);
 
-            // IFS text pops in (2.0s)
+            // IFS text pops in (2.8s)
             tl.fromTo('#ifsTitle', {
                 scale: 0.5,
                 opacity: 0
             }, {
                 scale: 1,
                 opacity: 1,
-                duration: 0.6,
+                duration: 0.7,
                 ease: 'back.out(2)'
-            }, 2.0);
+            }, 2.8);
 
-            // Ripple 1 (2.2s)
+            // Ripple 1 (3.0s)
             tl.to('#ripple1', {
                 opacity: 1,
                 duration: 0.01
-            }, 2.2);
+            }, 3.0);
             tl.to('#ripple1', {
-                scale: 4,
+                scale: 5,
                 opacity: 0,
-                duration: 0.8,
+                duration: 1.0,
                 ease: 'power1.out'
-            }, 2.2);
+            }, 3.0);
 
-            // Ripple 2 (2.4s)
+            // Ripple 2 (3.3s)
             tl.to('#ripple2', {
                 opacity: 1,
                 duration: 0.01
-            }, 2.4);
+            }, 3.3);
             tl.to('#ripple2', {
-                scale: 4,
+                scale: 5,
                 opacity: 0,
-                duration: 0.8,
+                duration: 1.0,
                 ease: 'power1.out'
-            }, 2.4);
+            }, 3.3);
 
-            // Tagline fades up (2.8s)
+            // Tagline fades up (3.6s)
             tl.fromTo('#tagline', {
-                y: 20,
+                y: 25,
                 opacity: 0
             }, {
                 y: 0,
                 opacity: 1,
-                duration: 0.6,
+                duration: 0.7,
                 ease: 'power2.out'
-            }, 2.8);
+            }, 3.6);
 
-            // Show password overlay (3.5s)
+            // Start intermittent vibrate on "Shifting" (4.3s) - 4 bursts then stops
             tl.call(function () {
-                document.getElementById('passwordOverlay').classList.add('visible');
-                document.getElementById('passwordInput').focus();
-            }, null, 3.5);
+                runIntermittentShake(4, function () {
+                    // After shaking stops, show the password card
+                    document.getElementById('cardWrapper').classList.add('visible');
+                    setTimeout(function () {
+                        document.getElementById('passwordInput').focus();
+                    }, 400);
+                });
+            }, null, 4.5);
 
             // Password logic
             var passwordInput = document.getElementById('passwordInput');
