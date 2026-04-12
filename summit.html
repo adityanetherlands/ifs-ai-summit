@@ -2149,8 +2149,8 @@ body.ff-ext-edit-on .hero-cta {
   <i data-lucide="arrow-up"></i>
 </button>
 
-<!-- Calendar download pill (feature flag: ext_edit) -->
-<div class="ff-ext-edit" id="cal-pill-wrapper">
+<!-- Calendar download pill -->
+<div id="cal-pill-wrapper">
   <button id="cal-pill" onclick="downloadICS()" aria-label="Add to Calendar">
     <i data-lucide="calendar-plus"></i>
     Add to Calendar
@@ -2295,7 +2295,7 @@ body.ff-ext-edit-on .hero-cta {
     });
   }
 
-  // ─── Calendar download pill (feature flag: ext_edit) ───
+  // ─── Calendar download pill ───
   const calPill = document.getElementById('cal-pill');
   if (calPill) {
     const heroEl = document.querySelector('.hero');
