@@ -28,5 +28,25 @@ export default async function handler(req, res) {
     status = 'completed';
   }
 
+  // Update Supabase status on completion
+  if (status === 'completed') {
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (supabaseUrl && supabaseKey) {
+      try {
+        await fetch(`${supabaseUrl}/rest/v1/submissions?issue_number=eq.${issueNumber}`, {
+          method: 'PATCH',
+          headers: {
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal',
+          },
+          body: JSON.stringify({ status: 'completed' }),
+        });
+      } catch (e) { /* don't block response */ }
+    }
+  }
+
   return res.status(200).json({ status, title: issue.title });
 }

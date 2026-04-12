@@ -347,6 +347,22 @@ textarea { min-height: 100px; resize: vertical; }
   margin-top: 6px;
 }
 
+.changelog-meta {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+.changelog-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* Mobile: stack vertically */
 @media (max-width: 768px) {
   .layout { grid-template-columns: 1fr; }
@@ -410,17 +426,18 @@ textarea { min-height: 100px; resize: vertical; }
     <div class="status" id="status"></div>
   </div>
 
-  <!-- Right: Status tracker -->
+  <!-- Right: Public changelog -->
   <div class="tracker-panel">
-    <div class="tracker-header">Request Status</div>
-    <div id="trackerList">
-      <div class="tracker-empty">No requests submitted yet</div>
+    <div class="tracker-header">Change Log</div>
+    <div id="changelogList">
+      <div class="tracker-empty">Loading submissions...</div>
     </div>
   </div>
 </div>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // --- Download all briefs as zip ---
 async function downloadBriefsMd() {
@@ -555,34 +572,73 @@ if (dropZone && fileInput) {
   fileInput.addEventListener('change', () => { addFiles(fileInput.files); fileInput.value = ''; });
 }
 
-// --- Tracker ---
-function getTrackedIssues() {
-  try { return JSON.parse(localStorage.getItem('ifs_tracked_issues') || '[]'); }
-  catch { return []; }
-}
-function saveTrackedIssues(issues) {
-  localStorage.setItem('ifs_tracked_issues', JSON.stringify(issues));
+// --- Public Changelog (Supabase) ---
+const SUPABASE_URL = 'https://zrorjdcljjhhsckqqrus.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpyb3JqZGNsampoaHNja3FxcnVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5NzAwNzYsImV4cCI6MjA5MTU0NjA3Nn0.7M0s9tTZ2GIbhfrhOhPjiA1zoIeLxAWOYkm2m7jpMQI';
+
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function escapeHtml(text) {
+  const d = document.createElement('div');
+  d.textContent = text || '';
+  return d.innerHTML;
 }
 
-function renderTracker() {
-  const issues = getTrackedIssues().slice(0, 3);
-  const list = document.getElementById('trackerList');
+function truncate(str, len) {
+  if (!str) return '';
+  return str.length > len ? str.slice(0, len) + '...' : str;
+}
 
-  if (!issues.length) {
-    list.innerHTML = '<div class="tracker-empty">No requests submitted yet</div>';
+function timeAgo(dateStr) {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return mins + 'm ago';
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + 'h ago';
+  const days = Math.floor(hrs / 24);
+  return days + 'd ago';
+}
+
+let changelogData = [];
+
+async function loadChangelog() {
+  const container = document.getElementById('changelogList');
+  const { data, error } = await sb
+    .from('submissions')
+    .select('name, title, description, status, issue_number, created_at')
+    .order('created_at', { ascending: false })
+    .limit(20);
+
+  if (error || !data || data.length === 0) {
+    container.innerHTML = '<div class="tracker-empty">No submissions yet</div>';
+    changelogData = [];
     return;
   }
 
-  list.innerHTML = issues.map((issue, i) => `
-    <div class="tracker-item" data-issue="${issue.number}">
+  changelogData = data;
+  renderChangelog();
+}
+
+function renderChangelog() {
+  const container = document.getElementById('changelogList');
+  if (!changelogData.length) {
+    container.innerHTML = '<div class="tracker-empty">No submissions yet</div>';
+    return;
+  }
+
+  container.innerHTML = changelogData.map((s, i) => `
+    <div class="tracker-item">
       <span class="tracker-num">${i + 1}.</span>
       <div style="flex:1">
-        <div class="tracker-title">${issue.title}</div>
-        <div class="tracker-preview ${issue.status === 'completed' ? 'visible' : ''}" id="preview-${issue.number}">
-          Ready to review: <a href="/summit?ext_edit=true" target="_blank">preview with feature flag</a>
+        <div class="tracker-title">${escapeHtml(s.title)}</div>
+        <div class="changelog-meta">
+          ${s.name ? escapeHtml(s.name) + ' &middot; ' : ''}${timeAgo(s.created_at)}
         </div>
+        <div class="changelog-desc">${escapeHtml(truncate(s.description, 150))}</div>
+        ${s.status === 'completed' ? '<div class="tracker-preview visible">Ready to review: <a href="/summit?ext_edit=true" target="_blank">preview with feature flag</a></div>' : ''}
       </div>
-      ${issue.status === 'completed'
+      ${s.status === 'completed'
         ? '<span class="tracker-badge completed">Done</span>'
         : '<div class="spinner"></div><span class="tracker-badge queued">Building</span>'
       }
@@ -590,31 +646,28 @@ function renderTracker() {
   `).join('');
 }
 
-async function pollStatuses() {
-  const issues = getTrackedIssues();
+async function pollChangelogStatuses() {
+  const queued = changelogData.filter(s => s.status !== 'completed' && s.issue_number);
+  if (!queued.length) return;
+
   let changed = false;
-  for (const issue of issues) {
-    if (issue.status === 'completed') continue;
+  for (const s of queued) {
     try {
-      const res = await fetch(`/api/status?issue=${issue.number}`);
+      const res = await fetch(`/api/status?issue=${s.issue_number}`);
       if (res.ok) {
         const data = await res.json();
-        if (data.status === 'completed' && issue.status !== 'completed') {
-          issue.status = 'completed';
+        if (data.status === 'completed') {
+          s.status = 'completed';
           changed = true;
         }
       }
     } catch {}
   }
-  if (changed) {
-    saveTrackedIssues(issues);
-    renderTracker();
-  }
+  if (changed) renderChangelog();
 }
 
-renderTracker();
-setInterval(pollStatuses, 15000);
-pollStatuses();
+loadChangelog();
+setInterval(pollChangelogStatuses, 15000);
 
 document.getElementById('requestForm').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -643,10 +696,8 @@ document.getElementById('requestForm').addEventListener('submit', async (e) => {
     const data = await res.json();
 
     if (res.ok) {
-      const issues = getTrackedIssues();
-      issues.unshift({ number: data.issue_number, title: titleVal, status: 'queued' });
-      saveTrackedIssues(issues);
-      renderTracker();
+      // Refresh public changelog from Supabase
+      setTimeout(loadChangelog, 1000);
 
       status.className = 'status success';
       status.innerHTML = 'Request submitted! An AI agent is building it now. Watch the status on the right.';

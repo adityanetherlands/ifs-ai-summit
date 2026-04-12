@@ -104,5 +104,29 @@ export default async function handler(req, res) {
     }
   }
 
+  // Insert into Supabase changelog
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (supabaseUrl && supabaseKey) {
+    try {
+      await fetch(`${supabaseUrl}/rest/v1/submissions`, {
+        method: 'POST',
+        headers: {
+          'apikey': supabaseKey,
+          'Authorization': `Bearer ${supabaseKey}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal',
+        },
+        body: JSON.stringify({
+          name: name || null,
+          title,
+          description: body,
+          issue_number: issueNumber,
+          status: 'queued',
+        }),
+      });
+    } catch (e) { /* don't block response if Supabase fails */ }
+  }
+
   return res.status(200).json({ success: true, issue_number: issueNumber, url: issue.html_url });
 }
