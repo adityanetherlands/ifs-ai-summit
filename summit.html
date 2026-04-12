@@ -2414,7 +2414,7 @@ body.ff-ext-edit-on .hero-cta {
       return { icon: '\u26C8\uFE0F', label: 'Thunderstorm' };
     }
 
-    function render(d, noteText) {
+    function render(d) {
       for (let i = 0; i < 4; i++) {
         const w = weatherIcon(d.weather_code[i]);
         document.getElementById('weather-icon-' + i).textContent = w.icon;
@@ -2432,7 +2432,7 @@ body.ff-ext-edit-on .hero-cta {
       .then(r => r.json())
       .then(data => {
         if (data.error) throw new Error('out of range');
-        render(data.daily, 'Forecast for Mountain View, CA \u00B7 via Open-Meteo');
+        render(data.daily);
       })
       .catch(() => {
         // Fallback: last year's actuals (May 4-7 2025) as climate estimate
@@ -2441,7 +2441,7 @@ body.ff-ext-edit-on .hero-cta {
           .then(r => r.json())
           .then(data => {
             if (data.error) throw new Error('archive failed');
-            render(data.daily, 'Based on May 2025 actuals for Mountain View, CA \u00B7 via Open-Meteo');
+            render(data.daily);
           })
           .catch(() => {
           });
