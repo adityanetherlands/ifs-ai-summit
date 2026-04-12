@@ -939,7 +939,7 @@ async function loadChangelog() {
     .from('submissions')
     .select('name, title, description, status, issue_number, created_at')
     .order('created_at', { ascending: false })
-    .limit(20);
+    .limit(3);
 
   if (error || !data || data.length === 0) {
     container.innerHTML = '<div class="tracker-empty">No submissions yet</div>';
