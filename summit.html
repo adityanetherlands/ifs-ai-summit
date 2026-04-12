@@ -64,7 +64,6 @@ a { color: var(--accent-indigo-light); text-decoration: none; }
 a:hover { text-decoration: underline; }
 img { max-width: 100%; height: auto; display: block; }
 
-/* Feature flags – append ?ext_edit=true to URL to reveal flagged content */
 /* PRE-READS GRID GLOW: soft indigo radial glow behind card grid */
 #prereads { position: relative; overflow: hidden; }
 .prereads-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 90% 70% at 50% 50%, rgba(99,102,241,0.12) 0%, transparent 65%); }
@@ -122,6 +121,11 @@ img { max-width: 100%; height: auto; display: block; }
 
 .animate-on-scroll { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
 .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+/* Feature flags – append ?ext_edit=true to URL to reveal flagged content */
+.ff-ext-edit { display: none !important; }
+body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
+body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
@@ -2039,6 +2043,11 @@ img { max-width: 100%; height: auto; display: block; }
 <script>
 (function() {
   'use strict';
+
+  // Feature flags – append ?ext_edit=true to URL to reveal flagged content
+  if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
+    document.body.classList.add('ff-ext-edit-on');
+  }
 
   // Reduced motion check
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

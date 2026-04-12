@@ -21,15 +21,13 @@ All changes from GitHub Issues labeled `feature-request` MUST be wrapped in the 
 - If modifying existing content, keep the original and add the replacement behind the flag
 
 ## Versioning Rules
-After each feature-request implementation:
-1. Determine the next version tag by running: git tag -l 'v1.*' | sort -V | tail -1
-2. Increment the minor version (e.g., v1.1 -> v1.2)
-3. Commit with message: "v1.X: <short description of change>"
-4. Tag: git tag -a v1.X -m "v1.X: <description>"
-5. Push both: git push origin main && git push origin v1.X
+- Do NOT create git tags or push tags -- the GitHub Actions workflow handles versioning automatically after merge
+- Do NOT include version numbers (e.g., "v1.X:") in commit messages
+- Commit with a short descriptive message only (e.g., "Add countdown timer to hero section")
 
 ## Key Files
-- `index.html` – main single-page site
+- `index.html` – password-gated splash page
+- `summit.html` – main single-page site (linked from index.html)
 - `Per Function pre-brief/future-of-function-*.html` – 11 pre-brief subpages
 - All share the same design system and feature flag CSS/JS
 

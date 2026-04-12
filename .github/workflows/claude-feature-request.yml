@@ -10,6 +10,7 @@ jobs:
       contains(github.event.issue.labels.*.name, 'feature-request') &&
       !contains(github.event.issue.labels.*.name, 'completed')
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: write
       issues: write
@@ -26,23 +27,38 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           label_trigger: "feature-request"
 
       - name: Auto-merge Claude branch to main
+        id: merge
         run: |
-          BRANCH_NAME=$(gh api "repos/${REPO}/branches" --jq '.[].name' | grep "claude/issue-${ISSUE_NUMBER}" | head -1)
-          if [ -n "$BRANCH_NAME" ]; then
-            echo "Found branch: $BRANCH_NAME"
-            SHA=$(gh api "repos/${REPO}/git/refs/heads/${BRANCH_NAME}" --jq '.object.sha')
-            echo "Branch SHA: $SHA"
-            gh api "repos/${REPO}/merges" -f base=main -f head="$SHA" -f commit_message="Auto-merge: issue #${ISSUE_NUMBER}" || {
-              echo "ERROR: Merge failed"; exit 1;
-            }
-            echo "Merged $BRANCH_NAME into main"
-          else
+          # Wait for branch to be available
+          sleep 5
+
+          # Find the Claude branch
+          BRANCH_NAME=$(gh api "repos/${REPO}/branches" --paginate --jq '.[].name' | grep "claude/issue-${ISSUE_NUMBER}" | head -1)
+
+          if [ -z "$BRANCH_NAME" ]; then
             echo "ERROR: No Claude branch found for issue #${ISSUE_NUMBER}"
+            echo "Available Claude branches:"
+            gh api "repos/${REPO}/branches" --paginate --jq '.[].name' | grep "claude/" || echo "  (none)"
             exit 1
           fi
+
+          echo "Found branch: $BRANCH_NAME"
+          SHA=$(gh api "repos/${REPO}/git/refs/heads/${BRANCH_NAME}" --jq '.object.sha')
+          echo "Branch SHA: $SHA"
+
+          # Merge to main
+          gh api "repos/${REPO}/merges" \
+            -f base=main \
+            -f head="$SHA" \
+            -f commit_message="Auto-merge: issue #${ISSUE_NUMBER}" || {
+            echo "ERROR: Merge failed"
+            exit 1
+          }
+          echo "Merged $BRANCH_NAME into main"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
@@ -55,3 +71,15 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+      - name: Report failure
+        if: failure()
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "⚠️ **Automated implementation failed.** The Claude bot attempted to implement this feature request but the branch could not be merged to main. A maintainer should investigate the [workflow run](https://github.com/${REPO}/actions/runs/${RUN_ID})."
+          # Remove completed label if it was somehow added
+          gh issue edit "$ISSUE_NUMBER" --remove-label "completed" 2>/dev/null || true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}

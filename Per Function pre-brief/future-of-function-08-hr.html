@@ -483,6 +483,11 @@ blockquote {
   .nav { padding: 12px 16px; }
 }
 
+/* Feature flags – append ?ext_edit=true to URL to reveal flagged content */
+.ff-ext-edit { display: none !important; }
+body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
+body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -977,6 +982,11 @@ blockquote {
 <script>
 (function() {
   'use strict';
+
+  // Feature flags – append ?ext_edit=true to URL to reveal flagged content
+  if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
+    document.body.classList.add('ff-ext-edit-on');
+  }
 
   // Initialize Lucide icons
   lucide.createIcons();
