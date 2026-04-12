@@ -832,6 +832,7 @@ async function pollChangelogStatuses() {
 
 loadChangelog();
 setInterval(pollChangelogStatuses, 15000);
+setInterval(() => { if (changelogData.length) renderChangelog(); }, 30000);
 
 document.getElementById('requestForm').addEventListener('submit', async (e) => {
   e.preventDefault();
