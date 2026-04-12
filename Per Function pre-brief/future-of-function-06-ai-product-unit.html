@@ -967,12 +967,6 @@ blockquote {
   // Initialize Lucide icons
   lucide.createIcons();
 
-  // Feature flag: show ext_edit content when ?ext_edit=true
-  if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
-      el.style.display = '';
-    });
-  }
-
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Navbar scroll state
