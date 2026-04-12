@@ -1099,6 +1099,43 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
     background: var(--accent-indigo);
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   VISUAL ENHANCEMENTS – active only when ?ext_edit=true
+   ═══════════════════════════════════════════════════════════════ */
+@keyframes gradient-hero-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes cta-glow-pulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(99,102,241,0.22), 0 4px 20px rgba(99,102,241,0.1); }
+  50% { box-shadow: 0 0 40px rgba(99,102,241,0.5), 0 4px 36px rgba(99,102,241,0.26), 0 0 64px rgba(6,182,212,0.14); }
+}
+body.ff-ext-edit-on .hero-title {
+  background: linear-gradient(135deg, #f0f1f5 0%, #818cf8 35%, #06b6d4 55%, #818cf8 75%, #f0f1f5 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeInUp 0.8s var(--ease) 0.1s both, gradient-hero-shift 8s ease infinite;
+}
+body.ff-ext-edit-on .section-title {
+  background: linear-gradient(135deg, #e8e9f0 0%, #c7d2fe 55%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+body.ff-ext-edit-on .hero-cta {
+  animation: fadeInUp 0.8s var(--ease) 0.4s both, cta-glow-pulse 3s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  body.ff-ext-edit-on .hero-title {
+    animation: none;
+    background: var(--text-primary);
+    -webkit-text-fill-color: unset;
+  }
+  body.ff-ext-edit-on .hero-cta { animation: none; }
+}
 </style>
 </head>
 <body>
