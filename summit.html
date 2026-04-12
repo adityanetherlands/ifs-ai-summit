@@ -709,6 +709,18 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 .venue-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 6px; }
 .venue-card a { color: var(--accent-indigo-light); font-weight: 600; font-size: 13px; }
 
+/* Footer weather */
+.footer-weather {
+  display: flex; justify-content: center; gap: 24px; margin-top: 16px;
+  flex-wrap: wrap;
+}
+.fw-day { text-align: center; }
+.fw-day-date { font-size: 11px; color: var(--text-dim); margin-bottom: 4px; }
+.fw-day-icon { font-size: 22px; line-height: 1; margin-bottom: 2px; }
+.fw-day-temp { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+.fw-day-temp span { font-weight: 400; opacity: 0.7; }
+.footer-weather-note { font-size: 10px; color: var(--text-dim); opacity: 0.5; margin-top: 8px; text-align: center; }
+
 @media (max-width: 1024px) {
   .venue-cards { grid-template-columns: 1fr 1fr; }
 }
@@ -2071,6 +2083,8 @@ body.ff-ext-edit-on .hero-cta {
       </div>
 
     </div>
+
+    </div>
   </div>
 </section>
 
@@ -2081,9 +2095,13 @@ body.ff-ext-edit-on .hero-cta {
 <footer class="site-footer" id="main">
   <div class="container">
     <p><strong style="color:var(--text-muted)">IFS AI Leadership Summit</strong> &middot; 4&ndash;7 May 2026 &middot; Mountain View, California</p>
-    <p>Questions? <a href="mailto:kate.joyce@ifs.com">Kate Joyce</a></p>
-    <p class="footer-conf">Confidential &ndash; for IFS Leadership Team only</p>
-    <p style="font-size:12px;color:var(--text-dim);margin-top:8px;">Last updated: April 2026</p>
+    <div class="footer-weather" id="footer-weather">
+      <div class="fw-day"><div class="fw-day-date">Sun 4</div><div class="fw-day-icon" id="weather-icon-0">&ndash;</div><div class="fw-day-temp" id="weather-temp-0">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Mon 5</div><div class="fw-day-icon" id="weather-icon-1">&ndash;</div><div class="fw-day-temp" id="weather-temp-1">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Tue 6</div><div class="fw-day-icon" id="weather-icon-2">&ndash;</div><div class="fw-day-temp" id="weather-temp-2">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Wed 7</div><div class="fw-day-icon" id="weather-icon-3">&ndash;</div><div class="fw-day-temp" id="weather-temp-3">&ndash;</div></div>
+    </div>
+    <p class="footer-weather-note" id="weather-note"></p>
   </div>
 </footer>
 
@@ -2380,6 +2398,59 @@ body.ff-ext-edit-on .hero-cta {
     initCarouselDots('.speakers-keynote', '.speakers-dots');
     initCarouselDots('.groups-grid', '.groups-dots');
   }
+
+  // ─── Weather forecast (Open-Meteo, free, no key) ───
+  (function fetchWeather() {
+    const lat = 37.3861, lon = -122.0839;
+
+    // WMO weather code to icon + label
+    function weatherIcon(code) {
+      if (code <= 1) return { icon: '\u2600\uFE0F', label: 'Clear' };
+      if (code <= 3) return { icon: '\u26C5', label: 'Partly cloudy' };
+      if (code <= 48) return { icon: '\uD83C\uDF2B\uFE0F', label: 'Foggy' };
+      if (code <= 57) return { icon: '\uD83C\uDF26\uFE0F', label: 'Drizzle' };
+      if (code <= 67) return { icon: '\uD83C\uDF27\uFE0F', label: 'Rain' };
+      if (code <= 77) return { icon: '\u2744\uFE0F', label: 'Snow' };
+      if (code <= 82) return { icon: '\uD83C\uDF27\uFE0F', label: 'Showers' };
+      if (code <= 86) return { icon: '\uD83C\uDF28\uFE0F', label: 'Snow showers' };
+      return { icon: '\u26C8\uFE0F', label: 'Thunderstorm' };
+    }
+
+    function render(d, noteText) {
+      for (let i = 0; i < 4; i++) {
+        const w = weatherIcon(d.weather_code[i]);
+        document.getElementById('weather-icon-' + i).textContent = w.icon;
+        document.getElementById('weather-icon-' + i).title = w.label;
+        const min = Math.round(d.temperature_2m_min[i]);
+        const max = Math.round(d.temperature_2m_max[i]);
+        document.getElementById('weather-temp-' + i).innerHTML = max + '&deg; <span>/ ' + min + '&deg;C</span>';
+      }
+      document.getElementById('weather-note').textContent = noteText;
+    }
+
+    // Try live forecast first
+    const forecastUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=celsius&start_date=2026-05-04&end_date=2026-05-07&timezone=America/Los_Angeles`;
+
+    fetch(forecastUrl)
+      .then(r => r.json())
+      .then(data => {
+        if (data.error) throw new Error('out of range');
+        render(data.daily, 'Forecast for Mountain View, CA \u00B7 via Open-Meteo');
+      })
+      .catch(() => {
+        // Fallback: last year's actuals (May 4-7 2025) as climate estimate
+        const histUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=celsius&start_date=2025-05-04&end_date=2025-05-07&timezone=America/Los_Angeles`;
+        fetch(histUrl)
+          .then(r => r.json())
+          .then(data => {
+            if (data.error) throw new Error('archive failed');
+            render(data.daily, 'Based on May 2025 actuals for Mountain View, CA \u00B7 via Open-Meteo');
+          })
+          .catch(() => {
+            document.getElementById('weather-note').textContent = 'Weather forecast unavailable';
+          });
+      });
+  })();
 
 })();
 </script>
