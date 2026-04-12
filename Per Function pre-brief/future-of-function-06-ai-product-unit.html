@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Product Unit — IFS AI Leadership Summit</title>
+<title>AI Business Unit — IFS AI Leadership Summit</title>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -483,19 +483,12 @@ blockquote {
   .nav { padding: 12px 16px; }
 }
 
-/* Feature flags – append ?ext_edit=true to URL to reveal flagged content */
-.ff-ext-edit { display: none !important; }
-body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
-body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
-
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { transition-duration: 0.01ms !important; }
 }
 
-/* Feature Flag */
-.ff-ext-edit { display: none; }
 
 /* ─── Mobile Nav: full-width bar + glassy drawer (feature flag) ─── */
 @media (max-width: 1024px) {
@@ -598,11 +591,9 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 <section class="brief-hero">
   <div class="brief-hero-inner">
     <div class="brief-hero-eyebrow">Future of Function &ndash; 06</div>
-    <h1 class="brief-hero-title">Future of AI Product Unit</h1>
-    <p class="brief-hero-subtitle ff-ext-edit-hide">Rethinking the Discover-Build-Scale Pipeline with AI-for-AI</p>
-    <p class="brief-hero-tagline ff-ext-edit-hide">Pre-Read &amp; Action Brief for the IFS Leadership Team</p>
-    <p class="brief-hero-subtitle ff-ext-edit">From Three Sales Plays to One Portfolio &ndash; Aligning Industrial Intelligence, Nexus Black &amp; Loops</p>
-    <p class="brief-hero-tagline ff-ext-edit">Pre-Read &amp; Action Brief for the IFS Leadership Team</p>
+    <h1 class="brief-hero-title">Future of AI Business Unit</h1>
+    <p class="brief-hero-subtitle">From Three Sales Plays to One Portfolio &ndash; Aligning Industrial Intelligence, Nexus Black &amp; Loops</p>
+    <p class="brief-hero-tagline">Pre-Read &amp; Action Brief for the IFS Leadership Team</p>
     <div class="brief-hero-nav">
       <a href="future-of-function-05-customer-support-success.html" class="brief-nav-btn">
         <i data-lucide="arrow-left"></i> Customer Support &amp; Success
@@ -626,40 +617,22 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
   <!-- Sticky Sidebar TOC -->
   <aside class="toc-sidebar">
     <nav class="toc-nav" aria-label="Page sections">
-      <a href="#section-1" class="toc-item ff-ext-edit-hide" data-section="section-1">
+      <a href="#section-1" class="toc-item" data-section="section-1">
         <span class="toc-dot"></span> Current State
       </a>
-      <a href="#section-2" class="toc-item ff-ext-edit-hide" data-section="section-2">
+      <a href="#section-2" class="toc-item" data-section="section-2">
         <span class="toc-dot"></span> Future Vision
       </a>
-      <a href="#section-3" class="toc-item ff-ext-edit-hide" data-section="section-3">
+      <a href="#section-3" class="toc-item" data-section="section-3">
         <span class="toc-dot"></span> Questions
       </a>
-      <a href="#section-4" class="toc-item ff-ext-edit-hide" data-section="section-4">
+      <a href="#section-4" class="toc-item" data-section="section-4">
         <span class="toc-dot"></span> AI Companies
       </a>
-      <a href="#section-5" class="toc-item ff-ext-edit-hide" data-section="section-5">
+      <a href="#section-5" class="toc-item" data-section="section-5">
         <span class="toc-dot"></span> Hands-On
       </a>
-      <a href="#section-6" class="toc-item ff-ext-edit-hide" data-section="section-6">
-        <span class="toc-dot"></span> Homework
-      </a>
-      <a href="#ff-section-1" class="toc-item ff-ext-edit" data-section="ff-section-1">
-        <span class="toc-dot"></span> Current State
-      </a>
-      <a href="#ff-section-2" class="toc-item ff-ext-edit" data-section="ff-section-2">
-        <span class="toc-dot"></span> Future Vision
-      </a>
-      <a href="#ff-section-3" class="toc-item ff-ext-edit" data-section="ff-section-3">
-        <span class="toc-dot"></span> Questions
-      </a>
-      <a href="#ff-section-4" class="toc-item ff-ext-edit" data-section="ff-section-4">
-        <span class="toc-dot"></span> AI Companies
-      </a>
-      <a href="#ff-section-5" class="toc-item ff-ext-edit" data-section="ff-section-5">
-        <span class="toc-dot"></span> Hands-On
-      </a>
-      <a href="#ff-section-6" class="toc-item ff-ext-edit" data-section="ff-section-6">
+      <a href="#section-6" class="toc-item" data-section="section-6">
         <span class="toc-dot"></span> Homework
       </a>
     </nav>
@@ -668,304 +641,11 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
   <!-- Main Content -->
   <main class="main">
 
-  <!-- Original Sections (hidden when ext_edit=true) -->
-  <div class="ff-ext-edit-hide">
 
   <!-- Section 1 -->
   <div class="section" id="section-1">
     <h2>1. The Current State</h2>
-    <p>Every AI product unit (Nexus Black &amp; IFS.ai) function runs on the same lifecycle: discover, then build, then scale. The Discover-Build-Scale process is the operational backbone. And right now, it is broken at every stage.</p>
-    <p><strong>Discover is inefficient.</strong> Each Nexus Black engagement starts from scratch &mdash; bespoke scoping, custom models, unique infra.</p>
-    <p><strong>Build is structurally neglected.</strong> AI engineers manually tune models per customer and per use case.</p>
-    <p><strong>Scale is reactive.</strong> Scaling from POC to production requires re-engineering.</p>
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="label">USE CASE THROUGHPUT</div>
-        <div class="value">~15/year</div>
-        <div class="detail">Bespoke AI engagements delivered annually</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">TIME TO VALUE</div>
-        <div class="value">8&ndash;16 weeks</div>
-        <div class="detail">From engagement start to production deployment</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">PRODUCTISATION RATE</div>
-        <div class="value">&lt;30%</div>
-        <div class="detail">Of bespoke solutions refactored into IFS Cloud platform</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">INDUSTRIAL DATA READINESS</div>
-        <div class="value">20&ndash;30%</div>
-        <div class="detail">Of customer data ML-ready at engagement start</div>
-      </div>
-    </div>
-    <div class="before-after">
-      <div class="ba-col before">
-        <h4>Traditional Discover-Build-Scale</h4>
-        <ul>
-          <li>Each Nexus Black engagement starts from scratch &mdash; bespoke scoping, custom models, unique infra</li>
-          <li>Data preparation consumes 60&ndash;70% of engagement time</li>
-          <li>Productisation is an afterthought &mdash; bespoke solutions rarely make it to platform</li>
-          <li>AI engineers manually tune models per customer and per use case</li>
-          <li>Scaling from POC to production requires re-engineering</li>
-          <li>Customer AI readiness assessed ad-hoc, leading to stalled engagements</li>
-        </ul>
-      </div>
-      <div class="ba-col after">
-        <h4>AI-Native Discover-Build-Scale</h4>
-        <ul>
-          <li>Reusable AI harness: industry-specific templates for common use cases (predictive maintenance, scheduling opt, anomaly detection)</li>
-          <li>AI-powered data preparation: automated profiling, cleaning, and feature engineering</li>
-          <li>Productisation-first architecture: every engagement built to refactor into IFS Cloud</li>
-          <li>Auto-tuning models with continuous learning from deployment data</li>
-          <li>Seamless POC-to-production pipeline via IFS.ai platform</li>
-          <li>AI readiness assessment automated: data quality scoring, infrastructure grading, use case feasibility</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Section 2 -->
-  <div class="section" id="section-2">
-    <h2>2. How to Think About the Future of AI Product Unit (Nexus Black &amp; IFS.ai)</h2>
-    <p>The Discover-Build-Scale lifecycle forces specificity. Not &ldquo;AI will transform AI product unit&rdquo; but exactly how each stage changes when AI agents handle the operational layer end-to-end.</p>
-
-    <div class="framework-item">
-      <h3>The Discover Stage: From Bespoke Scoping to Pattern-Matched Use Cases</h3>
-      <p>Nexus Black&rsquo;s power is its co-creation model &mdash; deep engagement with customers on complex industrial AI. But discovery is expensive: each engagement requires solution architects to understand the customer&rsquo;s operations, data landscape, and objectives from scratch. AI transforms discovery by pattern-matching: a new utility customer&rsquo;s challenges map to templates from prior utility engagements. An aerospace MRO company&rsquo;s predictive maintenance needs are 70% similar to what&rsquo;s been built before. AI-powered readiness assessments score the customer&rsquo;s data quality, infrastructure, and organisational capability &mdash; before a single engineer is committed. Discovery time drops from weeks to days.</p>
-    </div>
-    <div class="framework-item">
-      <h3>The Build Stage: From Custom Models to Templated AI Harnesses</h3>
-      <p>Today, every Nexus Black engagement builds custom ML pipelines. The AI-native approach: build reusable AI harnesses per industry vertical and use case type. A predictive maintenance harness for utilities is 80% the same as one for aerospace &mdash; the data connectors, model architectures, and evaluation frameworks are templated. Engineers focus on the 20% that&rsquo;s bespoke: customer-specific features, integration with their specific IFS Cloud configuration, and domain-specific tuning. Platforms like Weights &amp; Biases, MLflow, and Anthropic&rsquo;s Claude (for AI-assisted AI development) accelerate this. The Anthropic partnership is especially strategic here &mdash; using Claude to help build and debug the industrial AI solutions that Nexus Black delivers.</p>
-    </div>
-    <div class="framework-item">
-      <h3>The Scale Stage: From POC to Platform Feature</h3>
-      <p>The productisation mandate &mdash; every successful Nexus Black solution should be refactored into IFS Cloud &mdash; is the unit&rsquo;s key strategic lever. AI accelerates productisation: auto-generating the API wrappers, documentation, and configuration interfaces needed to turn a bespoke solution into a platform feature. The IFS.ai Starter Pack is the delivery vehicle. The Resolve for Utilities launch demonstrates the model: domain-specific AI built by Nexus Black, deployed as a scalable IFS Cloud capability. AI-for-AI means the unit uses AI to build AI faster.</p>
-    </div>
-    <div class="framework-item">
-      <h3>Discover-Build-Scale as a Continuous Loop</h3>
-      <p>Every deployment generates operational data that improves the models. Every customer engagement adds to the template library. Every productised feature reduces the cost of the next engagement. The AI unit becomes a flywheel: the more it builds, the faster it builds, and the more valuable IFS.ai becomes as a platform. The competitive moat isn&rsquo;t any single AI model &mdash; it&rsquo;s the compounding industrial data and domain-specific patterns that no horizontal AI vendor can replicate.</p>
-    </div>
-
-    <div class="north-star-callout">
-      <div class="ns-label">North-Star Target</div>
-      <div class="ns-title">From ~80&ndash;100 (AI Engineers, ML Ops, Product Managers, Solution Architects, Data Scientists) &rarr; <strong>80&ndash;100 (same headcount, 5x use case throughput)</strong> people</div>
-      <div class="ns-ratio">Use cases in production: from ~15 to ~75</div>
-      <p class="ns-body">Like R&amp;D, the AI unit&rsquo;s north star is not fewer people but radically more output. Today, each Nexus Black engagement is bespoke and resource-intensive. The goal: build a reusable AI harness that turns customer discovery into deployed use cases 5x faster. The same 80&ndash;100 people productise AI at the pace of 400. The bottleneck shifts from engineering capacity to customer readiness.</p>
-    </div>
-
-    <h3>Target KPIs</h3>
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-label">Use Case Throughput</div>
-        <div class="kpi-target">75+/year</div>
-        <div class="kpi-context">Up from ~15 bespoke engagements</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Time to Value</div>
-        <div class="kpi-target">2&ndash;4 weeks</div>
-        <div class="kpi-context">Down from 8&ndash;16 weeks</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">AI Unit Headcount</div>
-        <div class="kpi-target">80&ndash;100 (unchanged)</div>
-        <div class="kpi-context">Same people, 5x throughput</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Productisation Rate</div>
-        <div class="kpi-target">&gt;70%</div>
-        <div class="kpi-context">Up from &lt;30% into IFS Cloud</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Data Prep Automation</div>
-        <div class="kpi-target">&gt;80%</div>
-        <div class="kpi-context">Of data preparation steps automated</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Model Reuse</div>
-        <div class="kpi-target">&gt;60%</div>
-        <div class="kpi-context">Of new engagements built from templates</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Section 3 -->
-  <div class="section" id="section-3">
-    <h2>3. Challenging Questions for the Room</h2>
-    <p>These are not abstract thought experiments. They are the outcomes your organisation needs to engineer in the next 12 to 24 months.</p>
-    <div class="questions-section">
-
-      <div class="question-category">
-        <h4>Discover</h4>
-        <ul>
-          <li>How do we achieve instant AI readiness assessment for any prospect &mdash; where the system scores their data quality, infrastructure, and use case feasibility in hours, not weeks &mdash; so we commit engineering only to winnable engagements?</li>
-          <li>What has to be true for a new Nexus Black customer engagement to start with a 70% complete solution template instead of a blank page &mdash; because the industry pattern has been built before?</li>
-        </ul>
-      </div>
-
-      <div class="question-category">
-        <h4>Build</h4>
-        <ul>
-          <li>How do we make Nexus Black&rsquo;s AI engineers 5x more productive by building reusable harnesses per vertical &mdash; so each new engagement is configuration, not construction?</li>
-          <li>If we use Claude to help build industrial AI solutions (AI-for-AI), how do we ensure quality and safety in safety-critical industries like aerospace and utilities where model failures have real-world consequences?</li>
-        </ul>
-      </div>
-
-      <div class="question-category">
-        <h4>Scale</h4>
-        <ul>
-          <li>How do we achieve automatic productisation &mdash; where every successful Nexus Black deployment is 80% of the way to an IFS Cloud platform feature without manual re-engineering?</li>
-          <li>What has to be true for the IFS.ai platform to self-improve from deployed customer data &mdash; so that every new customer benefits from the models trained on all prior customers, while maintaining data privacy and security?</li>
-        </ul>
-      </div>
-
-      <div class="question-category">
-        <h4>North Star</h4>
-        <ul>
-          <li>If the same 80&ndash;100 people deliver 75 use cases instead of 15, how does the go-to-market change &mdash; does Nexus Black become a sales motion or stay a strategic programme?</li>
-          <li>How do we price AI capabilities at IFS when the cost of delivery drops 5x but the customer value doesn&rsquo;t &mdash; and is this a margin expansion opportunity or a market penetration play?</li>
-          <li>If IFS.ai becomes the primary competitive differentiator (not ERP features), how does the AI unit&rsquo;s relationship with core R&amp;D need to change &mdash; co-located, embedded, or independent?</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Section 4 -->
-  <div class="section" id="section-4">
-    <h2>4. AI Companies Reshaping AI Product Unit (Nexus Black &amp; IFS.ai)</h2>
-    <p>The market has moved from experimental to production-grade. Spend time on these websites: watch demos, read case studies. Understanding what is possible is the prerequisite for deciding what is right for IFS.</p>
-
-    <div class="company-section-label">Discover: AI Readiness &amp; Scoping</div>
-    <div class="company-grid">
-      <a href="https://dataiku.com" target="_blank" rel="noopener" class="company-card">
-        <h4>Dataiku</h4>
-        <div class="cc-tag">Enterprise AI Platform</div>
-        <div class="cc-desc">End-to-end AI platform for data preparation, model building, and deployment. Visual interface for data scientists and analysts. Strong enterprise governance.</div>
-        <div class="cc-url">dataiku.com &rarr;</div>
-      </a>
-      <a href="https://databricks.com" target="_blank" rel="noopener" class="company-card">
-        <h4>Databricks</h4>
-        <div class="cc-tag">Data &amp; AI Lakehouse</div>
-        <div class="cc-desc">Unified data and AI platform. Manages the entire ML lifecycle from data engineering to model serving. The infrastructure layer for enterprise AI.</div>
-        <div class="cc-url">databricks.com &rarr;</div>
-      </a>
-    </div>
-
-    <div class="company-section-label">Build: ML Engineering &amp; Ops</div>
-    <div class="company-grid">
-      <a href="https://wandb.ai" target="_blank" rel="noopener" class="company-card">
-        <h4>Weights &amp; Biases</h4>
-        <div class="cc-tag">ML Experiment Tracking</div>
-        <div class="cc-desc">Experiment tracking, model versioning, and collaboration for ML teams. The standard tool for managing AI development at scale.</div>
-        <div class="cc-url">wandb.ai &rarr;</div>
-      </a>
-      <a href="https://anthropic.com" target="_blank" rel="noopener" class="company-card">
-        <h4>Anthropic (Claude)</h4>
-        <div class="cc-tag">AI-for-AI Development</div>
-        <div class="cc-desc">Advanced reasoning for code generation, model debugging, and architecture design. Using AI to accelerate AI development &mdash; the meta-layer.</div>
-        <div class="cc-url">anthropic.com &rarr;</div>
-      </a>
-      <a href="https://huggingface.co" target="_blank" rel="noopener" class="company-card">
-        <h4>Hugging Face</h4>
-        <div class="cc-tag">AI Model Hub &amp; Collaboration</div>
-        <div class="cc-desc">Open-source model repository and collaboration platform. Foundation models, fine-tuning tools, and community benchmarks.</div>
-        <div class="cc-url">huggingface.co &rarr;</div>
-      </a>
-    </div>
-
-    <div class="company-section-label">Scale: Deployment &amp; Monitoring</div>
-    <div class="company-grid">
-      <a href="https://arize.com" target="_blank" rel="noopener" class="company-card">
-        <h4>Arize AI</h4>
-        <div class="cc-tag">ML Observability</div>
-        <div class="cc-desc">Production model monitoring, drift detection, and performance analytics. Ensures deployed AI continues to perform in production.</div>
-        <div class="cc-url">arize.com &rarr;</div>
-      </a>
-      <a href="https://tecton.ai" target="_blank" rel="noopener" class="company-card">
-        <h4>Tecton</h4>
-        <div class="cc-tag">Feature Platform</div>
-        <div class="cc-desc">Real-time feature serving for ML models. Manages the data pipeline from raw operational data to ML-ready features at scale.</div>
-        <div class="cc-url">tecton.ai &rarr;</div>
-      </a>
-    </div>
-
-    <div class="company-section-label">Full Lifecycle: Industrial AI</div>
-    <div class="company-grid">
-      <a href="https://c3.ai" target="_blank" rel="noopener" class="company-card">
-        <h4>C3.ai</h4>
-        <div class="cc-tag">Enterprise AI Platform</div>
-        <div class="cc-desc">Purpose-built for industrial AI: predictive maintenance, demand forecasting, energy management. Pre-built industry models.</div>
-        <div class="cc-url">c3.ai &rarr;</div>
-      </a>
-      <a href="https://sparkcognition.com" target="_blank" rel="noopener" class="company-card">
-        <h4>SparkCognition</h4>
-        <div class="cc-tag">Industrial AI for Assets</div>
-        <div class="cc-desc">AI for asset performance management, predictive maintenance, and operational optimisation in energy, manufacturing, and aerospace.</div>
-        <div class="cc-url">sparkcognition.com &rarr;</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- Section 5 -->
-  <div class="section" id="section-5">
-    <h2>5. Hands-On Automation Exercises</h2>
-    <p>Do at least one before the session. Do all four if you want to arrive with a working prototype, not an opinion.</p>
-
-    <div class="exercise-card">
-      <h4>1. The AI Readiness Scorer</h4>
-      <p>Build an interactive tool that assesses a prospect&rsquo;s AI readiness. Inputs: data maturity (structured/unstructured mix), infrastructure (cloud/on-prem), current analytics capability, use case specificity, and executive sponsorship. Output: a scored readiness report with recommended starting use cases and estimated time-to-value. Design it as something a Nexus Black SA could use in the first customer meeting.</p>
-      <p><strong>Output:</strong> A deployed AI readiness assessment tool that generates scored reports &mdash; usable by the Nexus Black team in prospect conversations.</p>
-      <p><strong>Tools:</strong> Claude, React/HTML, scoring model &middot; <strong>Effort:</strong> 90 min</p>
-    </div>
-    <div class="exercise-card">
-      <h4>2. The Use Case Pattern Library</h4>
-      <p>Catalogue every Nexus Black engagement to date. For each: industry, use case type, data requirements, model architecture, integration pattern, and outcomes achieved. Use AI to cluster them into reusable templates. Build a searchable internal tool where engineers can query: &lsquo;Show me all predictive maintenance templates for utilities with SCADA data.&rsquo;</p>
-      <p><strong>Output:</strong> A searchable Nexus Black pattern library that accelerates new engagement scoping from weeks to hours.</p>
-      <p><strong>Tools:</strong> Claude, engagement documentation, HTML/JavaScript &middot; <strong>Effort:</strong> 2 hours</p>
-    </div>
-    <div class="exercise-card">
-      <h4>3. The Productisation Pipeline</h4>
-      <p>Take one successful Nexus Black bespoke solution. Use AI to auto-generate: the API specification, configuration interface mock-up, documentation, and an IFS Cloud integration plan. Estimate the engineering effort to productise. Compare to building the platform feature from scratch.</p>
-      <p><strong>Output:</strong> A complete productisation blueprint for a real Nexus Black solution &mdash; with auto-generated specs, docs, and effort estimates.</p>
-      <p><strong>Tools:</strong> Claude, existing Nexus Black code/docs &middot; <strong>Effort:</strong> 90 min</p>
-    </div>
-    <div class="exercise-card">
-      <h4>4. The Industrial AI Demo Builder</h4>
-      <p>Build an interactive demo that shows a prospect what AI could do with their data &mdash; before they sign a Nexus Black engagement. Take a sample industrial dataset (e.g., equipment sensor data). Build a live demo that shows: anomaly detection, predictive maintenance scheduling, and cost-savings projection. Make it visually compelling enough for a C-suite presentation.</p>
-      <p><strong>Output:</strong> An interactive AI demo that Nexus Black can show prospects: &lsquo;This is what your data could tell you&rsquo; &mdash; built in hours, not weeks.</p>
-      <p><strong>Tools:</strong> Python, Claude, HTML/ECharts, sample industrial data &middot; <strong>Effort:</strong> 2 hours</p>
-    </div>
-  </div>
-
-  <!-- Section 6 -->
-  <div class="section" id="section-6">
-    <h2>6. What to Research Before the Session</h2>
-    <p>Four tasks to ground the discussion in your reality.</p>
-
-    <h3>1. Audit Your Engagement Reuse</h3>
-    <p>Review the last 5 Nexus Black engagements. For each, estimate: what percentage of the work was genuinely novel vs. repeated from prior engagements? If reuse is below 40%, the template library doesn&rsquo;t exist or isn&rsquo;t being used &mdash; and that&rsquo;s the single biggest throughput lever.</p>
-    <h3>2. Map Your Productisation Pipeline</h3>
-    <p>Count the bespoke Nexus Black solutions that have been refactored into IFS Cloud platform features vs. those that remain one-off. If the ratio is below 1:3, the productisation pipeline is broken &mdash; and every bespoke engagement is a missed platform opportunity.</p>
-    <h3>3. Explore One Platform</h3>
-    <p>Spend 20 minutes on Weights &amp; Biases or Arize AI. W&amp;B shows you the future of ML experiment management. Arize shows you the future of production AI monitoring. Both are essential infrastructure for scaling AI.</p>
-    <h3>4. Ask the Uncomfortable Question</h3>
-    <p>Ask the Nexus Black leadership: &lsquo;If we could deliver 75 use cases per year instead of 15 with the same team &mdash; what changes? Does the go-to-market change? Does the pricing model change? Does the relationship with core R&amp;D change?&rsquo; If every answer is &lsquo;yes,&rsquo; you&rsquo;ve found the transformation.</p>
-    <blockquote>The AI units that win in industrial software will not be the ones with the most data scientists. They will be the ones that turn every bespoke engagement into a platform capability &mdash; because the moat is compounding industrial intelligence, not individual models.</blockquote>
-  </div>
-
-  </div><!-- /.ff-ext-edit-hide (original sections) -->
-
-  <!-- ═══════════════════════════════════════════════════
-       NEW CONTENT (ff-ext-edit) — Issue #19: Portfolio Alignment
-       Visible only with ?ext_edit=true
-       ═══════════════════════════════════════════════════ -->
-
-  <!-- FF Section 1 -->
-  <div class="section ff-ext-edit" id="ff-section-1">
-    <h2>1. The Current State</h2>
-    <p>The AI Product Unit houses three propositions &ndash; Industrial Intelligence, Nexus Black, and Loops &ndash; each with its own sales play, its own customer relationships, and its own definition of success. In theory, they are a portfolio. In practice, they compete for the same accounts, tell different stories to the same buyers, and build products that live outside the IFS Cloud lifecycle. The problem is not capability. It is coordination.</p>
+    <p>The AI Business Unit houses three propositions &ndash; Industrial Intelligence, Nexus Black, and Loops &ndash; each with its own sales play, its own customer relationships, and its own definition of success. In theory, they are a portfolio. In practice, they compete for the same accounts, tell different stories to the same buyers, and build products that live outside the IFS Cloud lifecycle. The problem is not capability. It is coordination.</p>
     <p><strong>Alignment is undefined.</strong> There is no codified answer to which unit leads in which account. Industrial Intelligence, Nexus Black, and Loops pursue the same target accounts with separate pitches, separate qualification criteria, and separate account plans &ndash; often without knowledge of each other&rsquo;s activity.</p>
     <p><strong>Synergies are theoretical.</strong> The combined value of the portfolio is obvious at the strategy level and invisible at the deal level. Joint solutions that would genuinely differentiate IFS in the market do not exist as packaged offerings because the teams have no mechanism to build them together.</p>
     <p><strong>The customer story is incoherent.</strong> A single customer may hear an Industrial Intelligence pitch about data-driven decision-making, a Nexus Black pitch about bespoke AI co-creation, and a Loops pitch about workflow automation &ndash; from three different teams, in three different quarters, with no connecting thread. The customer experiences three vendors, not one.</p>
@@ -1020,14 +700,14 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
     </div>
   </div>
 
-  <!-- FF Section 2 -->
-  <div class="section ff-ext-edit" id="ff-section-2">
-    <h2>2. How to Think About the Future of AI Product Unit (Nexus Black &amp; IFS.ai)</h2>
+  <!-- Section 2 -->
+  <div class="section" id="section-2">
+    <h2>2. How to Think About the Future of AI Business Unit (Nexus Black &amp; IFS.ai)</h2>
     <p>The portfolio alignment challenge is not a strategy problem &ndash; it is an operating model problem. Not &ldquo;should these three units work together&rdquo; but exactly how each unit&rsquo;s role, sales motion, product architecture, and customer narrative needs to change so the portfolio creates more value together than any unit can create alone.</p>
 
     <div class="framework-item">
       <h3>Sales Play Alignment: Who Leads, Who Follows, and When to Hand Off</h3>
-      <p>The most operationally consequential gap in the AI Product Unit is the absence of an agreed entry logic. In any given target account, who leads? The answer today is determined by who arrives first or who has the existing relationship &ndash; not by a principled assessment of what the customer actually needs. The aligned model starts from the customer&rsquo;s position. Loops leads in accounts where the presenting problem is operational process efficiency &ndash; repetitive workflows, manual handoffs, compliance bottlenecks &ndash; because Loops opens the door to operational data that Industrial Intelligence can later instrument. Industrial Intelligence leads where the customer has invested in data infrastructure and wants to extract analytical value &ndash; predictive insight, demand sensing, asset performance &ndash; because the intelligence layer creates demand for the bespoke AI that Nexus Black delivers. Nexus Black leads where the customer has a complex, high-value industrial AI ambition that requires co-creation &ndash; problems too specific for platform AI, where domain expertise and custom modelling are the differentiator. The framework is not complicated. What is complicated is enforcing it: building the account intelligence, the handoff protocols, and the shared incentives that make the framework stick in the field.</p>
+      <p>The most operationally consequential gap in the AI Business Unit is the absence of an agreed entry logic. In any given target account, who leads? The answer today is determined by who arrives first or who has the existing relationship &ndash; not by a principled assessment of what the customer actually needs. The aligned model starts from the customer&rsquo;s position. Loops leads in accounts where the presenting problem is operational process efficiency &ndash; repetitive workflows, manual handoffs, compliance bottlenecks &ndash; because Loops opens the door to operational data that Industrial Intelligence can later instrument. Industrial Intelligence leads where the customer has invested in data infrastructure and wants to extract analytical value &ndash; predictive insight, demand sensing, asset performance &ndash; because the intelligence layer creates demand for the bespoke AI that Nexus Black delivers. Nexus Black leads where the customer has a complex, high-value industrial AI ambition that requires co-creation &ndash; problems too specific for platform AI, where domain expertise and custom modelling are the differentiator. The framework is not complicated. What is complicated is enforcing it: building the account intelligence, the handoff protocols, and the shared incentives that make the framework stick in the field.</p>
     </div>
     <div class="framework-item">
       <h3>Portfolio Synergies: From Internal Competition to Joint Solutions in Market</h3>
@@ -1084,8 +764,8 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
     </div>
   </div>
 
-  <!-- FF Section 3 -->
-  <div class="section ff-ext-edit" id="ff-section-3">
+  <!-- Section 3 -->
+  <div class="section" id="section-3">
     <h2>3. Challenging Questions for the Room</h2>
     <p>These are not abstract thought experiments. They are the outcomes your organisation needs to engineer in the next 12 to 24 months.</p>
     <div class="questions-section">
@@ -1117,18 +797,18 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
       <div class="question-category">
         <h4>North Star</h4>
         <ul>
-          <li>If the AI Product Unit achieves &gt;50% joint pipeline and &gt;80% IFS Cloud productisation, does the three-unit structure still make sense &ndash; or does the operating model need to evolve toward a single, integrated industrial intelligence organisation with functional specialisations rather than separate P&amp;Ls?</li>
+          <li>If the AI Business Unit achieves &gt;50% joint pipeline and &gt;80% IFS Cloud productisation, does the three-unit structure still make sense &ndash; or does the operating model need to evolve toward a single, integrated industrial intelligence organisation with functional specialisations rather than separate P&amp;Ls?</li>
           <li>How do we price joint solutions when the combined value genuinely exceeds the sum of parts &ndash; and does IFS have a commercial model that captures portfolio-level value, or does the current unit-by-unit pricing force customers to evaluate each piece in isolation?</li>
-          <li>If every AI capability is experienced as native IFS Cloud, how does the AI Product Unit&rsquo;s relationship with core R&amp;D need to change &ndash; shared architecture governance, embedded product teams, or a unified development lifecycle?</li>
+          <li>If every AI capability is experienced as native IFS Cloud, how does the AI Business Unit&rsquo;s relationship with core R&amp;D need to change &ndash; shared architecture governance, embedded product teams, or a unified development lifecycle?</li>
         </ul>
       </div>
 
     </div>
   </div>
 
-  <!-- FF Section 4 -->
-  <div class="section ff-ext-edit" id="ff-section-4">
-    <h2>4. AI Companies Reshaping AI Product Unit (Nexus Black &amp; IFS.ai)</h2>
+  <!-- Section 4 -->
+  <div class="section" id="section-4">
+    <h2>4. AI Companies Reshaping AI Business Unit (Nexus Black &amp; IFS.ai)</h2>
     <p>The market for portfolio orchestration, account intelligence, and platform-native AI has matured. Spend time on these websites: watch demos, read case studies. Understanding how leading companies coordinate multi-product portfolios and embed AI into platform experiences is the prerequisite for deciding what IFS should build, buy, or adopt.</p>
 
     <div class="company-section-label">Alignment: Account Intelligence &amp; Revenue Orchestration</div>
@@ -1202,8 +882,8 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
     </div>
   </div>
 
-  <!-- FF Section 5 -->
-  <div class="section ff-ext-edit" id="ff-section-5">
+  <!-- Section 5 -->
+  <div class="section" id="section-5">
     <h2>5. Hands-On Automation Exercises</h2>
     <p>Do at least one before the session. Do all four if you want to arrive with a working model of portfolio alignment, not an opinion about it.</p>
 
@@ -1233,8 +913,8 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
     </div>
   </div>
 
-  <!-- FF Section 6 -->
-  <div class="section ff-ext-edit" id="ff-section-6">
+  <!-- Section 6 -->
+  <div class="section" id="section-6">
     <h2>6. What to Research Before the Session</h2>
     <p>Four tasks to ground the discussion in your reality.</p>
 
@@ -1262,12 +942,8 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
         Marketing <i data-lucide="arrow-right"></i>
       </a>
     </div>
-    <div class="footer-meta ff-ext-edit-hide">
-      <p>Future of AI Product Unit (Nexus Black &amp; IFS.ai): Rethinking the Discover-Build-Scale Pipeline with AI-for-AI</p>
-      <p>IFS Internal &middot; Pre-read &amp; action brief &middot; April 2026</p>
-    </div>
-    <div class="footer-meta ff-ext-edit">
-      <p>Future of AI Product Unit: From Three Sales Plays to One Portfolio &ndash; Aligning Industrial Intelligence, Nexus Black &amp; Loops</p>
+    <div class="footer-meta">
+      <p>Future of AI Business Unit: From Three Sales Plays to One Portfolio &ndash; Aligning Industrial Intelligence, Nexus Black &amp; Loops</p>
       <p>IFS Internal &middot; Pre-read &amp; action brief &middot; April 2026</p>
     </div>
   </div>
@@ -1288,17 +964,11 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 (function() {
   'use strict';
 
-  // Feature flags – append ?ext_edit=true to URL to reveal flagged content
-  if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
-    document.body.classList.add('ff-ext-edit-on');
-  }
-
   // Initialize Lucide icons
   lucide.createIcons();
 
   // Feature flag: show ext_edit content when ?ext_edit=true
   if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
-    document.querySelectorAll('.ff-ext-edit').forEach(function(el) {
       el.style.display = '';
     });
   }
