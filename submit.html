@@ -438,35 +438,200 @@ textarea { min-height: 100px; resize: vertical; }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// --- Download all briefs as zip ---
+// --- Download all briefs as zip (dynamically generated from live HTML pages) ---
+const BRIEF_PAGES = [
+  { url: '/Per%20Function%20pre-brief/future-of-function-01-executive-board', file: '01-executive-board.md' },
+  { url: '/Per%20Function%20pre-brief/future-of-function-02-sales', file: '02-sales.md' },
+  { url: '/Per%20Function%20pre-brief/future-of-function-03-presales', file: '03-presales.md' },
+  { url: '/Per%20Function%20pre-brief/future-of-function-04-rnd', file: '04-rnd.md' },
+  { url: '/Per%20Function%20pre-brief/future-of-function-05-customer-support-success', file: '05-customer-support-success.md' },
+  { url: '/Per%20Function%20pre-brief/future-of-function-06-ai-product-unit', file: '06-ai-product-unit.md' },
+  { url: '/Per%20Function%20pre-brief/future-of-function-07-marketing', file: '07-marketing.md' },
+  { url: '/Per%20Function%20pre-brief/future-of-function-08-hr', file: '08-hr.md' },
+  { url: '/Per%20Function%20pre-brief/future-of-function-09-finance', file: '09-finance.md' },
+  { url: '/Per%20Function%20pre-brief/future-of-function-10-it', file: '10-it.md' },
+  { url: '/Per%20Function%20pre-brief/future-of-function-11-mna', file: '11-mna.md' },
+];
+
+function htmlToMarkdown(doc) {
+  const lines = [];
+  const txt = el => (el ? el.textContent.trim() : '');
+
+  // Hero section
+  const hero = doc.querySelector('.brief-hero-inner');
+  if (hero) {
+    const eyebrow = txt(hero.querySelector('.brief-hero-eyebrow'));
+    const title = txt(hero.querySelector('.brief-hero-title'));
+    const subtitle = txt(hero.querySelector('.brief-hero-subtitle'));
+    const tagline = txt(hero.querySelector('.brief-hero-tagline'));
+    if (eyebrow) lines.push(`*${eyebrow}*`);
+    lines.push(`# ${title}`, '');
+    if (subtitle) lines.push(`**${subtitle}**`, '');
+    if (tagline) lines.push(`*${tagline}*`, '');
+    lines.push('---', '');
+  }
+
+  // Main content sections
+  const sections = doc.querySelectorAll('.main > .section');
+  sections.forEach(section => {
+    // Process child nodes in order
+    for (const node of section.children) {
+      const tag = node.tagName;
+      const cls = node.className || '';
+
+      if (tag === 'H2') {
+        lines.push(`## ${txt(node)}`, '');
+      } else if (tag === 'H3') {
+        lines.push(`### ${txt(node)}`, '');
+      } else if (tag === 'P') {
+        lines.push(inlineMarkdown(node), '');
+      } else if (tag === 'BLOCKQUOTE') {
+        lines.push(`> ${txt(node)}`, '');
+      } else if (tag === 'UL') {
+        node.querySelectorAll('li').forEach(li => lines.push(`- ${txt(li)}`));
+        lines.push('');
+      } else if (tag === 'OL') {
+        let n = 1;
+        node.querySelectorAll('li').forEach(li => lines.push(`${n++}. ${txt(li)}`));
+        lines.push('');
+
+      // Stats grid -> table
+      } else if (cls.includes('stats-grid')) {
+        lines.push('| Metric | Value | Detail |', '| --- | --- | --- |');
+        node.querySelectorAll('.stat-card').forEach(card => {
+          const label = txt(card.querySelector('.label'));
+          const value = txt(card.querySelector('.value'));
+          const detail = txt(card.querySelector('.detail'));
+          lines.push(`| ${label} | ${value} | ${detail} |`);
+        });
+        lines.push('');
+
+      // Before / After comparison
+      } else if (cls.includes('before-after')) {
+        const before = node.querySelector('.ba-col.before');
+        const after = node.querySelector('.ba-col.after');
+        if (before) {
+          lines.push(`#### ${txt(before.querySelector('h4'))}`, '');
+          before.querySelectorAll('li').forEach(li => lines.push(`- ${txt(li)}`));
+          lines.push('');
+        }
+        if (after) {
+          lines.push(`#### ${txt(after.querySelector('h4'))}`, '');
+          after.querySelectorAll('li').forEach(li => lines.push(`- ${txt(li)}`));
+          lines.push('');
+        }
+
+      // Framework items
+      } else if (cls.includes('framework-item')) {
+        const h3 = node.querySelector('h3');
+        if (h3) lines.push(`### ${txt(h3)}`, '');
+        node.querySelectorAll('p').forEach(p => lines.push(inlineMarkdown(p), ''));
+
+      // North Star callout -> blockquote
+      } else if (cls.includes('north-star-callout')) {
+        const nsLabel = txt(node.querySelector('.ns-label'));
+        const nsTitle = txt(node.querySelector('.ns-title'));
+        const nsRatio = txt(node.querySelector('.ns-ratio'));
+        const nsBody = txt(node.querySelector('.ns-body'));
+        lines.push(`> **${nsLabel}**`);
+        lines.push(`> `);
+        lines.push(`> ${nsTitle}`);
+        if (nsRatio) lines.push(`> `);
+        if (nsRatio) lines.push(`> *${nsRatio}*`);
+        if (nsBody) lines.push(`> `);
+        if (nsBody) lines.push(`> ${nsBody}`);
+        lines.push('');
+
+      // KPI grid -> table
+      } else if (cls.includes('kpi-grid')) {
+        lines.push('| KPI | Target | Context |', '| --- | --- | --- |');
+        node.querySelectorAll('.kpi-card').forEach(card => {
+          const label = txt(card.querySelector('.kpi-label'));
+          const target = txt(card.querySelector('.kpi-target'));
+          const context = txt(card.querySelector('.kpi-context'));
+          lines.push(`| ${label} | ${target} | ${context} |`);
+        });
+        lines.push('');
+
+      // Questions section
+      } else if (cls.includes('questions-section')) {
+        node.querySelectorAll('.question-category').forEach(cat => {
+          const h4 = cat.querySelector('h4');
+          if (h4) lines.push(`#### ${txt(h4)}`, '');
+          cat.querySelectorAll('li').forEach(li => lines.push(`- ${txt(li)}`));
+          lines.push('');
+        });
+
+      // Company section label
+      } else if (cls.includes('company-section-label')) {
+        lines.push(`### ${txt(node)}`, '');
+
+      // Company grid
+      } else if (cls.includes('company-grid')) {
+        node.querySelectorAll('.company-card').forEach(card => {
+          const name = txt(card.querySelector('h4'));
+          const tag = txt(card.querySelector('.cc-tag'));
+          const desc = txt(card.querySelector('.cc-desc'));
+          const href = card.getAttribute('href') || '';
+          lines.push(`**[${name}](${href})** -- ${tag}`);
+          lines.push(`${desc}`, '');
+        });
+
+      // Exercise cards
+      } else if (cls.includes('exercise-card')) {
+        const h4 = node.querySelector('h4');
+        if (h4) lines.push(`#### ${txt(h4)}`, '');
+        node.querySelectorAll('p').forEach(p => lines.push(inlineMarkdown(p), ''));
+      }
+    }
+
+    lines.push('---', '');
+  });
+
+  return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n';
+}
+
+function inlineMarkdown(el) {
+  let result = '';
+  for (const child of el.childNodes) {
+    if (child.nodeType === 3) {
+      result += child.textContent;
+    } else if (child.nodeType === 1) {
+      const tag = child.tagName;
+      const text = child.textContent;
+      if (tag === 'STRONG' || tag === 'B') result += `**${text}**`;
+      else if (tag === 'EM' || tag === 'I') result += `*${text}*`;
+      else if (tag === 'A') result += `[${text}](${child.getAttribute('href') || ''})`;
+      else if (tag === 'CODE') result += '`' + text + '`';
+      else result += text;
+    }
+  }
+  return result.trim();
+}
+
 async function downloadBriefsMd() {
   const btn = document.getElementById('downloadBriefsBtn');
   btn.disabled = true;
-  btn.textContent = 'Preparing download...';
-
-  const files = [
-    '01-executive-board.md',
-    '02-sales.md',
-    '03-presales.md',
-    '04-rnd.md',
-    '05-customer-support-success.md',
-    '06-ai-product-unit.md',
-    '07-marketing.md',
-    '08-hr.md',
-    '09-finance.md',
-    '10-it.md',
-    '11-mna.md'
-  ];
+  btn.textContent = 'Generating markdown...';
 
   try {
+    const parser = new DOMParser();
     const zip = new JSZip();
-    const results = await Promise.all(
-      files.map(f => fetch('/downloads/briefs/' + f).then(r => {
-        if (!r.ok) throw new Error('Failed to fetch ' + f);
+
+    const htmlPages = await Promise.all(
+      BRIEF_PAGES.map(async p => {
+        let r = await fetch(p.url);
+        if (!r.ok) r = await fetch(p.url + '.html');
+        if (!r.ok) throw new Error('Failed to fetch ' + p.file);
         return r.text();
-      }))
+      })
     );
-    files.forEach((name, i) => zip.file(name, results[i]));
+
+    htmlPages.forEach((html, i) => {
+      const doc = parser.parseFromString(html, 'text/html');
+      const md = htmlToMarkdown(doc);
+      zip.file(BRIEF_PAGES[i].file, md);
+    });
 
     const blob = await zip.generateAsync({ type: 'blob' });
     const url = URL.createObjectURL(blob);
