@@ -97,13 +97,12 @@ h1 {
 }
 .download-briefs-btn {
   margin-top: 12px;
-  width: 100%;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 14px;
-  height: 44px;
+  gap: 6px;
+  font-size: 13px;
+  height: 36px;
+  padding: 0 16px;
 }
 .download-briefs-btn:disabled {
   opacity: 0.6;
@@ -380,7 +379,7 @@ textarea { min-height: 100px; resize: vertical; }
     Changes will be deployed behind a feature flag. Preview them by adding <code class="flag-code">?ext_edit=true</code> to the end of the page URL.
   </div>
   <button class="btn download-briefs-btn" id="downloadBriefsBtn" onclick="downloadBriefsMd()">
-    Click here to download the .md files for all briefs
+    Download pre-read .md files
   </button>
 </div>
 
@@ -483,7 +482,7 @@ async function downloadBriefsMd() {
   }
 
   btn.disabled = false;
-  btn.textContent = 'Click here to download the .md files for all briefs';
+  btn.textContent = 'Download pre-read .md files';
 }
 
 // --- File attachment handling ---
