@@ -31,6 +31,14 @@ All changes from GitHub Issues labeled `feature-request` MUST be wrapped in the 
 - `Per Function pre-brief/future-of-function-*.html` – 11 pre-brief subpages
 - All share the same design system and feature flag CSS/JS
 
+## Bot Behavior Rules (CRITICAL for automated workflows)
+- ALWAYS make code changes and commit them – never skip implementation
+- Do NOT assume a feature "already exists" based on git history or old branches
+- Check the CURRENT state of files on the current branch to determine what exists
+- If similar content exists, still implement the requested change behind the feature flag
+- You MUST produce at least one commit for every feature-request issue
+- Do NOT run `git push` – the GitHub Actions workflow handles pushing automatically
+
 ## Testing
 After making changes, verify:
 - No syntax errors in HTML

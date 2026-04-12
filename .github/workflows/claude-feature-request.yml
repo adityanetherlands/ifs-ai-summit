@@ -33,41 +33,59 @@ jobs:
       - name: Auto-merge Claude branch to main
         id: merge
         run: |
-          # Wait for branch to be available
+          # Wait for branch to propagate
           sleep 5
 
-          # Find the Claude branch
-          BRANCH_NAME=$(gh api "repos/${REPO}/branches" --paginate --jq '.[].name' | grep "claude/issue-${ISSUE_NUMBER}" | head -1)
+          # Find the Claude branch for this issue
+          BRANCH_NAME=$(gh api "repos/${REPO}/branches" --paginate --jq '.[].name' | grep "claude/issue-${ISSUE_NUMBER}-" | head -1)
 
           if [ -z "$BRANCH_NAME" ]; then
-            echo "ERROR: No Claude branch found for issue #${ISSUE_NUMBER}"
-            echo "Available Claude branches:"
-            gh api "repos/${REPO}/branches" --paginate --jq '.[].name' | grep "claude/" || echo "  (none)"
-            exit 1
+            echo "No Claude branch found for issue #${ISSUE_NUMBER}."
+            echo "Claude may have determined no code changes were needed."
+            echo "SKIP_MERGE=true" >> "$GITHUB_ENV"
+            exit 0
           fi
 
           echo "Found branch: $BRANCH_NAME"
           SHA=$(gh api "repos/${REPO}/git/refs/heads/${BRANCH_NAME}" --jq '.object.sha')
           echo "Branch SHA: $SHA"
 
+          # Check if branch has new commits vs main
+          MAIN_SHA=$(gh api "repos/${REPO}/git/refs/heads/main" --jq '.object.sha')
+          if [ "$SHA" = "$MAIN_SHA" ]; then
+            echo "Branch is identical to main — no changes to merge."
+            echo "SKIP_MERGE=true" >> "$GITHUB_ENV"
+            exit 0
+          fi
+
           # Merge to main
-          gh api "repos/${REPO}/merges" \
+          MERGE_RESULT=$(gh api "repos/${REPO}/merges" \
             -f base=main \
             -f head="$SHA" \
-            -f commit_message="Auto-merge: issue #${ISSUE_NUMBER}" || {
+            -f commit_message="Auto-merge: issue #${ISSUE_NUMBER}" 2>&1) || {
             echo "ERROR: Merge failed"
+            echo "$MERGE_RESULT"
             exit 1
           }
           echo "Merged $BRANCH_NAME into main"
+          echo "SKIP_MERGE=false" >> "$GITHUB_ENV"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           REPO: ${{ github.repository }}
 
       - name: Mark issue as completed
-        if: success()
+        if: success() && env.SKIP_MERGE != 'true'
         run: |
           gh issue edit "$ISSUE_NUMBER" --add-label "completed"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+      - name: Report no changes
+        if: success() && env.SKIP_MERGE == 'true'
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "ℹ️ **No code changes were made.** Claude analyzed this feature request but did not create any commits. This may mean the feature already exists or the request needs clarification. A maintainer should review this issue manually."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
@@ -76,7 +94,6 @@ jobs:
         if: failure()
         run: |
           gh issue comment "$ISSUE_NUMBER" --body "⚠️ **Automated implementation failed.** The Claude bot attempted to implement this feature request but the branch could not be merged to main. A maintainer should investigate the [workflow run](https://github.com/${REPO}/actions/runs/${RUN_ID})."
-          # Remove completed label if it was somehow added
           gh issue edit "$ISSUE_NUMBER" --remove-label "completed" 2>/dev/null || true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

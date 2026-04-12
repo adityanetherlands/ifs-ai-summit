@@ -393,14 +393,17 @@
             animation: shake 0.5s ease;
         }
 
+        /* Feature flags – append ?ext_edit=true to URL to reveal flagged content */
+        .ff-ext-edit { display: none !important; }
+        body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
+        body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
+
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
             .orb, .center-glow { display: none; }
             .password-card-wrapper { opacity: 1; visibility: visible; }
         }
 
-        /* Feature flag */
-        .ff-ext-edit { display: none; }
     </style>
 </head>
 <body>
@@ -429,11 +432,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
-        // Feature flag: show ff-ext-edit content when ?ext_edit=true
+        // Feature flags – append ?ext_edit=true to URL to reveal flagged content
         if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
-            document.querySelectorAll('.ff-ext-edit').forEach(function(el) {
-                el.style.display = 'inline';
-            });
+            document.body.classList.add('ff-ext-edit-on');
         }
 
         window.addEventListener('load', function () {
