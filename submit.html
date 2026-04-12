@@ -271,6 +271,21 @@ textarea { min-height: 100px; resize: vertical; }
   color: #4ade80;
   border: 1px solid rgba(34, 197, 94, 0.25);
 }
+.tracker-badge.reverting {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+.tracker-badge.reverted {
+  background: rgba(107, 114, 128, 0.12);
+  color: #9ca3af;
+  border: 1px solid rgba(107, 114, 128, 0.25);
+}
+.tracker-badge.revert-conflict {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
 .spinner {
   width: 14px; height: 14px;
   border: 2px solid rgba(245, 158, 11, 0.3);
@@ -362,6 +377,142 @@ textarea { min-height: 100px; resize: vertical; }
   overflow: hidden;
 }
 
+/* Revert button */
+.revert-btn {
+  background: none;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  margin-top: 6px;
+}
+.revert-btn:hover {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.5);
+}
+.revert-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.revert-btn:disabled:hover {
+  background: none;
+}
+
+/* Conflict report inline */
+.conflict-report {
+  margin-top: 6px;
+  padding: 8px 12px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 8px;
+  font-size: 12px;
+  color: #f87171;
+  line-height: 1.5;
+}
+.conflict-report strong {
+  color: #fca5a5;
+}
+
+/* Revert confirm modal */
+.revert-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+.revert-modal-overlay.visible {
+  display: flex;
+}
+.revert-modal {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  padding: 28px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+.revert-modal h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.revert-modal p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.revert-modal .revert-title-preview {
+  color: var(--accent-indigo-light);
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+.revert-modal .modal-password {
+  width: 100%;
+  margin-bottom: 12px;
+}
+.revert-modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.revert-modal-actions .btn-cancel {
+  padding: 10px 20px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.revert-modal-actions .btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.revert-modal-actions .btn-confirm-revert {
+  padding: 10px 20px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  background: #ef4444;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.revert-modal-actions .btn-confirm-revert:hover {
+  background: #dc2626;
+}
+.revert-modal-actions .btn-confirm-revert:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.revert-modal .revert-error {
+  color: #f87171;
+  font-size: 13px;
+  margin-top: 10px;
+  display: none;
+}
+
 /* Mobile: stack vertically */
 @media (max-width: 768px) {
   .layout { grid-template-columns: 1fr; }
@@ -434,6 +585,22 @@ textarea { min-height: 100px; resize: vertical; }
   </div>
 </div>
 
+
+<!-- Revert confirmation modal -->
+<div class="revert-modal-overlay" id="revertModal">
+  <div class="revert-modal">
+    <h3>Revert this change?</h3>
+    <p>This will undo the following change from the live site:</p>
+    <div class="revert-title-preview" id="revertTitlePreview"></div>
+    <p style="font-size:12px; color: var(--text-dim);">If other changes depend on this one, conflicts will be flagged for manual review.</p>
+    <input type="password" class="modal-password" id="revertPassword" placeholder="Enter access code to confirm">
+    <div class="revert-modal-actions">
+      <button class="btn-cancel" onclick="closeRevertModal()">Cancel</button>
+      <button class="btn-confirm-revert" id="confirmRevertBtn" onclick="confirmRevert()">Revert</button>
+    </div>
+    <div class="revert-error" id="revertError"></div>
+  </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -784,6 +951,21 @@ async function loadChangelog() {
   renderChangelog();
 }
 
+function statusBadgeHtml(status) {
+  switch (status) {
+    case 'completed':
+      return '<span class="tracker-badge completed">Done</span>';
+    case 'reverting':
+      return '<div class="spinner"></div><span class="tracker-badge reverting">Reverting</span>';
+    case 'reverted':
+      return '<span class="tracker-badge reverted">Reverted</span>';
+    case 'revert-conflict':
+      return '<span class="tracker-badge revert-conflict">Conflict</span>';
+    default:
+      return '<div class="spinner"></div><span class="tracker-badge queued">Building</span>';
+  }
+}
+
 function renderChangelog() {
   const container = document.getElementById('changelogList');
   if (!changelogData.length) {
@@ -791,37 +973,59 @@ function renderChangelog() {
     return;
   }
 
-  container.innerHTML = changelogData.map((s, i) => `
-    <div class="tracker-item">
-      <span class="tracker-num">${i + 1}.</span>
-      <div style="flex:1">
-        <div class="tracker-title">${escapeHtml(s.title)}</div>
-        <div class="changelog-meta">
-          ${s.name ? escapeHtml(s.name) + ' &middot; ' : ''}${timeAgo(s.created_at)}
+  container.innerHTML = changelogData.map((s, i) => {
+    const isCompleted = s.status === 'completed';
+    const isReverted = s.status === 'reverted';
+    const isConflict = s.status === 'revert-conflict';
+
+    let actionsHtml = '';
+    if (isCompleted) {
+      actionsHtml = `
+        <div class="tracker-preview visible">Ready to review: <a href="/summit?ext_edit=true" target="_blank">preview with feature flag</a></div>
+        <button class="revert-btn" onclick="openRevertModal(${s.issue_number}, '${escapeHtml(s.title).replace(/'/g, "\\'")}')">Undo change</button>
+      `;
+    } else if (isReverted) {
+      actionsHtml = '<div class="tracker-preview visible" style="color: var(--text-dim);">This change has been reverted</div>';
+    } else if (isConflict) {
+      actionsHtml = `
+        <div class="conflict-report">
+          <strong>Revert blocked:</strong> Later changes depend on this one. A maintainer needs to resolve this manually.
+          <a href="https://github.com/adityanetherlands/ifs-ai-summit/issues/${s.issue_number}" target="_blank" style="color: var(--accent-indigo-light); margin-left: 4px;">View details</a>
         </div>
-        <div class="changelog-desc">${escapeHtml(truncate(s.description, 150))}</div>
-        ${s.status === 'completed' ? '<div class="tracker-preview visible">Ready to review: <a href="/summit?ext_edit=true" target="_blank">preview with feature flag</a></div>' : ''}
+      `;
+    }
+
+    return `
+      <div class="tracker-item" style="flex-wrap: wrap;">
+        <span class="tracker-num">${i + 1}.</span>
+        <div style="flex:1; min-width: 0;">
+          <div class="tracker-title">${escapeHtml(s.title)}</div>
+          <div class="changelog-meta">
+            ${s.name ? escapeHtml(s.name) + ' &middot; ' : ''}${timeAgo(s.created_at)}
+          </div>
+          <div class="changelog-desc">${escapeHtml(truncate(s.description, 150))}</div>
+          ${actionsHtml}
+        </div>
+        ${statusBadgeHtml(s.status)}
       </div>
-      ${s.status === 'completed'
-        ? '<span class="tracker-badge completed">Done</span>'
-        : '<div class="spinner"></div><span class="tracker-badge queued">Building</span>'
-      }
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 async function pollChangelogStatuses() {
-  const queued = changelogData.filter(s => s.status !== 'completed' && s.issue_number);
-  if (!queued.length) return;
+  const pending = changelogData.filter(s =>
+    s.issue_number && (s.status === 'queued' || s.status === 'reverting')
+  );
+  if (!pending.length) return;
 
   let changed = false;
-  for (const s of queued) {
+  for (const s of pending) {
     try {
       const res = await fetch(`/api/status?issue=${s.issue_number}`);
       if (res.ok) {
         const data = await res.json();
-        if (data.status === 'completed') {
-          s.status = 'completed';
+        if (data.status !== s.status) {
+          s.status = data.status;
           changed = true;
         }
       }
@@ -833,6 +1037,74 @@ async function pollChangelogStatuses() {
 loadChangelog();
 setInterval(pollChangelogStatuses, 15000);
 setInterval(() => { if (changelogData.length) renderChangelog(); }, 30000);
+
+// --- Revert modal logic ---
+let pendingRevertIssue = null;
+
+function openRevertModal(issueNumber, title) {
+  pendingRevertIssue = issueNumber;
+  document.getElementById('revertTitlePreview').textContent = title;
+  document.getElementById('revertPassword').value = '';
+  document.getElementById('revertError').style.display = 'none';
+  document.getElementById('revertModal').classList.add('visible');
+}
+
+function closeRevertModal() {
+  pendingRevertIssue = null;
+  document.getElementById('revertModal').classList.remove('visible');
+}
+
+document.getElementById('revertModal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeRevertModal();
+});
+
+async function confirmRevert() {
+  const pwd = document.getElementById('revertPassword').value;
+  const errorEl = document.getElementById('revertError');
+  const btn = document.getElementById('confirmRevertBtn');
+
+  if (!pwd) {
+    errorEl.textContent = 'Please enter the access code.';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Reverting...';
+  errorEl.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/revert', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        issue_number: pendingRevertIssue,
+        password: pwd,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      const item = changelogData.find(s => s.issue_number === pendingRevertIssue);
+      if (item) {
+        item.status = 'reverting';
+        renderChangelog();
+      }
+      closeRevertModal();
+    } else {
+      throw new Error(data.error || 'Revert failed');
+    }
+  } catch (err) {
+    errorEl.textContent = err.message === 'Invalid password'
+      ? 'Invalid access code.'
+      : 'Error: ' + err.message;
+    errorEl.style.display = 'block';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Revert';
+}
 
 document.getElementById('requestForm').addEventListener('submit', async (e) => {
   e.preventDefault();

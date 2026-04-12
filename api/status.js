@@ -22,14 +22,20 @@ export default async function handler(req, res) {
   const labels = issue.labels.map(l => l.name);
 
   let status = 'queued';
-  if (labels.includes('completed')) {
+  if (labels.includes('reverted')) {
+    status = 'reverted';
+  } else if (labels.includes('revert-conflict')) {
+    status = 'revert-conflict';
+  } else if (labels.includes('reverting') || labels.includes('revert')) {
+    status = 'reverting';
+  } else if (labels.includes('completed')) {
     status = 'completed';
   } else if (issue.state === 'closed') {
     status = 'completed';
   }
 
-  // Update Supabase status on completion
-  if (status === 'completed') {
+  // Update Supabase status when it changes
+  if (status !== 'queued') {
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (supabaseUrl && supabaseKey) {
@@ -42,7 +48,7 @@ export default async function handler(req, res) {
             'Content-Type': 'application/json',
             'Prefer': 'return=minimal',
           },
-          body: JSON.stringify({ status: 'completed' }),
+          body: JSON.stringify({ status }),
         });
       } catch (e) { /* don't block response */ }
     }

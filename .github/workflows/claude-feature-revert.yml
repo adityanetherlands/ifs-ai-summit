@@ -1,0 +1,211 @@
+name: Claude Feature Revert Handler
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  revert-feature:
+    if: |
+      contains(github.event.issue.labels.*.name, 'revert') &&
+      contains(github.event.issue.labels.*.name, 'completed') &&
+      !contains(github.event.issue.labels.*.name, 'reverted')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Find merge commit and check dependencies
+        id: analyze
+        run: |
+          set -e
+          ISSUE_NUM="${ISSUE_NUMBER}"
+          echo "Looking for merge commit for issue #${ISSUE_NUM}..."
+
+          # Find the merge commit matching "Auto-merge: issue #N"
+          MERGE_SHA=$(git log --all --grep="Auto-merge: issue #${ISSUE_NUM}" --format="%H" | head -1)
+
+          if [ -z "$MERGE_SHA" ]; then
+            echo "No merge commit found for issue #${ISSUE_NUM}"
+            echo "RESULT=no_commit" >> "$GITHUB_ENV"
+            exit 0
+          fi
+
+          echo "Found merge commit: $MERGE_SHA"
+          echo "MERGE_SHA=${MERGE_SHA}" >> "$GITHUB_ENV"
+
+          # Get files changed in that merge commit
+          FILES_CHANGED=$(git diff-tree --no-commit-id --name-only -r "$MERGE_SHA" | sort)
+          echo "Files changed in issue #${ISSUE_NUM}:"
+          echo "$FILES_CHANGED"
+
+          # Find the merge commit's position in history
+          MERGE_DATE=$(git show -s --format="%ci" "$MERGE_SHA")
+          echo "Merge date: $MERGE_DATE"
+
+          # Check for later commits that touched the same files
+          CONFLICTS=""
+          CONFLICT_ISSUES=""
+
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+
+            # Find commits after the merge that touched this file
+            LATER_COMMITS=$(git log --format="%H %s" "$MERGE_SHA"..HEAD -- "$file" 2>/dev/null || true)
+
+            if [ -n "$LATER_COMMITS" ]; then
+              while IFS= read -r commit_line; do
+                [ -z "$commit_line" ] && continue
+                COMMIT_HASH=$(echo "$commit_line" | cut -d' ' -f1)
+                COMMIT_MSG=$(echo "$commit_line" | cut -d' ' -f2-)
+
+                # Extract issue number from "Auto-merge: issue #N" if present
+                DEP_ISSUE=$(echo "$COMMIT_MSG" | grep -oP 'issue #\K[0-9]+' || true)
+
+                if [ -n "$DEP_ISSUE" ] && [ "$DEP_ISSUE" != "$ISSUE_NUM" ]; then
+                  CONFLICTS="${CONFLICTS}\n- **Issue #${DEP_ISSUE}** modified \`${file}\` (commit: ${COMMIT_HASH:0:7} — ${COMMIT_MSG})"
+                  # Track unique conflict issues
+                  if ! echo "$CONFLICT_ISSUES" | grep -q "#${DEP_ISSUE}"; then
+                    CONFLICT_ISSUES="${CONFLICT_ISSUES} #${DEP_ISSUE}"
+                  fi
+                elif [ -z "$DEP_ISSUE" ]; then
+                  CONFLICTS="${CONFLICTS}\n- Manual commit modified \`${file}\` (${COMMIT_HASH:0:7} — ${COMMIT_MSG})"
+                fi
+              done <<< "$LATER_COMMITS"
+            fi
+          done <<< "$FILES_CHANGED"
+
+          if [ -n "$CONFLICTS" ]; then
+            echo "RESULT=conflict" >> "$GITHUB_ENV"
+            # Write conflicts to a file to preserve newlines
+            echo -e "$CONFLICTS" > /tmp/conflicts.txt
+            echo -e "$CONFLICT_ISSUES" > /tmp/conflict_issues.txt
+            echo "Dependency conflicts detected!"
+          else
+            echo "RESULT=clean" >> "$GITHUB_ENV"
+            echo "No conflicts — safe to revert"
+          fi
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+      - name: Attempt revert (clean case)
+        if: env.RESULT == 'clean'
+        id: revert
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          echo "Reverting merge commit ${MERGE_SHA}..."
+
+          # Try to revert — use -m 1 for merge commits
+          if git revert --no-edit -m 1 "$MERGE_SHA" 2>/dev/null; then
+            echo "Revert commit created successfully"
+          elif git revert --no-edit "$MERGE_SHA" 2>/dev/null; then
+            echo "Revert commit created successfully (non-merge)"
+          else
+            echo "REVERT_FAILED=true" >> "$GITHUB_ENV"
+            echo "Git revert failed — likely has textual conflicts"
+            git revert --abort 2>/dev/null || true
+            exit 0
+          fi
+
+          git push origin main
+          echo "REVERT_PUSHED=true" >> "$GITHUB_ENV"
+        env:
+          MERGE_SHA: ${{ env.MERGE_SHA }}
+
+      - name: Mark as reverted (success)
+        if: env.REVERT_PUSHED == 'true'
+        run: |
+          # Add reverted label, remove revert trigger label
+          gh issue edit "$ISSUE_NUMBER" --add-label "reverted"
+          gh issue edit "$ISSUE_NUMBER" --remove-label "revert" 2>/dev/null || true
+
+          gh issue comment "$ISSUE_NUMBER" --body "$(cat <<'BODY'
+          ✅ **Successfully reverted.** The changes from this issue have been removed from main. The site will update on the next Vercel deployment.
+          BODY
+          )"
+
+          # Update Supabase status
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_KEY" ]; then
+            curl -s -X PATCH \
+              "${SUPABASE_URL}/rest/v1/submissions?issue_number=eq.${ISSUE_NUMBER}" \
+              -H "apikey: ${SUPABASE_KEY}" \
+              -H "Authorization: Bearer ${SUPABASE_KEY}" \
+              -H "Content-Type: application/json" \
+              -d '{"status": "reverted"}' || true
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - name: Report conflict
+        if: env.RESULT == 'conflict' || env.REVERT_FAILED == 'true'
+        run: |
+          # Add conflict label, remove revert trigger
+          gh issue edit "$ISSUE_NUMBER" --add-label "revert-conflict"
+          gh issue edit "$ISSUE_NUMBER" --remove-label "revert" 2>/dev/null || true
+
+          if [ "$RESULT" = "conflict" ]; then
+            CONFLICTS=$(cat /tmp/conflicts.txt)
+            CONFLICT_ISSUES=$(cat /tmp/conflict_issues.txt)
+
+            gh issue comment "$ISSUE_NUMBER" --body "$(cat <<EOF
+          ⚠️ **Revert blocked — dependency conflicts detected.**
+
+          The following later changes touch the same files modified by this issue:
+
+          ${CONFLICTS}
+
+          **To resolve:** A maintainer needs to manually revert this issue's changes while preserving the dependent changes (${CONFLICT_ISSUES}).
+
+          See the [workflow run](https://github.com/${REPO}/actions/runs/${RUN_ID}) for details.
+          EOF
+          )"
+          else
+            gh issue comment "$ISSUE_NUMBER" --body "$(cat <<EOF
+          ⚠️ **Revert failed — git conflict.**
+
+          The automated revert encountered textual conflicts that could not be resolved automatically. A maintainer needs to manually revert the changes.
+
+          See the [workflow run](https://github.com/${REPO}/actions/runs/${RUN_ID}) for details.
+          EOF
+          )"
+          fi
+
+          # Update Supabase status
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_KEY" ]; then
+            curl -s -X PATCH \
+              "${SUPABASE_URL}/rest/v1/submissions?issue_number=eq.${ISSUE_NUMBER}" \
+              -H "apikey: ${SUPABASE_KEY}" \
+              -H "Authorization: Bearer ${SUPABASE_KEY}" \
+              -H "Content-Type: application/json" \
+              -d '{"status": "revert-conflict"}' || true
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          RESULT: ${{ env.RESULT }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - name: Report no commit found
+        if: env.RESULT == 'no_commit'
+        run: |
+          gh issue edit "$ISSUE_NUMBER" --remove-label "revert" 2>/dev/null || true
+          gh issue comment "$ISSUE_NUMBER" --body "ℹ️ **No merge commit found** for this issue. The changes may have been merged manually or the commit message format didn't match. A maintainer needs to revert this manually."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
