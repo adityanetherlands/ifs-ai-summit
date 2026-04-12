@@ -2125,12 +2125,14 @@ body.ff-ext-edit-on .hero-cta {
 
   sections.forEach(section => spyObserver.observe(section));
 
-  // Clear active state when at the top (hero visible)
+  // Highlight "Home" when hero is visible
   const hero = document.querySelector('.hero');
   if (hero) {
     const heroObserver = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        navLinks.forEach(link => link.classList.remove('active'));
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('data-section') === 'hero' || (link.textContent.trim() === 'Home' && !link.getAttribute('data-section')));
+        });
       }
     }, { threshold: 0.3 });
     heroObserver.observe(hero);
