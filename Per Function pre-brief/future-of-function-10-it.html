@@ -557,6 +557,17 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
   }
 }
 
+/* Site Footer (matches summit.html) */
+.site-footer {
+  background: var(--bg-secondary);
+  background-image:
+    radial-gradient(ellipse 65% 70% at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(236, 72, 153, 0.07) 0%, transparent 65%);
+  border-top: 1px solid var(--border-default);
+  padding: 48px 0; text-align: center;
+}
+.site-footer p { font-size: 14px; color: var(--text-dim); margin-bottom: 8px; }
+
 </style>
 </head>
 <body>
@@ -958,6 +969,13 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 </main>
 
 </div><!-- .content-layout -->
+
+<!-- Site Footer -->
+<footer class="site-footer">
+  <div style="max-width:900px;margin:0 auto;padding:0 32px;">
+    <p><strong style="color:var(--text-muted)">IFS AI Leadership Summit</strong> &middot; 4&ndash;7 May 2026 &middot; Mountain View, California</p>
+  </div>
+</footer>
 
 <!-- Back to Top -->
 <button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
