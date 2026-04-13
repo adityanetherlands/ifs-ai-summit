@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future of Marketing - IFS AI Leadership Summit</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN SYSTEM · Matches index.html exactly
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --bg-primary: #090b10;
+  --bg-secondary: #0f1117;
+  --bg-surface: #181b23;
+  --bg-surface-hover: #1e222d;
+  --border-subtle: #1e222d;
+  --border-default: #2a2f3d;
+  --border-accent: #6366f1;
+  --text-primary: #f0f1f5;
+  --text-secondary: #e4e6ed;
+  --text-muted: #9498ad;
+  --text-dim: #6b7094;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --accent-glow: rgba(99, 102, 241, 0.12);
+  --accent-indigo: var(--accent);
+  --accent-indigo-light: var(--accent-light);
+  --accent-indigo-glow: var(--accent-glow);
+  --accent-amber: #f59e0b;
+  --accent-emerald: #22c55e;
+  --accent-cyan: #06b6d4;
+  --accent-red: #ef4444;
+  --red-muted: #f87171;
+  --red-bg: rgba(248, 113, 113, 0.08);
+  --green-bg: rgba(99, 102, 241, 0.06);
+  --stat-gradient: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  --font-display: 'Lexend', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --max-width: 900px;
+  --nav-height: 64px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 24px); }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.65;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: white; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 3px; }
+a { color: var(--accent-light); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN NAVBAR (from index.html)
+   ═══════════════════════════════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; justify-content: center;
+  padding: 18px 32px;
+  pointer-events: none;
+}
+.nav-inner {
+  display: flex; align-items: center;
+  background: linear-gradient(135deg, rgba(20, 23, 32, 0.55) 0%, rgba(30, 34, 45, 0.45) 50%, rgba(99, 102, 241, 0.05) 100%);
+  backdrop-filter: blur(40px) saturate(1.3); -webkit-backdrop-filter: blur(40px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  padding: 8px 10px 8px 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 48px rgba(99,102,241,0.04), inset 0 1px 0 rgba(255,255,255,0.06);
+  pointer-events: auto;
+  max-width: 860px;
+  width: auto;
+  gap: 6px;
+}
+.nav-brand {
+  font-family: var(--font-display); font-size: 16px; font-weight: 800;
+  white-space: nowrap; margin-right: 16px;
+  color: #f0f1f5;
+  letter-spacing: -0.3px;
+  text-decoration: none;
+}
+.nav-brand:hover { text-decoration: none; opacity: 0.85; }
+.nav-brand span {
+  font-weight: 400;
+  background: linear-gradient(135deg, #818cf8, #06b6d4);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nav-links { display: flex; gap: 2px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; color: var(--text-dim);
+  padding: 10px 16px; border-radius: 100px; text-decoration: none;
+  transition: color 0.2s, background 0.2s; cursor: pointer;
+  letter-spacing: 0.1px;
+}
+.nav-links a:hover { color: #f0f1f5; background: rgba(255,255,255,0.1); text-decoration: none; }
+.nav-links a.active { color: white; background: var(--accent); }
+
+.nav.scrolled .nav-inner {
+  background: linear-gradient(135deg, rgba(20, 23, 32, 0.7) 0%, rgba(30, 34, 45, 0.6) 50%, rgba(99, 102, 241, 0.06) 100%);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Hamburger */
+.nav-hamburger {
+  display: none; background: none; border: none; color: var(--text-muted);
+  cursor: pointer; padding: 8px; border-radius: 100px;
+}
+.nav-hamburger:hover { background: rgba(255,255,255,0.1); }
+
+/* Mobile drawer */
+.nav-drawer {
+  display: none; position: fixed; top: 0; right: 0; bottom: 0;
+  width: 280px; background: var(--bg-surface); border-left: 1px solid var(--border-default);
+  z-index: 1001; transform: translateX(100%); transition: transform 0.3s var(--ease);
+  padding: 80px 24px 24px; flex-direction: column; gap: 4px;
+}
+.nav-drawer.open { transform: translateX(0); display: flex; }
+.nav-drawer a {
+  font-size: 15px; font-weight: 600; color: var(--text-muted);
+  padding: 14px 16px; border-radius: 8px; text-decoration: none;
+  transition: color 0.2s, background 0.2s; display: block;
+}
+.nav-drawer a:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); text-decoration: none; }
+.nav-drawer a.active { color: var(--accent-light); background: var(--accent-glow); }
+.nav-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 1000;
+}
+.nav-overlay.open { display: block; }
+.drawer-close {
+  position: absolute; top: 16px; right: 16px; background: none; border: none;
+  color: var(--text-muted); cursor: pointer; padding: 8px; border-radius: 6px;
+}
+.drawer-close:hover { color: var(--text-primary); background: rgba(255,255,255,0.06); }
+
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+  .nav-drawer.open { display: flex; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BRIEF HERO
+   ═══════════════════════════════════════════════════════════════ */
+.brief-hero {
+  padding: calc(var(--nav-height) + 56px) 32px 48px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 70% 60% at 85% 15%, rgba(99, 102, 241, 0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 50% at 10% 80%, rgba(6, 182, 212, 0.10) 0%, transparent 65%),
+    var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.brief-hero-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.brief-hero-eyebrow {
+  font-family: var(--font-display); font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light);
+  margin-bottom: 16px;
+}
+.brief-hero-title {
+  font-family: var(--font-display); font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+  color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15;
+  margin-bottom: 12px;
+}
+.brief-hero-subtitle {
+  font-size: 17px; color: var(--accent-light); font-weight: 600; letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+.brief-hero-tagline {
+  font-size: 14px; color: var(--text-muted); font-style: italic;
+  margin-bottom: 28px;
+}
+.brief-hero-nav {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.brief-nav-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  padding: 10px 20px; border-radius: 100px;
+  border: 1px solid var(--border-default);
+  text-decoration: none;
+  transition: all 0.2s var(--ease);
+}
+.brief-nav-btn:hover {
+  color: var(--accent-light); border-color: var(--accent);
+  background: var(--accent-glow); text-decoration: none;
+}
+.brief-nav-btn svg { width: 16px; height: 16px; }
+.brief-nav-all {
+  border-color: var(--accent); color: var(--accent-light);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTENT LAYOUT (sidebar + main)
+   ═══════════════════════════════════════════════════════════════ */
+.content-layout {
+  display: flex;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 32px;
+  gap: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STICKY SIDEBAR TOC
+   ═══════════════════════════════════════════════════════════════ */
+.toc-sidebar {
+  width: 180px;
+  flex-shrink: 0;
+  padding-top: 48px;
+}
+.toc-nav {
+  position: sticky;
+  top: calc(var(--nav-height) + 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toc-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-dim);
+  font-size: 13px; font-weight: 500;
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+  cursor: pointer;
+  position: relative;
+}
+.toc-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 3px; border-radius: 2px;
+  background: transparent;
+  transition: background 0.2s var(--ease);
+}
+.toc-item:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.03);
+  text-decoration: none;
+}
+.toc-item.active {
+  color: var(--accent-light);
+  background: rgba(99, 102, 241, 0.06);
+}
+.toc-item.active::before {
+  background: var(--accent);
+}
+.toc-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border-default);
+  flex-shrink: 0;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.toc-item.active .toc-dot {
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════════════════════════════════════ */
+.main {
+  flex: 1;
+  min-width: 0;
+  max-width: var(--max-width);
+  padding: 48px 0 0 48px;
+}
+
+/* Sections */
+.section { margin-bottom: 32px; scroll-margin-top: calc(var(--nav-height) + 24px); }
+.section + .section { border-top: none; padding-top: 16px; }
+h2 {
+  font-family: var(--font-display); font-size: 24px; font-weight: 800;
+  margin-bottom: 22px; color: var(--text-primary);
+  padding-bottom: 12px; border-bottom: 1px solid var(--border-default);
+  letter-spacing: -0.3px;
+}
+h3 {
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  margin-top: 28px; margin-bottom: 12px; color: var(--accent-light);
+}
+p { margin-bottom: 14px; font-size: 15px; line-height: 1.75; color: var(--text-muted); }
+strong { color: var(--text-secondary); font-weight: 700; }
+
+/* Framework Items */
+.framework-item { margin-bottom: 28px; }
+.framework-item h3 { margin-top: 0; margin-bottom: 10px; }
+.framework-item p { margin-bottom: 10px; }
+
+/* Provocation callout */
+.provocation {
+  font-size: 16px; font-weight: 600; font-style: italic;
+  color: var(--text-primary); line-height: 1.6;
+  padding: 20px 24px; margin: 0 0 18px 0;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-glow); border-radius: 0 8px 8px 0;
+}
+
+/* North Star / Thought Exercise Callout */
+.north-star-callout {
+  background: var(--accent-glow); border: 2px solid var(--accent);
+  border-radius: 12px; padding: 28px; margin: 32px 0;
+}
+.ns-label { font-size: 11px; font-weight: 700; color: var(--accent-light); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+.ns-body { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 0; }
+.ns-body strong { color: var(--text-primary); }
+
+/* Questions */
+.questions-section {
+  background: var(--accent-glow); padding: 28px; border-radius: 12px;
+  margin: 28px 0; border: 1px solid var(--border-default);
+}
+.question-category { margin-bottom: 24px; }
+.question-category:last-child { margin-bottom: 0; }
+.question-category h4 { font-family: var(--font-display); font-size: 12px; font-weight: 700; color: var(--accent-light); letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase; }
+.question-category ul { list-style: none; padding: 0; }
+.question-category li { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; padding-left: 18px; position: relative; line-height: 1.6; }
+.question-category li::before { content: "\2013"; position: absolute; left: 0; color: var(--accent-light); font-weight: bold; }
+
+/* Company Cards */
+.company-section-label {
+  font-family: var(--font-display); font-size: 11px; font-weight: 700;
+  color: var(--accent-light); letter-spacing: 1.5px; text-transform: uppercase;
+  margin-top: 28px; margin-bottom: 14px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px; }
+.company-card {
+  background: var(--bg-surface); border-radius: 10px; padding: 20px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08); border-left: 3px solid var(--accent);
+  transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+  text-decoration: none; color: inherit; display: block; cursor: pointer;
+}
+.company-card:hover { box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15); transform: translateY(-2px); text-decoration: none; }
+.company-card h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+.company-card .cc-tag { font-size: 10px; font-weight: 600; color: var(--accent-light); letter-spacing: 0.3px; margin-bottom: 8px; }
+.company-card .cc-desc { font-size: 12px; color: var(--text-dim); line-height: 1.55; margin-bottom: 8px; }
+.company-card .cc-look { font-size: 11px; color: var(--text-muted); font-style: italic; margin-bottom: 8px; line-height: 1.5; }
+.company-card .cc-url { font-size: 11px; color: var(--accent-light); font-weight: 600; }
+
+/* Exercise Cards */
+.exercise-card {
+  background: var(--bg-surface); border-top: 3px solid var(--accent);
+  padding: 24px; margin: 20px 0; border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.exercise-card h3 { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0 0 4px 0; }
+.exercise-card .ec-time { font-size: 12px; color: var(--accent-light); font-weight: 600; margin-bottom: 12px; }
+.exercise-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.65; }
+.exercise-card p:last-child { margin-bottom: 0; }
+
+/* Resource Library */
+.resource-category { margin-bottom: 32px; }
+.resource-category h3 { margin-top: 0; }
+.resource-item {
+  background: var(--bg-surface); border-radius: 10px; padding: 18px 20px;
+  margin-bottom: 10px; border-left: 3px solid var(--border-default);
+  transition: border-color 0.2s var(--ease);
+}
+.resource-item:hover { border-left-color: var(--accent); }
+.resource-item .ri-title {
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 2px;
+}
+.resource-item .ri-author { font-size: 12px; color: var(--accent-light); font-weight: 500; margin-bottom: 6px; }
+.resource-item .ri-desc { font-size: 12px; color: var(--text-dim); line-height: 1.55; margin: 0; }
+.resource-item a { color: var(--accent-light); font-size: 11px; font-weight: 600; }
+
+/* Blockquote */
+blockquote {
+  border-left: 4px solid var(--accent); padding-left: 22px; margin: 32px 0;
+  font-size: 16px; font-style: italic; color: var(--text-muted); line-height: 1.75;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BACK TO TOP
+   ═══════════════════════════════════════════════════════════════ */
+#back-to-top {
+  position: fixed; bottom: 32px; right: 32px; z-index: 900;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--bg-surface); border: 1px solid var(--border-default);
+  color: var(--text-muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), border-color 0.2s, color 0.2s;
+  pointer-events: none;
+}
+#back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#back-to-top:hover { border-color: var(--accent); color: var(--accent-light); }
+#back-to-top svg { width: 20px; height: 20px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER NAVIGATION
+   ═══════════════════════════════════════════════════════════════ */
+.page-footer {
+  border-top: 1px solid var(--border-default);
+  padding: 32px 0 64px; margin-top: 56px;
+}
+.footer-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 32px;
+}
+.footer-nav a {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 600; color: var(--text-muted);
+  text-decoration: none; padding: 10px 18px; border-radius: 8px;
+  border: 1px solid var(--border-default);
+  transition: all 0.2s var(--ease); cursor: pointer;
+}
+.footer-nav a:hover { color: var(--accent-light); border-color: var(--accent); background: var(--accent-glow); text-decoration: none; }
+.footer-nav a svg { width: 16px; height: 16px; }
+.footer-nav .back-all {
+  border-color: var(--accent); color: var(--accent-light);
+}
+.footer-meta {
+  text-align: center; font-size: 12px; color: var(--text-dim);
+}
+.footer-meta p { margin-bottom: 4px; font-size: 12px; color: var(--text-dim); }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .nav-inner { padding: 8px 10px 8px 20px; }
+  .toc-sidebar { display: none; }
+  .main { padding-left: 0; }
+  .content-layout { max-width: var(--max-width); }
+}
+@media (max-width: 768px) {
+  .main { padding-left: 0; padding-right: 0; }
+  .content-layout { padding-left: 20px; padding-right: 20px; }
+  .brief-hero { padding-left: 20px; padding-right: 20px; }
+  .brief-hero-title { font-size: 26px; }
+  .brief-nav-btn { padding: 8px 16px; font-size: 12px; }
+  .company-grid { grid-template-columns: 1fr; }
+  h2 { font-size: 20px; }
+  .footer-nav { flex-direction: column; gap: 12px; }
+  .footer-nav a { width: 100%; justify-content: center; }
+  .nav { padding: 12px 16px; }
+}
+
+/* Feature flags */
+.ff-ext-edit { display: none !important; }
+body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
+body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: 0.01ms !important; }
+}
+
+/* Mobile Nav */
+@media (max-width: 1024px) {
+  .nav { padding: 0; }
+  .nav-inner {
+    border-radius: 0; border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    max-width: none; width: 100%; padding: 10px 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, rgba(20,23,32,0.85) 0%, rgba(30,34,45,0.75) 50%, rgba(99,102,241,0.06) 100%);
+    position: relative;
+  }
+  .nav-hamburger { order: -1; }
+  .nav-brand { position: absolute; left: 50%; transform: translateX(-50%); margin-right: 0; }
+  .nav-drawer {
+    right: auto; left: 0; transform: translateX(-100%);
+    background: linear-gradient(160deg, rgba(15,17,25,0.18) 0%, rgba(25,28,40,0.12) 40%, rgba(99,102,241,0.04) 100%);
+    backdrop-filter: blur(100px) saturate(2); -webkit-backdrop-filter: blur(100px) saturate(2);
+    border-left: none; border-right: 1px solid rgba(255,255,255,0.1);
+  }
+}
+
+/* Site Footer (matches summit.html) */
+.site-footer {
+  background: var(--bg-secondary);
+  background-image:
+    radial-gradient(ellipse 65% 70% at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(236, 72, 153, 0.07) 0%, transparent 65%);
+  border-top: 1px solid var(--border-default);
+  padding: 48px 0; text-align: center;
+}
+.site-footer p { font-size: 14px; color: var(--text-dim); margin-bottom: 8px; }
+.footer-weather {
+  display: flex; justify-content: center; gap: 24px; margin-top: 16px;
+  flex-wrap: wrap;
+}
+.fw-day { text-align: center; }
+.fw-day-date { font-size: 11px; color: var(--text-dim); margin-bottom: 4px; }
+.fw-day-icon { font-size: 22px; line-height: 1; margin-bottom: 2px; }
+.fw-day-temp { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+.fw-day-temp span { font-weight: 400; opacity: 0.7; }
+
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-brand">IFS <span>Summit</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../summit.html">Summit</a></li>
+      <li><a href="../summit.html#prereads">Pre-reads</a></li>
+      <li><a href="#" style="opacity: 0.5; pointer-events: none;">Team</a></li>
+    </ul>
+    <button class="nav-hamburger" onclick="toggleDrawer()">
+      <i data-lucide="menu"></i>
+    </button>
+  </div>
+</nav>
+
+<div id="navOverlay" class="nav-overlay" onclick="toggleDrawer()"></div>
+<div id="navDrawer" class="nav-drawer">
+  <button class="drawer-close" onclick="toggleDrawer()">
+    <i data-lucide="x"></i>
+  </button>
+  <a href="../index.html">Home</a>
+  <a href="../summit.html">Summit</a>
+  <a href="../summit.html#prereads">Pre-reads</a>
+</div>
+
+<!-- Hero Section -->
+<section class="brief-hero">
+  <div class="brief-hero-inner">
+    <div class="brief-hero-eyebrow">Future of Function &middot; 05</div>
+    <h1 class="brief-hero-title">Future of Marketing</h1>
+    <div class="brief-hero-subtitle">AI-native operations, content at scale, personalization as the default</div>
+    <div class="brief-hero-tagline">Pre-read & inspiration brief for IFS AI Leadership Summit</div>
+    <div class="brief-hero-nav">
+      <a href="future-of-function-04-customer-support-success.html" class="brief-nav-btn">
+        <i data-lucide="arrow-left"></i> Customer Support &amp; Success
+      </a>
+      <a href="../summit.html#prereads" class="brief-nav-btn brief-nav-all">
+        <i data-lucide="layout-grid"></i> All Briefs
+      </a>
+      <a href="future-of-function-06-hr.html" class="brief-nav-btn">
+        HR <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content Layout -->
+<div class="content-layout">
+
+  <!-- Sidebar TOC -->
+  <aside class="toc-sidebar">
+    <nav class="toc-nav">
+      <a href="#section-1" class="toc-item" data-section="section-1">
+        <span class="toc-dot"></span> The Shift
+      </a>
+      <a href="#section-2" class="toc-item" data-section="section-2">
+        <span class="toc-dot"></span> Homework
+      </a>
+      <a href="#section-3" class="toc-item" data-section="section-3">
+        <span class="toc-dot"></span> Nudges
+      </a>
+      <a href="#section-4" class="toc-item" data-section="section-4">
+        <span class="toc-dot"></span> Questions
+      </a>
+      <a href="#section-5" class="toc-item" data-section="section-5">
+        <span class="toc-dot"></span> Companies
+      </a>
+      <a href="#section-6" class="toc-item" data-section="section-6">
+        <span class="toc-dot"></span> Hands-On
+      </a>
+      <a href="#section-7" class="toc-item" data-section="section-7">
+        <span class="toc-dot"></span> Resources
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+
+  <!-- Section 1: The Shift -->
+  <div class="section" id="section-1">
+    <h2>1. The Shift</h2>
+    <p><strong>Klarna</strong> cut its marketing agency spend by 25%, halved its marketing team from 200 to 100, and saved $10 million annually while increasing campaign output. AI-powered images that took six weeks now take seven days. 87% of employees use generative AI daily. The result: more campaigns, more creative assets, less spend.</p>
+    <p><strong>Coca-Cola</strong> committed $1.1 billion to AI-powered marketing and built Fizzion, an intelligent creative platform that produces content ten times faster across languages and regions. Their AI-generated holiday ads scored 5.9 out of 6 in blind consumer testing among the highest-tested ads in company history.</p>
+    <p><strong>Duolingo</strong> declared "AI-first" in 2024. Same team. Four to five times the content output. Revenue forecast crossed $1 billion. Their rule: no feature ships without asking "Can AI eliminate this function entirely?"</p>
+    <p>Three companies, three approaches, one pattern: the bottleneck in marketing was never creativity or strategy. It was production speed and personalisation at scale. AI removes both constraints simultaneously, and the organisations that move first are pulling away.</p>
+  </div>
+
+  <!-- Section 2: Your Pre-Summit Homework -->
+  <div class="section" id="section-2">
+    <h2>2. Your Pre-Summit Homework</h2>
+    <p>Three things to bring to the session. Not to present, but to think about. Write them down. Short answers are fine. What matters is that you've actually wrestled with them.</p>
+
+    <div class="framework-item">
+      <h3>1. A bold vision for 1 January 2027</h3>
+      <p>If you fast-forwarded 20 months, what does your marketing function look like? Not incremental. Drastically different. What's disappeared? What's new? What does "a marketing team" even mean? Write the headline version: if someone wrote a profile of your function in January 2027, what would it say?</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>2. The case for transformation</h3>
+      <p>Why does your marketing function need to transform, and why now? Not "AI is important" generically. The specific commercial, competitive, or structural reason transformation is non-negotiable for you. What breaks if you stay as you are? If you can't articulate this in two sentences, your team won't follow you.</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>3. The KPIs that matter in the new era</h3>
+      <p>What are the 2-3 metrics that tell you marketing is winning in an AI-native world? Pipeline influenced per marketer? Content velocity? Personalisation depth? SQL-to-close improvement? Creative quality per dollar? The old KPIs of output, reach, and impressions measure effort. What measures outcome in a world where effort is automated?</p>
+    </div>
+  </div>
+
+  <!-- Section 3: Directional Nudges -->
+  <div class="section" id="section-3">
+    <h2>3. Directional Nudges: Sense - Decide - Execute</h2>
+
+    <div class="framework-item">
+      <h3>Sense: From Quarterly Reports to Continuous Market Intelligence</h3>
+      <div class="provocation">What if your marketing intelligence was continuous, autonomous, and more current than any analyst could produce, and no human touched the data?</div>
+      <p>Platforms like 6sense and Metadata.io already monitor intent signals across the web, identifying in-market accounts before they raise their hand. Attribution platforms automatically connect every touchpoint (email, ad, event, content) to pipeline and revenue in real-time. Customer feedback platforms synthesise support tickets, reviews, and social mentions into market-level insights within hours.</p>
+      <p><strong>The structural change:</strong> sensing shifts from a team of analysts preparing decks to an always-on intelligence layer. Marketers shift from compiling reports to interrogating data. The question changes from "What happened last quarter?" to "What should we do about what's happening right now?"</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>Decide: From Campaign Calendars to Dynamic Optimisation</h3>
+      <div class="provocation">What if every campaign decision (channel mix, budget allocation, messaging, creative variant) was informed by real-time performance data and AI-modelled scenarios before launch?</div>
+      <p>Platforms like Metadata.io and Mutiny autonomously test creative variants, channel mixes, and audience segments, running dozens of experiments in parallel. Claude and similar reasoning models synthesise competitive reports, audience research, and campaign performance data into strategic recommendations in minutes. Marketing automation platforms now include AI-powered next-best-action engines that recommend which channel, message, and offer will resonate most with each prospect.</p>
+      <p><strong>The structural change:</strong> campaign optimisation becomes algorithmic instead of manual. The "decision meeting" transforms: instead of debating what to test, teams debate what the data is telling them and why the AI recommendation might miss something human judgement catches.</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>Execute: From Event Logistics to Content Amplification</h3>
+      <div class="provocation">What if every customer interaction automatically became a content asset (case study, quote, social post, video snippet) all within 48 hours, with zero production overhead?</div>
+      <p>Event transcripts and customer interactions feed into synthesis engines that automatically produce session summaries, customer quote extracts, case study outlines, social posts, and email sequences. Video platforms with AI editing generate short-form content for each talk within hours of recording. AI content distribution platforms optimise timing and messaging per platform and audience segment.</p>
+      <p><strong>The structural change:</strong> event execution shifts from logistical to strategic. Teams shrink but output explodes (50+ content pieces per event versus 5-8 today). The survivors are strategists and storytellers, not operators.</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>The Loop Closes</h3>
+      <p>In the AI-native marketing function, sensing is continuous, deciding is rapid, and executing is autonomous. The marketing calendar dissolves into a continuous optimisation loop. The CMO's job shifts from "Did we hit our number?" to "Are we capturing every signal and acting on it instantly?"</p>
+    </div>
+
+    <div class="north-star-callout">
+      <div class="ns-label">Thought Exercise</div>
+      <p class="ns-body"><strong>How might you run your marketing function with less than half its current footprint?</strong> Not through layoffs, but by eliminating the work that AI makes redundant. What disappears entirely? What gets radically faster? And what new roles emerge that nobody is doing today?</p>
+    </div>
+  </div>
+
+  <!-- Section 4: Tough Questions -->
+  <div class="section" id="section-4">
+    <h2>4. Tough Questions to Ask Yourself</h2>
+    <div class="questions-section">
+      <div class="question-category">
+        <h4>Sense</h4>
+        <ul>
+          <li>If competitive intelligence was continuous and autonomous, how would your strategy meetings change?</li>
+          <li>What percentage of your marketing team's time is spent finding information versus acting on it?</li>
+          <li>If AI synthesised real-time market signals daily, would you still need a quarterly business review?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>Decide</h4>
+        <ul>
+          <li>If you could model 50 campaign scenarios before launch, would you still debate creative in meetings or let the data decide?</li>
+          <li>What is the elapsed time from "insight identified" to "campaign launched" and how much of that is waiting for approval cycles?</li>
+          <li>If channel mix and messaging were optimised dynamically by AI, what would your campaign strategists actually do?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>Execute</h4>
+        <ul>
+          <li>How many content pieces could you produce if every customer interaction automatically became an asset within 48 hours?</li>
+          <li>If AI handled email nurture, social posting, and event logistics, what would your field marketing team actually own?</li>
+          <li>If production costs (content, design, video) dropped by 70%, how would your marketing spend allocation change?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>North Star</h4>
+        <ul>
+          <li>If you could redesign your marketing function from scratch with AI-native assumptions, what would it look like and how many people would it need?</li>
+          <li>What are the 2-3 new marketing roles that don't exist today but will be essential in 12 months?</li>
+          <li>If every prospect received a message hyper-personalised for their industry, role, and buying stage because AI made mass personalisation free, how would your competitive advantage shift?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Companies to Explore -->
+  <div class="section" id="section-5">
+    <h2>5. Companies to Explore</h2>
+    <p>Spend time on these websites. Watch demos, read case studies. Understanding what is production-grade today is the prerequisite for deciding what to act on.</p>
+
+    <div class="company-section-label">If your pain is content creation at scale</div>
+    <div class="company-grid">
+      <a href="https://jasper.ai" target="_blank" rel="noopener" class="company-card">
+        <h4>Jasper</h4>
+        <div class="cc-tag">Content Generation</div>
+        <div class="cc-desc">AI content generation with brand governance. Produces blog posts, emails, social, and ads in seconds with voice training and compliance controls.</div>
+        <div class="cc-look">Look at: the brand voice training demo and vertical-specific content generation.</div>
+        <div class="cc-url">jasper.ai &rarr;</div>
+      </a>
+      <a href="https://writer.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Writer</h4>
+        <div class="cc-tag">Content Generation</div>
+        <div class="cc-desc">AI writing with built-in brand, tone, and regulatory controls. Enterprise governance baked in.</div>
+        <div class="cc-look">Look at: the governance layer and how rules propagate across outputs.</div>
+        <div class="cc-url">writer.com &rarr;</div>
+      </a>
+      <a href="https://synthesia.io" target="_blank" rel="noopener" class="company-card">
+        <h4>Synthesia</h4>
+        <div class="cc-tag">Video Generation</div>
+        <div class="cc-desc">AI video generation from scripts. Creates presenter videos and personalised video messages at scale without cameras or actors.</div>
+        <div class="cc-look">Look at: the brand avatar feature and personalisation at scale.</div>
+        <div class="cc-url">synthesia.io &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is campaign optimisation and intent</div>
+    <div class="company-grid">
+      <a href="https://metadata.io" target="_blank" rel="noopener" class="company-card">
+        <h4>Metadata.io</h4>
+        <div class="cc-tag">Campaign Automation</div>
+        <div class="cc-desc">Autonomous campaign execution. AI launches, tests, and optimises campaigns across channels with revenue-focused attribution.</div>
+        <div class="cc-look">Look at: their autonomous campaign demo and ROI tracking.</div>
+        <div class="cc-url">metadata.io &rarr;</div>
+      </a>
+      <a href="https://6sense.com" target="_blank" rel="noopener" class="company-card">
+        <h4>6sense</h4>
+        <div class="cc-tag">Intent Intelligence</div>
+        <div class="cc-desc">AI revenue intelligence. Intent data, predictive scoring, and account identification. Reveals in-market accounts before they convert.</div>
+        <div class="cc-look">Look at: the buyer journey mapping feature and intent signalling.</div>
+        <div class="cc-url">6sense.com &rarr;</div>
+      </a>
+      <a href="https://mutiny.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Mutiny</h4>
+        <div class="cc-tag">Personalization</div>
+        <div class="cc-desc">AI website and email personalisation. Dynamically tailors experiences per account, industry, and buying stage.</div>
+        <div class="cc-look">Look at: the conversion rate lift benchmarks and variant testing.</div>
+        <div class="cc-url">mutiny.com &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is analytics and attribution</div>
+    <div class="company-grid">
+      <a href="https://dreamdata.io" target="_blank" rel="noopener" class="company-card">
+        <h4>Dreamdata</h4>
+        <div class="cc-tag">Attribution</div>
+        <div class="cc-desc">B2B multi-touch attribution. Maps the full buyer journey and ties marketing activity to pipeline and revenue.</div>
+        <div class="cc-look">Look at: their full funnel attribution model.</div>
+        <div class="cc-url">dreamdata.io &rarr;</div>
+      </a>
+      <a href="https://sproutsocial.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Sprout Social</h4>
+        <div class="cc-tag">Social Analytics</div>
+        <div class="cc-desc">AI social media management and analytics. Predicts best posting times, optimises engagement, and synthesises social listening.</div>
+        <div class="cc-look">Look at: the engagement analytics and AI recommendations.</div>
+        <div class="cc-url">sproutsocial.com &rarr;</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Section 6: Hands-On Exercises -->
+  <div class="section" id="section-6">
+    <h2>6. Hands-On Exercises</h2>
+    <p>Do at least one before the session. These are designed to give you first-hand experience of what AI-native marketing feels like - not just an opinion about it.</p>
+
+    <div class="exercise-card">
+      <h3>Exercise 1: The Vertical Content Engine</h3>
+      <div class="ec-time">30 min</div>
+      <p>Pick one topic your organisation would market. Use Claude to produce: one long-form article for industry vertical A, one for vertical B, 6 LinkedIn posts (2 per vertical), and 3 email subject lines per vertical. Measure elapsed time. Count total assets created. Compare to your content team's typical output.</p>
+      <p><strong>Output:</strong> 18+ pieces of vertical-specific content from one brief.<br>
+      <strong>Tools:</strong> Claude (claude.ai), your brand guidelines</p>
+    </div>
+
+    <div class="exercise-card">
+      <h3>Exercise 2: The Intent-to-Pipeline Dashboard</h3>
+      <div class="ec-time">60 min</div>
+      <p>Export data from your marketing automation and CRM. Build an interactive dashboard showing: campaign ROI by source, conversion velocity by stage, and AI-recommended next actions per account. The goal is to see what an always-on marketing intelligence layer looks like.</p>
+      <p><strong>Output:</strong> An interactive attribution dashboard connecting spend to pipeline with AI insights.<br>
+      <strong>Tools:</strong> Claude, Python or Excel, CRM/marketing data exports</p>
+    </div>
+
+    <div class="exercise-card">
+      <h3>Exercise 3: The Event Content Accelerator</h3>
+      <div class="ec-time">90 min</div>
+      <p>Take a recording or transcript from your last event. Use Claude to produce: session summaries, customer quote extracts, 10 LinkedIn posts, a newsletter draft, and a highlights one-pager. Compare to your current post-event workflow - both in time and volume of assets.</p>
+      <p><strong>Output:</strong> A complete post-event content package (8-10 pieces) produced in under 90 minutes.<br>
+      <strong>Tools:</strong> Claude, event transcripts, brand templates</p>
+    </div>
+  </div>
+
+  <!-- Section 7: Curated Resource Library -->
+  <div class="section" id="section-7">
+    <h2>7. Curated Resource Library</h2>
+
+    <div class="resource-category">
+      <h3>Books</h3>
+      <div class="resource-item">
+        <div class="ri-title">The AI-First Company</div>
+        <div class="ri-author">Ash Fontana</div>
+        <p class="ri-desc">The playbook for restructuring operations around AI, not bolting it onto legacy structures.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Prediction Machines</div>
+        <div class="ri-author">Agrawal, Gans & Goldfarb</div>
+        <p class="ri-desc">The economic framework for understanding when and why AI changes decisions. Read this first if you want the business logic.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The Coming Wave</div>
+        <div class="ri-author">Mustafa Suleyman</div>
+        <p class="ri-desc">The geopolitical and business implications of AI. Written by a co-founder of DeepMind - this is the strategic context for everything else on this list.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Competing in the Age of AI</div>
+        <div class="ri-author">Iansiti & Lakhani</div>
+        <p class="ri-desc">Harvard Business School's framework for AI-native operations. The case studies are the strongest part.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Co-Intelligence: Living and Working with AI</div>
+        <div class="ri-author">Ethan Mollick</div>
+        <p class="ri-desc">The most practical book on humans and AI as co-workers. Mollick is the gold standard for exec-level AI thinking.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The AI-Savvy Leader</div>
+        <div class="ri-author">David De Cremer</div>
+        <p class="ri-desc">Nine strategies for maintaining leadership effectiveness during AI integration. Focused on the human side of the transformation.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Marketing Artificial Intelligence</div>
+        <div class="ri-author">Paul Roetzer & Mike Kaput</div>
+        <p class="ri-desc">The marketing-specific playbook for AI-native operations, content strategy, and team restructuring.</p>
+      </div>
+    </div>
+
+    <div class="resource-category">
+      <h3>Podcasts</h3>
+      <div class="resource-item">
+        <div class="ri-title">Lenny's Podcast</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/2dR1MUZEHCOnz1LVfNac0j" target="_blank" rel="noopener">Spotify</a> - <a href="https://podcasts.apple.com/us/podcast/lennys-podcast-product-career-growth/id1627920305" target="_blank" rel="noopener">Apple Podcasts</a></div>
+        <p class="ri-desc">World-class product, growth, and GTM operators. The "How I AI" spin-off with Claire Vo is where marketing leaders will find tactical AI workflow content. Start with recent episodes on AI-native go-to-market and content generation.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Lex Fridman Podcast</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/2MAi0BvDc6GTFvKFPXnkCL" target="_blank" rel="noopener">Spotify</a> - <a href="https://podcasts.apple.com/us/podcast/lex-fridman-podcast/id1434243584" target="_blank" rel="noopener">Apple Podcasts</a></div>
+        <p class="ri-desc">Long-form conversations with frontier-model CEOs (Dario Amodei, Sam Altman, Demis Hassabis) and deep-tech operators. Strategic context for where marketing technology is heading, not just where it is.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Marketing Against the Grain</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/3bMqKPfI45OmTK5hENtIOk" target="_blank" rel="noopener">Spotify</a> - <a href="https://podcasts.apple.com/us/podcast/marketing-against-the-grain/id1616700934" target="_blank" rel="noopener">Apple Podcasts</a></div>
+        <p class="ri-desc">Practical playbook for integrating AI into existing marketing operations without rebuilding from scratch. Hosted by Kipp Bodnar (HubSpot CMO) and Kieran Flanagan. Real implementations across B2B and B2C companies.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The CMO Podcast</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/0wrFRk7TB3Z6EIBsecwhCp" target="_blank" rel="noopener">Spotify</a> - <a href="https://podcasts.apple.com/us/podcast/the-cmo-podcast/id1460604334" target="_blank" rel="noopener">Apple Podcasts</a></div>
+        <p class="ri-desc">Hosted by Jim Stengel (former P&G CMO). Intimate conversations with dynamic CMOs across industries. Deep dives on marketing transformation and AI adoption from leaders reshaping the function.</p>
+      </div>
+    </div>
+
+    <div class="resource-category">
+      <h3>Newsletters</h3>
+      <div class="resource-item">
+        <div class="ri-title">One Useful Thing</div>
+        <div class="ri-author">Ethan Mollick - <a href="https://www.oneusefulthing.org/" target="_blank" rel="noopener">oneusefulthing.org</a></div>
+        <p class="ri-desc">The gold standard for practical AI thinking. Weekly insights grounded in real adoption patterns.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The Rundown AI</div>
+        <div class="ri-author">Rowan Cheung - <a href="https://www.therundown.ai/" target="_blank" rel="noopener">therundown.ai</a></div>
+        <p class="ri-desc">Five-minute daily updates on AI trends and tools. Stay current on new marketing AI platforms and applications.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Superhuman AI</div>
+        <div class="ri-author">Zain Kahn - <a href="https://www.superhuman.ai/" target="_blank" rel="noopener">superhuman.ai</a></div>
+        <p class="ri-desc">Actionable AI productivity tips for leaders. High signal-to-noise.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Benedict's Newsletter</div>
+        <div class="ri-author">Benedict Evans - <a href="https://www.ben-evans.com/" target="_blank" rel="noopener">ben-evans.com</a></div>
+        <p class="ri-desc">Weekly tech strategy and market dynamics from a sharp ex-a16z analyst. Analytical take on where AI is heading.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The Batch</div>
+        <div class="ri-author">Andrew Ng - <a href="https://deeplearning.ai/the-batch" target="_blank" rel="noopener">deeplearning.ai</a></div>
+        <p class="ri-desc">Weekly AI news translated for business context. Authoritative and concise.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">There's An AI For That (TAAFT)</div>
+        <div class="ri-author"><a href="https://theresanaiforthat.com" target="_blank" rel="noopener">theresanaiforthat.com</a></div>
+        <p class="ri-desc">Curated catalogue of AI tools by use case. Discovery engine for marketing-specific solutions.</p>
+      </div>
+    </div>
+
+    <div class="resource-category">
+      <h3>Articles & Reports</h3>
+      <div class="resource-item">
+        <div class="ri-title">The State of AI in 2025: Agents, Innovation, and Transformation</div>
+        <div class="ri-author">McKinsey Global Institute - January 2025 - <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">mckinsey.com</a></div>
+        <p class="ri-desc">Enterprise AI adoption trends. 88% of organisations use AI, but only 6% are high performers. The gap is workflow redesign.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">AI Is Upending Marketing on Two Fronts</div>
+        <div class="ri-author">Harvard Business Review - February 2025 - <a href="https://hbr.org/2025/02/ai-is-upending-marketing-on-two-fronts" target="_blank" rel="noopener">hbr.org</a></div>
+        <p class="ri-desc">Conversational AI is displacing traditional search and websites. AI agents are acting as buyers. CMOs must redesign content and strategy for both human and algorithmic audiences.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">6 Ways AI Changed Business in 2024, According to Executives</div>
+        <div class="ri-author">Harvard Business Review - January 2025 - <a href="https://hbr.org/2025/01/6-ways-ai-changed-business-in-2024-according-to-executives" target="_blank" rel="noopener">hbr.org</a></div>
+        <p class="ri-desc">Data from 125 C-suite leaders on what actually shifted. Removes speculation, grounds the conversation in evidence.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">2025 AI Trends for Marketers</div>
+        <div class="ri-author">HubSpot - January 2025 - <a href="https://blog.hubspot.com/marketing/state-of-ai-report" target="_blank" rel="noopener">hubspot.com</a></div>
+        <p class="ri-desc">Survey of 1,500+ marketers on AI adoption, ROI, and workflow integration. 66% of marketers use AI in their role. Data-driven baseline for benchmarking your function.</p>
+      </div>
+    </div>
+
+    <blockquote>The marketing organisations that dominate their industries will not be the ones with the biggest content teams or the most creative awards. They will be the ones where every prospect receives a message hyper-personalised for their industry, role, and buying stage, because AI made mass personalisation free.</blockquote>
+  </div>
+
+  <!-- Footer Navigation -->
+  <div class="page-footer">
+    <div class="footer-nav">
+      <a href="future-of-function-04-customer-support-success.html">
+        <i data-lucide="arrow-left"></i> Customer Support &amp; Success
+      </a>
+      <a href="../summit.html#prereads" class="back-all">
+        <i data-lucide="layout-grid"></i> All Briefs
+      </a>
+      <a href="future-of-function-06-hr.html">
+        HR <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+    <div class="footer-meta">
+      <p>Future of Marketing &middot; AI-generated pre-read for inspiration</p>
+      <p>IFS Internal &middot; April 2026</p>
+    </div>
+  </div>
+
+</main>
+
+</div><!-- .content-layout -->
+
+<!-- Site Footer -->
+<footer class="site-footer">
+  <div style="max-width:900px;margin:0 auto;padding:0 32px;">
+    <p><strong style="color:var(--text-muted)">IFS AI Leadership Summit</strong> &middot; 4&ndash;7 May 2026 &middot; Mountain View, California</p>
+    <div class="footer-weather" id="footer-weather">
+      <div class="fw-day"><div class="fw-day-date">Sun 4</div><div class="fw-day-icon" id="weather-icon-0">&ndash;</div><div class="fw-day-temp" id="weather-temp-0">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Mon 5</div><div class="fw-day-icon" id="weather-icon-1">&ndash;</div><div class="fw-day-temp" id="weather-temp-1">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Tue 6</div><div class="fw-day-icon" id="weather-icon-2">&ndash;</div><div class="fw-day-temp" id="weather-temp-2">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Wed 7</div><div class="fw-day-icon" id="weather-icon-3">&ndash;</div><div class="fw-day-temp" id="weather-temp-3">&ndash;</div></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i data-lucide="arrow-up"></i>
+</button>
+
+<!-- ═══════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  // Feature flags
+  if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
+    document.body.classList.add('ff-ext-edit-on');
+  }
+
+  // Initialize Lucide icons
+  lucide.createIcons();
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Navbar scroll state
+  const nav = document.querySelector('.nav');
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+        var btn = document.getElementById('back-to-top');
+        if (btn) btn.classList.toggle('visible', window.scrollY > 400);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile drawer toggle
+  window.toggleDrawer = function() {
+    var drawer = document.getElementById('navDrawer');
+    var overlay = document.getElementById('navOverlay');
+    var isOpen = drawer.classList.contains('open');
+    drawer.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  };
+
+  // Sidebar TOC scroll-spy
+  var sections = document.querySelectorAll('.section[id]');
+  var tocItems = document.querySelectorAll('.toc-item');
+  if (tocItems.length) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          tocItems.forEach(function(c) { c.classList.remove('active'); });
+          var match = document.querySelector('.toc-item[data-section="' + entry.target.id + '"]');
+          if (match) match.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(function(s) { observer.observe(s); });
+  }
+
+  // Smooth scroll for internal links
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Weather widget
+  (function fetchWeather() {
+    const lat = 37.3861, lon = -122.0839;
+    function weatherIcon(code) {
+      if (code <= 1) return { icon: '\u2600\uFE0F', label: 'Clear' };
+      if (code <= 3) return { icon: '\u26C5', label: 'Partly cloudy' };
+      if (code <= 48) return { icon: '\uD83C\uDF2B\uFE0F', label: 'Foggy' };
+      if (code <= 57) return { icon: '\uD83C\uDF26\uFE0F', label: 'Drizzle' };
+      if (code <= 67) return { icon: '\uD83C\uDF27\uFE0F', label: 'Rain' };
+      if (code <= 77) return { icon: '\u2744\uFE0F', label: 'Snow' };
+      if (code <= 82) return { icon: '\uD83C\uDF27\uFE0F', label: 'Showers' };
+      if (code <= 86) return { icon: '\uD83C\uDF28\uFE0F', label: 'Snow showers' };
+      return { icon: '\u26C8\uFE0F', label: 'Thunderstorm' };
+    }
+    function render(d) {
+      for (let i = 0; i < 4; i++) {
+        const w = weatherIcon(d.weather_code[i]);
+        var iconEl = document.getElementById('weather-icon-' + i);
+        var tempEl = document.getElementById('weather-temp-' + i);
+        if (iconEl) { iconEl.textContent = w.icon; iconEl.title = w.label; }
+        if (tempEl) { tempEl.innerHTML = Math.round(d.temperature_2m_max[i]) + '&deg; <span>/ ' + Math.round(d.temperature_2m_min[i]) + '&deg;C</span>'; }
+      }
+    }
+    var forecastUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=celsius&start_date=2026-05-04&end_date=2026-05-07&timezone=America/Los_Angeles';
+    fetch(forecastUrl).then(function(r) { return r.json(); }).then(function(data) {
+      if (data.error) throw new Error('out of range');
+      render(data.daily);
+    }).catch(function() {
+      var histUrl = 'https://archive-api.open-meteo.com/v1/archive?latitude=' + lat + '&longitude=' + lon + '&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=celsius&start_date=2025-05-04&end_date=2025-05-07&timezone=America/Los_Angeles';
+      fetch(histUrl).then(function(r) { return r.json(); }).then(function(data) {
+        if (data.error) throw new Error('archive failed');
+        render(data.daily);
+      }).catch(function() {});
+    });
+  })();
+
+})();
+</script>
+</body>
+</html>

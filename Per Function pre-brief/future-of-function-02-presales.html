@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-Sales &middot; IFS AI Leadership Summit</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN SYSTEM · Matches index.html exactly
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --bg-primary: #090b10;
+  --bg-secondary: #0f1117;
+  --bg-surface: #181b23;
+  --bg-surface-hover: #1e222d;
+  --border-subtle: #1e222d;
+  --border-default: #2a2f3d;
+  --border-accent: #6366f1;
+  --text-primary: #f0f1f5;
+  --text-secondary: #e4e6ed;
+  --text-muted: #9498ad;
+  --text-dim: #6b7094;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --accent-glow: rgba(99, 102, 241, 0.12);
+  --accent-indigo: var(--accent);
+  --accent-indigo-light: var(--accent-light);
+  --accent-indigo-glow: var(--accent-glow);
+  --accent-amber: #f59e0b;
+  --accent-emerald: #22c55e;
+  --accent-cyan: #06b6d4;
+  --accent-red: #ef4444;
+  --red-muted: #f87171;
+  --red-bg: rgba(248, 113, 113, 0.08);
+  --green-bg: rgba(99, 102, 241, 0.06);
+  --stat-gradient: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  --font-display: 'Lexend', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --max-width: 900px;
+  --nav-height: 64px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 24px); }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.65;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: white; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 3px; }
+a { color: var(--accent-light); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN NAVBAR
+   ═══════════════════════════════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; justify-content: center;
+  padding: 18px 32px;
+  pointer-events: none;
+}
+.nav-inner {
+  display: flex; align-items: center;
+  background: linear-gradient(135deg, rgba(20, 23, 32, 0.55) 0%, rgba(30, 34, 45, 0.45) 50%, rgba(99, 102, 241, 0.05) 100%);
+  backdrop-filter: blur(40px) saturate(1.3); -webkit-backdrop-filter: blur(40px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  padding: 8px 10px 8px 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 48px rgba(99,102,241,0.04), inset 0 1px 0 rgba(255,255,255,0.06);
+  pointer-events: auto;
+  max-width: 860px;
+  width: auto;
+  gap: 6px;
+}
+.nav-brand {
+  font-family: var(--font-display); font-size: 16px; font-weight: 800;
+  white-space: nowrap; margin-right: 16px;
+  color: #f0f1f5;
+  letter-spacing: -0.3px;
+  text-decoration: none;
+}
+.nav-brand:hover { text-decoration: none; opacity: 0.85; }
+.nav-brand span {
+  font-weight: 400;
+  background: linear-gradient(135deg, #818cf8, #06b6d4);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nav-links { display: flex; gap: 2px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; color: var(--text-dim);
+  padding: 10px 16px; border-radius: 100px; text-decoration: none;
+  transition: color 0.2s, background 0.2s; cursor: pointer;
+  letter-spacing: 0.1px;
+}
+.nav-links a:hover { color: #f0f1f5; background: rgba(255,255,255,0.1); text-decoration: none; }
+.nav-links a.active { color: white; background: var(--accent); }
+
+.nav.scrolled .nav-inner {
+  background: linear-gradient(135deg, rgba(20, 23, 32, 0.7) 0%, rgba(30, 34, 45, 0.6) 50%, rgba(99, 102, 241, 0.06) 100%);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Hamburger */
+.nav-hamburger {
+  display: none; background: none; border: none; color: var(--text-muted);
+  cursor: pointer; padding: 8px; border-radius: 100px;
+}
+.nav-hamburger:hover { background: rgba(255,255,255,0.1); }
+
+/* Mobile drawer */
+.nav-drawer {
+  display: none; position: fixed; top: 0; right: 0; bottom: 0;
+  width: 280px; background: var(--bg-surface); border-left: 1px solid var(--border-default);
+  z-index: 1001; transform: translateX(100%); transition: transform 0.3s var(--ease);
+  padding: 80px 24px 24px; flex-direction: column; gap: 4px;
+}
+.nav-drawer.open { transform: translateX(0); display: flex; }
+.nav-drawer a {
+  font-size: 15px; font-weight: 600; color: var(--text-muted);
+  padding: 14px 16px; border-radius: 8px; text-decoration: none;
+  transition: color 0.2s, background 0.2s; display: block;
+}
+.nav-drawer a:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); text-decoration: none; }
+.nav-drawer a.active { color: var(--accent-light); background: var(--accent-glow); }
+.nav-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 1000;
+}
+.nav-overlay.open { display: block; }
+.drawer-close {
+  position: absolute; top: 16px; right: 16px; background: none; border: none;
+  color: var(--text-muted); cursor: pointer; padding: 8px; border-radius: 6px;
+}
+.drawer-close:hover { color: var(--text-primary); background: rgba(255,255,255,0.06); }
+
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+  .nav-drawer.open { display: flex; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BRIEF HERO
+   ═══════════════════════════════════════════════════════════════ */
+.brief-hero {
+  padding: calc(var(--nav-height) + 56px) 32px 48px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 70% 60% at 85% 15%, rgba(99, 102, 241, 0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 50% at 10% 80%, rgba(6, 182, 212, 0.10) 0%, transparent 65%),
+    var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.brief-hero-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.brief-hero-eyebrow {
+  font-family: var(--font-display); font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light);
+  margin-bottom: 16px;
+}
+.brief-hero-title {
+  font-family: var(--font-display); font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+  color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15;
+  margin-bottom: 12px;
+}
+.brief-hero-subtitle {
+  font-size: 17px; color: var(--accent-light); font-weight: 600; letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+.brief-hero-tagline {
+  font-size: 14px; color: var(--text-muted); font-style: italic;
+  margin-bottom: 28px;
+}
+.brief-hero-nav {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.brief-nav-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  padding: 10px 20px; border-radius: 100px;
+  border: 1px solid var(--border-default);
+  text-decoration: none;
+  transition: all 0.2s var(--ease);
+}
+.brief-nav-btn:hover {
+  color: var(--accent-light); border-color: var(--accent);
+  background: var(--accent-glow); text-decoration: none;
+}
+.brief-nav-btn svg { width: 16px; height: 16px; }
+.brief-nav-all {
+  border-color: var(--accent); color: var(--accent-light);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTENT LAYOUT
+   ═══════════════════════════════════════════════════════════════ */
+.content-layout {
+  display: flex;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 32px;
+  gap: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STICKY SIDEBAR TOC
+   ═══════════════════════════════════════════════════════════════ */
+.toc-sidebar {
+  width: 180px;
+  flex-shrink: 0;
+  padding-top: 48px;
+}
+.toc-nav {
+  position: sticky;
+  top: calc(var(--nav-height) + 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toc-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-dim);
+  font-size: 13px; font-weight: 500;
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+  cursor: pointer;
+  position: relative;
+}
+.toc-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 3px; border-radius: 2px;
+  background: transparent;
+  transition: background 0.2s var(--ease);
+}
+.toc-item:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.03);
+  text-decoration: none;
+}
+.toc-item.active {
+  color: var(--accent-light);
+  background: rgba(99, 102, 241, 0.06);
+}
+.toc-item.active::before {
+  background: var(--accent);
+}
+.toc-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border-default);
+  flex-shrink: 0;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.toc-item.active .toc-dot {
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════════════════════════════════════ */
+.main {
+  flex: 1;
+  min-width: 0;
+  max-width: var(--max-width);
+  padding: 48px 0 0 48px;
+}
+
+/* Sections */
+.section { margin-bottom: 32px; scroll-margin-top: calc(var(--nav-height) + 24px); }
+.section + .section { border-top: none; padding-top: 16px; }
+h2 {
+  font-family: var(--font-display); font-size: 24px; font-weight: 800;
+  margin-bottom: 22px; color: var(--text-primary);
+  padding-bottom: 12px; border-bottom: 1px solid var(--border-default);
+  letter-spacing: -0.3px;
+}
+h3 {
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  margin-top: 28px; margin-bottom: 12px; color: var(--accent-light);
+}
+p { margin-bottom: 14px; font-size: 15px; line-height: 1.75; color: var(--text-muted); }
+strong { color: var(--text-secondary); font-weight: 700; }
+
+/* Framework Items */
+.framework-item { margin-bottom: 28px; }
+.framework-item h3 { margin-top: 0; margin-bottom: 10px; }
+.framework-item p { margin-bottom: 10px; }
+
+/* Provocation callout */
+.provocation {
+  font-size: 16px; font-weight: 600; font-style: italic;
+  color: var(--text-primary); line-height: 1.6;
+  padding: 20px 24px; margin: 0 0 18px 0;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-glow); border-radius: 0 8px 8px 0;
+}
+
+/* North Star / Thought Exercise Callout */
+.north-star-callout {
+  background: var(--accent-glow); border: 2px solid var(--accent);
+  border-radius: 12px; padding: 28px; margin: 32px 0;
+}
+.ns-label { font-size: 11px; font-weight: 700; color: var(--accent-light); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+.ns-body { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 0; }
+.ns-body strong { color: var(--text-primary); }
+
+/* Questions */
+.questions-section {
+  background: var(--accent-glow); padding: 28px; border-radius: 12px;
+  margin: 28px 0; border: 1px solid var(--border-default);
+}
+.question-category { margin-bottom: 24px; }
+.question-category:last-child { margin-bottom: 0; }
+.question-category h4 { font-family: var(--font-display); font-size: 12px; font-weight: 700; color: var(--accent-light); letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase; }
+.question-category ul { list-style: none; padding: 0; }
+.question-category li { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; padding-left: 18px; position: relative; line-height: 1.6; }
+.question-category li::before { content: "\2013"; position: absolute; left: 0; color: var(--accent-light); font-weight: bold; }
+
+/* Company Cards */
+.company-section-label {
+  font-family: var(--font-display); font-size: 11px; font-weight: 700;
+  color: var(--accent-light); letter-spacing: 1.5px; text-transform: uppercase;
+  margin-top: 28px; margin-bottom: 14px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px; }
+.company-card {
+  background: var(--bg-surface); border-radius: 10px; padding: 20px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08); border-left: 3px solid var(--accent);
+  transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+  text-decoration: none; color: inherit; display: block; cursor: pointer;
+}
+.company-card:hover { box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15); transform: translateY(-2px); text-decoration: none; }
+.company-card h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+.company-card .cc-tag { font-size: 10px; font-weight: 600; color: var(--accent-light); letter-spacing: 0.3px; margin-bottom: 8px; }
+.company-card .cc-desc { font-size: 12px; color: var(--text-dim); line-height: 1.55; margin-bottom: 8px; }
+.company-card .cc-look { font-size: 11px; color: var(--text-muted); font-style: italic; margin-bottom: 8px; line-height: 1.5; }
+.company-card .cc-url { font-size: 11px; color: var(--accent-light); font-weight: 600; }
+
+/* Exercise Cards */
+.exercise-card {
+  background: var(--bg-surface); border-top: 3px solid var(--accent);
+  padding: 24px; margin: 20px 0; border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.exercise-card h4 { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+.exercise-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.65; }
+.exercise-card p:last-child { margin-bottom: 0; }
+
+/* Resource Library */
+.resource-category { margin-bottom: 32px; }
+.resource-category h3 { margin-top: 0; }
+.resource-item {
+  background: var(--bg-surface); border-radius: 10px; padding: 18px 20px;
+  margin-bottom: 10px; border-left: 3px solid var(--border-default);
+  transition: border-color 0.2s var(--ease);
+}
+.resource-item:hover { border-left-color: var(--accent); }
+.resource-item .ri-title {
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 2px;
+}
+.resource-item .ri-author { font-size: 12px; color: var(--accent-light); font-weight: 500; margin-bottom: 6px; }
+.resource-item .ri-desc { font-size: 12px; color: var(--text-dim); line-height: 1.55; margin: 0; }
+.resource-item a { color: var(--accent-light); font-size: 11px; font-weight: 600; }
+
+/* Blockquote */
+blockquote {
+  border-left: 4px solid var(--accent); padding-left: 22px; margin: 32px 0;
+  font-size: 16px; font-style: italic; color: var(--text-muted); line-height: 1.75;
+}
+
+/* Back to Top */
+#back-to-top {
+  position: fixed; bottom: 32px; right: 32px; z-index: 900;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--bg-surface); border: 1px solid var(--border-default);
+  color: var(--text-muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), border-color 0.2s, color 0.2s;
+  pointer-events: none;
+}
+#back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#back-to-top:hover { border-color: var(--accent); color: var(--accent-light); }
+#back-to-top svg { width: 20px; height: 20px; }
+
+/* Footer Navigation */
+.page-footer {
+  border-top: 1px solid var(--border-default);
+  padding: 32px 0 64px; margin-top: 56px;
+}
+.footer-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 32px;
+}
+.footer-nav a {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 600; color: var(--text-muted);
+  text-decoration: none; padding: 10px 18px; border-radius: 8px;
+  border: 1px solid var(--border-default);
+  transition: all 0.2s var(--ease); cursor: pointer;
+}
+.footer-nav a:hover { color: var(--accent-light); border-color: var(--accent); background: var(--accent-glow); text-decoration: none; }
+.footer-nav a svg { width: 16px; height: 16px; }
+.footer-nav .back-all {
+  border-color: var(--accent); color: var(--accent-light);
+}
+.footer-meta {
+  text-align: center; font-size: 12px; color: var(--text-dim);
+}
+.footer-meta p { margin-bottom: 4px; font-size: 12px; color: var(--text-dim); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .nav-inner { padding: 8px 10px 8px 20px; }
+  .toc-sidebar { display: none; }
+  .main { padding-left: 0; }
+  .content-layout { max-width: var(--max-width); }
+}
+@media (max-width: 768px) {
+  .main { padding-left: 0; padding-right: 0; }
+  .content-layout { padding-left: 20px; padding-right: 20px; }
+  .brief-hero { padding-left: 20px; padding-right: 20px; }
+  .brief-hero-title { font-size: 26px; }
+  .brief-nav-btn { padding: 8px 16px; font-size: 12px; }
+  .company-grid { grid-template-columns: 1fr; }
+  h2 { font-size: 20px; }
+  .footer-nav { flex-direction: column; gap: 12px; }
+  .footer-nav a { width: 100%; justify-content: center; }
+  .nav { padding: 12px 16px; }
+}
+
+/* Feature flags */
+.ff-ext-edit { display: none !important; }
+body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
+body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: 0.01ms !important; }
+}
+
+/* Mobile Nav */
+@media (max-width: 1024px) {
+  .nav { padding: 0; }
+  .nav-inner {
+    border-radius: 0; border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    max-width: none; width: 100%; padding: 10px 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, rgba(20,23,32,0.85) 0%, rgba(30,34,45,0.75) 50%, rgba(99,102,241,0.06) 100%);
+    position: relative;
+  }
+  .nav-hamburger { order: -1; }
+  .nav-brand { position: absolute; left: 50%; transform: translateX(-50%); margin-right: 0; }
+  .nav-drawer {
+    right: auto; left: 0; transform: translateX(-100%);
+    background: linear-gradient(160deg, rgba(15,17,25,0.18) 0%, rgba(25,28,40,0.12) 40%, rgba(99,102,241,0.04) 100%);
+    backdrop-filter: blur(100px) saturate(2); -webkit-backdrop-filter: blur(100px) saturate(2);
+    border-left: none; border-right: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 8px 0 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 0 80px rgba(99,102,241,0.03);
+    padding: 80px 0 24px;
+  }
+  .nav-drawer.open { transform: translateX(0); }
+  .nav-drawer .drawer-close { left: auto; right: 16px; }
+  .nav-drawer a { border-radius: 0; transition: all 0.25s ease; padding: 14px 28px; margin: 0; position: relative; }
+  .nav-drawer a:hover { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%); }
+  .nav-drawer a.active {
+    background: linear-gradient(90deg, rgba(99,102,241,0.25) 0%, rgba(139,92,246,0.12) 60%, rgba(6,182,212,0.06) 100%);
+    color: #fff; border: none; border-left: 3px solid #818cf8;
+    box-shadow: inset 0 0 30px rgba(99,102,241,0.08);
+  }
+}
+
+/* Site Footer (matches summit.html) */
+.site-footer {
+  background: var(--bg-secondary);
+  background-image:
+    radial-gradient(ellipse 65% 70% at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(236, 72, 153, 0.07) 0%, transparent 65%);
+  border-top: 1px solid var(--border-default);
+  padding: 48px 0; text-align: center;
+}
+.site-footer p { font-size: 14px; color: var(--text-dim); margin-bottom: 8px; }
+.footer-weather {
+  display: flex; justify-content: center; gap: 24px; margin-top: 16px;
+  flex-wrap: wrap;
+}
+.fw-day { text-align: center; }
+.fw-day-date { font-size: 11px; color: var(--text-dim); margin-bottom: 4px; }
+.fw-day-icon { font-size: 22px; line-height: 1; margin-bottom: 2px; }
+.fw-day-temp { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+.fw-day-temp span { font-weight: 400; opacity: 0.7; }
+
+</style>
+</head>
+<body>
+
+<!-- Main Navbar -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="../summit.html" class="nav-brand">IFS <span>AI Summit</span></a>
+    <ul class="nav-links">
+      <li><a href="../summit.html">Home</a></li>
+      <li><a href="../summit.html#agenda">Agenda</a></li>
+      <li><a href="../summit.html#prereads" class="active">Pre-Reads</a></li>
+      <li><a href="../summit.html#homework">Homework</a></li>
+      <li><a href="../summit.html#speakers">Speakers</a></li>
+      <li><a href="../summit.html#groups">Groups</a></li>
+      <li><a href="../summit.html#venue">Venue</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Open menu" onclick="toggleDrawer()">
+      <i data-lucide="menu" style="width:24px;height:24px;"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-overlay" id="navOverlay" onclick="toggleDrawer()"></div>
+<div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu">
+  <button class="drawer-close" aria-label="Close menu" onclick="toggleDrawer()">
+    <i data-lucide="x" style="width:24px;height:24px;"></i>
+  </button>
+  <a href="../summit.html" onclick="toggleDrawer()">Home</a>
+  <a href="../summit.html#agenda" onclick="toggleDrawer()">Agenda</a>
+  <a href="../summit.html#prereads" class="active" onclick="toggleDrawer()">Pre-Read Briefs</a>
+  <a href="../summit.html#homework" onclick="toggleDrawer()">Homework</a>
+  <a href="../summit.html#speakers" onclick="toggleDrawer()">Speakers</a>
+  <a href="../summit.html#groups" onclick="toggleDrawer()">Groups</a>
+  <a href="../summit.html#venue" onclick="toggleDrawer()">Venue</a>
+</div>
+
+<!-- Brief Hero -->
+<section class="brief-hero">
+  <div class="brief-hero-inner">
+    <div class="brief-hero-eyebrow">Future of Function &middot; 02</div>
+    <h1 class="brief-hero-title">Future of Pre-Sales</h1>
+    <p class="brief-hero-subtitle">What happens when every prospect gets a customised, data-driven demo before a human ever speaks?</p>
+    <p class="brief-hero-tagline">AI-generated pre-read for inspiration. Links and claims may drift, so verify anything you plan to cite.</p>
+    <div class="brief-hero-nav">
+      <a href="future-of-function-01-sales.html" class="brief-nav-btn">
+        <i data-lucide="arrow-left"></i> Sales
+      </a>
+      <a href="../summit.html#prereads" class="brief-nav-btn brief-nav-all">
+        <i data-lucide="layout-grid"></i> All Briefs
+      </a>
+      <a href="future-of-function-03-rnd.html" class="brief-nav-btn">
+        R&amp;D <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Content Layout -->
+<div class="content-layout">
+
+  <!-- Sidebar TOC -->
+  <aside class="toc-sidebar">
+    <nav class="toc-nav" aria-label="Page sections">
+      <a href="#section-1" class="toc-item" data-section="section-1">
+        <span class="toc-dot"></span> The Shift
+      </a>
+      <a href="#section-2" class="toc-item" data-section="section-2">
+        <span class="toc-dot"></span> Homework
+      </a>
+      <a href="#section-3" class="toc-item" data-section="section-3">
+        <span class="toc-dot"></span> Nudges
+      </a>
+      <a href="#section-4" class="toc-item" data-section="section-4">
+        <span class="toc-dot"></span> Questions
+      </a>
+      <a href="#section-5" class="toc-item" data-section="section-5">
+        <span class="toc-dot"></span> Companies
+      </a>
+      <a href="#section-6" class="toc-item" data-section="section-6">
+        <span class="toc-dot"></span> Hands-On
+      </a>
+      <a href="#section-7" class="toc-item" data-section="section-7">
+        <span class="toc-dot"></span> Resources
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+
+  <!-- Section 1: The Shift -->
+  <div class="section" id="section-1">
+    <h2>1. The Shift</h2>
+    <p><strong>Vivun AI</strong>&rsquo;s largest customer cut their RFP response time from 3 weeks to 36 hours by letting AI generate the first draft from their knowledge base. Same accuracy, 95% less human time. The sales team stopped writing responses and started qualifying them.</p>
+    <p><strong>Consensus</strong> automated demo delivery. Their platform generates AI-narrated, product walkthroughs personalised to each prospect&rsquo;s role, industry, and use case. Result: 40% more demos completed, 30% shorter sales cycle. The Solution Architect still exists. But they&rsquo;re now reviewing AI output, not building demos from scratch.</p>
+    <p><strong>Demostack</strong>&rsquo;s playbook is simpler: clone your product, populate it with prospect-specific data, and let buyers explore in real-time. Companies using this model report 60% faster demo prep and a 25% lift in deal velocity because the demo feels built just for them. And increasingly, it was.</p>
+    <p>One pattern across all three: <strong>the Discover-Demo-Prove cycle doesn&rsquo;t disappear. It gets compressed.</strong> AI handles the 70% of work that is repetitive (requirements capture, demo scripting, POC scoping) and lets Solution Architects focus on what humans do best: strategic deal architecture, industry insight, and navigating complex negotiations. The headcount doesn&rsquo;t drop as much as the work per person does.</p>
+  </div>
+
+  <!-- Section 2: Pre-Summit Homework -->
+  <div class="section" id="section-2">
+    <h2>2. Your Pre-Summit Homework</h2>
+    <p>Three things to bring to the session. Not to present, but to think about. Write them down. Short answers are fine. What matters is that you&rsquo;ve actually wrestled with them.</p>
+
+    <div class="homework-item">
+      <h4>1. A bold vision for 1 January 2027</h4>
+      <p>If you fast-forwarded 20 months, what does your pre-sales function look like? Not incremental. Drastically different. What&rsquo;s disappeared? What&rsquo;s new? What does a pre-sales team even mean? Write the headline version: if someone wrote a profile of your function in January 2027, what would it say?</p>
+    </div>
+
+    <div class="homework-item">
+      <h4>2. The case for transformation</h4>
+      <p>Why does your pre-sales function need to transform, and why now? Not &ldquo;AI is important&rdquo; generically. The specific commercial, competitive, or structural reason transformation is non-negotiable for you. What breaks if you stay as you are? If you can&rsquo;t articulate this in two sentences, your team won&rsquo;t follow you.</p>
+    </div>
+
+    <div class="homework-item">
+      <h4>3. The KPIs that matter in the new era</h4>
+      <p>What are the 2-3 metrics that tell you pre-sales is winning in an AI-native world? Demo-to-close conversion rate? Technical win rate? SE utilisation? Deal velocity? Something entirely new? The old KPIs of RFP response time and demos delivered measure effort. What measures outcome in a world where effort is automated?</p>
+    </div>
+  </div>
+
+  <!-- Section 3: Directional Nudges -->
+  <div class="section" id="section-3">
+    <h2>3. Directional Nudges: Sense / Decide / Execute</h2>
+
+    <div class="framework-item">
+      <h3>Sense: From Discovery Notes to Structured Requirements</h3>
+      <div class="provocation">What if every discovery call automatically produced a structured requirements matrix, competitive intelligence, and recommended solution architecture, and no human transcribed a single note?</div>
+      <p>This is happening now. Conversation intelligence platforms like Gong and Momentum transcribe and analyse every customer call, extract structured requirements in real-time, identify gaps against your product capabilities, and flag competitive mentions. A Solution Architect walks out of a discovery call and has a machine-synthesised brief waiting: customer&rsquo;s current state, desired state, must-haves, nice-to-haves, and budget signals. All auto-extracted from the conversation.</p>
+      <p><strong>The structural change:</strong> discovery stops being a knowledge-gathering exercise and starts being a strategic insight capture. SAs spend less time assembling information and more time asking better questions. The output of discovery is no longer &ldquo;meeting notes in a shared drive&rdquo;. It&rsquo;s a structured dataset that powers every downstream decision.</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>Decide: From Manual Scripting to Generative Personalization</h3>
+      <div class="provocation">What if every demo was automatically scripted, personalised to the prospect&rsquo;s industry, company size, and role, and every SA could deliver a high-quality demo in under 2 hours of prep?</div>
+      <p>Platforms like Demostack and Reprise let you clone your product and auto-populate it with prospect data. AI generates the demo script. The SA&rsquo;s role shifts from &ldquo;build and memorise 40+ scripts&rdquo; to &ldquo;validate and refine the AI-generated narrative.&rdquo; A new prospect asks for a manufacturing demo? The system spins up an environment with manufacturing data, generates the script, and flags edge cases where the SA should deviate.</p>
+      <p>This compounds over time. Every demo outcome trains the recommendation engine. Which demo modules drive engagement? Which talking points resonate? Which features move the needle in specific industries? The system learns and gets better.</p>
+      <p><strong>The structural change:</strong> demo delivery shifts from art to system. Not because AI is better than expert SAs. It&rsquo;s because AI doesn&rsquo;t get tired, doesn&rsquo;t forget the customer&rsquo;s priorities halfway through the call, and can run 10 demos a day instead of 2. Expert SAs remain but operate at a different scale.</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>Execute: From Guess-Work to Predictive POC Design</h3>
+      <div class="provocation">What if every POC was scoped based on historical data from 500+ similar deals. Not on what the sales rep thinks is right?</div>
+      <p>POC scoping is currently art. Some SAs scope tight (short timeline, narrow scope). Some scope wide. Nobody knows which approach closes deals faster. AI changes this: analyse your won deals. Which POC scope (4 weeks vs. 8 weeks, 3 modules vs. 7 modules) correlates with closing? Which success criteria do customers actually care about? Which timelines avoid budget-cycle delays? Generate the POC proposal automatically. Not as a template, but as an AI-derived playbook specific to the prospect&rsquo;s industry, company size, and deal stage.</p>
+      <p>Value engineering becomes predictive. Instead of &ldquo;we think your ROI is X,&rdquo; it becomes &ldquo;based on 400 similar deployments, your expected improvement in asset uptime is 18-22%, valued at $2.4M annually.&rdquo; The data is specific, sourced from your track record, and harder to dismiss.</p>
+      <p><strong>The structural change:</strong> the proof phase stops being a cost centre for the pre-sales team and becomes a deal accelerator. Shorter POCs. Clearer success criteria. Higher conversion rates. SAs spend less time debating scope and more time executing.</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>The Loop Closes</h3>
+      <p>In the AI-native pre-sales model, discovery is continuous and structured. Demo preparation is automated and personalised. POC scoping is data-driven. Knowledge compounds across every deal. A new SA joining your team doesn&rsquo;t inherit a folder of old RFPs and demo scripts. They inherit a system that synthesises the collective intelligence of every deal the company has ever run.</p>
+    </div>
+
+    <div class="north-star-callout">
+      <div class="ns-label">Thought Exercise</div>
+      <p class="ns-body"><strong>If your pre-sales function were half the current headcount but delivered twice the deal volume, what would have to be true?</strong> Not layoffs. What work disappears? What gets radically faster? And what do the surviving SAs actually do. Is it still called &ldquo;Solution Architect&rdquo;?</p>
+    </div>
+  </div>
+
+  <!-- Section 4: Questions -->
+  <div class="section" id="section-4">
+    <h2>4. Tough Questions to Ask Yourself</h2>
+    <div class="questions-section">
+      <div class="question-category">
+        <h4>Sense</h4>
+        <ul>
+          <li>If AI transcribed every discovery call, extracted requirements, and flagged competitive mentions automatically, what would your Solution Architects actually do?</li>
+          <li>How much of your discovery time is information gathering versus strategic questioning?</li>
+          <li>What if a new SA could walk into their first customer meeting with access to every prior engagement in that industry, synthesised by AI?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>Decide</h4>
+        <ul>
+          <li>If every demo could be fully personalised in under 2 hours of prep, would you still maintain 40+ manual scripts?</li>
+          <li>What percentage of your SA time is spent on demo preparation versus being present with the customer?</li>
+          <li>If AI could generate a demo script, configure the environment, and even narrate the standard walkthrough, what is the SA&rsquo;s actual value add?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>Execute</h4>
+        <ul>
+          <li>If historical win data told you exactly which POC scope closes faster, would you still negotiate scope ad-hoc?</li>
+          <li>What would change if you could deliver a CFO-ready ROI model, personalised to the prospect&rsquo;s data, without any spreadsheet work?</li>
+          <li>How many POCs are you running today that historical data says won&rsquo;t convert, and how much SA time are you burning on them?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>North Star</h4>
+        <ul>
+          <li>If you could redesign pre-sales with AI handling 80% of RFP responses, 90% of demo prep, and all value modelling. What does the function actually look like?</li>
+          <li>Does &ldquo;Solution Architect&rdquo; remain the right title, or does the role shift to something closer to &ldquo;Strategic Deal Architect&rdquo;?</li>
+          <li>What new capabilities emerge when your team isn&rsquo;t bottlenecked on content generation and can focus entirely on complex deal strategy?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Companies -->
+  <div class="section" id="section-5">
+    <h2>5. Companies to Explore</h2>
+    <p>Spend time on these websites. Watch demos, read case studies. Understanding what is production-grade today is the prerequisite for deciding what to act on.</p>
+
+    <div class="company-section-label">If your pain is RFP responses taking too long</div>
+    <div class="company-grid">
+      <a href="https://vivun.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Vivun</h4>
+        <div class="cc-tag">Pre-Sales Intelligence</div>
+        <div class="cc-desc">Purpose-built for pre-sales teams. AI-powered RFP response generation, competitive win analysis, and deal guidance.</div>
+        <div class="cc-look">Look at: their RFP automation demo and the pre-sales intelligence dashboard.</div>
+        <div class="cc-url">vivun.com &rarr;</div>
+      </a>
+      <a href="https://responsive.ai" target="_blank" rel="noopener" class="company-card">
+        <h4>Responsive</h4>
+        <div class="cc-tag">RFP Automation</div>
+        <div class="cc-desc">AI-powered RFP response management. Synthesises answers from your knowledge base, auto-completes with reasoning, and learns from wins.</div>
+        <div class="cc-look">Look at: their response library and AI-augmented workflow.</div>
+        <div class="cc-url">responsive.ai &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is demo preparation &amp; delivery</div>
+    <div class="company-grid">
+      <a href="https://demostack.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Demostack</h4>
+        <div class="cc-tag">Interactive Demo Platform</div>
+        <div class="cc-desc">Clone your product to create personalised, interactive demos. Auto-populate with prospect data. No engineering required.</div>
+        <div class="cc-look">Look at: their interactive demo builder and the customer case studies.</div>
+        <div class="cc-url">demostack.com &rarr;</div>
+      </a>
+      <a href="https://reprise.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Reprise</h4>
+        <div class="cc-tag">Demo Experience Platform</div>
+        <div class="cc-desc">Build guided, interactive demos with analytics on feature engagement. Personalise by industry, use case, and buyer role.</div>
+        <div class="cc-look">Look at: their demo creation interface and engagement heatmaps.</div>
+        <div class="cc-url">reprise.com &rarr;</div>
+      </a>
+      <a href="https://goconsensus.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Consensus</h4>
+        <div class="cc-tag">AI Demo Automation</div>
+        <div class="cc-desc">AI-powered demo automation. AI-generated, AI-narrated product walkthroughs personalised to buyer interests. Buyers consume on-demand.</div>
+        <div class="cc-look">Look at: their demo playlist builder and the buyer engagement data.</div>
+        <div class="cc-url">goconsensus.com &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is discovery &amp; requirements capture</div>
+    <div class="company-grid">
+      <a href="https://gong.io" target="_blank" rel="noopener" class="company-card">
+        <h4>Gong</h4>
+        <div class="cc-tag">Conversation Intelligence</div>
+        <div class="cc-desc">Records, transcribes, and extracts structured requirements. Identifies competitive mentions and deal health from conversations.</div>
+        <div class="cc-look">Look at: their discovery insights engine and the competitive intelligence features.</div>
+        <div class="cc-url">gong.io &rarr;</div>
+      </a>
+      <a href="https://momentum.io" target="_blank" rel="noopener" class="company-card">
+        <h4>Momentum</h4>
+        <div class="cc-tag">Enterprise Call Intelligence</div>
+        <div class="cc-desc">Purpose-built for enterprise sales intelligence. Extracts deal signals and customer sentiment from discovery conversations.</div>
+        <div class="cc-look">Look at: their deal health scoring and action recommendations.</div>
+        <div class="cc-url">momentum.io &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is value engineering &amp; POC design</div>
+    <div class="company-grid">
+      <a href="https://ecosystems.io" target="_blank" rel="noopener" class="company-card">
+        <h4>Ecosystems</h4>
+        <div class="cc-tag">AI Value Selling</div>
+        <div class="cc-desc">Interactive value calculators and business case builders. AI-generated ROI models personalised to each prospect.</div>
+        <div class="cc-look">Look at: their value calculator builder and the scenario modelling.</div>
+        <div class="cc-url">ecosystems.io &rarr;</div>
+      </a>
+      <a href="https://causal.app" target="_blank" rel="noopener" class="company-card">
+        <h4>Causal</h4>
+        <div class="cc-tag">AI Financial Modelling</div>
+        <div class="cc-desc">Collaborative financial modelling with interactive scenario analysis. AI-enhanced planning that replaces spreadsheet-based ROI calculation.</div>
+        <div class="cc-look">Look at: their pricing model templates and the &ldquo;vs Excel&rdquo; comparison.</div>
+        <div class="cc-url">causal.app &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is content management &amp; knowledge</div>
+    <div class="company-grid">
+      <a href="https://seismic.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Seismic</h4>
+        <div class="cc-tag">Sales Enablement</div>
+        <div class="cc-desc">AI-powered content management and personalisation. Recommends the right content for each deal stage and buyer persona.</div>
+        <div class="cc-look">Look at: their content recommendations and the sales enablement dashboard.</div>
+        <div class="cc-url">seismic.com &rarr;</div>
+      </a>
+      <a href="https://highspot.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Highspot</h4>
+        <div class="cc-tag">Sales Enablement Platform</div>
+        <div class="cc-desc">Sales enablement platform with AI-driven content recommendations. Ensures teams use the most effective assets for each deal.</div>
+        <div class="cc-look">Look at: their content engagement analytics.</div>
+        <div class="cc-url">highspot.com &rarr;</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Section 6: Hands-On Exercises -->
+  <div class="section" id="section-6">
+    <h2>6. Hands-On Exercises</h2>
+    <p>Do at least one before the session. Do all three if you want to arrive with a working prototype, not an opinion.</p>
+
+    <div class="exercise-card">
+      <h4>Exercise 1: The AI RFP Responder &nbsp;&middot;&nbsp; 30 min</h4>
+      <p>Take an actual RFP response from the last 6 months. Feed the RFP questions and your product knowledge base (docs, case studies, prior responses) into Claude. Ask it to generate a complete first draft. Compare to the human version. Calculate the hours that could have been saved if AI handled the first draft and humans only reviewed and refined.</p>
+      <p><strong>Output:</strong> A complete AI-generated RFP first draft with a time-savings analysis and quality assessment.</p>
+      <p><strong>Tools:</strong> Claude, your product documentation, prior RFP responses</p>
+    </div>
+    <div class="exercise-card">
+      <h4>Exercise 2: The Discovery-to-Demo Pipeline &nbsp;&middot;&nbsp; 60 min</h4>
+      <p>Use a transcript from a real discovery call (or record a new one). Feed it into Claude and ask it to: extract structured requirements, map them to your product modules, identify gaps, and generate a personalised demo script with talking points for each section. Then use Demostack or Reprise to mock up what that demo environment would look like auto-populated with prospect-specific data.</p>
+      <p><strong>Output:</strong> A complete AI-generated demo preparation package: requirements matrix, solution map, script, and a mockup of the personalised demo environment.</p>
+      <p><strong>Tools:</strong> Claude, discovery transcript, Demostack/Reprise demo (or HTML mockup)</p>
+    </div>
+    <div class="exercise-card">
+      <h4>Exercise 3: The Prospect Value Model &nbsp;&middot;&nbsp; 90 min</h4>
+      <p>Build an interactive value calculator that takes 5 key inputs (industry, company size, current state metric, target state metric, annual spend) and outputs a personalised ROI projection using your benchmark data. Use case studies and public metrics to populate the calculation. Deploy it so you can use it in a customer meeting to generate a live ROI on the fly.</p>
+      <p><strong>Output:</strong> A deployed interactive value calculator that any team member can use during a call to generate a personalised business case in real-time.</p>
+      <p><strong>Tools:</strong> Claude, HTML/JavaScript, your benchmark data</p>
+    </div>
+  </div>
+
+  <!-- Section 7: Resources -->
+  <div class="section" id="section-7">
+    <h2>7. Curated Resource Library</h2>
+
+    <div class="resource-category">
+      <h3>Books</h3>
+      <div class="resource-item">
+        <div class="ri-title">The AI-First Company</div>
+        <div class="ri-author">Ash Fontana</div>
+        <p class="ri-desc">The playbook for restructuring operations around AI, not bolting it onto legacy structures.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Prediction Machines</div>
+        <div class="ri-author">Agrawal, Gans &amp; Goldfarb</div>
+        <p class="ri-desc">The economic framework for understanding when and why AI changes decisions. Read this first if you want the business logic.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The Coming Wave</div>
+        <div class="ri-author">Mustafa Suleyman</div>
+        <p class="ri-desc">The geopolitical and business implications of AI. Written by a co-founder of DeepMind. This is the strategic context for everything else on this list.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Competing in the Age of AI</div>
+        <div class="ri-author">Iansiti &amp; Lakhani</div>
+        <p class="ri-desc">Harvard Business School&rsquo;s framework for AI-native operations. The case studies are the strongest part.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Co-Intelligence: Living and Working with AI</div>
+        <div class="ri-author">Ethan Mollick</div>
+        <p class="ri-desc">The most practical book on humans and AI as co-workers. Mollick is the gold standard for exec-level AI thinking.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The AI-Savvy Leader</div>
+        <div class="ri-author">David De Cremer</div>
+        <p class="ri-desc">Nine strategies for maintaining leadership effectiveness during AI integration. Focused on the human side of the transformation.</p>
+      </div>
+    </div>
+
+    <div class="resource-category">
+      <h3>Podcasts: Series to Follow</h3>
+      <div class="resource-item">
+        <div class="ri-title">Lenny&rsquo;s Podcast</div>
+        <div class="ri-author">Lenny Rachitsky &middot; <a href="https://open.spotify.com/show/2dR1MUZEHCOnz1LVfNac0j" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/us/podcast/lennys-podcast-product-career-growth/id1627920305" target="_blank">Apple Podcasts</a></div>
+        <p class="ri-desc">World-class product, growth, and GTM operators. The &ldquo;How I AI&rdquo; spin-off with Claire Vo is where sales leaders will find the most tactical AI workflow content. Start with recent episodes on AI-native go-to-market.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Lex Fridman Podcast</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/2MAi0BvDc6GTFvKFPXnkCL" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/us/podcast/lex-fridman-podcast/id1434243584" target="_blank">Apple Podcasts</a></div>
+        <p class="ri-desc">Long-form conversations with frontier-model CEOs (Dario Amodei, Sam Altman, Demis Hassabis) and deep-tech operators. Strategic context for where pre-sales technology is heading, not just where it is.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">GTMnow</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/2SA1dgQ2Yc5t4V5GcBLnD2" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/us/podcast/the-sales-hacker-podcast/id1369291464" target="_blank">Apple Podcasts</a></div>
+        <p class="ri-desc">Tactical conversations on AI in sales, discovery automation, and demo delivery. Deep back-catalogue of real implementations across B2B companies.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Topline</div>
+        <div class="ri-author">Pavilion &middot; <a href="https://open.spotify.com/show/0sMemOFdCtzkxINozlqp4r" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/us/podcast/topline/id1682771619" target="_blank">Apple Podcasts</a></div>
+        <p class="ri-desc">The #1 podcast for B2B founders and revenue operators. Weekly debates on AI adoption, SaaS economics, and pre-sales innovation. Look for 2025 episodes on AI-native technical selling.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Presales Podcast by Presales Collective</div>
+        <div class="ri-author">Presales Collective &middot; <a href="https://open.spotify.com/show/2Eyy8Fr7XmvIiTbJOtDmRD" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/us/podcast/presales-podcast-by-presales-collective/id1513763021" target="_blank">Apple Podcasts</a></div>
+        <p class="ri-desc">Bi-weekly episodes on solution consulting careers, demo delivery, RFP strategy, and AI-driven discovery. Essential resource for pre-sales skill development and industry insights.</p>
+      </div>
+    </div>
+
+    <div class="resource-category">
+      <h3>Newsletters: Subscribe to These</h3>
+      <div class="resource-item">
+        <div class="ri-title">One Useful Thing</div>
+        <div class="ri-author">Ethan Mollick &middot; <a href="https://www.oneusefulthing.org/" target="_blank">oneusefulthing.org</a></div>
+        <p class="ri-desc">The gold standard for practical AI thinking. Weekly insights grounded in real adoption patterns.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The Rundown AI</div>
+        <div class="ri-author">Rowan Cheung &middot; <a href="https://www.therundown.ai/" target="_blank">therundown.ai</a></div>
+        <p class="ri-desc">Five-minute daily updates on AI trends and tools. Stay current on new pre-sales AI platforms.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Superhuman AI</div>
+        <div class="ri-author">Zain Kahn &middot; <a href="https://www.superhuman.ai/" target="_blank">superhuman.ai</a></div>
+        <p class="ri-desc">Actionable AI productivity tips for leaders. High signal-to-noise.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Benedict&rsquo;s Newsletter</div>
+        <div class="ri-author">Benedict Evans &middot; <a href="https://www.ben-evans.com/newsletter" target="_blank">ben-evans.com/newsletter</a></div>
+        <p class="ri-desc">Weekly tech strategy and market dynamics from a sharp ex-a16z analyst. Analytical take on where AI is heading.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Pavilion&rsquo;s Newsletter</div>
+        <div class="ri-author"><a href="https://www.joinpavilion.com/" target="_blank">pavilion.com</a></div>
+        <p class="ri-desc">Insights on pre-sales trends, AI adoption in technical selling, and GTM strategy.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">There&rsquo;s An AI For That (TAAFT)</div>
+        <div class="ri-author"><a href="https://theresanaiforthat.com" target="_blank">theresanaiforthat.com</a></div>
+        <p class="ri-desc">Curated catalogue of AI tools by use case. Discovery engine for pre-sales-specific solutions.</p>
+      </div>
+    </div>
+
+    <div class="resource-category">
+      <h3>Articles &amp; Reports</h3>
+      <div class="resource-item">
+        <div class="ri-title">The State of AI in 2025: Agents, Innovation, and Transformation</div>
+        <div class="ri-author">McKinsey Global Institute &middot; November 2025 &middot; <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank">mckinsey.com</a></div>
+        <p class="ri-desc">The definitive survey: 88% of organisations now use AI, but only 6% qualify as high performers. The gap is workflow redesign, not technology adoption.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">6 Ways AI Changed Business in 2024, According to Executives</div>
+        <div class="ri-author">Harvard Business Review &middot; Jan 2025 &middot; <a href="https://hbr.org/2025/01/6-ways-ai-changed-business-in-2024-according-to-executives" target="_blank">hbr.org</a></div>
+        <p class="ri-desc">Data from 125 C-suite leaders on what actually shifted. Removes speculation, grounds the conversation in evidence.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">AI in 2025: Building Blocks Firmly in Place</div>
+        <div class="ri-author">Sequoia Capital &middot; <a href="https://sequoiacap.com/article/ai-in-2025/" target="_blank">sequoiacap.com</a></div>
+        <p class="ri-desc">Top-tier VC perspective on AI market dynamics and enterprise adoption. Read this to understand where investment money is flowing and why.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">MAD (Machine Learning, AI &amp; Data) Landscape 2025</div>
+        <div class="ri-author">FirstMark &middot; Matt Turck &middot; <a href="https://mad.firstmark.com" target="_blank">mad.firstmark.com</a></div>
+        <p class="ri-desc">Comprehensive market map of 2,000+ AI/ML/data companies. Use as a reference when evaluating vendor categories.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">AI Pre-Sales Solution Engineers: Moving from Assistive to Agentic</div>
+        <div class="ri-author">Winning by Design &middot; January 2026 &middot; <a href="https://winningbydesign.com/resources/research/ai-pre-sales-solution-engineers/" target="_blank">winningbydesign.com</a></div>
+        <p class="ri-desc">How AI-powered solution engineers transform technical selling in complex B2B deals. Real examples of SE teams increasing win rates, shortening cycles, and expanding coverage.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">State of Demo Automation 2026</div>
+        <div class="ri-author">Navattic &middot; February 2026 &middot; <a href="https://www.navattic.com/report/state-of-demo-automation-2026" target="_blank">navattic.com</a></div>
+        <p class="ri-desc">Interactive demo market growth, adoption metrics, and impact on sales cycles. Deals with automated demos close 19 days faster with 6% higher win rates.</p>
+      </div>
+    </div>
+
+    <blockquote>The pre-sales teams that win complex enterprise deals will not be the ones with the most Solution Architects. They will be the ones where every prospect gets a customised, high-confidence experience because AI handles the personalisation that used to take a team a week.</blockquote>
+  </div>
+
+  <!-- Footer Navigation -->
+  <div class="page-footer">
+    <div class="footer-nav">
+      <a href="future-of-function-01-sales.html">
+        <i data-lucide="arrow-left"></i> Sales
+      </a>
+      <a href="../summit.html#prereads" class="back-all">
+        <i data-lucide="layout-grid"></i> All Briefs
+      </a>
+      <a href="future-of-function-03-rnd.html">
+        R&amp;D <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+    <div class="footer-meta">
+      <p>Future of Pre-Sales. AI-generated pre-read for inspiration. Links and claims may drift, so verify anything you plan to cite.</p>
+      <p>IFS Internal &middot; April 2026</p>
+    </div>
+  </div>
+
+</main>
+
+</div><!-- .content-layout -->
+
+<!-- Site Footer -->
+<footer class="site-footer">
+  <div style="max-width:900px;margin:0 auto;padding:0 32px;">
+    <p><strong style="color:var(--text-muted)">IFS AI Leadership Summit</strong> &middot; 4&ndash;7 May 2026 &middot; Mountain View, California</p>
+    <div class="footer-weather" id="footer-weather">
+      <div class="fw-day"><div class="fw-day-date">Sun 4</div><div class="fw-day-icon" id="weather-icon-0">&ndash;</div><div class="fw-day-temp" id="weather-temp-0">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Mon 5</div><div class="fw-day-icon" id="weather-icon-1">&ndash;</div><div class="fw-day-temp" id="weather-temp-1">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Tue 6</div><div class="fw-day-icon" id="weather-icon-2">&ndash;</div><div class="fw-day-temp" id="weather-temp-2">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Wed 7</div><div class="fw-day-icon" id="weather-icon-3">&ndash;</div><div class="fw-day-temp" id="weather-temp-3">&ndash;</div></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i data-lucide="arrow-up"></i>
+</button>
+
+<!-- JavaScript -->
+<script>
+(function() {
+  'use strict';
+
+  // Feature flags
+  if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
+    document.body.classList.add('ff-ext-edit-on');
+  }
+
+  // Initialize Lucide icons
+  lucide.createIcons();
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Navbar scroll state
+  const nav = document.querySelector('.nav');
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+        var btn = document.getElementById('back-to-top');
+        if (btn) btn.classList.toggle('visible', window.scrollY > 400);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile drawer toggle
+  window.toggleDrawer = function() {
+    var drawer = document.getElementById('navDrawer');
+    var overlay = document.getElementById('navOverlay');
+    var isOpen = drawer.classList.contains('open');
+    drawer.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  };
+
+  // Sidebar TOC scroll-spy
+  var sections = document.querySelectorAll('.section[id]');
+  var tocItems = document.querySelectorAll('.toc-item');
+  if (tocItems.length) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          tocItems.forEach(function(c) { c.classList.remove('active'); });
+          var match = document.querySelector('.toc-item[data-section="' + entry.target.id + '"]');
+          if (match) match.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(function(s) { observer.observe(s); });
+  }
+
+  // Smooth scroll for internal links
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Weather widget
+  (function fetchWeather() {
+    const lat = 37.3861, lon = -122.0839;
+    function weatherIcon(code) {
+      if (code <= 1) return { icon: '\u2600\uFE0F', label: 'Clear' };
+      if (code <= 3) return { icon: '\u26C5', label: 'Partly cloudy' };
+      if (code <= 48) return { icon: '\uD83C\uDF2B\uFE0F', label: 'Foggy' };
+      if (code <= 57) return { icon: '\uD83C\uDF26\uFE0F', label: 'Drizzle' };
+      if (code <= 67) return { icon: '\uD83C\uDF27\uFE0F', label: 'Rain' };
+      if (code <= 77) return { icon: '\u2744\uFE0F', label: 'Snow' };
+      if (code <= 82) return { icon: '\uD83C\uDF27\uFE0F', label: 'Showers' };
+      if (code <= 86) return { icon: '\uD83C\uDF28\uFE0F', label: 'Snow showers' };
+      return { icon: '\u26C8\uFE0F', label: 'Thunderstorm' };
+    }
+    function render(d) {
+      for (let i = 0; i < 4; i++) {
+        const w = weatherIcon(d.weather_code[i]);
+        var iconEl = document.getElementById('weather-icon-' + i);
+        var tempEl = document.getElementById('weather-temp-' + i);
+        if (iconEl) { iconEl.textContent = w.icon; iconEl.title = w.label; }
+        if (tempEl) { tempEl.innerHTML = Math.round(d.temperature_2m_max[i]) + '&deg; <span>/ ' + Math.round(d.temperature_2m_min[i]) + '&deg;C</span>'; }
+      }
+    }
+    var forecastUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=celsius&start_date=2026-05-04&end_date=2026-05-07&timezone=America/Los_Angeles';
+    fetch(forecastUrl).then(function(r) { return r.json(); }).then(function(data) {
+      if (data.error) throw new Error('out of range');
+      render(data.daily);
+    }).catch(function() {
+      var histUrl = 'https://archive-api.open-meteo.com/v1/archive?latitude=' + lat + '&longitude=' + lon + '&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=celsius&start_date=2025-05-04&end_date=2025-05-07&timezone=America/Los_Angeles';
+      fetch(histUrl).then(function(r) { return r.json(); }).then(function(data) {
+        if (data.error) throw new Error('archive failed');
+        render(data.daily);
+      }).catch(function() {});
+    });
+  })();
+
+})();
+</script>
+</body>
+</html>

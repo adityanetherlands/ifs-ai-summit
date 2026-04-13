@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance &middot; IFS AI Leadership Summit</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN SYSTEM · Matches index.html exactly
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --bg-primary: #090b10;
+  --bg-secondary: #0f1117;
+  --bg-surface: #181b23;
+  --bg-surface-hover: #1e222d;
+  --border-subtle: #1e222d;
+  --border-default: #2a2f3d;
+  --border-accent: #6366f1;
+  --text-primary: #f0f1f5;
+  --text-secondary: #e4e6ed;
+  --text-muted: #9498ad;
+  --text-dim: #6b7094;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --accent-glow: rgba(99, 102, 241, 0.12);
+  --accent-indigo: var(--accent);
+  --accent-indigo-light: var(--accent-light);
+  --accent-indigo-glow: var(--accent-glow);
+  --accent-amber: #f59e0b;
+  --accent-emerald: #22c55e;
+  --accent-cyan: #06b6d4;
+  --accent-red: #ef4444;
+  --red-muted: #f87171;
+  --red-bg: rgba(248, 113, 113, 0.08);
+  --green-bg: rgba(99, 102, 241, 0.06);
+  --stat-gradient: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  --font-display: 'Lexend', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --max-width: 900px;
+  --nav-height: 64px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 24px); }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.65;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: white; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 3px; }
+a { color: var(--accent-light); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN NAVBAR (from index.html)
+   ═══════════════════════════════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; justify-content: center;
+  padding: 18px 32px;
+  pointer-events: none;
+}
+.nav-inner {
+  display: flex; align-items: center;
+  background: linear-gradient(135deg, rgba(20, 23, 32, 0.55) 0%, rgba(30, 34, 45, 0.45) 50%, rgba(99, 102, 241, 0.05) 100%);
+  backdrop-filter: blur(40px) saturate(1.3); -webkit-backdrop-filter: blur(40px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  padding: 8px 10px 8px 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 48px rgba(99,102,241,0.04), inset 0 1px 0 rgba(255,255,255,0.06);
+  pointer-events: auto;
+  max-width: 860px;
+  width: auto;
+  gap: 6px;
+}
+.nav-brand {
+  font-family: var(--font-display); font-size: 16px; font-weight: 800;
+  white-space: nowrap; margin-right: 16px;
+  color: #f0f1f5;
+  letter-spacing: -0.3px;
+  text-decoration: none;
+}
+.nav-brand:hover { text-decoration: none; opacity: 0.85; }
+.nav-brand span {
+  font-weight: 400;
+  background: linear-gradient(135deg, #818cf8, #06b6d4);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nav-links { display: flex; gap: 2px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; color: var(--text-dim);
+  padding: 10px 16px; border-radius: 100px; text-decoration: none;
+  transition: color 0.2s, background 0.2s; cursor: pointer;
+  letter-spacing: 0.1px;
+}
+.nav-links a:hover { color: #f0f1f5; background: rgba(255,255,255,0.1); text-decoration: none; }
+.nav-links a.active { color: white; background: var(--accent); }
+
+.nav.scrolled .nav-inner {
+  background: linear-gradient(135deg, rgba(20, 23, 32, 0.7) 0%, rgba(30, 34, 45, 0.6) 50%, rgba(99, 102, 241, 0.06) 100%);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Hamburger */
+.nav-hamburger {
+  display: none; background: none; border: none; color: var(--text-muted);
+  cursor: pointer; padding: 8px; border-radius: 100px;
+}
+.nav-hamburger:hover { background: rgba(255,255,255,0.1); }
+
+/* Mobile drawer */
+.nav-drawer {
+  display: none; position: fixed; top: 0; right: 0; bottom: 0;
+  width: 280px; background: var(--bg-surface); border-left: 1px solid var(--border-default);
+  z-index: 1001; transform: translateX(100%); transition: transform 0.3s var(--ease);
+  padding: 80px 24px 24px; flex-direction: column; gap: 4px;
+}
+.nav-drawer.open { transform: translateX(0); display: flex; }
+.nav-drawer a {
+  font-size: 15px; font-weight: 600; color: var(--text-muted);
+  padding: 14px 16px; border-radius: 8px; text-decoration: none;
+  transition: color 0.2s, background 0.2s; display: block;
+}
+.nav-drawer a:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); text-decoration: none; }
+.nav-drawer a.active { color: var(--accent-light); background: var(--accent-glow); }
+.nav-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 1000;
+}
+.nav-overlay.open { display: block; }
+.drawer-close {
+  position: absolute; top: 16px; right: 16px; background: none; border: none;
+  color: var(--text-muted); cursor: pointer; padding: 8px; border-radius: 6px;
+}
+.drawer-close:hover { color: var(--text-primary); background: rgba(255,255,255,0.06); }
+
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+  .nav-drawer.open { display: flex; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BRIEF HERO
+   ═══════════════════════════════════════════════════════════════ */
+.brief-hero {
+  padding: calc(var(--nav-height) + 56px) 32px 48px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 65% 55% at 80% 20%, rgba(10, 174, 227, 0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 60% at 15% 70%, rgba(99, 102, 241, 0.10) 0%, transparent 65%),
+    var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.brief-hero-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.brief-hero-eyebrow {
+  font-family: var(--font-display); font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light);
+  margin-bottom: 16px;
+}
+.brief-hero-title {
+  font-family: var(--font-display); font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+  color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15;
+  margin-bottom: 12px;
+}
+.brief-hero-subtitle {
+  font-size: 17px; color: var(--accent-light); font-weight: 600; letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+.brief-hero-tagline {
+  font-size: 14px; color: var(--text-muted); font-style: italic;
+  margin-bottom: 28px;
+}
+.brief-hero-nav {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.brief-nav-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  padding: 10px 20px; border-radius: 100px;
+  border: 1px solid var(--border-default);
+  text-decoration: none;
+  transition: all 0.2s var(--ease);
+}
+.brief-nav-btn:hover {
+  color: var(--accent-light); border-color: var(--accent);
+  background: var(--accent-glow); text-decoration: none;
+}
+.brief-nav-btn svg { width: 16px; height: 16px; }
+.brief-nav-all {
+  border-color: var(--accent); color: var(--accent-light);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTENT LAYOUT (sidebar + main)
+   ═══════════════════════════════════════════════════════════════ */
+.content-layout {
+  display: flex;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 32px;
+  gap: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STICKY SIDEBAR TOC
+   ═══════════════════════════════════════════════════════════════ */
+.toc-sidebar {
+  width: 180px;
+  flex-shrink: 0;
+  padding-top: 48px;
+}
+.toc-nav {
+  position: sticky;
+  top: calc(var(--nav-height) + 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toc-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-dim);
+  font-size: 13px; font-weight: 500;
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+  cursor: pointer;
+  position: relative;
+}
+.toc-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 3px; border-radius: 2px;
+  background: transparent;
+  transition: background 0.2s var(--ease);
+}
+.toc-item:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.03);
+  text-decoration: none;
+}
+.toc-item.active {
+  color: var(--accent-light);
+  background: rgba(99, 102, 241, 0.06);
+}
+.toc-item.active::before {
+  background: var(--accent);
+}
+.toc-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border-default);
+  flex-shrink: 0;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.toc-item.active .toc-dot {
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════════════════════════════════════ */
+.main {
+  flex: 1;
+  min-width: 0;
+  max-width: var(--max-width);
+  padding: 48px 0 0 48px;
+}
+
+/* Sections */
+.section { margin-bottom: 32px; scroll-margin-top: calc(var(--nav-height) + 24px); }
+.section + .section { border-top: none; padding-top: 16px; }
+h2 {
+  font-family: var(--font-display); font-size: 24px; font-weight: 800;
+  margin-bottom: 22px; color: var(--text-primary);
+  padding-bottom: 12px; border-bottom: 1px solid var(--border-default);
+  letter-spacing: -0.3px;
+}
+h3 {
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  margin-top: 28px; margin-bottom: 12px; color: var(--accent-light);
+}
+p { margin-bottom: 14px; font-size: 15px; line-height: 1.75; color: var(--text-muted); }
+strong { color: var(--text-secondary); font-weight: 700; }
+
+/* Framework Items */
+.framework-item { margin-bottom: 28px; }
+.framework-item h3 { margin-top: 0; margin-bottom: 10px; }
+.framework-item p { margin-bottom: 10px; }
+
+/* Provocation callout */
+.provocation {
+  font-size: 16px; font-weight: 600; font-style: italic;
+  color: var(--text-primary); line-height: 1.6;
+  padding: 20px 24px; margin: 0 0 18px 0;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-glow); border-radius: 0 8px 8px 0;
+}
+
+/* North Star / Thought Exercise Callout */
+.north-star-callout {
+  background: var(--accent-glow); border: 2px solid var(--accent);
+  border-radius: 12px; padding: 28px; margin: 32px 0;
+}
+.ns-label { font-size: 11px; font-weight: 700; color: var(--accent-light); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+.ns-body { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 0; }
+.ns-body strong { color: var(--text-primary); }
+
+/* Questions */
+.questions-section {
+  background: var(--accent-glow); padding: 28px; border-radius: 12px;
+  margin: 28px 0; border: 1px solid var(--border-default);
+}
+.question-category { margin-bottom: 24px; }
+.question-category:last-child { margin-bottom: 0; }
+.question-category h4 { font-family: var(--font-display); font-size: 12px; font-weight: 700; color: var(--accent-light); letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase; }
+.question-category ul { list-style: none; padding: 0; }
+.question-category li { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; padding-left: 18px; position: relative; line-height: 1.6; }
+.question-category li::before { content: "\2013"; position: absolute; left: 0; color: var(--accent-light); font-weight: bold; }
+
+/* Company Cards */
+.company-section-label {
+  font-family: var(--font-display); font-size: 11px; font-weight: 700;
+  color: var(--accent-light); letter-spacing: 1.5px; text-transform: uppercase;
+  margin-top: 28px; margin-bottom: 14px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px; }
+.company-card {
+  background: var(--bg-surface); border-radius: 10px; padding: 20px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08); border-left: 3px solid var(--accent);
+  transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+  text-decoration: none; color: inherit; display: block; cursor: pointer;
+}
+.company-card:hover { box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15); transform: translateY(-2px); text-decoration: none; }
+.company-card h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+.company-card .cc-tag { font-size: 10px; font-weight: 600; color: var(--accent-light); letter-spacing: 0.3px; margin-bottom: 8px; }
+.company-card .cc-desc { font-size: 12px; color: var(--text-dim); line-height: 1.55; margin-bottom: 8px; }
+.company-card .cc-look { font-size: 11px; color: var(--text-muted); font-style: italic; margin-bottom: 8px; line-height: 1.5; }
+.company-card .cc-url { font-size: 11px; color: var(--accent-light); font-weight: 600; }
+
+/* Exercise Cards */
+.exercise-card {
+  background: var(--bg-surface); border-top: 3px solid var(--accent);
+  padding: 24px; margin: 20px 0; border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.exercise-card h4 { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+.exercise-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.65; }
+.exercise-card p:last-child { margin-bottom: 0; }
+
+/* Resource Library */
+.resource-category { margin-bottom: 32px; }
+.resource-category h3 { margin-top: 0; }
+.resource-item {
+  background: var(--bg-surface); border-radius: 10px; padding: 18px 20px;
+  margin-bottom: 10px; border-left: 3px solid var(--border-default);
+  transition: border-color 0.2s var(--ease);
+}
+.resource-item:hover { border-left-color: var(--accent); }
+.resource-item .ri-title {
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 2px;
+}
+.resource-item .ri-author { font-size: 12px; color: var(--accent-light); font-weight: 500; margin-bottom: 6px; }
+.resource-item .ri-desc { font-size: 12px; color: var(--text-dim); line-height: 1.55; margin: 0; }
+.resource-item a { color: var(--accent-light); font-size: 11px; font-weight: 600; }
+
+/* Blockquote */
+blockquote {
+  border-left: 4px solid var(--accent); padding-left: 22px; margin: 32px 0;
+  font-size: 16px; font-style: italic; color: var(--text-muted); line-height: 1.75;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BACK TO TOP
+   ═══════════════════════════════════════════════════════════════ */
+#back-to-top {
+  position: fixed; bottom: 32px; right: 32px; z-index: 900;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--bg-surface); border: 1px solid var(--border-default);
+  color: var(--text-muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), border-color 0.2s, color 0.2s;
+  pointer-events: none;
+}
+#back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#back-to-top:hover { border-color: var(--accent); color: var(--accent-light); }
+#back-to-top svg { width: 20px; height: 20px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER NAVIGATION
+   ═══════════════════════════════════════════════════════════════ */
+.page-footer {
+  border-top: 1px solid var(--border-default);
+  padding: 32px 0 64px; margin-top: 56px;
+}
+.footer-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 32px;
+}
+.footer-nav a {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 600; color: var(--text-muted);
+  text-decoration: none; padding: 10px 18px; border-radius: 8px;
+  border: 1px solid var(--border-default);
+  transition: all 0.2s var(--ease); cursor: pointer;
+}
+.footer-nav a:hover { color: var(--accent-light); border-color: var(--accent); background: var(--accent-glow); text-decoration: none; }
+.footer-nav a svg { width: 16px; height: 16px; }
+.footer-nav .back-all {
+  border-color: var(--accent); color: var(--accent-light);
+}
+.footer-meta {
+  text-align: center; font-size: 12px; color: var(--text-dim);
+}
+.footer-meta p { margin-bottom: 4px; font-size: 12px; color: var(--text-dim); }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .nav-inner { padding: 8px 10px 8px 20px; }
+  .toc-sidebar { display: none; }
+  .main { padding-left: 0; }
+  .content-layout { max-width: var(--max-width); }
+}
+@media (max-width: 768px) {
+  .main { padding-left: 0; padding-right: 0; }
+  .content-layout { padding-left: 20px; padding-right: 20px; }
+  .brief-hero { padding-left: 20px; padding-right: 20px; }
+  .brief-hero-title { font-size: 26px; }
+  .brief-nav-btn { padding: 8px 16px; font-size: 12px; }
+  .company-grid { grid-template-columns: 1fr; }
+  h2 { font-size: 20px; }
+  .footer-nav { flex-direction: column; gap: 12px; }
+  .footer-nav a { width: 100%; justify-content: center; }
+  .nav { padding: 12px 16px; }
+}
+
+/* Feature flags */
+.ff-ext-edit { display: none !important; }
+body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
+body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: 0.01ms !important; }
+}
+
+/* Mobile Nav */
+@media (max-width: 1024px) {
+  .nav { padding: 0; }
+  .nav-inner {
+    border-radius: 0; border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    max-width: none; width: 100%; padding: 10px 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, rgba(20,23,32,0.85) 0%, rgba(30,34,45,0.75) 50%, rgba(99,102,241,0.06) 100%);
+    position: relative;
+  }
+  .nav-hamburger { order: -1; }
+  .nav-brand { position: absolute; left: 50%; transform: translateX(-50%); margin-right: 0; }
+  .nav-drawer {
+    right: auto; left: 0; transform: translateX(-100%);
+    background: linear-gradient(160deg, rgba(15,17,25,0.18) 0%, rgba(25,28,40,0.12) 40%, rgba(99,102,241,0.04) 100%);
+    backdrop-filter: blur(100px) saturate(2); -webkit-backdrop-filter: blur(100px) saturate(2);
+    border-left: none; border-right: 1px solid rgba(255,255,255,0.1);
+    box-shadow: -8px 0 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 0 80px rgba(99,102,241,0.03);
+    padding: 80px 0 24px;
+  }
+  .nav-drawer.open { transform: translateX(0); }
+  .nav-drawer .drawer-close { left: auto; right: 16px; }
+  .nav-drawer a { border-radius: 0; transition: all 0.25s ease; padding: 14px 28px; margin: 0; position: relative; }
+  .nav-drawer a:hover { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%); }
+  .nav-drawer a.active {
+    background: linear-gradient(90deg, rgba(99,102,241,0.25) 0%, rgba(139,92,246,0.12) 60%, rgba(6,182,212,0.06) 100%);
+    color: #fff; border: none; border-left: 3px solid #818cf8;
+    box-shadow: inset 0 0 30px rgba(99,102,241,0.08);
+  }
+}
+
+/* Site Footer (matches summit.html) */
+.site-footer {
+  background: var(--bg-secondary);
+  background-image:
+    radial-gradient(ellipse 65% 70% at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(236, 72, 153, 0.07) 0%, transparent 65%);
+  border-top: 1px solid var(--border-default);
+  padding: 48px 0; text-align: center;
+}
+.site-footer p { font-size: 14px; color: var(--text-dim); margin-bottom: 8px; }
+.footer-weather {
+  display: flex; justify-content: center; gap: 24px; margin-top: 16px;
+  flex-wrap: wrap;
+}
+.fw-day { text-align: center; }
+.fw-day-date { font-size: 11px; color: var(--text-dim); margin-bottom: 4px; }
+.fw-day-icon { font-size: 22px; line-height: 1; margin-bottom: 2px; }
+.fw-day-temp { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+.fw-day-temp span { font-weight: 400; opacity: 0.7; }
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     MAIN NAVBAR
+     ═══════════════════════════════════════════════════ -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">IFS <span>AI Summit</span></a>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Brief Map</a></li>
+      <li><a href="#" class="active">Finance</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Open menu" onclick="toggleDrawer()">
+      <i data-lucide="menu" style="width:24px;height:24px;"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-overlay" id="navOverlay" onclick="toggleDrawer()"></div>
+<div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu">
+  <button class="drawer-close" aria-label="Close menu" onclick="toggleDrawer()">
+    <i data-lucide="x" style="width:24px;height:24px;"></i>
+  </button>
+  <a href="#">Home</a>
+  <a href="#">Brief Map</a>
+  <a href="#" class="active">Finance</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     BRIEF HERO
+     ═══════════════════════════════════════════════════ -->
+<section class="brief-hero">
+  <div class="brief-hero-inner">
+    <div class="brief-hero-eyebrow">Future of Function &middot; 07</div>
+    <h1 class="brief-hero-title">Future of Finance</h1>
+    <p class="brief-hero-subtitle">When AI collapses the data supply chain from transaction to boardroom</p>
+    <p class="brief-hero-tagline">AI-generated pre-read for inspiration. Links and claims may drift, so verify anything you plan to cite.</p>
+    <div class="brief-hero-nav">
+      <a href="future-of-function-06-hr.html" class="brief-nav-btn">
+        <i data-lucide="arrow-left"></i> HR
+      </a>
+      <a href="../summit.html#prereads" class="brief-nav-btn brief-nav-all">
+        <i data-lucide="layout-grid"></i> All Briefs
+      </a>
+      <a href="future-of-function-08-it.html" class="brief-nav-btn">
+        IT <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     CONTENT LAYOUT
+     ═══════════════════════════════════════════════════ -->
+<div class="content-layout">
+
+  <!-- Sticky Sidebar TOC -->
+  <aside class="toc-sidebar">
+    <nav class="toc-nav" aria-label="Page sections">
+      <a href="#section-1" class="toc-item" data-section="section-1">
+        <span class="toc-dot"></span> The Shift
+      </a>
+      <a href="#section-2" class="toc-item" data-section="section-2">
+        <span class="toc-dot"></span> Homework
+      </a>
+      <a href="#section-3" class="toc-item" data-section="section-3">
+        <span class="toc-dot"></span> Nudges
+      </a>
+      <a href="#section-4" class="toc-item" data-section="section-4">
+        <span class="toc-dot"></span> Questions
+      </a>
+      <a href="#section-5" class="toc-item" data-section="section-5">
+        <span class="toc-dot"></span> Companies
+      </a>
+      <a href="#section-6" class="toc-item" data-section="section-6">
+        <span class="toc-dot"></span> Hands-On
+      </a>
+      <a href="#section-7" class="toc-item" data-section="section-7">
+        <span class="toc-dot"></span> Resources
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+
+  <!-- Section 1: The Shift -->
+  <div class="section" id="section-1">
+    <h2>1. The Shift</h2>
+    <p><strong>JPMorgan deployed COIN</strong> (Contract Intelligence) to automate commercial loan agreements. The result: 360,000 hours of manual work eliminated annually. One contract that used to take 360,000 hours of legal review time now takes seconds. Not through layoffs &middot; through reimagining what the finance function actually does.</p>
+    <p><strong>Intuit built AI-powered bookkeeping</strong> that handles invoice-to-ledger reconciliation automatically. Their financial close, which took weeks of manual reconciliation across thousands of small businesses, now happens in hours. Thousands of accountants went from reconciling transactions to reviewing exceptions flagged by AI.</p>
+    <p><strong>Stripe automated revenue recognition</strong> for SaaS companies. Complex subscription deals that require specialist judgment to classify (recurring vs. one-time, performance obligations across multiple periods) are now handled by AI that reads contracts, extracts terms, and applies ASC 606 rules. The revenue accountant moves from classifying deals to auditing AI decisions.</p>
+    <p><strong>BlackLine reported</strong> that enterprise finance teams using their AI-powered close platform compress month-end close from 10-15 days to 3-4 days. Manual reconciliations that consumed 40% of accounting time are now autonomous. Finance staff who used to spend weeks on month-end now spend days on analysis.</p>
+    <p>One pattern: <strong>finance functions aren&rsquo;t shrinking through headcount cuts. They&rsquo;re restructuring.</strong> The transactional accounting layer becomes autonomous. The humans who remain shift from data mechanics to decision support &middot; asking better questions about cash, capital allocation, and risk instead of compiling spreadsheets.</p>
+  </div>
+
+  <!-- Section 2: Your Pre-Summit Homework -->
+  <div class="section" id="section-2">
+    <h2>2. Your Pre-Summit Homework</h2>
+    <p>Three things to bring to the session. Not to present, but to think about. Write them down. Short answers are fine. What matters is that you've actually wrestled with them.</p>
+
+    <div class="framework-item">
+      <h3>1. A bold vision for 1 January 2027</h3>
+      <p>If you fast-forwarded 20 months, what does your Finance function look like? Not incremental. Drastically different. What's disappeared? What's new? Write the headline version: if someone wrote a profile of your function in January 2027, what would it say?</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>2. The case for transformation</h3>
+      <p>Why does your finance function need to transform, and why now? Not "AI is important" generically. The specific commercial, competitive, or structural reason transformation is non-negotiable for you. What breaks if you stay as you are? If you can't articulate this in two sentences, your team won't follow you.</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>3. The KPIs that matter in the new era</h3>
+      <p>What are the 2-3 metrics that tell you Finance is winning in an AI-native world? Days to close? Forecast accuracy? Cost per invoice? Analyst output per head? Exceptions rate? Cash conversion cycle? The old KPIs of headcount and transaction volume measure effort. What measures outcome in a world where effort is automated?</p>
+    </div>
+  </div>
+
+  <!-- Section 3: Directional Nudges -->
+  <div class="section" id="section-3">
+    <h2>3. Directional Nudges: Sense / Decide / Execute</h2>
+
+    <div class="framework-item">
+      <h3>Sense: From Monthly Reporting to Continuous Financial Intelligence</h3>
+      <div class="provocation">What if your CFO had real-time visibility into cash position, revenue trajectory, and financial anomalies &middot; updated daily without a single analyst manually gathering data?</div>
+      <p>This is already production-grade. Treasury platforms like Kyriba use AI to monitor cash positions across hundreds of bank accounts, forecast liquidity in real-time, and flag opportunities to optimize working capital. AI anomaly detection systems monitor expense patterns, procurement trends, and revenue velocity &middot; surfacing deviations before they hit the monthly report.</p>
+      <p><strong>The structural change:</strong> the finance team stops being a monthly reporting function and becomes a continuous sensing layer. The people who used to prepare board decks now monitor the continuous model and escalate only when assumptions shift or risks emerge.</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>Decide: From Spreadsheet Scenarios to Probabilistic Models</h3>
+      <div class="provocation">What if every capital allocation decision &middot; pricing, M&amp;A, investment, cost optimization &middot; came with 100+ pre-modelled scenarios before the CFO team met?</div>
+      <p>Causal and Planful now let CFOs build interactive financial models where scenario analysis is instant. Change one assumption (CAC, churn, pricing), and revenue impact, margin impact, and cash impact cascade instantly. What used to take an analyst three days (model build, scenario run, sensitivity analysis) now takes 15 minutes.</p>
+      <p><strong>The structural change:</strong> decisions compress from weeks to days. Not because judgment improves, but because the information bottleneck evaporates. When financial scenarios are instant, the limiting factor becomes debate, not data. And that debate is where the CFO should spend time.</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>Execute: From Quarterly Reviews to Real-Time Financial Operations</h3>
+      <div class="provocation">What if your financial operations &middot; reconciliation, accrual posting, intercompany eliminations, expense approval &middot; ran autonomously and escalated only exceptions?</div>
+      <p>BlackLine&rsquo;s platform now handles daily reconciliation for multi-entity consolidations. No humans match intercompany transactions &middot; AI does. Standard accruals (payroll, depreciation, revenue recognition for routine deals) post automatically. The accountant no longer updates reconciliation schedules; they review AI-flagged mismatches.</p>
+      <p><strong>The structural change:</strong> financial operations become an always-on, autonomous backbone. The 50-person accounting team becomes 20 people who monitor automation and handle judgement calls. The freed capacity shifts to revenue operations, FP&amp;A, and tax strategy.</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>The Loop Closes</h3>
+      <p>In the AI-native finance function, sensing is continuous, not monthly. Deciding is rapid, not quarterly. Execution is autonomous, not manual. The CFO&rsquo;s meeting shifts from &ldquo;here&rsquo;s what happened&rdquo; to &ldquo;here&rsquo;s what&rsquo;s changing and what we do about it.&rdquo;</p>
+    </div>
+
+    <div class="north-star-callout">
+      <div class="ns-label">Thought Exercise</div>
+      <p class="ns-body"><strong>If AI handled every month-end close, every revenue recognition decision, every reconciliation, and every routine accrual&nbsp;- what would your finance function actually do with their time?</strong> Would you need the same headcount? If not, what capabilities would you actually expand into?</p>
+    </div>
+  </div>
+
+  <!-- Section 4: Questions -->
+  <div class="section" id="section-4">
+    <h2>4. Tough Questions to Ask Yourself</h2>
+    <div class="questions-section">
+      <div class="question-category">
+        <h4>Sense</h4>
+        <ul>
+          <li>How many days pass between a transaction occurring and your CFO seeing its financial impact?</li>
+          <li>What percentage of your accounting team&rsquo;s time goes to data gathering (reconciliation, accrual posting, consolidation) vs. analysis?</li>
+          <li>If revenue and expense actuals fed automatically into a rolling forecast, and it updated daily, would your quarterly forecast process still exist?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>Decide</h4>
+        <ul>
+          <li>How long does it take from &ldquo;we&rsquo;re considering this pricing change&rdquo; to &ldquo;we understand the full P&amp;L impact&rdquo;?</li>
+          <li>How many spreadsheets does your FP&amp;A team maintain, and what percentage of their time goes to Excel vs. actual forecasting judgment?</li>
+          <li>If every capital allocation decision came with AI-modelled scenarios, would your CFO make different decisions?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>Execute</h4>
+        <ul>
+          <li>How many people in your finance function do transactional work (reconciliations, journal entries, accrual posting) that could be automated today?</li>
+          <li>If your month-end close went from 15 days to 3 days, what would those freed 12 days be spent on?</li>
+          <li>What financial decisions are you deferring because you don&rsquo;t have current data &middot; and would real-time data change your strategy?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>North Star</h4>
+        <ul>
+          <li>If you redesigned your finance function with AI doing all transactional work, what would the remaining team do?</li>
+          <li>What are the 2-3 strategic capabilities your finance team could build if they had 30% more time?</li>
+          <li>If finance became a decision support function instead of a reporting function, how does the CFO&rsquo;s role change?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Companies to Explore -->
+  <div class="section" id="section-5">
+    <h2>5. Companies to Explore</h2>
+    <p>These are production-grade platforms used by enterprise finance teams today. Understanding what is available is the prerequisite for deciding what to build or buy.</p>
+
+    <div class="company-section-label">If your pain is month-end close &amp; reconciliation</div>
+    <div class="company-grid">
+      <a href="https://blackline.com" target="_blank" rel="noopener" class="company-card">
+        <h4>BlackLine</h4>
+        <div class="cc-tag">Financial Close Automation</div>
+        <div class="cc-desc">Automates account reconciliation, journal entries, intercompany transactions, and accrual posting. AI flags anomalies, accelerates close to 3-4 days.</div>
+        <div class="cc-look">Look at: their enterprise close demo and case studies on multi-entity consolidation.</div>
+        <div class="cc-url">blackline.com &rarr;</div>
+      </a>
+      <a href="https://highradius.com" target="_blank" rel="noopener" class="company-card">
+        <h4>HighRadius</h4>
+        <div class="cc-tag">Treasury &amp; AR</div>
+        <div class="cc-desc">AI for cash management, AR automation, and payment processing. Autonomous collections and reconciliation.</div>
+        <div class="cc-look">Look at: the AR automation dashboard and cash forecasting capabilities.</div>
+        <div class="cc-url">highradius.com &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is revenue recognition &amp; contracts</div>
+    <div class="company-grid">
+      <a href="https://trullion.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Trullion</h4>
+        <div class="cc-tag">AI Revenue Recognition</div>
+        <div class="cc-desc">Reads contracts, extracts terms, applies ASC 606 / IFRS 15 rules automatically. No human review for routine deals.</div>
+        <div class="cc-look">Look at: their contract intelligence demo and compliance matrix.</div>
+        <div class="cc-url">trullion.com &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is forecasting &amp; financial planning</div>
+    <div class="company-grid">
+      <a href="https://causal.app" target="_blank" rel="noopener" class="company-card">
+        <h4>Causal</h4>
+        <div class="cc-tag">AI Financial Modelling</div>
+        <div class="cc-desc">Collaborative, interactive scenario analysis. Real-time sensitivity analysis replaces spreadsheet-based FP&amp;A.</div>
+        <div class="cc-look">Look at: the scenario modelling templates and the &ldquo;vs. Excel&rdquo; comparison.</div>
+        <div class="cc-url">causal.app &rarr;</div>
+      </a>
+      <a href="https://planful.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Planful</h4>
+        <div class="cc-tag">AI Financial Planning</div>
+        <div class="cc-desc">Cloud FP&amp;A with AI-powered forecasting, consolidation, and rolling budgets. Variance analysis auto-generated.</div>
+        <div class="cc-look">Look at: the rolling forecast and predictive analytics features.</div>
+        <div class="cc-url">planful.com &rarr;</div>
+      </a>
+      <a href="https://pigment.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Pigment</h4>
+        <div class="cc-tag">AI Business Planning</div>
+        <div class="cc-desc">Driver-based forecasting with scenario modelling. Replaces spreadsheet-based planning entirely.</div>
+        <div class="cc-look">Look at: their driver-based approach and real-time collaboration.</div>
+        <div class="cc-url">pigment.com &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is expense &amp; AP automation</div>
+    <div class="company-grid">
+      <a href="https://stampli.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Stampli</h4>
+        <div class="cc-tag">AI Accounts Payable</div>
+        <div class="cc-desc">Invoice-to-cash automation: OCR, GL coding, PO matching, approval routing. Learning system that improves with use.</div>
+        <div class="cc-look">Look at: the invoice processing accuracy rates and approval automation rules.</div>
+        <div class="cc-url">stampli.com &rarr;</div>
+      </a>
+      <a href="https://coupa.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Coupa</h4>
+        <div class="cc-tag">AI Business Spend Management</div>
+        <div class="cc-desc">Procurement, invoicing, and expense management in one platform. Spend analytics with anomaly detection.</div>
+        <div class="cc-look">Look at: their spend visibility and supplier management modules.</div>
+        <div class="cc-url">coupa.com &rarr;</div>
+      </a>
+      <a href="https://ramp.com/" target="_blank" rel="noopener" class="company-card">
+        <h4>Ramp</h4>
+        <div class="cc-tag">AI Finance Automation Platform</div>
+        <div class="cc-desc">Corporate cards, expense management, AP, and procurement in one stack. AI auto-categorises transactions, flags policy breaks, drafts receipts, and surfaces savings from spend data in real time.</div>
+        <div class="cc-look">Look at: their AI agent for finance, receipt auto-matching, and the savings insights engine.</div>
+        <div class="cc-url">ramp.com &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is cash forecasting &amp; working capital</div>
+    <div class="company-grid">
+      <a href="https://www.kyriba.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Kyriba</h4>
+        <div class="cc-tag">Treasury &amp; Working Capital</div>
+        <div class="cc-desc">Real-time cash visibility, liquidity forecasting, and exposure management across hundreds of accounts.</div>
+        <div class="cc-look">Look at: their cash position dashboard and liquidity forecasting model.</div>
+        <div class="cc-url">kyriba.com &rarr;</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Section 6: Hands-On Exercises -->
+  <div class="section" id="section-6">
+    <h2>6. Hands-On Exercises</h2>
+    <p>Do at least one before the session. Do all three if you want to arrive with working prototypes.</p>
+
+    <div class="exercise-card">
+      <h4>Exercise 1: The AI-Driven Month-End Close Map &nbsp;&middot;&nbsp; 30 min</h4>
+      <p>Take your current month-end close process. Break it into steps: reconciliation, accrual posting, intercompany eliminations, variance analysis, reporting. For each step, classify: fully automatable (reconciliations, standard journal entries), partially automatable (complex accruals with AI support), or requires human judgment.</p>
+      <p><strong>Output:</strong> A visual process map showing the AI-native close timeline and time reduction.</p>
+      <p><strong>Tools:</strong> Claude, current close process documentation, HTML/Markdown</p>
+    </div>
+    <div class="exercise-card">
+      <h4>Exercise 2: The Continuous Revenue Forecast Engine &nbsp;&middot;&nbsp; 60 min</h4>
+      <p>Build a probabilistic revenue forecast model for your business. Inputs: current ARR, pipeline data (by stage), historical conversion rates, churn patterns, and seasonal trends. Use AI to generate a rolling 12-month forecast with confidence intervals (ranges, not point estimates). Update it daily based on pipeline movement.</p>
+      <p><strong>Output:</strong> An interactive rolling forecast dashboard with daily updates and confidence ranges.</p>
+      <p><strong>Tools:</strong> Claude, Python or Excel, HTML/JavaScript, your financial data</p>
+    </div>
+    <div class="exercise-card">
+      <h4>Exercise 3: The Invoice Processing Prototype &nbsp;&middot;&nbsp; 90 min</h4>
+      <p>Take 50 sample invoices (real or anonymised). Build an AI pipeline that: reads the invoice, extracts vendor, amount, GL account, cost centre; matches it to a PO; and routes for approval based on dollar amount and policy rules. Measure accuracy against manual coding.</p>
+      <p><strong>Output:</strong> A working invoice processing prototype with accuracy metrics and a 30/60/90-day deployment plan.</p>
+      <p><strong>Tools:</strong> Claude API, PDF parsing, Python or Node.js, your expense data</p>
+    </div>
+  </div>
+
+  <!-- Section 7: Curated Resource Library -->
+  <div class="section" id="section-7">
+    <h2>7. Curated Resource Library</h2>
+
+    <div class="resource-category">
+      <h3>Books</h3>
+      <div class="resource-item">
+        <div class="ri-title">The AI-First Company</div>
+        <div class="ri-author">Ash Fontana</div>
+        <p class="ri-desc">The playbook for restructuring operations around AI. Essential for CFOs thinking about finance transformation.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Prediction Machines</div>
+        <div class="ri-author">Agrawal, Gans &amp; Goldfarb</div>
+        <p class="ri-desc">The economic framework for understanding when AI changes decisions. Critical reading for understanding why finance is being restructured.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The Coming Wave</div>
+        <div class="ri-author">Mustafa Suleyman</div>
+        <p class="ri-desc">The geopolitical and business implications of AI. Strategic context for everything else.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Competing in the Age of AI</div>
+        <div class="ri-author">Iansiti &amp; Lakhani</div>
+        <p class="ri-desc">Harvard Business School framework for AI-native operations. The finance case studies are excellent.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Co-Intelligence: Living and Working with AI</div>
+        <div class="ri-author">Ethan Mollick</div>
+        <p class="ri-desc">The most practical book on humans and AI as co-workers. Foundational for rethinking the finance function.</p>
+      </div>
+    </div>
+
+    <div class="resource-category">
+      <h3>Podcasts: Series to Follow</h3>
+      <div class="resource-item">
+        <div class="ri-title">Lenny's Podcast</div>
+        <div class="ri-author">Lenny Rachitsky &middot; <a href="https://open.spotify.com/show/2dR1MUZEHCOnz1LVfNac0j" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/us/podcast/lennys-podcast-product-career-growth/id1627920305" target="_blank">Apple Podcasts</a></div>
+        <p class="ri-desc">World-class product, growth, and GTM operators. Foundational for understanding how AI reshapes business strategy. Look for episodes on financial planning and capital allocation.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Lex Fridman Podcast</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/2MAi0BvDc6GTFvKFPXnkCL" target="_blank">Spotify</a> · <a href="https://podcasts.apple.com/us/podcast/lex-fridman-podcast/id1434243584" target="_blank">Apple</a></div>
+        <p class="ri-desc">Long-form conversations with frontier-model CEOs. Strategic context for where financial technology is heading.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">CFO Thought Leader</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/3EAoet1scxV1eRa2mqbBNx" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/us/podcast/cfo-thought-leader/id832481615" target="_blank">Apple Podcasts</a></div>
+        <p class="ri-desc">Deep-dive conversations with CFOs on emerging financial technologies and transformation challenges. Focus on real-world AI and automation implementation.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">FP&amp;A Tomorrow</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/60D1eF8A2dGwr4ExVKbPsX" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/us/podcast/fp-a-tomorrow/id1738654158" target="_blank">Apple Podcasts</a></div>
+        <p class="ri-desc">Financial planning and analysis trends shaped by AI. Interviews with FP&amp;A leaders on automation opportunities and analytics modernization.</p>
+      </div>
+    </div>
+
+    <div class="resource-category">
+      <h3>Newsletters: Subscribe to These</h3>
+      <div class="resource-item">
+        <div class="ri-title">One Useful Thing</div>
+        <div class="ri-author">Ethan Mollick &middot; <a href="https://www.oneusefulthing.org/" target="_blank">oneusefulthing.org</a></div>
+        <p class="ri-desc">The gold standard for practical AI thinking. Weekly insights grounded in real adoption patterns.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The Rundown AI</div>
+        <div class="ri-author">Rowan Cheung &middot; <a href="https://www.therundown.ai/" target="_blank">therundown.ai</a></div>
+        <p class="ri-desc">Daily updates on AI trends and tools relevant to finance automation. Short, high-signal updates on new FP&amp;A and accounting platforms.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Superhuman AI</div>
+        <div class="ri-author">Zain Kahn &middot; <a href="https://www.superhuman.ai/" target="_blank">superhuman.ai</a></div>
+        <p class="ri-desc">Actionable AI productivity tips for leaders. High signal-to-noise.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Benedict's Newsletter</div>
+        <div class="ri-author">Benedict Evans &middot; <a href="https://www.ben-evans.com/newsletter" target="_blank">ben-evans.com</a></div>
+        <p class="ri-desc">Weekly tech strategy and market dynamics from ex-a16z analyst. Analytical take on where AI is heading.</p>
+      </div>
+    </div>
+
+    <div class="resource-category">
+      <h3>Articles &amp; Reports</h3>
+      <div class="resource-item">
+        <div class="ri-title">The State of AI in 2025: Agents, Innovation, and Transformation</div>
+        <div class="ri-author">McKinsey &middot; November 2025 &middot; <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank">mckinsey.com</a></div>
+        <p class="ri-desc">Enterprise AI adoption trends. The gap between adoption and performance is workflow redesign.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Insights from AI Ascent 2025</div>
+        <div class="ri-author">Sequoia Capital &middot; April 2025 &middot; <a href="https://inferencebysequoia.substack.com/p/insights-from-ai-ascent-2025" target="_blank">sequoiacap.com</a></div>
+        <p class="ri-desc">VC perspective on where AI is actually creating enterprise value. Which application layers for finance are winning.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">What an AI-Powered Finance Function of the Future Looks Like</div>
+        <div class="ri-author">McKinsey &middot; January 2025 &middot; <a href="https://www.mckinsey.com/capabilities/operations/our-insights/what-an-ai-powered-finance-function-of-the-future-looks-like" target="_blank">mckinsey.com</a></div>
+        <p class="ri-desc">Vision of finance function transformation through AI. How automation reshapes finance organization, workflows, and talent needs.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">AI in Finance: Driving Automation and Business Value</div>
+        <div class="ri-author">McKinsey &middot; February 2025 &middot; <a href="https://www.mckinsey.com/industries/financial-services/our-insights/ai-in-finance-driving-automation-and-business-value" target="_blank">mckinsey.com</a></div>
+        <p class="ri-desc">Practical AI implementation strategies for finance. How leading firms unlock business value through intelligent automation and analytics.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Gartner Hype Cycle for AI in Finance Identifies Three Near-Term Focus Areas for CFOs</div>
+        <div class="ri-author">Gartner &middot; March 2025 &middot; <a href="https://www.gartner.com/en/articles/gartner-hype-cycle-for-ai-in-finance" target="_blank">gartner.com</a></div>
+        <p class="ri-desc">Analyst perspective on AI maturity in finance. Identifies high-impact opportunities and realistic timelines for implementation.</p>
+      </div>
+    </div>
+
+    <blockquote>The finance teams that win will not be the ones with the biggest accounting departments. They will be the ones where the CFO spends 80% of their time on capital allocation and strategic decisions &middot; because AI handles the information supply chain from transaction to boardroom.</blockquote>
+  </div>
+
+  <!-- Footer Navigation -->
+  <div class="page-footer">
+    <div class="footer-nav">
+      <a href="future-of-function-06-hr.html">
+        <i data-lucide="arrow-left"></i> HR
+      </a>
+      <a href="../summit.html#prereads" class="back-all">
+        <i data-lucide="layout-grid"></i> All Briefs
+      </a>
+      <a href="future-of-function-08-it.html">
+        IT <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+    <div class="footer-meta">
+      <p>Future of Finance &middot; AI-generated pre-read for inspiration</p>
+      <p>IFS Internal &middot; April 2026</p>
+    </div>
+  </div>
+
+</main>
+
+</div><!-- .content-layout -->
+
+<!-- Site Footer -->
+<footer class="site-footer">
+  <div style="max-width:900px;margin:0 auto;padding:0 32px;">
+    <p><strong style="color:var(--text-muted)">IFS AI Leadership Summit</strong> &middot; 4&ndash;7 May 2026 &middot; Mountain View, California</p>
+    <div class="footer-weather" id="footer-weather">
+      <div class="fw-day"><div class="fw-day-date">Sun 4</div><div class="fw-day-icon" id="weather-icon-0">&ndash;</div><div class="fw-day-temp" id="weather-temp-0">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Mon 5</div><div class="fw-day-icon" id="weather-icon-1">&ndash;</div><div class="fw-day-temp" id="weather-temp-1">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Tue 6</div><div class="fw-day-icon" id="weather-icon-2">&ndash;</div><div class="fw-day-temp" id="weather-temp-2">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Wed 7</div><div class="fw-day-icon" id="weather-icon-3">&ndash;</div><div class="fw-day-temp" id="weather-temp-3">&ndash;</div></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i data-lucide="arrow-up"></i>
+</button>
+
+<!-- ═══════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  // Feature flags
+  if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
+    document.body.classList.add('ff-ext-edit-on');
+  }
+
+  // Initialize Lucide icons
+  lucide.createIcons();
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Navbar scroll state
+  const nav = document.querySelector('.nav');
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+        var btn = document.getElementById('back-to-top');
+        if (btn) btn.classList.toggle('visible', window.scrollY > 400);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile drawer toggle
+  window.toggleDrawer = function() {
+    var drawer = document.getElementById('navDrawer');
+    var overlay = document.getElementById('navOverlay');
+    var isOpen = drawer.classList.contains('open');
+    drawer.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  };
+
+  // Sidebar TOC scroll-spy
+  var sections = document.querySelectorAll('.section[id]');
+  var tocItems = document.querySelectorAll('.toc-item');
+  if (tocItems.length) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          tocItems.forEach(function(c) { c.classList.remove('active'); });
+          var match = document.querySelector('.toc-item[data-section="' + entry.target.id + '"]');
+          if (match) match.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(function(s) { observer.observe(s); });
+  }
+
+  // Smooth scroll for internal links
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Weather widget
+  (function fetchWeather() {
+    const lat = 37.3861, lon = -122.0839;
+    function weatherIcon(code) {
+      if (code <= 1) return { icon: '\u2600\uFE0F', label: 'Clear' };
+      if (code <= 3) return { icon: '\u26C5', label: 'Partly cloudy' };
+      if (code <= 48) return { icon: '\uD83C\uDF2B\uFE0F', label: 'Foggy' };
+      if (code <= 57) return { icon: '\uD83C\uDF26\uFE0F', label: 'Drizzle' };
+      if (code <= 67) return { icon: '\uD83C\uDF27\uFE0F', label: 'Rain' };
+      if (code <= 77) return { icon: '\u2744\uFE0F', label: 'Snow' };
+      if (code <= 82) return { icon: '\uD83C\uDF27\uFE0F', label: 'Showers' };
+      if (code <= 86) return { icon: '\uD83C\uDF28\uFE0F', label: 'Snow showers' };
+      return { icon: '\u26C8\uFE0F', label: 'Thunderstorm' };
+    }
+    function render(d) {
+      for (let i = 0; i < 4; i++) {
+        const w = weatherIcon(d.weather_code[i]);
+        var iconEl = document.getElementById('weather-icon-' + i);
+        var tempEl = document.getElementById('weather-temp-' + i);
+        if (iconEl) { iconEl.textContent = w.icon; iconEl.title = w.label; }
+        if (tempEl) { tempEl.innerHTML = Math.round(d.temperature_2m_max[i]) + '&deg; <span>/ ' + Math.round(d.temperature_2m_min[i]) + '&deg;C</span>'; }
+      }
+    }
+    var forecastUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=celsius&start_date=2026-05-04&end_date=2026-05-07&timezone=America/Los_Angeles';
+    fetch(forecastUrl).then(function(r) { return r.json(); }).then(function(data) {
+      if (data.error) throw new Error('out of range');
+      render(data.daily);
+    }).catch(function() {
+      var histUrl = 'https://archive-api.open-meteo.com/v1/archive?latitude=' + lat + '&longitude=' + lon + '&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=celsius&start_date=2025-05-04&end_date=2025-05-07&timezone=America/Los_Angeles';
+      fetch(histUrl).then(function(r) { return r.json(); }).then(function(data) {
+        if (data.error) throw new Error('archive failed');
+        render(data.daily);
+      }).catch(function() {});
+    });
+  })();
+
+})();
+</script>
+</body>
+</html>

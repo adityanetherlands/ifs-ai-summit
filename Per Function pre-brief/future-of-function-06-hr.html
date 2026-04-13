@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR &middot; IFS AI Leadership Summit</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN SYSTEM · Matches index.html exactly
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --bg-primary: #090b10;
+  --bg-secondary: #0f1117;
+  --bg-surface: #181b23;
+  --bg-surface-hover: #1e222d;
+  --border-subtle: #1e222d;
+  --border-default: #2a2f3d;
+  --border-accent: #6366f1;
+  --text-primary: #f0f1f5;
+  --text-secondary: #e4e6ed;
+  --text-muted: #9498ad;
+  --text-dim: #6b7094;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --accent-glow: rgba(99, 102, 241, 0.12);
+  --accent-indigo: var(--accent);
+  --accent-indigo-light: var(--accent-light);
+  --accent-indigo-glow: var(--accent-glow);
+  --accent-amber: #f59e0b;
+  --accent-emerald: #22c55e;
+  --accent-cyan: #06b6d4;
+  --accent-red: #ef4444;
+  --red-muted: #f87171;
+  --red-bg: rgba(248, 113, 113, 0.08);
+  --green-bg: rgba(99, 102, 241, 0.06);
+  --stat-gradient: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  --font-display: 'Lexend', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --max-width: 900px;
+  --nav-height: 64px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-height) + 24px); }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.65;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: white; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 3px; }
+a { color: var(--accent-light); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN NAVBAR (from index.html)
+   ═══════════════════════════════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; justify-content: center;
+  padding: 18px 32px;
+  pointer-events: none;
+}
+.nav-inner {
+  display: flex; align-items: center;
+  background: linear-gradient(135deg, rgba(20, 23, 32, 0.55) 0%, rgba(30, 34, 45, 0.45) 50%, rgba(99, 102, 241, 0.05) 100%);
+  backdrop-filter: blur(40px) saturate(1.3); -webkit-backdrop-filter: blur(40px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  padding: 8px 10px 8px 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 48px rgba(99,102,241,0.04), inset 0 1px 0 rgba(255,255,255,0.06);
+  pointer-events: auto;
+  max-width: 860px;
+  width: auto;
+  gap: 6px;
+}
+.nav-brand {
+  font-family: var(--font-display); font-size: 16px; font-weight: 800;
+  white-space: nowrap; margin-right: 16px;
+  color: #f0f1f5;
+  letter-spacing: -0.3px;
+  text-decoration: none;
+}
+.nav-brand:hover { text-decoration: none; opacity: 0.85; }
+.nav-brand span {
+  font-weight: 400;
+  background: linear-gradient(135deg, #818cf8, #06b6d4);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nav-links { display: flex; gap: 2px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; color: var(--text-dim);
+  padding: 10px 16px; border-radius: 100px; text-decoration: none;
+  transition: color 0.2s, background 0.2s; cursor: pointer;
+  letter-spacing: 0.1px;
+}
+.nav-links a:hover { color: #f0f1f5; background: rgba(255,255,255,0.1); text-decoration: none; }
+.nav-links a.active { color: white; background: var(--accent); }
+
+.nav.scrolled .nav-inner {
+  background: linear-gradient(135deg, rgba(20, 23, 32, 0.7) 0%, rgba(30, 34, 45, 0.6) 50%, rgba(99, 102, 241, 0.06) 100%);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Hamburger */
+.nav-hamburger {
+  display: none; background: none; border: none; color: var(--text-muted);
+  cursor: pointer; padding: 8px; border-radius: 100px;
+}
+.nav-hamburger:hover { background: rgba(255,255,255,0.1); }
+
+/* Mobile drawer */
+.nav-drawer {
+  display: none; position: fixed; top: 0; right: 0; bottom: 0;
+  width: 280px; background: var(--bg-surface); border-left: 1px solid var(--border-default);
+  z-index: 1001; transform: translateX(100%); transition: transform 0.3s var(--ease);
+  padding: 80px 24px 24px; flex-direction: column; gap: 4px;
+}
+.nav-drawer.open { transform: translateX(0); display: flex; }
+.nav-drawer a {
+  font-size: 15px; font-weight: 600; color: var(--text-muted);
+  padding: 14px 16px; border-radius: 8px; text-decoration: none;
+  transition: color 0.2s, background 0.2s; display: block;
+}
+.nav-drawer a:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); text-decoration: none; }
+.nav-drawer a.active { color: var(--accent-light); background: var(--accent-glow); }
+.nav-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 1000;
+}
+.nav-overlay.open { display: block; }
+.drawer-close {
+  position: absolute; top: 16px; right: 16px; background: none; border: none;
+  color: var(--text-muted); cursor: pointer; padding: 8px; border-radius: 6px;
+}
+.drawer-close:hover { color: var(--text-primary); background: rgba(255,255,255,0.06); }
+
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+  .nav-drawer.open { display: flex; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BRIEF HERO
+   ═══════════════════════════════════════════════════════════════ */
+.brief-hero {
+  padding: calc(var(--nav-height) + 56px) 32px 48px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 70% 60% at 85% 15%, rgba(99, 102, 241, 0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 50% at 10% 80%, rgba(6, 182, 212, 0.10) 0%, transparent 65%),
+    var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.brief-hero-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.brief-hero-eyebrow {
+  font-family: var(--font-display); font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light);
+  margin-bottom: 16px;
+}
+.brief-hero-title {
+  font-family: var(--font-display); font-size: clamp(28px, 5vw, 42px); font-weight: 800;
+  color: var(--text-primary); letter-spacing: -0.5px; line-height: 1.15;
+  margin-bottom: 12px;
+}
+.brief-hero-subtitle {
+  font-size: 17px; color: var(--accent-light); font-weight: 600; letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+.brief-hero-tagline {
+  font-size: 14px; color: var(--text-muted); font-style: italic;
+  margin-bottom: 28px;
+}
+.brief-hero-nav {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.brief-nav-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  padding: 10px 20px; border-radius: 100px;
+  border: 1px solid var(--border-default);
+  text-decoration: none;
+  transition: all 0.2s var(--ease);
+}
+.brief-nav-btn:hover {
+  color: var(--accent-light); border-color: var(--accent);
+  background: var(--accent-glow); text-decoration: none;
+}
+.brief-nav-btn svg { width: 16px; height: 16px; }
+.brief-nav-all {
+  border-color: var(--accent); color: var(--accent-light);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTENT LAYOUT (sidebar + main)
+   ═══════════════════════════════════════════════════════════════ */
+.content-layout {
+  display: flex;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 32px;
+  gap: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STICKY SIDEBAR TOC
+   ═══════════════════════════════════════════════════════════════ */
+.toc-sidebar {
+  width: 180px;
+  flex-shrink: 0;
+  padding-top: 48px;
+}
+.toc-nav {
+  position: sticky;
+  top: calc(var(--nav-height) + 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toc-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-dim);
+  font-size: 13px; font-weight: 500;
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+  cursor: pointer;
+  position: relative;
+}
+.toc-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 3px; border-radius: 2px;
+  background: transparent;
+  transition: background 0.2s var(--ease);
+}
+.toc-item:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.03);
+  text-decoration: none;
+}
+.toc-item.active {
+  color: var(--accent-light);
+  background: rgba(99, 102, 241, 0.06);
+}
+.toc-item.active::before {
+  background: var(--accent);
+}
+.toc-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border-default);
+  flex-shrink: 0;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.toc-item.active .toc-dot {
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════════════════════════════════════ */
+.main {
+  flex: 1;
+  min-width: 0;
+  max-width: var(--max-width);
+  padding: 48px 0 0 48px;
+}
+
+/* Sections */
+.section { margin-bottom: 32px; scroll-margin-top: calc(var(--nav-height) + 24px); }
+.section + .section { border-top: none; padding-top: 16px; }
+h2 {
+  font-family: var(--font-display); font-size: 24px; font-weight: 800;
+  margin-bottom: 22px; color: var(--text-primary);
+  padding-bottom: 12px; border-bottom: 1px solid var(--border-default);
+  letter-spacing: -0.3px;
+}
+h3 {
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  margin-top: 28px; margin-bottom: 12px; color: var(--accent-light);
+}
+p { margin-bottom: 14px; font-size: 15px; line-height: 1.75; color: var(--text-muted); }
+strong { color: var(--text-secondary); font-weight: 700; }
+
+/* Framework Items */
+.framework-item { margin-bottom: 28px; }
+.framework-item h3 { margin-top: 0; margin-bottom: 10px; }
+.framework-item p { margin-bottom: 10px; }
+
+/* Homework Items */
+.homework-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border-subtle); }
+.homework-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.homework-item h4 { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; margin-top: 0; }
+.homework-item p { margin-bottom: 0; }
+
+/* Provocation callout */
+.provocation {
+  font-size: 16px; font-weight: 600; font-style: italic;
+  color: var(--text-primary); line-height: 1.6;
+  padding: 20px 24px; margin: 0 0 18px 0;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-glow); border-radius: 0 8px 8px 0;
+}
+
+/* North Star / Thought Exercise Callout */
+.north-star-callout {
+  background: var(--accent-glow); border: 2px solid var(--accent);
+  border-radius: 12px; padding: 28px; margin: 32px 0;
+}
+.ns-label { font-size: 11px; font-weight: 700; color: var(--accent-light); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+.ns-body { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 0; }
+.ns-body strong { color: var(--text-primary); }
+
+/* Questions */
+.questions-section {
+  background: var(--accent-glow); padding: 28px; border-radius: 12px;
+  margin: 28px 0; border: 1px solid var(--border-default);
+}
+.question-category { margin-bottom: 24px; }
+.question-category:last-child { margin-bottom: 0; }
+.question-category h4 { font-family: var(--font-display); font-size: 12px; font-weight: 700; color: var(--accent-light); letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase; }
+.question-category ul { list-style: none; padding: 0; }
+.question-category li { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; padding-left: 18px; position: relative; line-height: 1.6; }
+.question-category li::before { content: "\2013"; position: absolute; left: 0; color: var(--accent-light); font-weight: bold; }
+
+/* Company Cards */
+.company-section-label {
+  font-family: var(--font-display); font-size: 11px; font-weight: 700;
+  color: var(--accent-light); letter-spacing: 1.5px; text-transform: uppercase;
+  margin-top: 28px; margin-bottom: 14px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px; }
+.company-card {
+  background: var(--bg-surface); border-radius: 10px; padding: 20px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08); border-left: 3px solid var(--accent);
+  transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+  text-decoration: none; color: inherit; display: block; cursor: pointer;
+}
+.company-card:hover { box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15); transform: translateY(-2px); text-decoration: none; }
+.company-card h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+.company-card .cc-tag { font-size: 10px; font-weight: 600; color: var(--accent-light); letter-spacing: 0.3px; margin-bottom: 8px; }
+.company-card .cc-desc { font-size: 12px; color: var(--text-dim); line-height: 1.55; margin-bottom: 8px; }
+.company-card .cc-look { font-size: 11px; color: var(--text-muted); font-style: italic; margin-bottom: 8px; line-height: 1.5; }
+.company-card .cc-url { font-size: 11px; color: var(--accent-light); font-weight: 600; }
+
+/* Exercise Cards */
+.exercise-card {
+  background: var(--bg-surface); border-top: 3px solid var(--accent);
+  padding: 24px; margin: 20px 0; border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.exercise-card h4 { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+.exercise-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.65; }
+.exercise-card p:last-child { margin-bottom: 0; }
+
+/* Resource Library */
+.resource-category { margin-bottom: 32px; }
+.resource-category h3 { margin-top: 0; }
+.resource-item {
+  background: var(--bg-surface); border-radius: 10px; padding: 18px 20px;
+  margin-bottom: 10px; border-left: 3px solid var(--border-default);
+  transition: border-color 0.2s var(--ease);
+}
+.resource-item:hover { border-left-color: var(--accent); }
+.resource-item .ri-title {
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 2px;
+}
+.resource-item .ri-author { font-size: 12px; color: var(--accent-light); font-weight: 500; margin-bottom: 6px; }
+.resource-item .ri-desc { font-size: 12px; color: var(--text-dim); line-height: 1.55; margin: 0; }
+.resource-item a { color: var(--accent-light); font-size: 11px; font-weight: 600; }
+
+/* Blockquote */
+blockquote {
+  border-left: 4px solid var(--accent); padding-left: 22px; margin: 32px 0;
+  font-size: 16px; font-style: italic; color: var(--text-muted); line-height: 1.75;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BACK TO TOP
+   ═══════════════════════════════════════════════════════════════ */
+#back-to-top {
+  position: fixed; bottom: 32px; right: 32px; z-index: 900;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--bg-surface); border: 1px solid var(--border-default);
+  color: var(--text-muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), border-color 0.2s, color 0.2s;
+  pointer-events: none;
+}
+#back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#back-to-top:hover { border-color: var(--accent); color: var(--accent-light); }
+#back-to-top svg { width: 20px; height: 20px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER NAVIGATION
+   ═══════════════════════════════════════════════════════════════ */
+.page-footer {
+  border-top: 1px solid var(--border-default);
+  padding: 32px 0 64px; margin-top: 56px;
+}
+.footer-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 32px;
+}
+.footer-nav a {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 600; color: var(--text-muted);
+  text-decoration: none; padding: 10px 18px; border-radius: 8px;
+  border: 1px solid var(--border-default);
+  transition: all 0.2s var(--ease); cursor: pointer;
+}
+.footer-nav a:hover { color: var(--accent-light); border-color: var(--accent); background: var(--accent-glow); text-decoration: none; }
+.footer-nav a svg { width: 16px; height: 16px; }
+.footer-nav .back-all {
+  border-color: var(--accent); color: var(--accent-light);
+}
+.footer-meta {
+  text-align: center; font-size: 12px; color: var(--text-dim);
+}
+.footer-meta p { margin-bottom: 4px; font-size: 12px; color: var(--text-dim); }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .nav-inner { padding: 8px 10px 8px 20px; }
+  .toc-sidebar { display: none; }
+  .main { padding-left: 0; }
+  .content-layout { max-width: var(--max-width); }
+}
+@media (max-width: 768px) {
+  .main { padding-left: 0; padding-right: 0; }
+  .content-layout { padding-left: 20px; padding-right: 20px; }
+  .brief-hero { padding-left: 20px; padding-right: 20px; }
+  .brief-hero-title { font-size: 26px; }
+  .brief-nav-btn { padding: 8px 16px; font-size: 12px; }
+  .company-grid { grid-template-columns: 1fr; }
+  h2 { font-size: 20px; }
+  .footer-nav { flex-direction: column; gap: 12px; }
+  .footer-nav a { width: 100%; justify-content: center; }
+  .nav { padding: 12px 16px; }
+}
+
+/* Feature flags */
+.ff-ext-edit { display: none !important; }
+body.ff-ext-edit-on .ff-ext-edit { display: revert !important; }
+body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: 0.01ms !important; }
+}
+
+/* Mobile Nav */
+@media (max-width: 1024px) {
+  .nav { padding: 0; }
+  .nav-inner {
+    border-radius: 0; border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    max-width: none; width: 100%; padding: 10px 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, rgba(20,23,32,0.85) 0%, rgba(30,34,45,0.75) 50%, rgba(99,102,241,0.06) 100%);
+    position: relative;
+  }
+  .nav-hamburger { order: -1; }
+  .nav-brand { position: absolute; left: 50%; transform: translateX(-50%); margin-right: 0; }
+  .nav-drawer {
+    right: auto; left: 0; transform: translateX(-100%);
+    background: linear-gradient(160deg, rgba(15,17,25,0.18) 0%, rgba(25,28,40,0.12) 40%, rgba(99,102,241,0.04) 100%);
+    backdrop-filter: blur(100px) saturate(2); -webkit-backdrop-filter: blur(100px) saturate(2);
+    border-left: none; border-right: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 8px 0 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 0 80px rgba(99,102,241,0.03);
+    padding: 80px 0 24px;
+  }
+  .nav-drawer.open { transform: translateX(0); }
+  .nav-drawer .drawer-close { left: auto; right: 16px; }
+  .nav-drawer a { border-radius: 0; transition: all 0.25s ease; padding: 14px 28px; margin: 0; position: relative; }
+  .nav-drawer a:hover { background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%); }
+  .nav-drawer a.active {
+    background: linear-gradient(90deg, rgba(99,102,241,0.25) 0%, rgba(139,92,246,0.12) 60%, rgba(6,182,212,0.06) 100%);
+    color: #fff; border: none; border-left: 3px solid #818cf8;
+    box-shadow: inset 0 0 30px rgba(99,102,241,0.08);
+  }
+}
+
+/* Site Footer (matches summit.html) */
+.site-footer {
+  background: var(--bg-secondary);
+  background-image:
+    radial-gradient(ellipse 65% 70% at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(236, 72, 153, 0.07) 0%, transparent 65%);
+  border-top: 1px solid var(--border-default);
+  padding: 48px 0; text-align: center;
+}
+.site-footer p { font-size: 14px; color: var(--text-dim); margin-bottom: 8px; }
+.footer-weather {
+  display: flex; justify-content: center; gap: 24px; margin-top: 16px;
+  flex-wrap: wrap;
+}
+.fw-day { text-align: center; }
+.fw-day-date { font-size: 11px; color: var(--text-dim); margin-bottom: 4px; }
+.fw-day-icon { font-size: 22px; line-height: 1; margin-bottom: 2px; }
+.fw-day-temp { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+.fw-day-temp span { font-weight: 400; opacity: 0.7; }
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     MAIN NAVBAR
+     ═══════════════════════════════════════════════════ -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="../summit.html" class="nav-brand">IFS <span>AI Summit</span></a>
+    <ul class="nav-links">
+      <li><a href="../summit.html">Home</a></li>
+      <li><a href="../summit.html#agenda">Agenda</a></li>
+      <li><a href="../summit.html#prereads" class="active">Pre-Reads</a></li>
+      <li><a href="../summit.html#homework">Homework</a></li>
+      <li><a href="../summit.html#speakers">Speakers</a></li>
+      <li><a href="../summit.html#groups">Groups</a></li>
+      <li><a href="../summit.html#venue">Venue</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Open menu" onclick="toggleDrawer()">
+      <i data-lucide="menu" style="width:24px;height:24px;"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-overlay" id="navOverlay" onclick="toggleDrawer()"></div>
+<div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu">
+  <button class="drawer-close" aria-label="Close menu" onclick="toggleDrawer()">
+    <i data-lucide="x" style="width:24px;height:24px;"></i>
+  </button>
+  <a href="../summit.html" onclick="toggleDrawer()">Home</a>
+  <a href="../summit.html#agenda" onclick="toggleDrawer()">Agenda</a>
+  <a href="../summit.html#prereads" class="active" onclick="toggleDrawer()">Pre-Read Briefs</a>
+  <a href="../summit.html#homework" onclick="toggleDrawer()">Homework</a>
+  <a href="../summit.html#speakers" onclick="toggleDrawer()">Speakers</a>
+  <a href="../summit.html#groups" onclick="toggleDrawer()">Groups</a>
+  <a href="../summit.html#venue" onclick="toggleDrawer()">Venue</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     BRIEF HERO
+     ═══════════════════════════════════════════════════ -->
+<section class="brief-hero">
+  <div class="brief-hero-inner">
+    <div class="brief-hero-eyebrow">Future of Function &middot; 06</div>
+    <h1 class="brief-hero-title">Future of HR</h1>
+    <p class="brief-hero-subtitle">What happens when AI collapses friction across the entire talent lifecycle?</p>
+    <p class="brief-hero-tagline">AI-generated pre-read for inspiration. Links and claims may drift, so verify anything you plan to cite.</p>
+    <div class="brief-hero-nav">
+      <a href="future-of-function-05-marketing.html" class="brief-nav-btn">
+        <i data-lucide="arrow-left"></i> Marketing
+      </a>
+      <a href="../summit.html#prereads" class="brief-nav-btn brief-nav-all">
+        <i data-lucide="layout-grid"></i> All Briefs
+      </a>
+      <a href="future-of-function-07-finance.html" class="brief-nav-btn">
+        Finance <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     CONTENT LAYOUT
+     ═══════════════════════════════════════════════════ -->
+<div class="content-layout">
+
+  <!-- Sticky Sidebar TOC -->
+  <aside class="toc-sidebar">
+    <nav class="toc-nav" aria-label="Page sections">
+      <a href="#section-1" class="toc-item" data-section="section-1">
+        <span class="toc-dot"></span> The Shift
+      </a>
+      <a href="#section-2" class="toc-item" data-section="section-2">
+        <span class="toc-dot"></span> Homework
+      </a>
+      <a href="#section-3" class="toc-item" data-section="section-3">
+        <span class="toc-dot"></span> Nudges
+      </a>
+      <a href="#section-4" class="toc-item" data-section="section-4">
+        <span class="toc-dot"></span> Questions
+      </a>
+      <a href="#section-5" class="toc-item" data-section="section-5">
+        <span class="toc-dot"></span> Companies
+      </a>
+      <a href="#section-6" class="toc-item" data-section="section-6">
+        <span class="toc-dot"></span> Hands-On
+      </a>
+      <a href="#section-7" class="toc-item" data-section="section-7">
+        <span class="toc-dot"></span> Resources
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+
+  <!-- Section 1: The Shift -->
+  <div class="section" id="section-1">
+    <h2>1. The Shift</h2>
+    <p><strong>Unilever</strong> screened 250,000 applications, hired 800 candidates, and reclaimed 50,000 hours of recruiter and candidate time. More than £1 million in annual savings. The time-to-hire dropped 75-90%. What changed? Not the number of recruiters. The structure of recruiting itself. Where screening used to consume weeks, AI now handles it in days. Where scheduling took manual work, conversational AI agents do it in minutes. Where assessments were gut-based, neuroscience games now predict cognitive fit with precision.</p>
+    <p><strong>LinkedIn</strong> reports that companies leading on internal mobility see 53% longer employee tenures. But internal moves are administratively brutal &middot; spanning employment contracts, cost centres, payroll, systems provisioning, benefits, and reporting lines. Gloat and Eightfold have made internal moves transparent and seamless, turning a four-week friction point into a capability unlock. Employees see opportunities in real time, match their skills, and move in days instead of months.</p>
+    <p><strong>IBM</strong> built a predictive attrition model that flags flight risk with 95% accuracy &middot; 3-6 months ahead. When you can predict departures, you stop reacting and start intervening. Personalized retention plans. Opportunity matching. Compensation adjustments. Institutional knowledge captured before people leave. The departures that used to surprise leadership now trigger strategic responses.</p>
+    <p>Three capabilities, one pattern: <strong>AI removes friction from the entire joiner-mover-leaver lifecycle.</strong> Not by replacing humans, but by collapsing the administrative overhead that has buried the actual talent work.</p>
+  </div>
+
+  <!-- Section 2: Your Pre-Summit Homework -->
+  <div class="section" id="section-2">
+    <h2>2. Your Pre-Summit Homework</h2>
+    <p>Three things to bring to the session. Not to present, but to think about. Write them down. Short answers are fine. What matters is that you&rsquo;ve actually wrestled with them.</p>
+
+    <div class="homework-item">
+      <h4>1. A bold vision for 1 January 2027</h4>
+      <p>If you fast-forwarded 20 months, what does your HR function look like? Not incremental. Drastically different. What&rsquo;s disappeared? What&rsquo;s new? What does &ldquo;talent leadership&rdquo; even mean? Write the headline version: if someone wrote a profile of your function in January 2027, what would it say?</p>
+    </div>
+
+    <div class="homework-item">
+      <h4>2. The case for transformation</h4>
+      <p>Why does your HR function need to transform, and why now? Not &ldquo;AI is important&rdquo; generically. The specific commercial, competitive, or structural reason transformation is non-negotiable for you. What breaks if you stay as you are? If you can&rsquo;t articulate this in two sentences, your team won&rsquo;t follow you.</p>
+    </div>
+
+    <div class="homework-item">
+      <h4>3. The 2-3 KPIs that matter in the new era</h4>
+      <p>What are the 2-3 metrics that tell you HR is winning in an AI-native world? Time-to-hire? Quality-of-hire? Internal mobility rate? Manager effectiveness score? Engagement-weighted retention? The old KPIs of cost-per-hire and headcount measure input. What measures outcome in a world where transactional work is automated?</p>
+    </div>
+  </div>
+
+  <!-- Section 3: Directional Nudges -->
+  <div class="section" id="section-3">
+    <h2>3. Directional Nudges &middot; Sense / Decide / Execute</h2>
+
+    <div class="framework-item">
+      <h3>Sense: From Manual Screening to Continuous Matching</h3>
+      <div class="provocation">What if every open role was automatically matched against 1.6 billion career profiles &middot; filtered not by job titles but by actual skills?</div>
+      <p>Eightfold has indexed 1.6 billion career profiles and learned to match on capability, not credentials. A role requiring event-driven architecture, system design, and Go expertise becomes a query against a global skills graph &middot; instantly surfacing internal candidates nobody considered and external talent you didn&rsquo;t know existed. The job description &middot; that fiction written to describe the last person in the role &middot; becomes obsolete.</p>
+      <p><strong>The structural change:</strong> screening stops being a recruiter task and becomes a matching algorithm. Recruiters shift from CV reader to relationship builder. Time-to-fill collapses from 44 days to 15-20 days. Cost-per-hire drops from $3-5K to $800-1.2K. Onboarding shifts from checklist to orchestration &middot; AI provisions 15+ systems in parallel, assigns mentors, sequences training, and tracks milestones through day 90.</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>Decide: From Reactive Moves to Frictionless Internal Talent Flow</h3>
+      <div class="provocation">What if every internal move &middot; contract amendment, cost centre remapping, payroll adjustment, benefits re-enrollment, systems access &middot; completed in under 48 hours with zero HR ops involvement?</div>
+      <p>Today, an approved internal move is an administrative nightmare. The move decision happens on Monday. Systems updates happen over four weeks. Payroll doesn&rsquo;t change until next month. Contract language differs between entities. Employees stay in the old seat while paperwork crawls.</p>
+      <p>Gloat and Fuel50 expose the opportunities. AI agents handle the logistics. Automation workflows trigger the entire process from a single approval event. Cost centre pulls from the new role definition. Contracts auto-amend based on employment entity. Payroll adjusts within hours. Systems provisioning happens in parallel. The employee is fully operational before the move announcement.</p>
+      <p><strong>The structural change:</strong> internal mobility becomes a core retention lever, not a side effect. Employees see pathways, match to roles by skills, and move fluidly. Tenure increases 40-50%. Recruitment costs drop because 60-70% of open roles get filled internally.</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>Execute: From Flight Risk Surprises to Predictive Intervention</h3>
+      <div class="provocation">What if your HR team knew 6 months ahead which employees were likely to leave &middot; and what each intervention would take to keep them?</div>
+      <p>IBM&rsquo;s model flags risk with 95% accuracy using 34+ HR signals: tenure trajectory, manager changes, compensation band, engagement scores, performance ratings. Three months before someone hands in notice, leadership already knows. The HRBP runs the intervention playbook: opportunity surfacing, compensation review, mentor assignment, stretch project.</p>
+      <p>Sensay captures institutional knowledge through structured AI interviews as people leave &middot; making departing expertise searchable and accessible. The &ldquo;irreplaceable&rdquo; engineer&rsquo;s context becomes documented before the exit.</p>
+      <p><strong>The structural change:</strong> attrition moves from reactive problem to managed flow. Regrettable attrition drops 30-40% through early intervention. Knowledge loss becomes preventable.</p>
+    </div>
+
+    <div class="framework-item">
+      <h3>The Loop Closes</h3>
+      <p>In the AI-native HR model, sensing is continuous. Deciding is frictionless. Execution is automated. The talent lifecycle stops being a series of events and becomes a fluid flow. The HR function stops processing transactions and starts stewarding capability.</p>
+    </div>
+
+    <div class="north-star-callout">
+      <div class="ns-label">Thought Exercise</div>
+      <p class="ns-body"><strong>If AI handled 90% of transactional HR &middot; recruitment screening, onboarding admin, internal move paperwork, exit processing, employee queries &middot; what would your HR team actually do?</strong> What new work emerges? And what does your org chart look like in 18 months?</p>
+    </div>
+  </div>
+
+  <!-- Section 4: Questions -->
+  <div class="section" id="section-4">
+    <h2>4. Tough Questions to Ask Yourself</h2>
+    <div class="questions-section">
+      <div class="question-category">
+        <h4>Sense</h4>
+        <ul>
+          <li>How do you redesign recruitment to assume 90% of screening, scheduling, and initial engagement happens through AI without human friction?</li>
+          <li>If skills matching was continuous and automatic, would job descriptions disappear?</li>
+          <li>What changes about your employer brand when candidates experience 15-day hiring instead of 44?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>Decide</h4>
+        <ul>
+          <li>If an internal move required zero HR ops &middot; just an approval button triggering 48 hours of automation &middot; would your employees move more?</li>
+          <li>What&rsquo;s the difference between &ldquo;we don&rsquo;t have good internal mobility&rdquo; and &ldquo;internal mobility is too painful to attempt&rdquo;?</li>
+          <li>If AI could flag compensation inequity before it drives attrition, would you have to adjust faster?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>Execute</h4>
+        <ul>
+          <li>How do you measure HR impact if you&rsquo;re not counting tickets processed or forms submitted?</li>
+          <li>If you could predict attrition 3-6 months ahead with 95% accuracy, what&rsquo;s your retention intervention playbook?</li>
+          <li>How do you preserve institutional knowledge when departures are predictable but still happen?</li>
+        </ul>
+      </div>
+      <div class="question-category">
+        <h4>North Star</h4>
+        <ul>
+          <li>If HR shrinks from 75 to 30-40 people (for a 7,000-person company), what are the 5 roles that remain?</li>
+          <li>Does your CHRO become a technology partner, a culture architect, a workforce strategist &middot; or all three?</li>
+          <li>When HR is invisible and working, how do you demonstrate strategic value to the board?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Companies to Explore -->
+  <div class="section" id="section-5">
+    <h2>5. Companies to Explore</h2>
+    <p>Spend time on these websites. Watch demos, read case studies. Understanding what is production-grade today is the prerequisite for deciding what to act on.</p>
+
+    <div class="company-section-label">If your pain is recruiting speed and quality</div>
+    <div class="company-grid">
+      <a href="https://eightfold.ai" target="_blank" rel="noopener" class="company-card">
+        <h4>Eightfold AI</h4>
+        <div class="cc-tag">Skills Intelligence &amp; Talent Matching</div>
+        <div class="cc-desc">1.6 billion career profiles indexed. Matches on skills, not job titles. Agentic AI handles sourcing, outreach, and screening autonomously.</div>
+        <div class="cc-look">Look at: case studies with Unilever, JPMorgan, IBM on time-to-hire reduction.</div>
+        <div class="cc-url">eightfold.ai &rarr;</div>
+      </a>
+      <a href="https://paradox.ai" target="_blank" rel="noopener" class="company-card">
+        <h4>Paradox (Olivia)</h4>
+        <div class="cc-tag">Conversational AI Recruiting</div>
+        <div class="cc-desc">Fully agentic screening, scheduling, candidate engagement, and offer negotiation. Integrated with Workday. Cuts time-to-hire by 40-60%.</div>
+        <div class="cc-look">Look at: their recruiting automation demo and ROI calculator.</div>
+        <div class="cc-url">paradox.ai &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is internal mobility and retention</div>
+    <div class="company-grid">
+      <a href="https://gloat.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Gloat</h4>
+        <div class="cc-tag">AI Talent Marketplace</div>
+        <div class="cc-desc">Matches employees to internal roles, projects, and gigs by skills. Used by Unilever, Schneider Electric, Novartis. Direct driver of retention.</div>
+        <div class="cc-look">Look at: their internal mobility case studies showing 40% tenure increase.</div>
+        <div class="cc-url">gloat.com &rarr;</div>
+      </a>
+      <a href="https://fuel50.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Fuel50</h4>
+        <div class="cc-tag">Career Pathing &amp; Skills Architecture</div>
+        <div class="cc-desc">AI maps career paths, skills gaps, and internal opportunities. Employees discover progression pathways; talent marketplace surfaces roles by capability match.</div>
+        <div class="cc-look">Look at: their skills assessment and career path visualization tools.</div>
+        <div class="cc-url">fuel50.com &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is attrition and flight risk</div>
+    <div class="company-grid">
+      <a href="https://visier.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Visier</h4>
+        <div class="cc-tag">People Analytics &amp; Attrition Prediction</div>
+        <div class="cc-desc">Predicts attrition with up to 95% accuracy. Scenario modelling lets HR test retention strategies before deploying them.</div>
+        <div class="cc-look">Look at: their predictive analytics dashboard and IBM case study.</div>
+        <div class="cc-url">visier.com &rarr;</div>
+      </a>
+      <a href="https://onemodel.co" target="_blank" rel="noopener" class="company-card">
+        <h4>One Model</h4>
+        <div class="cc-tag">People Data Platform</div>
+        <div class="cc-desc">Unifies people data into a single analytics layer. Real-time dashboards on retention, attrition, engagement, talent density by capability.</div>
+        <div class="cc-look">Look at: their retention metric dashboards and scenario planning.</div>
+        <div class="cc-url">onemodel.co &rarr;</div>
+      </a>
+      <a href="https://sensay.io" target="_blank" rel="noopener" class="company-card">
+        <h4>Sensay</h4>
+        <div class="cc-tag">AI Knowledge Transfer at Offboarding</div>
+        <div class="cc-desc">Structured AI interviews capture departing employee expertise as searchable, accessible knowledge before they leave.</div>
+        <div class="cc-look">Look at: their knowledge capture workflow and institutional knowledge platform.</div>
+        <div class="cc-url">sensay.io &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is onboarding and new hire productivity</div>
+    <div class="company-grid">
+      <a href="https://enboarder.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Enboarder</h4>
+        <div class="cc-tag">AI Onboarding Orchestration</div>
+        <div class="cc-desc">Adaptive workflows that sequence provisioning, training, intros, and milestones. Moves from static checklists to agentic, personalized onboarding.</div>
+        <div class="cc-look">Look at: their onboarding orchestration workflows and day-90 productivity tracking.</div>
+        <div class="cc-url">enboarder.com &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is employee service and query resolution</div>
+    <div class="company-grid">
+      <a href="https://leena.ai" target="_blank" rel="noopener" class="company-card">
+        <h4>Leena AI</h4>
+        <div class="cc-tag">AI Employee Service Desk</div>
+        <div class="cc-desc">Resolves 90% of employee queries at first contact: benefits, policy, leave, onboarding, expense questions. No human escalation.</div>
+        <div class="cc-look">Look at: their employee query resolution demo and accuracy metrics.</div>
+        <div class="cc-url">leena.ai &rarr;</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Section 6: Hands-On Exercises -->
+  <div class="section" id="section-6">
+    <h2>6. Hands-On Exercises</h2>
+    <p>Do at least one before the session. These put you in the shoes of an AI-native HR function &middot; not an opinion about the future, but a working prototype.</p>
+
+    <div class="exercise-card">
+      <h4>Exercise 1: The Skills Matching Prototype &nbsp;&middot;&nbsp; 30 min</h4>
+      <p>Pick 3 open roles in your org. Write a detailed job description for each. Then, using Claude or another AI, generate a skills profile for each role &middot; decomposing the role into 12-15 required capabilities. Next, take a team of 15 employees. Ask AI to analyse their LinkedIn profiles, internal project history, and performance reviews to build a capability profile for each. Match employees to roles by skills, not current position. How many matches would you never have considered?</p>
+      <p><strong>Output:</strong> A visual skills-to-role matching analysis showing missed internal candidates.</p>
+      <p><strong>Tools:</strong> Claude, LinkedIn data, internal HR data &middot; <strong>Time:</strong> 30 min</p>
+    </div>
+    <div class="exercise-card">
+      <h4>Exercise 2: The Internal Move Workflow Automator &nbsp;&middot;&nbsp; 60 min</h4>
+      <p>Map every step triggered when someone changes roles internally: contract amendment, cost centre change, payroll adjustment, benefits update, reporting line change, systems access reconfiguration, announcement workflow. Time each step. Estimate total elapsed time. Then design an automation workflow that executes all steps from a single &ldquo;move approved&rdquo; trigger. Target: under 48 hours end-to-end.</p>
+      <p><strong>Output:</strong> A working internal move automation workflow with before/after time comparison.</p>
+      <p><strong>Tools:</strong> Make/Zapier, HRIS/payroll/benefits API, DocuSign API &middot; <strong>Time:</strong> 60 min</p>
+    </div>
+    <div class="exercise-card">
+      <h4>Exercise 3: The Predictive Attrition Model &nbsp;&middot;&nbsp; 90 min</h4>
+      <p>Gather anonymised HR data for 50-100 recent leavers: tenure trajectory, manager changes, compensation band, engagement scores, performance ratings, peer departures. Feed this to Claude or Python-based ML. Ask AI to identify patterns and build a flight-risk model. Run the model against your current employee population. Compare predictions to what HRBPs intuitively know. Which signals matter most?</p>
+      <p><strong>Output:</strong> A working flight-risk model with predictions and pattern analysis.</p>
+      <p><strong>Tools:</strong> Claude, Python, anonymised HR data &middot; <strong>Time:</strong> 90 min</p>
+    </div>
+  </div>
+
+  <!-- Section 7: Curated Resource Library -->
+  <div class="section" id="section-7">
+    <h2>7. Curated Resource Library</h2>
+
+    <div class="resource-category">
+      <h3>Books</h3>
+      <div class="resource-item">
+        <div class="ri-title">The Talent Code</div>
+        <div class="ri-author">Daniel Coyle</div>
+        <p class="ri-desc">How elite organizations build deep talent. The neuroscience and systems behind exceptional performance and culture.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The Platform Scale</div>
+        <div class="ri-author">Sangeet Paul Choudhury</div>
+        <p class="ri-desc">Economics of platforms and talent matching. Relevant to internal mobility and skills-based design.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Competing in the Age of AI</div>
+        <div class="ri-author">Iansiti &amp; Lakhani</div>
+        <p class="ri-desc">Harvard Business School&rsquo;s framework for AI-native operations. The section on organizational design is essential.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Co-Intelligence: Living and Working with AI</div>
+        <div class="ri-author">Ethan Mollick</div>
+        <p class="ri-desc">The most practical book on humans and AI as co-workers. Applies directly to HR reimagining.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The Coming Wave</div>
+        <div class="ri-author">Mustafa Suleyman</div>
+        <p class="ri-desc">Strategic context. The business and geopolitical environment HR operates in.</p>
+      </div>
+    </div>
+
+    <div class="resource-category">
+      <h3>Podcasts: Series to Follow</h3>
+      <div class="resource-item">
+        <div class="ri-title">The Josh Bersin Company</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/6wNbOm7DziZzPNFaHblYpI" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/cd/podcast/the-josh-bersin-company/id1513832916" target="_blank">Apple Podcasts</a></div>
+        <p class="ri-desc">Deep research on HR transformation, talent acquisition, AI, and the future of work. Essential for CHROs rethinking organizational design.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">HR Happy Hour</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/2zaHyDvkLUqKi0Pi8FHWYz" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/us/podcast/hr-happy-hour-network/id325399068" target="_blank">Apple Podcasts</a></div>
+        <p class="ri-desc">Unfiltered conversations about workplace culture, HR tech, and managing people through transformation. Real practitioners, real advice.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Digital HR Leaders with David Green</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/40LdYb32asJxvZ9JnYYlTL" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/us/podcast/digital-hr-leaders-with-david-green/id1459322652" target="_blank">Apple Podcasts</a></div>
+        <p class="ri-desc">Interviews with senior HR leaders driving digital transformation. Data-driven HR, workflows redesigned for the AI era.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Lex Fridman Podcast</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/2MAi0BvDc6GTFvKFPXnkCL" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/us/podcast/lex-fridman-podcast/id1434243584" target="_blank">Apple Podcasts</a></div>
+        <p class="ri-desc">Long-form conversations with frontier-model CEOs and AI researchers. Strategic context for organizational transformation ahead.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">HR Leaders Podcast</div>
+        <div class="ri-author"><a href="https://open.spotify.com/show/2W0e5BGna5KHJUTrITcs3o" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/us/podcast/hr-leaders/id1263992083" target="_blank">Apple Podcasts</a></div>
+        <p class="ri-desc">Conversations with CHROs and HR leaders on people strategy, culture, and future of work.</p>
+      </div>
+    </div>
+
+    <div class="resource-category">
+      <h3>Newsletters: Subscribe to These</h3>
+      <div class="resource-item">
+        <div class="ri-title">One Useful Thing</div>
+        <div class="ri-author">Ethan Mollick &middot; <a href="https://www.oneusefulthing.org/" target="_blank">oneusefulthing.org</a></div>
+        <p class="ri-desc">Weekly practical AI thinking grounded in research and real adoption patterns. Directly relevant to HR transformation.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The Rundown AI</div>
+        <div class="ri-author">Rowan Cheung &middot; <a href="https://www.therundown.ai/" target="_blank">therundown.ai</a></div>
+        <p class="ri-desc">Daily AI news in five minutes. Stay current on emerging HR tech and workforce tools.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Superhuman AI</div>
+        <div class="ri-author">Zain Kahn &middot; <a href="https://www.superhuman.ai/" target="_blank">superhuman.ai</a></div>
+        <p class="ri-desc">Actionable AI productivity and workforce insights for leaders. High signal-to-noise ratio.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Benedict's Newsletter</div>
+        <div class="ri-author">Benedict Evans &middot; <a href="https://www.ben-evans.com/newsletter" target="_blank">ben-evans.com</a></div>
+        <p class="ri-desc">Weekly tech strategy and organizational implications. Sharp analysis of where AI shifts work and talent strategy.</p>
+      </div>
+    </div>
+
+    <div class="resource-category">
+      <h3>Articles &amp; Reports</h3>
+      <div class="resource-item">
+        <div class="ri-title">AI in the People Function: Building Leaders, Improving Processes, Creating Value</div>
+        <div class="ri-author">McKinsey &middot; August 2025 &middot; <a href="https://www.mckinsey.com/featured-insights/people-in-progress/ai-in-the-people-function" target="_blank">mckinsey.com</a></div>
+        <p class="ri-desc">How to rewire HR workflows, reshape roles, and build real capability around AI-native people operations.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The State of AI in 2025: Agents, Innovation, and Transformation</div>
+        <div class="ri-author">McKinsey &middot; November 2025 &middot; <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank">mckinsey.com</a></div>
+        <p class="ri-desc">Enterprise AI adoption at scale. 88% of organizations use AI, but only 31% scale it. Where the gaps are and why.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">The Talent Acquisition Revolution: How AI is Transforming Recruiting</div>
+        <div class="ri-author">Josh Bersin Company &middot; October 2025 &middot; <a href="https://joshbersin.com/talent-acquisition-revolution/" target="_blank">joshbersin.com</a></div>
+        <p class="ri-desc">Data on how AI is reshaping hiring speed, quality, and candidate experience. Real implementation patterns.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Global Talent Trends 2026</div>
+        <div class="ri-author">Mercer &middot; February 2026 &middot; <a href="https://www.mercer.com/insights/people-strategy/future-of-work/global-talent-trends/" target="_blank">mercer.com</a></div>
+        <p class="ri-desc">91% of companies see AI transforming the workforce. Critical findings on skills gaps, burnout, and organizational readiness.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">Agentic AI at Scale: Redefining Management for a Superhuman Workforce</div>
+        <div class="ri-author">MIT Sloan Management Review &middot; 2025 &middot; <a href="https://sloanreview.mit.edu/article/agentic-ai-at-scale-redefining-management-for-a-superhuman-workforce/" target="_blank">mitsloan.mit.edu</a></div>
+        <p class="ri-desc">How to manage humans and AI agents in parallel. Rethinking leadership for human-AI collaboration at scale.</p>
+      </div>
+      <div class="resource-item">
+        <div class="ri-title">AI Is Changing How We Learn at Work</div>
+        <div class="ri-author">Harvard Business Review &middot; December 2025 &middot; <a href="https://hbr.org/2025/12/ai-is-changing-how-we-learn-at-work" target="_blank">hbr.org</a></div>
+        <p class="ri-desc">The paradox: AI accelerates productivity but risks undermining mastery and deep expertise. Strategic implications for L&D.</p>
+      </div>
+    </div>
+
+    <blockquote>The talent function that wins will not be the one with the best recruiters. It will be the one where joining is frictionless, moving is encouraged, and leaving is predicted before it happens.</blockquote>
+  </div>
+
+  <!-- Footer Navigation -->
+  <div class="page-footer">
+    <div class="footer-nav">
+      <a href="future-of-function-05-marketing.html">
+        <i data-lucide="arrow-left"></i> Marketing
+      </a>
+      <a href="../summit.html#prereads" class="back-all">
+        <i data-lucide="layout-grid"></i> All Briefs
+      </a>
+      <a href="future-of-function-07-finance.html">
+        Finance <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+    <div class="footer-meta">
+      <p>Future of HR &middot; AI-generated pre-read for inspiration</p>
+      <p>IFS Internal &middot; April 2026</p>
+    </div>
+  </div>
+
+</main>
+
+</div><!-- .content-layout -->
+
+<!-- Site Footer -->
+<footer class="site-footer">
+  <div style="max-width:900px;margin:0 auto;padding:0 32px;">
+    <p><strong style="color:var(--text-muted)">IFS AI Leadership Summit</strong> &middot; 4&ndash;7 May 2026 &middot; Mountain View, California</p>
+    <div class="footer-weather" id="footer-weather">
+      <div class="fw-day"><div class="fw-day-date">Sun 4</div><div class="fw-day-icon" id="weather-icon-0">&ndash;</div><div class="fw-day-temp" id="weather-temp-0">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Mon 5</div><div class="fw-day-icon" id="weather-icon-1">&ndash;</div><div class="fw-day-temp" id="weather-temp-1">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Tue 6</div><div class="fw-day-icon" id="weather-icon-2">&ndash;</div><div class="fw-day-temp" id="weather-temp-2">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Wed 7</div><div class="fw-day-icon" id="weather-icon-3">&ndash;</div><div class="fw-day-temp" id="weather-temp-3">&ndash;</div></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i data-lucide="arrow-up"></i>
+</button>
+
+<!-- ═══════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  // Feature flags
+  if (new URLSearchParams(window.location.search).get('ext_edit') === 'true') {
+    document.body.classList.add('ff-ext-edit-on');
+  }
+
+  // Initialize Lucide icons
+  lucide.createIcons();
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Navbar scroll state
+  const nav = document.querySelector('.nav');
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+        var btn = document.getElementById('back-to-top');
+        if (btn) btn.classList.toggle('visible', window.scrollY > 400);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Sidebar TOC scroll-spy
+  var sections = document.querySelectorAll('.section[id]');
+  var tocItems = document.querySelectorAll('.toc-item');
+  if (tocItems.length) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          tocItems.forEach(function(c) { c.classList.remove('active'); });
+          var match = document.querySelector('.toc-item[data-section="' + entry.target.id + '"]');
+          if (match) match.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach(function(s) { observer.observe(s); });
+  }
+
+  // Smooth scroll for internal links
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Drawer toggle
+  window.toggleDrawer = function() {
+    const drawer = document.getElementById('navDrawer');
+    const overlay = document.getElementById('navOverlay');
+    if (drawer) drawer.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  };
+
+  // Close drawer on escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const drawer = document.getElementById('navDrawer');
+      const overlay = document.getElementById('navOverlay');
+      if (drawer) drawer.classList.remove('open');
+      if (overlay) overlay.classList.remove('open');
+    }
+  });
+
+  // Weather widget
+  (function fetchWeather() {
+    const lat = 37.3861, lon = -122.0839;
+    function weatherIcon(code) {
+      if (code <= 1) return { icon: '\u2600\uFE0F', label: 'Clear' };
+      if (code <= 3) return { icon: '\u26C5', label: 'Partly cloudy' };
+      if (code <= 48) return { icon: '\uD83C\uDF2B\uFE0F', label: 'Foggy' };
+      if (code <= 57) return { icon: '\uD83C\uDF26\uFE0F', label: 'Drizzle' };
+      if (code <= 67) return { icon: '\uD83C\uDF27\uFE0F', label: 'Rain' };
+      if (code <= 77) return { icon: '\u2744\uFE0F', label: 'Snow' };
+      if (code <= 82) return { icon: '\uD83C\uDF27\uFE0F', label: 'Showers' };
+      if (code <= 86) return { icon: '\uD83C\uDF28\uFE0F', label: 'Snow showers' };
+      return { icon: '\u26C8\uFE0F', label: 'Thunderstorm' };
+    }
+    function render(d) {
+      for (let i = 0; i < 4; i++) {
+        const w = weatherIcon(d.weather_code[i]);
+        var iconEl = document.getElementById('weather-icon-' + i);
+        var tempEl = document.getElementById('weather-temp-' + i);
+        if (iconEl) { iconEl.textContent = w.icon; iconEl.title = w.label; }
+        if (tempEl) { tempEl.innerHTML = Math.round(d.temperature_2m_max[i]) + '&deg; <span>/ ' + Math.round(d.temperature_2m_min[i]) + '&deg;C</span>'; }
+      }
+    }
+    var forecastUrl = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=celsius&start_date=2026-05-04&end_date=2026-05-07&timezone=America/Los_Angeles';
+    fetch(forecastUrl).then(function(r) { return r.json(); }).then(function(data) {
+      if (data.error) throw new Error('out of range');
+      render(data.daily);
+    }).catch(function() {
+      var histUrl = 'https://archive-api.open-meteo.com/v1/archive?latitude=' + lat + '&longitude=' + lon + '&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=celsius&start_date=2025-05-04&end_date=2025-05-07&timezone=America/Los_Angeles';
+      fetch(histUrl).then(function(r) { return r.json(); }).then(function(data) {
+        if (data.error) throw new Error('archive failed');
+        render(data.daily);
+      }).catch(function() {});
+    });
+  })();
+
+})();
+</script>
+
+</body>
+</html>
