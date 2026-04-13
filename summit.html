@@ -323,6 +323,29 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 }
 .hero-scroll-hint svg { width: 24px; height: 24px; }
 
+/* Hero countdown – feature flag */
+.hero-countdown {
+  display: flex; align-items: flex-start; justify-content: center; gap: 0;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s var(--ease) 0.28s both;
+}
+.hero-countdown-item {
+  display: flex; flex-direction: column; align-items: center; min-width: 52px;
+}
+.hero-countdown-value {
+  font-family: var(--font-display); font-size: 24px; font-weight: 700;
+  color: var(--text-secondary); line-height: 1; letter-spacing: -0.5px;
+  font-variant-numeric: tabular-nums;
+}
+.hero-countdown-label {
+  font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text-dim); margin-top: 5px;
+}
+.hero-countdown-sep {
+  font-size: 18px; font-weight: 300; color: var(--text-dim);
+  margin: 0 4px; line-height: 1.3; opacity: 0.3; user-select: none;
+}
+
 /* ═══════════════════════════════════════════════════════════════
    AGENDA
    ═══════════════════════════════════════════════════════════════ */
@@ -1230,6 +1253,24 @@ body.ff-ext-edit-on .hero-cta {
       <span class="hero-meta-item"><i data-lucide="map-pin" style="width:14px;height:14px;opacity:0.5;"></i> Mountain View, California</span>
       <span class="sep">&middot;</span>
       <span class="hero-meta-item"><i data-lucide="calendar" style="width:14px;height:14px;opacity:0.5;"></i> 4 &ndash; 7 May 2026</span>
+    </div>
+    <div class="ff-ext-edit">
+      <div class="hero-countdown" id="hero-countdown" aria-label="Countdown to summit">
+        <div class="hero-countdown-item">
+          <span class="hero-countdown-value" id="cd-days">--</span>
+          <span class="hero-countdown-label">days</span>
+        </div>
+        <span class="hero-countdown-sep" aria-hidden="true">:</span>
+        <div class="hero-countdown-item">
+          <span class="hero-countdown-value" id="cd-hours">--</span>
+          <span class="hero-countdown-label">hours</span>
+        </div>
+        <span class="hero-countdown-sep" aria-hidden="true">:</span>
+        <div class="hero-countdown-item">
+          <span class="hero-countdown-value" id="cd-seconds">--</span>
+          <span class="hero-countdown-label">seconds</span>
+        </div>
+      </div>
     </div>
     <div class="hero-pills">
       <span class="hero-pill"><i data-lucide="users"></i> 50+ Senior Leaders</span>
@@ -2258,6 +2299,28 @@ body.ff-ext-edit-on .hero-cta {
       calPillObserver.observe(heroEl);
     }
   }
+
+  // ─── Hero countdown timer ───
+  (function initCountdown() {
+    const cdDays = document.getElementById('cd-days');
+    const cdHours = document.getElementById('cd-hours');
+    const cdSecs = document.getElementById('cd-seconds');
+    if (!cdDays || !cdHours || !cdSecs) return;
+    const TARGET = new Date('2026-05-04T18:00:00-07:00').getTime();
+    function tick() {
+      const diff = TARGET - Date.now();
+      if (diff <= 0) {
+        cdDays.textContent = '00'; cdHours.textContent = '00'; cdSecs.textContent = '00';
+        return;
+      }
+      const totalSecs = Math.floor(diff / 1000);
+      cdDays.textContent = String(Math.floor(totalSecs / 86400)).padStart(2, '0');
+      cdHours.textContent = String(Math.floor((totalSecs % 86400) / 3600)).padStart(2, '0');
+      cdSecs.textContent = String(totalSecs % 60).padStart(2, '0');
+    }
+    tick();
+    setInterval(tick, 1000);
+  }());
 
   // ─── Smooth scroll for nav links ───
   document.querySelectorAll('a[href^="#"]').forEach(link => {
