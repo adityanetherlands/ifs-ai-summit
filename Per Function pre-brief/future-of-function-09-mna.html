@@ -642,8 +642,8 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
   <div class="section" id="section-1">
     <h2>1. The Shift</h2>
     <p><strong>JP Morgan&rsquo;s AI-powered deal sourcing platform</strong> processes 100,000+ company signals weekly and has reduced deal screening time by 60% since launch. <strong>Deloitte&rsquo;s AI due diligence tool</strong> analyzes contract risk in 48 hours instead of 6-8 weeks &middot; the firm has deployed it across 400+ transactions since 2023. When <strong>Kira Systems&rsquo; AI contract analyzer</strong> was acquired by Litera, it was processing legal documents across 60% of Fortune 500 M&amp;A deals, compressing document review cycles from weeks to days.</p>
-    <p>The M&amp;A function sits at a critical inflection. Every deal still follows the same linear pipeline: Scout targets, perform diligence, execute integration. The mechanics have barely changed in 15 years &middot; bankers source opportunities, teams manually sift through thousands of documents, lawyers and analysts spend 3-6 months on due diligence, and integration planning starts only after close.</p>
-    <p>Then AI lands on each layer. Deal sourcing becomes continuous and systematic instead of opportunistic. Diligence data rooms that once required 2,000+ analyst hours now get preliminary analysis in days. Integration blueprints are generated during diligence, not after close. The net effect: M&amp;A teams operating at 3-4x throughput while shrinking their headcount.</p>
+    <p>The M&amp;A function sits at a critical inflection. IFS and our advisers have used AI (notably Harvey) to augment due diligence for 12-18 months, DD cycles now typically run 3-5 weeks rather than months, and we have planned PMI in parallel with DD for a decade. The baseline is real &middot; but it is also uneven. Origination, contract review and integration planning still absorb the bulk of the cycle, and the levers that most directly pace a deal &middot; LoI / SPA / RWI negotiation and internal stakeholder alignment &middot; remain mostly manual.</p>
+    <p>The next leap extends AI end-to-end across the cycle. Deal sourcing becomes continuous and systematic instead of opportunistic. Diligence data rooms that once required 2,000+ analyst hours now get preliminary analysis in days. Negotiation and internal approval loops compress from weeks of document ping-pong to days. Integration blueprints are generated during diligence, not after close. The net effect: M&amp;A teams operating at 3-4x throughput while shrinking their headcount.</p>
     <p>The companies that have moved fastest &middot; Blackstone, Carlyle, Apollo Global Management &middot; treat AI in M&amp;A as infrastructure, not experiment. <strong>Blackstone&rsquo;s BDT team</strong> now uses machine learning to score 15,000+ targets annually against investment criteria. <strong>Carlyle</strong> built AI workflows that auto-generate investment memos. <strong>Apollo&rsquo;s deal operations platform</strong> uses AI to flag integration risks before they become surprises. These are not competitive advantages that fade. They compound. Each deal teaches the system. Each integration generates lessons that improve the next diligence process.</p>
   </div>
 
@@ -695,8 +695,16 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
     </div>
 
     <div class="framework-item">
+      <h3>Negotiate &amp; Align: From Document Ping-Pong to AI-Accelerated Agreement</h3>
+      <div class="provocation">What if every SPA redline, every IC deck, and every board memo was drafted, compared, and stress-tested by AI the moment the counterparty sent a new version &middot; so your team never waited on a document again?</div>
+      <p>Deal timelines are paced as much by negotiation cycles and internal approvals as by DD itself. On the external side, AI now redlines LoIs, SPAs and RWI policies against market-standard terms, compares counterparty markups across iterations, scores clause-level risk, and flags every deviation from the IFS playbook. What used to be weeks of legal back-and-forth becomes a structured sequence of days, with humans adjudicating material points rather than hunting for them.</p>
+      <p>On the internal side, AI generates investment committee packs directly from the data room, maintains automated change-logs between deal iterations so approvers see only what moved, and pre-emptively surfaces likely objections (legal, tax, ops, board) from patterns across prior deals. Sign-off loops that previously took two weeks collapse into days because every stakeholder receives a tailored, current view without anyone reformatting a single slide.</p>
+      <p><strong>The structural change:</strong> negotiation and internal alignment stop being the hidden bottleneck behind the 3-4x dealflow promise. Without AI in these layers, faster origination and DD just pile up waiting for signatures.</p>
+    </div>
+
+    <div class="framework-item">
       <h3>The Loop Closes</h3>
-      <p>In the AI-native M&amp;A model, sensing is continuous, diligence is compressed, integration is pre-planned. The corp dev team's job shifts from "run process" to "run strategy." They evaluate fit, negotiate structure, and manage stakeholders. Everything else is handled by the system.</p>
+      <p>In the AI-native M&amp;A model, sensing is continuous, diligence is compressed, negotiation and internal alignment run on AI-accelerated cycles, integration is pre-planned. The corp dev team's job shifts from "run process" to "run strategy." They evaluate fit, negotiate structure, and manage stakeholders. Everything else is handled by the system.</p>
     </div>
 
     <div class="north-star-callout">
@@ -793,8 +801,8 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 
     <div class="exercise-card">
       <h4>Exercise 2: The Due Diligence Accelerator &nbsp;&middot;&nbsp; 90 min</h4>
-      <p>Take 25-50 sample M&amp;A contracts (anonymized or from a case study). Feed them into Claude and ask it to: (1) extract key terms, (2) flag unusual or risky clauses, (3) identify revenue concentration and customer concentration risk, (4) summarize findings in an investment memo format. Measure time vs. what your legal team would spend on the same batch.</p>
-      <p><strong>Output:</strong> An AI-generated contract summary with risk flags and key terms. A before/after time comparison.</p>
+      <p>IFS already runs this workflow in production with Harvey &middot; this exercise is about stretching the baseline. Take 25-50 sample M&amp;A contracts (anonymized or from a case study). Feed them into Claude and ask it to: (1) extract key terms, (2) flag unusual or risky clauses, (3) identify revenue and customer concentration risk, (4) summarise findings in an investment memo format, (5) call out where Claude's output diverges from or adds to what Harvey typically produces. Measure the delta, not the absolute time.</p>
+      <p><strong>Output:</strong> An AI-generated contract summary with risk flags and key terms, plus a short note on what this adds on top of Harvey.</p>
       <p><strong>Tools:</strong> Claude, sample contracts (PDF), Python &middot; <strong>Time:</strong> 90 min</p>
     </div>
 
