@@ -423,6 +423,20 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 }
 .cal-btn:hover { border-color: var(--accent-indigo); background: rgba(99,102,241,0.18); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(99,102,241,0.15); text-decoration: none; }
 .cal-btn svg { width: 20px; height: 20px; }
+.cal-btn.is-disabled {
+  opacity: 0.55;
+  color: var(--text-muted);
+  border-color: rgba(148, 163, 184, 0.22);
+  background: rgba(148, 163, 184, 0.06);
+  cursor: not-allowed;
+}
+.cal-btn.is-disabled:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: rgba(148, 163, 184, 0.35);
+  background: rgba(148, 163, 184, 0.08);
+  color: var(--text-muted);
+}
 
 /* ═══════════════════════════════════════════════════════════════
    PRE-READ BRIEFS
@@ -833,6 +847,100 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
   box-shadow: 0 4px 24px rgba(99, 102, 241, 0.18);
 }
 #cal-pill svg { width: 16px; height: 16px; }
+#cal-pill.is-disabled {
+  color: var(--text-muted);
+  border-color: rgba(148, 163, 184, 0.22);
+  background: rgba(15, 17, 23, 0.72);
+  cursor: not-allowed;
+}
+#cal-pill.is-disabled:hover {
+  background: rgba(15, 17, 23, 0.72);
+  border-color: rgba(148, 163, 184, 0.35);
+  color: var(--text-muted);
+  box-shadow: none;
+}
+
+/* ─── Agenda notice modal ─── */
+.agenda-notice-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 11, 16, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease);
+}
+.agenda-notice-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.agenda-notice-card {
+  max-width: 440px;
+  width: 100%;
+  background: var(--bg-secondary, #0f1117);
+  border: 1px solid rgba(99, 102, 241, 0.28);
+  border-radius: 16px;
+  padding: 32px 28px 24px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(99, 102, 241, 0.1);
+  transform: translateY(12px) scale(0.98);
+  transition: transform 0.25s var(--ease);
+  text-align: center;
+}
+.agenda-notice-overlay.visible .agenda-notice-card {
+  transform: translateY(0) scale(1);
+}
+.agenda-notice-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.14);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-indigo-light);
+}
+.agenda-notice-icon svg { width: 24px; height: 24px; }
+.agenda-notice-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 10px;
+}
+.agenda-notice-body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0 0 22px;
+}
+.agenda-notice-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  border-radius: 8px;
+  background: rgba(99, 102, 241, 0.14);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  color: var(--accent-indigo-light);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.agenda-notice-close:hover {
+  background: rgba(99, 102, 241, 0.22);
+  border-color: var(--accent-indigo);
+}
 
 /* ═══════════════════════════════════════════════════════════════
    Gradient section dividers
@@ -1296,7 +1404,7 @@ body.ff-ext-edit-on .hero-cta {
       <h2 class="section-title">4-Day Agenda</h2>
       <p class="section-subtitle">From inspiration to action. Click each day to expand the full schedule.</p>
       <div class="agenda-download">
-        <button class="cal-btn" onclick="downloadICS()">
+        <button class="cal-btn is-disabled" onclick="showAgendaNotice()" aria-disabled="true">
           <i data-lucide="calendar-plus"></i> Apple Calendar / Outlook
         </button>
       </div>
@@ -2108,10 +2216,20 @@ body.ff-ext-edit-on .hero-cta {
 
 <!-- Calendar download pill -->
 <div id="cal-pill-wrapper">
-  <button id="cal-pill" onclick="downloadICS()" aria-label="Add to Calendar">
+  <button id="cal-pill" class="is-disabled" onclick="showAgendaNotice()" aria-label="Add to Calendar" aria-disabled="true">
     <i data-lucide="calendar-plus"></i>
     Add to Calendar
   </button>
+</div>
+
+<!-- Agenda notice modal -->
+<div class="agenda-notice-overlay" id="agenda-notice" role="dialog" aria-modal="true" aria-labelledby="agenda-notice-title" onclick="if(event.target===this) hideAgendaNotice()">
+  <div class="agenda-notice-card">
+    <div class="agenda-notice-icon"><i data-lucide="calendar-clock"></i></div>
+    <h3 class="agenda-notice-title" id="agenda-notice-title">Agenda is subject to change</h3>
+    <p class="agenda-notice-body">We recommend downloading the agenda about a week before travel so your calendar blocks reflect the final sessions.</p>
+    <button class="agenda-notice-close" onclick="hideAgendaNotice()">Got it</button>
+  </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════
@@ -2284,6 +2402,19 @@ body.ff-ext-edit-on .hero-cta {
         target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
       }
     });
+  });
+
+  // ─── Agenda notice modal (shown instead of .ics download while agenda is subject to change) ───
+  window.showAgendaNotice = function() {
+    const el = document.getElementById('agenda-notice');
+    if (el) el.classList.add('visible');
+  };
+  window.hideAgendaNotice = function() {
+    const el = document.getElementById('agenda-notice');
+    if (el) el.classList.remove('visible');
+  };
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') window.hideAgendaNotice();
   });
 
   // ─── Calendar .ics download ───
