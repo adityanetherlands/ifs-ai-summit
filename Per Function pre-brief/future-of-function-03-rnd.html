@@ -631,11 +631,11 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
   <!-- Section 1: The Shift -->
   <div class="section" id="section-1">
     <h2>1. The Shift</h2>
-    <p><strong>GitHub Copilot</strong> users generate code 55% faster than those without AI assistance. At GitHub&rsquo;s own scale, that&rsquo;s equivalent to adding 880 additional engineers without hiring. But the real shock isn&rsquo;t speed - it&rsquo;s that the best engineering teams in 2025 aren&rsquo;t removing engineers. They&rsquo;re forcing their engineers to become architects and decision-makers instead of typists.</p>
-    <p><strong>Amazon</strong>&rsquo;s engineers using CodeWhisperer report that AI generates 40-60% of their production code. Quality doesn&rsquo;t drop. Defect rates don&rsquo;t spike. The code gets better because engineers spend 40% less time on boilerplate and 60% more time on design, architecture, and solving novel problems. One Amazon team shipped a feature in three weeks that would have taken six months hand-written.</p>
-    <p><strong>Google DeepMind</strong>&rsquo;s AlphaCode solved programming problems at the level of a top 54% competitive programmer. Outperforming 85% of humans on unseen problems. It doesn&rsquo;t replace engineers. It surfaces which engineers can solve problems that machines cannot.</p>
-    <p><strong>Cursor</strong>, the AI-native code editor, has 500,000+ daily active users. Teams using Cursor report 50% reduction in time spent on routine refactoring and legacy code maintenance. The work that strangles productivity at scale. That 50% time isn&rsquo;t being lost. It&rsquo;s being redirected to building new systems, not maintaining old ones.</p>
-    <p>Three companies, three strategies, one pattern: <strong>the engineering function is being fundamentally restructured</strong>. Not by automating engineers away, but by collapsing the mechanical translation between thought and code, forcing humans to think differently about what engineering actually is.</p>
+    <p><strong>Anthropic</strong> now writes more than 90% of its production code with Claude Code. The engineering function is reorganising around a new unit of work: engineers specify, direct, and review; Claude Code writes, tests, and iterates. Humans merge. What used to be "engineer writes code" is becoming "engineer supervises agent that writes code."</p>
+    <p><strong>Cognition&rsquo;s Devin</strong> is an autonomous software engineer. Given a ticket, Devin reads the codebase, plans the change, writes the code, runs the tests, and opens a PR. Engineers review and merge. Devin already handles a meaningful slice of real production work at companies like Goldman Sachs and Nubank. The unit of engineering shifts from "write function" to "evaluate PR from agent."</p>
+    <p><strong>Cursor + Claude</strong> (the combination, not Cursor alone) is how the fastest teams ship. Cursor is the IDE. Claude is the reasoning layer. Teams report 3-5x velocity on net-new features, not marginal speed-ups on existing tasks. The leverage is not in typing faster. It is in never writing the first draft yourself.</p>
+    <p><strong>GitHub Copilot</strong> established the productivity baseline in 2023-24 (55% faster task completion, 880 engineers-equivalent at GitHub&rsquo;s own scale). But Copilot is table stakes in 2026. It is the productivity era. The frontier is the agentic era: work done by agents, supervised by humans.</p>
+    <p>Four companies, one pattern: <strong>the engineering function is being restructured not around helping engineers type faster, but around engineers supervising agents that work.</strong> The bottleneck is no longer the mechanical translation from thought to code &ndash; AI does that effectively for free. The bottleneck is specification, review, and judgment. The engineering organisations that move first are not adding engineers. They are asking different questions of the ones they have &ndash; and making very different bets on where the spend goes.</p>
   </div>
 
   <!-- Section 2: Pre-Summit Homework -->
@@ -649,8 +649,8 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
         <p>If you fast-forwarded 8 months, what does your R&amp;D function look like? Not incremental. Drastically different. What&rsquo;s disappeared? What&rsquo;s new? What does &ldquo;an engineering team&rdquo; even mean? Write the headline version: if someone wrote a profile of your function in January 2027, what would it say?</p>
       </div>
       <div class="question-category">
-        <h4>2. The case for transformation</h4>
-        <p>Why does your R&amp;D function need to transform, and why now? Not &ldquo;AI is important&rdquo; generically. The specific competitive, technical, or structural reason transformation is non-negotiable for you. What breaks if you stay as you are? If you can&rsquo;t articulate this in two sentences, your team won&rsquo;t follow you.</p>
+        <h4>2. Your 2027 investment thesis</h4>
+        <p>What ratio of your R&amp;D spend in 2027 goes to headcount vs. tooling and licences vs. compute? Do you bet on flat hiring and rising compute &ndash; or the inverse? Build vs. buy vs. license: where? What line item would you cut tomorrow to fund agent infrastructure at the scale you actually need? If you cannot answer these today, Summit is where you get forced on them &ndash; and leave with a shared, quantified bet.</p>
       </div>
       <div class="question-category">
         <h4>3. The KPIs that matter in the new era</h4>
@@ -678,10 +678,10 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
     </div>
 
     <div class="framework-item">
-      <h3>Execute: From Manual Testing to AI-Generated Test Suites</h3>
-      <div class="provocation">What if comprehensive test coverage - unit tests, integration tests, edge cases, regression suites - was generated automatically and maintained continuously as code changes?</div>
-      <p>QodoAI, Codium, and similar tools generate test suites by analysing code. They don&rsquo;t replace QA. They collapse the time between code generation and test coverage from weeks to minutes. Defect escape rate doesn&rsquo;t climb. It drops. Because AI tests for branches humans forget to check.</p>
-      <p><strong>The structural change:</strong> execution visibility becomes continuous. The release pipeline doesn&rsquo;t pause for manual testing. It runs automatically, with AI-generated and maintained test suites catching regressions before humans notice them. QA shifts from writing tests to validating edge cases and user experience. The work machines still can&rsquo;t do well.</p>
+      <h3>Execute: From Hand-Written Code to Supervised Agents</h3>
+      <div class="provocation">What if every ticket in your backlog got an AI-generated draft PR within an hour of creation &ndash; and your engineers shifted from writing code to reviewing, directing, and merging the work of agents?</div>
+      <p>The agentic loop is already in production. Cognition Devin, Factory&rsquo;s droids, Sweep, and Claude Code in agent mode take a ticket or a natural-language spec and produce a draft PR autonomously: read the relevant code, write the change, run tests, surface failures. Engineers review, iterate, and merge &ndash; or reject with feedback the agent incorporates. The rate-limiter is no longer how fast engineers type. It is how fast they can specify, review, and judge.</p>
+      <p><strong>The structural change:</strong> the primary skill of a senior engineer shifts from writing to reviewing, specifying, and judging. Code review volume 5-10x&rsquo;s. The junior engineer&rsquo;s traditional learning path &ndash; write simple features, learn the codebase by doing &ndash; dissolves, replaced by running agents and learning to evaluate their output. Career ladders, hiring criteria, and on-call rotations all have to be redesigned around this.</p>
     </div>
 
     <div class="framework-item">
@@ -691,7 +691,13 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 
     <div class="north-star-callout">
       <div class="ns-label">Thought Exercise</div>
-      <p class="ns-body"><strong>If 50% of your engineering time is freed by AI handling boilerplate and testing, what would your team actually build with that capacity?</strong> Not more features - what capability gap would you finally address? If the answer is &ldquo;we have no idea,&rdquo; that&rsquo;s the strategic conversation.</p>
+      <p class="ns-body"><strong>If you could redirect half your engineering spend tomorrow &ndash; not into more engineers, but into any mix of compute, agents, tooling, and infrastructure &ndash; where does it go, and why?</strong> What do you stop doing to fund it? What new capability do you now have that you could never afford before? If you cannot answer in 5 minutes, the Summit is where you force the answer.</p>
+    </div>
+
+    <div class="north-star-callout">
+      <div class="ns-label">The Economics Debate We Keep Avoiding</div>
+      <p class="ns-body">A senior engineer costs roughly $300K fully loaded. A Claude Code seat with heavy usage is in the low thousands per year. An autonomous agent running 24/7 against real tickets might cost $50K&ndash;100K in compute. <strong>What is your right ratio in 2027 &ndash; and do you know it yet?</strong></p>
+      <p class="ns-body" style="margin-top: 14px;">The question is not whether to invest in AI tooling. It is what you stop doing to fund it. Do you freeze senior hiring and redirect the headcount budget into compute? Do you consolidate SaaS tooling because one good agent collapses three tools into one? Do you cut the contractor footprint because agents do the work contractors used to? Every R&amp;D organisation that leaves the next quarter without a quantified bet on these questions will drift through 2026 and underperform the ones that did.</p>
     </div>
   </div>
 
@@ -700,89 +706,114 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
     <h2>4. Companies to Explore</h2>
     <p>Spend time on these websites. Watch demos, read case studies. Understanding what is production-grade today is the prerequisite for deciding what to act on.</p>
 
-    <div class="company-section-label">If your pain is code generation and productivity</div>
+    <div class="company-section-label">If your pain is shipping work, not writing code (autonomous agents)</div>
     <div class="company-grid">
-      <a href="https://github.com/features/copilot" target="_blank" rel="noopener" class="company-card">
-        <h4>GitHub Copilot</h4>
-        <div class="cc-tag">AI Code Generation</div>
-        <div class="cc-desc">The baseline. 55% faster task completion, integrated into VS Code and JetBrains.</div>
-        <div class="cc-look">Look at: the &ldquo;Copilot Chat&rdquo; feature and enterprise adoption data.</div>
-        <div class="cc-url">github.com/copilot &rarr;</div>
+      <a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener" class="company-card">
+        <h4>Claude Code</h4>
+        <div class="cc-tag">Agentic Coding</div>
+        <div class="cc-desc">Anthropic&rsquo;s own agentic coding surface. Reads your codebase, plans changes, runs commands, writes and iterates code, and ships PRs under engineer direction. The core of IFS&rsquo;s current bet.</div>
+        <div class="cc-look">Look at: Claude Code in agent mode on a real ticket; MCP server integrations.</div>
+        <div class="cc-url">anthropic.com/claude-code &rarr;</div>
       </a>
-      <a href="https://cursor.com" target="_blank" rel="noopener" class="company-card">
-        <h4>Cursor</h4>
-        <div class="cc-tag">AI-Native IDE</div>
-        <div class="cc-desc">Built from the ground up with AI. Full codebase context, AI debugging, refactoring, and generation. 500K+ daily active users.</div>
-        <div class="cc-look">Look at: how it handles multi-file edits and codebase understanding.</div>
-        <div class="cc-url">cursor.com &rarr;</div>
+      <a href="https://cognition.ai/devin" target="_blank" rel="noopener" class="company-card">
+        <h4>Cognition Devin</h4>
+        <div class="cc-tag">Autonomous SWE Agent</div>
+        <div class="cc-desc">Fully autonomous software engineer. Given a ticket, reads the codebase, plans, writes, tests, and opens a PR. Deployed at Goldman Sachs, Nubank, and others on real production workloads.</div>
+        <div class="cc-look">Look at: SWE-bench scores and the Goldman Sachs / Nubank case studies.</div>
+        <div class="cc-url">cognition.ai/devin &rarr;</div>
       </a>
-      <a href="https://aws.amazon.com/codewhisperer/" target="_blank" rel="noopener" class="company-card">
-        <h4>Amazon CodeWhisperer</h4>
-        <div class="cc-tag">AWS AI Code Generator</div>
-        <div class="cc-desc">Deeply integrated with AWS stack. 40-60% AI-generated code in production.</div>
-        <div class="cc-look">Look at: the AWS IDE integrations and cost comparison to Copilot.</div>
-        <div class="cc-url">aws.amazon.com &rarr;</div>
+      <a href="https://www.factory.ai" target="_blank" rel="noopener" class="company-card">
+        <h4>Factory</h4>
+        <div class="cc-tag">Enterprise Agent Platform</div>
+        <div class="cc-desc">&ldquo;Droids&rdquo; that run specialised engineering tasks &ndash; code changes, reviews, on-call triage, runbooks. Built for enterprise orchestration of coding agents, not single-dev workflow.</div>
+        <div class="cc-look">Look at: the droid concept and enterprise orchestration patterns.</div>
+        <div class="cc-url">factory.ai &rarr;</div>
       </a>
-    </div>
-
-    <div class="company-section-label">If your pain is code quality and testing</div>
-    <div class="company-grid">
       <a href="https://qodo.ai" target="_blank" rel="noopener" class="company-card">
-        <h4>QodoAI (Codium)</h4>
-        <div class="cc-tag">AI Test Generation</div>
-        <div class="cc-desc">AI-generated test suites: unit, integration, edge cases. Continuous test maintenance as code changes.</div>
-        <div class="cc-look">Look at: test coverage improvements and defect escape rate data.</div>
+        <h4>Qodo (Codium)</h4>
+        <div class="cc-tag">Quality Agent</div>
+        <div class="cc-desc">AI quality agent that writes tests, reviews PRs, and surfaces regressions continuously as code changes. Pairs with a coding agent to close the quality loop automatically.</div>
+        <div class="cc-look">Look at: Qodo Merge for automated PR review and test generation.</div>
         <div class="cc-url">qodo.ai &rarr;</div>
       </a>
-      <a href="https://snyk.io" target="_blank" rel="noopener" class="company-card">
-        <h4>Snyk</h4>
-        <div class="cc-tag">Security Scanning</div>
-        <div class="cc-desc">Security scanning across code, dependencies, containers, infrastructure. AI fixes vulnerabilities automatically.</div>
-        <div class="cc-look">Look at: the developer security workflow and SAST integration.</div>
-        <div class="cc-url">snyk.io &rarr;</div>
-      </a>
-      <a href="https://sourcegraph.com/cody" target="_blank" rel="noopener" class="company-card">
-        <h4>Sourcegraph Cody</h4>
-        <div class="cc-tag">Codebase Intelligence</div>
-        <div class="cc-desc">Understands your entire repository, not just the open file. Code search and AI understanding at scale.</div>
-        <div class="cc-look">Look at: the &ldquo;Code Intelligence&rdquo; and &ldquo;Cody&rdquo; product demos.</div>
-        <div class="cc-url">sourcegraph.com &rarr;</div>
-      </a>
     </div>
 
-    <div class="company-section-label">If your pain is codebase architecture and tech debt</div>
+    <div class="company-section-label">If your pain is the IDE itself (Claude-native dev environments)</div>
     <div class="company-grid">
-      <a href="https://linearb.io" target="_blank" rel="noopener" class="company-card">
-        <h4>LinearB</h4>
-        <div class="cc-tag">Engineering Analytics</div>
-        <div class="cc-desc">DORA metrics, cycle time, bottleneck identification. AI recommends process and architectural improvements.</div>
-        <div class="cc-look">Look at: the metrics dashboard and how they identify tech debt.</div>
-        <div class="cc-url">linearb.io &rarr;</div>
-      </a>
-      <a href="https://swimm.io" target="_blank" rel="noopener" class="company-card">
-        <h4>Swimm</h4>
-        <div class="cc-tag">AI Documentation</div>
-        <div class="cc-desc">Auto-generates documentation and keeps it in sync with code. Eliminates stale docs.</div>
-        <div class="cc-look">Look at: how docs sync with pull requests and code changes.</div>
-        <div class="cc-url">swimm.io &rarr;</div>
+      <a href="https://cursor.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Cursor</h4>
+        <div class="cc-tag">Claude-Native IDE</div>
+        <div class="cc-desc">The IDE where Claude does the work. Full codebase context, multi-file edits, and agent-style execution built in. Runs on Claude by default. 500K+ daily active users.</div>
+        <div class="cc-look">Look at: Composer / agent mode with Claude; multi-file edits.</div>
+        <div class="cc-url">cursor.com &rarr;</div>
       </a>
       <a href="https://zed.dev" target="_blank" rel="noopener" class="company-card">
         <h4>Zed</h4>
-        <div class="cc-tag">AI-Powered IDE</div>
-        <div class="cc-desc">High-performance code editor with integrated AI. Built for speed and collaboration.</div>
-        <div class="cc-look">Look at: real-time collaborative editing with AI pair programming.</div>
+        <div class="cc-tag">High-Performance AI IDE</div>
+        <div class="cc-desc">Rust-built editor with first-class AI assistants and collaborative editing. Claude integration plus native multi-cursor agent workflows.</div>
+        <div class="cc-look">Look at: Zed&rsquo;s agentic editing flows and collaborative AI pair programming.</div>
         <div class="cc-url">zed.dev &rarr;</div>
       </a>
     </div>
 
-    <div class="company-section-label">If your pain is architecture decision-making</div>
+    <div class="company-section-label">If your pain is codebase intelligence &amp; review</div>
     <div class="company-grid">
-      <a href="https://anthropic.com" target="_blank" rel="noopener" class="company-card">
-        <h4>Anthropic Claude</h4>
-        <div class="cc-tag">AI Reasoning &amp; Analysis</div>
-        <div class="cc-desc">Advanced reasoning for architecture design, technology choices, and system design documents. Processes RFCs and technical specs at expert depth.</div>
-        <div class="cc-look">Look at: Claude&rsquo;s artifact feature for interactive architecture diagrams.</div>
-        <div class="cc-url">anthropic.com &rarr;</div>
+      <a href="https://sourcegraph.com/cody" target="_blank" rel="noopener" class="company-card">
+        <h4>Sourcegraph Cody</h4>
+        <div class="cc-tag">Codebase Intelligence</div>
+        <div class="cc-desc">Understands your entire repository, not just the open file. Code search and AI understanding at scale. The context layer that makes agentic coding work on real codebases.</div>
+        <div class="cc-look">Look at: how Cody grounds Claude or GPT in your repo structure.</div>
+        <div class="cc-url">sourcegraph.com &rarr;</div>
+      </a>
+      <a href="https://greptile.com" target="_blank" rel="noopener" class="company-card">
+        <h4>Greptile</h4>
+        <div class="cc-tag">AI Code Review</div>
+        <div class="cc-desc">AI code reviewer that reads the full repo. Catches bugs, style issues, and architectural drift in PRs. Pairs naturally with a coding agent that opened the PR.</div>
+        <div class="cc-look">Look at: the PR review comments and how they compare to human review.</div>
+        <div class="cc-url">greptile.com &rarr;</div>
+      </a>
+      <a href="https://snyk.io" target="_blank" rel="noopener" class="company-card">
+        <h4>Snyk</h4>
+        <div class="cc-tag">Security &amp; Vulnerability</div>
+        <div class="cc-desc">Security scanning across code, dependencies, containers, and infrastructure. AI-authored fixes for vulnerabilities. The guardrail layer for agentic coding at enterprise scale.</div>
+        <div class="cc-look">Look at: the developer security workflow and SAST integration.</div>
+        <div class="cc-url">snyk.io &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your pain is engineering analytics &amp; DORA</div>
+    <div class="company-grid">
+      <a href="https://linearb.io" target="_blank" rel="noopener" class="company-card">
+        <h4>LinearB</h4>
+        <div class="cc-tag">Engineering Analytics</div>
+        <div class="cc-desc">DORA metrics, cycle time, bottleneck identification. AI recommends process and architectural improvements. Where you see if AI investment is actually moving shipping speed.</div>
+        <div class="cc-look">Look at: the metrics dashboard and how AI investment shows up in cycle time.</div>
+        <div class="cc-url">linearb.io &rarr;</div>
+      </a>
+      <a href="https://getdx.com" target="_blank" rel="noopener" class="company-card">
+        <h4>DX</h4>
+        <div class="cc-tag">Developer Experience</div>
+        <div class="cc-desc">Measures developer productivity and experience with the rigour of an engineering metric. Useful for measuring whether AI tooling actually moves throughput, or just feels good.</div>
+        <div class="cc-look">Look at: the DX Core 4 framework and how teams correlate AI adoption with outcomes.</div>
+        <div class="cc-url">getdx.com &rarr;</div>
+      </a>
+    </div>
+
+    <div class="company-section-label">If your baseline still needs coverage (IDE assist &middot; table stakes)</div>
+    <div class="company-grid">
+      <a href="https://github.com/features/copilot" target="_blank" rel="noopener" class="company-card">
+        <h4>GitHub Copilot</h4>
+        <div class="cc-tag">Baseline IDE Assist</div>
+        <div class="cc-desc">The productivity baseline every eng org now assumes. 55% faster task completion on existing work. Useful, table stakes. Not where 2027 leverage comes from.</div>
+        <div class="cc-look">Look at: enterprise adoption data and how Copilot compares to agentic surfaces on complex tasks.</div>
+        <div class="cc-url">github.com/copilot &rarr;</div>
+      </a>
+      <a href="https://aws.amazon.com/q/developer/" target="_blank" rel="noopener" class="company-card">
+        <h4>Amazon Q Developer</h4>
+        <div class="cc-tag">AWS IDE Assistant</div>
+        <div class="cc-desc">AWS&rsquo;s Copilot equivalent (successor to CodeWhisperer). Deep AWS stack integration. Relevant if your R&amp;D runs heavily on AWS primitives.</div>
+        <div class="cc-look">Look at: AWS stack integrations and infrastructure-as-code assist.</div>
+        <div class="cc-url">aws.amazon.com/q &rarr;</div>
       </a>
     </div>
   </div>
@@ -793,28 +824,37 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
     <p>Do at least one before the session. These are designed to give you first-hand experience of what AI-native engineering feels like - not just an opinion about it.</p>
 
     <div class="exercise-card">
-      <h4>Exercise 1: The AI Pair Programming Session &nbsp;&middot;&nbsp; 30 min</h4>
-      <p>Pick a real bug or feature in your codebase. Spend 15 minutes solving it the traditional way (writing code, debugging, testing). Then spend 15 minutes using Cursor or GitHub Copilot with full codebase context and ask the AI to solve the same problem. Compare: How long did each take? How different is the AI solution? What did the AI do better? What did it miss?</p>
-      <p><strong>Output:</strong> A side-by-side comparison of hand-coded versus AI-generated solution with time measurements.</p>
-      <p><strong>Tools:</strong> Cursor or GitHub Copilot, your codebase</p>
+      <h4>Exercise 1: The Agent-Built Prototype &nbsp;&middot;&nbsp; 30 min</h4>
+      <p>Take a one-paragraph spec for a small internal tool your team would actually use &ndash; a log viewer, a deployment-diff tool, a CI run summariser, a config validator. Open Claude Code (or claude.ai with artifacts if you don&rsquo;t have Claude Code set up yet) and build it end-to-end: working code, basic tests, something deployable. No scaffolding that you write yourself. Measure: elapsed time, how much of the work was direction vs. writing, where the agent got stuck and why.</p>
+      <p><strong>Output:</strong> A working prototype from a one-paragraph spec, in under 30 minutes. No IFS codebase access required.</p>
+      <p><strong>Tools:</strong> Claude Code (or claude.ai)</p>
     </div>
     <div class="exercise-card">
-      <h4>Exercise 2: The AI Test Suite Generator &nbsp;&middot;&nbsp; 60 min</h4>
-      <p>Pick a module in your codebase with incomplete test coverage or known quality issues. Feed the source code into QodoAI or Claude and ask it to generate a comprehensive test suite: unit tests, integration tests, edge cases. Run the generated tests against your code. Measure: How many pass? How many catch real bugs? How does coverage compare to your existing manual tests?</p>
-      <p><strong>Output:</strong> An AI-generated test suite with coverage metrics and comparison to existing tests.</p>
-      <p><strong>Tools:</strong> QodoAI or Claude, your codebase</p>
+      <h4>Exercise 2: The Open-Source Repo Deep-Read &nbsp;&middot;&nbsp; 60 min</h4>
+      <p>Clone a mid-sized open-source repo you don&rsquo;t know well &ndash; suggestions: <a href="https://github.com/calcom/cal.com" target="_blank" rel="noopener">cal.com</a>, <a href="https://github.com/lobehub/lobe-chat" target="_blank" rel="noopener">lobehub/lobe-chat</a>, or any other 50-150K LOC project relevant to your stack. Point Claude Code (or Sourcegraph Cody) at it. In 60 minutes produce: a one-page architecture summary, the top 3 risks or tech-debt hotspots, and one suggested refactor with reasoning. Compare how long it would have taken a senior engineer to do the same on an unfamiliar codebase without AI.</p>
+      <p><strong>Output:</strong> An architecture audit of an unfamiliar codebase in 60 minutes. Power-path: run the same analysis against your own codebase if you have access.</p>
+      <p><strong>Tools:</strong> Claude Code or Sourcegraph Cody, a local clone of an open-source repo</p>
     </div>
     <div class="exercise-card">
       <h4>Exercise 3: The Architecture Decision Engine &nbsp;&middot;&nbsp; 90 min</h4>
-      <p>Take a real technical decision your team is debating (microservices vs. monolith, database migration, API redesign). Write a 1-2 paragraph problem statement with constraints (latency, cost, team size). Feed it to Claude with your current codebase context and ask it to generate 5+ architectural alternatives with trade-off analysis. Build an interactive HTML report showing outcomes, risks, and when each alternative wins. Use this as a prototype for how architecture decisions could be made in the future.</p>
-      <p><strong>Output:</strong> An interactive architecture decision report that engineers could use to evaluate trade-offs.</p>
-      <p><strong>Tools:</strong> Claude, Python or JavaScript, HTML/CSS</p>
+      <p>Take a real technical decision your team is debating (microservices vs. monolith, database migration, API redesign). Write a 1-2 paragraph problem statement with constraints (latency, cost, team size, skill coverage). Feed it to Claude &ndash; optionally grounded in the open-source repo from Exercise 2 or your own codebase if available &ndash; and ask it to generate 5+ architectural alternatives with trade-off analysis. Build an interactive HTML report showing outcomes, risks, and when each alternative wins. Use this as a prototype for how architecture decisions could be made in the future.</p>
+      <p><strong>Output:</strong> An interactive architecture decision report. Works without codebase access; grounding the analysis in a real repo (yours or open-source) makes it sharper.</p>
+      <p><strong>Tools:</strong> Claude, HTML/CSS, optional repo context from Exercise 2</p>
     </div>
   </div>
 
   <!-- Section 6: Curated Resource Library -->
   <div class="section" id="section-6">
     <h2>6. Curated Resource Library</h2>
+
+    <div class="north-star-callout">
+      <div class="ns-label">If you only have 2 hours before Summit</div>
+      <p class="ns-body">Three items below are starred as <strong>PRIORITY</strong>. Read these three if you read nothing else:</p>
+      <p class="ns-body" style="margin-top: 12px; margin-bottom: 4px;"><strong>1. Co-Intelligence: Living and Working with AI</strong> &middot; Ethan Mollick &middot; the single most practical frame for humans &amp; AI as co-workers, grounded in real adoption.</p>
+      <p class="ns-body" style="margin-bottom: 4px;"><strong>2. The AI-Native Engineering Organization</strong> &middot; Gergely Orosz / Pragmatic Engineer &middot; structural changes to eng orgs, hiring, roles &ndash; directly maps to the Summit outcome on investment and operating model.</p>
+      <p class="ns-body" style="margin-bottom: 14px;"><strong>3. Latent Space &ndash; AI Engineering Podcast</strong> &middot; deep coverage of Claude, Cursor, Devin, and the agentic-coding frontier. Pick one recent episode on agents.</p>
+      <p class="ns-body" style="font-style: italic;">The full library below has more depth. These three give you the shared vocabulary you need to participate in the investment-thesis debate.</p>
+    </div>
 
     <div class="resource-category">
       <h3>Books</h3>
@@ -839,7 +879,7 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
         <p class="ri-desc">Harvard Business School&rsquo;s framework for AI-native operations. Case studies on how engineering organisations are restructuring.</p>
       </div>
       <div class="resource-item">
-        <div class="ri-title">Co-Intelligence: Living and Working with AI</div>
+        <div class="ri-title">Co-Intelligence: Living and Working with AI <span style="font-size: 9px; color: var(--accent-light); font-weight: 700; letter-spacing: 1.2px; padding: 2px 8px; background: var(--accent-glow); border: 1px solid var(--accent); border-radius: 100px; margin-left: 8px; vertical-align: middle; text-transform: uppercase;">Priority</span></div>
         <div class="ri-author">Ethan Mollick</div>
         <p class="ri-desc">The most practical book on humans and AI as co-workers. Highly specific to engineering workflows.</p>
       </div>
@@ -858,9 +898,9 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
         <p class="ri-desc">Deep conversations with AI researchers and frontier model builders. Strategic context for where AI-native engineering is heading.</p>
       </div>
       <div class="resource-item">
-        <div class="ri-title">Latent Space: AI Engineering Podcast</div>
+        <div class="ri-title">Latent Space: AI Engineering Podcast <span style="font-size: 9px; color: var(--accent-light); font-weight: 700; letter-spacing: 1.2px; padding: 2px 8px; background: var(--accent-glow); border: 1px solid var(--accent); border-radius: 100px; margin-left: 8px; vertical-align: middle; text-transform: uppercase;">Priority</span></div>
         <div class="ri-author"><a href="https://open.spotify.com/show/0rOQO9jLvtNRK7D000W5a6" target="_blank">Spotify</a> &middot; <a href="https://podcasts.apple.com/us/podcast/latent-space-the-ai-engineer-podcast-by-swyx-alessio/id1676501078" target="_blank">Apple Podcasts</a></div>
-        <p class="ri-desc">SWYX and Alessio on AI-native engineering, developer tools, and the future of coding. Essential for understanding Cursor, Claude, and AI-assisted development culture.</p>
+        <p class="ri-desc">SWYX and Alessio on AI-native engineering, developer tools, and the future of coding. Essential for understanding Cursor, Claude, and AI-assisted development culture. Pick one recent episode on agentic coding.</p>
       </div>
       <div class="resource-item">
         <div class="ri-title">Practical AI</div>
@@ -936,9 +976,9 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
         <p class="ri-desc">Global survey data on developer sentiment, adoption rates, and workflow changes driven by AI coding tools.</p>
       </div>
       <div class="resource-item">
-        <div class="ri-title">The AI-Native Engineering Organization: Structure, Hiring, and Culture</div>
+        <div class="ri-title">The AI-Native Engineering Organization: Structure, Hiring, and Culture <span style="font-size: 9px; color: var(--accent-light); font-weight: 700; letter-spacing: 1.2px; padding: 2px 8px; background: var(--accent-glow); border: 1px solid var(--accent); border-radius: 100px; margin-left: 8px; vertical-align: middle; text-transform: uppercase;">Priority</span></div>
         <div class="ri-author">The Pragmatic Engineer &middot; January 2025 &middot; <a href="https://newsletter.pragmaticengineer.com/" target="_blank">newsletter.pragmaticengineer.com</a></div>
-        <p class="ri-desc">How leading companies are restructuring eng orgs around AI. Hiring, roles, and what changes about senior eng leverage.</p>
+        <p class="ri-desc">How leading companies are restructuring eng orgs around AI. Hiring, roles, and what changes about senior eng leverage. Maps directly to the Summit&rsquo;s investment-thesis conversation.</p>
       </div>
     </div>
 
