@@ -756,6 +756,7 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 .fw-day-icon { font-size: 22px; line-height: 1; margin-bottom: 2px; }
 .fw-day-temp { font-size: 12px; color: var(--text-muted); font-weight: 600; }
 .fw-day-temp span { font-weight: 400; opacity: 0.7; }
+.fw-day-temp-f { font-size: 10px; color: var(--text-dim); font-weight: 400; opacity: 0.6; margin-top: 2px; }
 
 @media (max-width: 1024px) {
   .venue-cards { grid-template-columns: 1fr 1fr; }
@@ -2189,10 +2190,10 @@ body.ff-ext-edit-on .hero-cta {
   <div class="container">
     <p><strong style="color:var(--text-muted)">IFS AI Leadership Summit</strong> &middot; 4&ndash;7 May 2026 &middot; Mountain View, California</p>
     <div class="footer-weather" id="footer-weather">
-      <div class="fw-day"><div class="fw-day-date">Mon 4</div><div class="fw-day-icon" id="weather-icon-0">&ndash;</div><div class="fw-day-temp" id="weather-temp-0">&ndash;</div></div>
-      <div class="fw-day"><div class="fw-day-date">Tue 5</div><div class="fw-day-icon" id="weather-icon-1">&ndash;</div><div class="fw-day-temp" id="weather-temp-1">&ndash;</div></div>
-      <div class="fw-day"><div class="fw-day-date">Wed 6</div><div class="fw-day-icon" id="weather-icon-2">&ndash;</div><div class="fw-day-temp" id="weather-temp-2">&ndash;</div></div>
-      <div class="fw-day"><div class="fw-day-date">Thu 7</div><div class="fw-day-icon" id="weather-icon-3">&ndash;</div><div class="fw-day-temp" id="weather-temp-3">&ndash;</div></div>
+      <div class="fw-day"><div class="fw-day-date">Mon 4</div><div class="fw-day-icon" id="weather-icon-0">&ndash;</div><div class="fw-day-temp" id="weather-temp-0">&ndash;</div><div class="fw-day-temp-f" id="weather-tempf-0"></div></div>
+      <div class="fw-day"><div class="fw-day-date">Tue 5</div><div class="fw-day-icon" id="weather-icon-1">&ndash;</div><div class="fw-day-temp" id="weather-temp-1">&ndash;</div><div class="fw-day-temp-f" id="weather-tempf-1"></div></div>
+      <div class="fw-day"><div class="fw-day-date">Wed 6</div><div class="fw-day-icon" id="weather-icon-2">&ndash;</div><div class="fw-day-temp" id="weather-temp-2">&ndash;</div><div class="fw-day-temp-f" id="weather-tempf-2"></div></div>
+      <div class="fw-day"><div class="fw-day-date">Thu 7</div><div class="fw-day-icon" id="weather-icon-3">&ndash;</div><div class="fw-day-temp" id="weather-temp-3">&ndash;</div><div class="fw-day-temp-f" id="weather-tempf-3"></div></div>
     </div>
   </div>
 </footer>
@@ -2564,7 +2565,10 @@ body.ff-ext-edit-on .hero-cta {
         document.getElementById('weather-icon-' + i).title = w.label;
         const min = Math.round(d.temperature_2m_min[i]);
         const max = Math.round(d.temperature_2m_max[i]);
+        const minF = Math.round(min * 9 / 5 + 32);
+        const maxF = Math.round(max * 9 / 5 + 32);
         document.getElementById('weather-temp-' + i).innerHTML = max + '&deg; <span>/ ' + min + '&deg;C</span>';
+        document.getElementById('weather-tempf-' + i).innerHTML = maxF + '&deg; / ' + minF + '&deg;F';
       }
     }
 
