@@ -551,21 +551,35 @@
             var passwordCard = document.getElementById('passwordCard');
             var errorMessage = document.getElementById('errorMessage');
 
+            function showError() {
+                passwordCard.classList.add('shake');
+                errorMessage.classList.add('visible');
+                passwordInput.value = '';
+                setTimeout(function () { passwordCard.classList.remove('shake'); }, 500);
+                setTimeout(function () { errorMessage.classList.remove('visible'); }, 3000);
+            }
+
             function attemptLogin() {
-                var value = passwordInput.value.trim().toLowerCase();
-                if (value === 'speedislife') {
-                    window.location.href = '/event';
-                } else {
-                    passwordCard.classList.add('shake');
-                    errorMessage.classList.add('visible');
-                    passwordInput.value = '';
-                    setTimeout(function () {
-                        passwordCard.classList.remove('shake');
-                    }, 500);
-                    setTimeout(function () {
-                        errorMessage.classList.remove('visible');
-                    }, 3000);
-                }
+                var value = passwordInput.value.trim();
+                if (!value) return;
+                submitBtn.disabled = true;
+                fetch('/api/auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: value })
+                })
+                .then(function (res) {
+                    if (res.ok) {
+                        window.location.href = '/event';
+                    } else {
+                        showError();
+                        submitBtn.disabled = false;
+                    }
+                })
+                .catch(function () {
+                    showError();
+                    submitBtn.disabled = false;
+                });
             }
 
             submitBtn.addEventListener('click', attemptLogin);
