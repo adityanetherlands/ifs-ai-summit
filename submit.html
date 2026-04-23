@@ -523,7 +523,7 @@ textarea { min-height: 100px; resize: vertical; }
 <body>
 
 <div class="page-header">
-  <a href="/summit" class="brand-link"><div class="brand">IFS <span>AI Summit</span></div></a>
+  <a href="/event" class="brand-link"><div class="brand">IFS <span>AI Summit</span></div></a>
   <h1>Submit a Change</h1>
   <p class="subtitle">Describe a change you'd like made to the summit website. An AI agent will implement it automatically.</p>
   <div class="info-banner">
@@ -979,7 +979,7 @@ function renderChangelog() {
     let actionsHtml = '';
     if (isCompleted) {
       actionsHtml = `
-        <div class="tracker-preview visible">Ready to review: <a href="/summit?ext_edit=true" target="_blank">preview with feature flag</a></div>
+        <div class="tracker-preview visible">Ready to review: <a href="/event?ext_edit=true" target="_blank">preview with feature flag</a></div>
         <button class="revert-btn" onclick="openRevertModal(${s.issue_number}, '${escapeHtml(s.title).replace(/'/g, "\\'")}')">Undo change</button>
       `;
     } else if (isReverted) {
