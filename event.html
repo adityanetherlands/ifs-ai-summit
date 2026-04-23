@@ -1405,7 +1405,7 @@ body.ff-ext-edit-on .hero-cta {
       <h2 class="section-title">4-Day Agenda</h2>
       <p class="section-subtitle">From inspiration to action. Click each day to expand the full schedule.</p>
       <div class="agenda-download">
-        <button class="cal-btn is-disabled" onclick="showAgendaNotice()" aria-disabled="true">
+        <button class="cal-btn" onclick="downloadICS()">
           <i data-lucide="calendar-plus"></i> Apple Calendar / Outlook
         </button>
       </div>
@@ -2222,7 +2222,7 @@ body.ff-ext-edit-on .hero-cta {
 
 <!-- Calendar download pill -->
 <div id="cal-pill-wrapper">
-  <button id="cal-pill" class="is-disabled" onclick="showAgendaNotice()" aria-label="Add to Calendar" aria-disabled="true">
+  <button id="cal-pill" onclick="downloadICS()" aria-label="Add to Calendar">
     <i data-lucide="calendar-plus"></i>
     Add to Calendar
   </button>
@@ -2427,32 +2427,38 @@ body.ff-ext-edit-on .hero-cta {
   window.downloadICS = function() {
     const hotel = 'The Stanford Park Hotel, 100 El Camino Real, Menlo Park, CA 94025';
     const museum = 'Computer History Museum, 1401 N Shoreline Blvd, Mountain View, CA 94043';
+    const dinner = 'Evvia, 420 Emerson St, Palo Alto, CA 94301';
     const events = [
       // Day 1 – Mon 4 May
       { t: 'IFS Summit: Opening Note', s: '20260504T180000', e: '20260504T183000', l: hotel, d: 'Mark Moffat & Darren Roos – Scene setting' },
       { t: 'IFS Summit: Founder Spotlight', s: '20260504T183000', e: '20260504T193000', l: hotel, d: '10-minute founding stories – inspirational & unfiltered' },
-      { t: 'IFS Summit: Opening Dinner', s: '20260504T193000', e: '20260504T213000', l: hotel, d: 'Seated dinner, informal networking. Get warmed up with Replit for Tuesday.' },
+      { t: 'IFS Summit: Opening Dinner', s: '20260504T193000', e: '20260504T213000', l: hotel, d: 'Seated dinner, informal networking. Get warmed up with Replit for Tuesday morning.' },
       // Day 2 – Tue 5 May
       { t: 'IFS Summit: Explore Working Breakfast', s: '20260505T073000', e: '20260505T090000', l: hotel, d: 'Mingle with 2-3 startup founders over breakfast at the hotel' },
-      { t: 'IFS Summit: Transfer to Museum', s: '20260505T090000', e: '20260505T093000', l: hotel, d: 'IFS-organised transport to Computer History Museum' },
+      { t: 'IFS Summit: Transfer to Computer History Museum', s: '20260505T090000', e: '20260505T093000', l: hotel, d: 'IFS-organised transport to Computer History Museum' },
       { t: 'IFS Summit: Opening Inspirational Keynote', s: '20260505T093000', e: '20260505T100000', l: museum, d: 'Mark Moffat – What to expect today, how the hands-on works' },
-      { t: 'IFS Summit: Technical Keynote', s: '20260505T100000', e: '20260505T104500', l: museum, d: 'Industry luminary – AI market landscape & what\'s coming next' },
-      { t: 'IFS Summit: Hands-On Block 1 – Vibe Coding with Replit', s: '20260505T110000', e: '20260505T130000', l: museum, d: 'Guided session – build something real with AI-assisted coding' },
-      { t: 'IFS Summit: Lunch', s: '20260505T130000', e: '20260505T134500', l: museum, d: '' },
-      { t: 'IFS Summit: Hands-On Block 2 – Anthropic / Claude', s: '20260505T134500', e: '20260505T160000', l: museum, d: 'Breakout teams build skills, agents & automation using Claude' },
-      { t: 'IFS Summit: Transfer back to Hotel', s: '20260505T163000', e: '20260505T170000', l: museum, d: '' },
-      { t: 'IFS Summit: Team Dinner & Mixer', s: '20260505T191500', e: '20260505T233000', l: 'Offsite restaurant (details TBC)', d: 'Punctuated with startup founder conversations' },
+      { t: 'IFS Summit: Technical Keynote – Anthropic', s: '20260505T100000', e: '20260505T104500', l: museum, d: 'Eric Burns, Field Executive Architect – Anthropic' },
+      { t: 'IFS Summit: Hands-On Block 1 – Vibe Coding with Replit', s: '20260505T110000', e: '20260505T130000', l: museum, d: 'Replit Field Architects guiding the session' },
+      { t: 'IFS Summit: Lunch & Learn – SymphonyAI', s: '20260505T130000', e: '20260505T140000', l: museum, d: 'Sanjay Dhawan, CEO – SymphonyAI story + demo' },
+      { t: 'IFS Summit: Hands-On Block 2 – Anthropic / Claude Cowork', s: '20260505T140000', e: '20260505T170000', l: museum, d: 'Alan Zhang & Sean Hall, Anthropic Field Architects' },
+      { t: 'IFS Summit: Transfer back to Hotel', s: '20260505T170000', e: '20260505T173000', l: museum, d: 'IFS-organised transport back to Stanford Park Hotel' },
+      { t: 'IFS Summit: Team Dinner & Mixer', s: '20260505T191500', e: '20260505T233000', l: dinner, d: 'Prateek Chakravarty (Zinier), Samuel Colvin (Pydantic) & Silicon Valley founders' },
       // Day 3 – Wed 6 May
       { t: 'IFS Summit: Working Breakfast', s: '20260506T073000', e: '20260506T090000', l: hotel, d: 'Informal catch-up at the hotel' },
       { t: 'IFS Summit: Keynote – Market Risks in SaaS', s: '20260506T090000', e: '20260506T100000', l: hotel, d: 'Goldman Sachs – The new economics of software & what AI means for unit economics' },
-      { t: 'IFS Summit: KPIs of the New World', s: '20260506T100000', e: '20260506T110000', l: hotel, d: 'Functional groups define the metrics that matter in an AI-native org' },
-      { t: 'IFS Summit: Working Session – Your Function on 1 Jan 2027', s: '20260506T110000', e: '20260506T120000', l: hotel, d: 'Group work: if AI made your team dramatically more productive, what changes?' },
-      { t: 'IFS Summit: Lunch', s: '20260506T120000', e: '20260506T130000', l: hotel, d: '' },
-      { t: 'IFS Summit: Working Session Continues', s: '20260506T130000', e: '20260506T140000', l: hotel, d: 'Functional groups refine their vision & build 90-day action plans' },
-      { t: 'IFS Summit: Product Launch Strategy in an AI-Native World', s: '20260506T140000', e: '20260506T150000', l: hotel, d: 'Andreas Georgiou & team' },
-      { t: 'IFS Summit: Playback of Working Sessions', s: '20260506T153000', e: '20260506T163000', l: hotel, d: 'Each group presents their vision, prototype & commitments' },
-      { t: 'IFS Summit: Closing Remarks & What\'s Next', s: '20260506T163000', e: '20260506T170000', l: hotel, d: 'Mark Moffat & Darren Roos – Concrete next steps, ownership, timelines' },
-      { t: 'IFS Summit: Closing Dinner', s: '20260506T190000', e: '20260506T213000', l: hotel, d: 'Hotel restaurant – celebrate the work done' }
+      { t: 'IFS Summit: Venture View on AI & Enterprise Software', s: '20260506T100000', e: '20260506T110000', l: hotel, d: 'Chamath Palihapitiya, Founder – Social Capital & 8090' },
+      { t: 'IFS Summit: KPIs of the New World', s: '20260506T110000', e: '20260506T120000', l: hotel, d: 'Functional groups define the metrics that matter in an AI-native org' },
+      { t: 'IFS Summit: Working Session – Your Function on 1 Jan 2027', s: '20260506T120000', e: '20260506T130000', l: hotel, d: 'Group work: if AI made your team dramatically more productive, what changes?' },
+      { t: 'IFS Summit: Lunch', s: '20260506T130000', e: '20260506T140000', l: hotel, d: '' },
+      { t: 'IFS Summit: Working Session Continues', s: '20260506T140000', e: '20260506T153000', l: hotel, d: 'Functional groups refine their vision & build 90-day action plans' },
+      { t: 'IFS Summit: Product Launch Strategy in an AI-Native World', s: '20260506T153000', e: '20260506T160000', l: hotel, d: 'Andreas Georgiou & team' },
+      { t: 'IFS Summit: Playback of Working Sessions', s: '20260506T163000', e: '20260506T170000', l: hotel, d: 'Each group presents their vision, prototype & commitments' },
+      { t: 'IFS Summit: Closing Remarks & What\'s Next', s: '20260506T170000', e: '20260506T173000', l: hotel, d: 'Mark Moffat – Concrete next steps, ownership, timelines' },
+      { t: 'IFS Summit: Select 1:1s – 8090 & IFS C-Suite', s: '20260506T173000', e: '20260506T183000', l: hotel, d: '' },
+      { t: 'IFS Summit: Closing Dinner', s: '20260506T190000', e: '20260506T213000', l: hotel, d: 'Sina Sojoodi & John Calzaretta from 8090 joining' },
+      // Day 4 – Thu 7 May
+      { t: 'IFS Summit: Breakfast & Checkout', s: '20260507T070000', e: '20260507T090000', l: hotel, d: 'Airport transfers grouped by flight time' },
+      { t: 'IFS Summit: Optional Factory Visit', s: '20260507T133000', e: '20260507T153000', l: hotel, d: 'For those with late departures – details TBC' }
     ];
 
     let ics = 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//IFS AI Summit//EN\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\nX-WR-CALNAME:IFS AI Leadership Summit\r\n';
