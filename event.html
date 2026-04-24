@@ -767,6 +767,149 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   KEYNOTE BANNER
+   ═══════════════════════════════════════════════════════════════ */
+.keynote-banner {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.keynote-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 120% at 0% 50%, rgba(99,102,241,0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 100% 50%, rgba(129,140,248,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.keynote-banner-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  align-items: center;
+}
+.keynote-photo-wrap {
+  overflow: hidden;
+  height: 100%;
+}
+.keynote-photo-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(100%);
+  mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+}
+.keynote-content {
+  padding: 52px 32px 52px 32px;
+  position: relative;
+}
+.keynote-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--accent-indigo-light);
+  margin-bottom: 18px;
+}
+.keynote-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent-indigo-light);
+  opacity: 0.7;
+}
+.keynote-name {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.05;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.keynote-title {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin: 0 0 28px;
+  letter-spacing: 0.2px;
+}
+.keynote-bio {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0 0 28px;
+}
+.keynote-bio strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.keynote-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.keynote-tag {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--accent-indigo-light);
+  background: var(--accent-indigo-glow);
+  border: 1px solid rgba(99,102,241,0.25);
+  border-radius: 4px;
+  padding: 4px 10px;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+a.keynote-tag:hover {
+  background: rgba(99,102,241,0.2);
+  border-color: var(--accent-indigo);
+}
+.keynote-session-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-top: 22px;
+}
+.keynote-session-label svg { width: 13px; height: 13px; opacity: 0.6; }
+@media (max-width: 900px) {
+  .keynote-banner-inner {
+    grid-template-columns: 1fr;
+    min-height: unset;
+  }
+  .keynote-photo-wrap {
+    min-height: 320px;
+    height: 320px;
+  }
+  .keynote-photo-wrap img {
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+  }
+  .keynote-content {
+    padding: 36px 24px 48px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════════════════════════ */
 .site-footer {
@@ -1395,6 +1538,34 @@ body.ff-ext-edit-on .hero-cta {
     <i data-lucide="chevrons-down"></i>
   </div>
 </section>
+
+<!-- ═══════════════════════════════════════════════════
+     KEYNOTE BANNER – CHAMATH
+     ═══════════════════════════════════════════════════ -->
+<div class="keynote-banner">
+  <div class="keynote-banner-inner">
+    <div class="keynote-photo-wrap">
+      <img src="/Chamath.jpg" alt="Chamath Palihapitiya" loading="eager">
+    </div>
+    <div class="keynote-content">
+      <div class="keynote-eyebrow">Keynote Speaker</div>
+      <h2 class="keynote-name">Chamath Palihapitiya</h2>
+      <p class="keynote-title">Founder &amp; CEO, 8090 &nbsp;&middot;&nbsp; Founder, Social Capital</p>
+      <p class="keynote-bio">
+        One of Silicon Valley's most influential voices on technology, markets and the future of enterprise software. Chamath was an <strong>early Facebook executive</strong>, growing their user base from 60M to 700M, before founding <strong>Social Capital</strong> &mdash; backing companies like Slack, Box and Intercom. Today he leads <strong>8090</strong>, focused on accelerating AI adoption inside large enterprises, and is a co-host of the widely-followed <em>All-In Podcast</em>. He joins us to share his unfiltered view on what AI means for the software industry and where IFS fits in the decade ahead.
+      </p>
+      <div class="keynote-tags">
+        <a href="https://www.socialcapital.com/" target="_blank" rel="noopener" class="keynote-tag">Social Capital</a>
+        <a href="https://allin.com/" target="_blank" rel="noopener" class="keynote-tag">The All-In Podcast</a>
+        <a href="https://8090.ai" target="_blank" rel="noopener" class="keynote-tag">8090</a>
+      </div>
+      <div class="keynote-session-label">
+        <i data-lucide="calendar"></i>
+        Wednesday 6 May &nbsp;&middot;&nbsp; 10:00 &ndash; 11:00 &nbsp;&middot;&nbsp; Venture View on AI &amp; Enterprise Software
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════════
      AGENDA
