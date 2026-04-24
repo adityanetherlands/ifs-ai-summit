@@ -774,6 +774,11 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
   overflow: hidden;
   background: var(--bg-secondary);
   border-top: 1px solid var(--border-subtle);
+}
+.keynote-banner + .keynote-banner {
+  border-top: 1px solid var(--border-subtle);
+}
+.keynote-banner:last-of-type {
   border-bottom: 1px solid var(--border-subtle);
 }
 .keynote-banner::before {
@@ -795,14 +800,25 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 .keynote-photo-wrap {
   overflow: hidden;
   height: 100%;
+  align-self: stretch;
 }
 .keynote-photo-wrap img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   display: block;
   filter: grayscale(100%);
   mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
   -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+}
+/* Reversed variant: photo on right, content on left */
+.keynote-banner-inner.is-reversed {
+  grid-template-columns: 1fr 360px;
+}
+.keynote-banner-inner.is-reversed .keynote-photo-wrap img {
+  mask-image: linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
 }
 .keynote-content {
   padding: 52px 32px 52px 32px;
@@ -892,7 +908,8 @@ a.keynote-tag:hover {
 }
 .keynote-session-label svg { width: 13px; height: 13px; opacity: 0.6; }
 @media (max-width: 900px) {
-  .keynote-banner-inner {
+  .keynote-banner-inner,
+  .keynote-banner-inner.is-reversed {
     grid-template-columns: 1fr;
     min-height: unset;
   }
@@ -903,6 +920,10 @@ a.keynote-tag:hover {
   .keynote-photo-wrap img {
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
     -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+  }
+  /* Reversed card: image stacks above text on mobile */
+  .keynote-banner-inner.is-reversed .keynote-photo-wrap {
+    order: -1;
   }
   .keynote-content {
     padding: 36px 24px 48px;
@@ -1552,7 +1573,7 @@ body.ff-ext-edit-on .hero-cta {
       <h2 class="keynote-name">Chamath Palihapitiya</h2>
       <p class="keynote-title">Founder &amp; CEO, 8090 &nbsp;&middot;&nbsp; Founder, Social Capital</p>
       <p class="keynote-bio">
-        One of Silicon Valley's most influential voices on technology, markets and the future of enterprise software. Chamath was an <strong>early Facebook executive</strong>, growing their user base from 60M to 700M, before founding <strong>Social Capital</strong> &mdash; backing companies like Slack, Box and Intercom. Today he leads <strong>8090</strong>, focused on accelerating AI adoption inside large enterprises, and is a co-host of the widely-followed <em>All-In Podcast</em>. He joins us to share his unfiltered view on what AI means for the software industry and where IFS fits in the decade ahead.
+        One of Silicon Valley's most influential voices on technology, markets and the future of enterprise software. Chamath was an <strong>early Facebook executive</strong>, growing their user base from 60M to 700M, before founding <strong>Social Capital</strong>, backing companies like Slack, Box and Intercom. Today he leads <strong>8090</strong>, focused on accelerating AI adoption inside large enterprises, and is a co-host of the widely-followed <em>All-In Podcast</em>. He joins us to share his unfiltered view on what AI means for the software industry and where IFS fits in the decade ahead.
       </p>
       <div class="keynote-tags">
         <a href="https://www.socialcapital.com/" target="_blank" rel="noopener" class="keynote-tag">Social Capital</a>
@@ -1563,6 +1584,34 @@ body.ff-ext-edit-on .hero-cta {
         <i data-lucide="calendar"></i>
         Wednesday 6 May &nbsp;&middot;&nbsp; 10:00 &ndash; 11:00 &nbsp;&middot;&nbsp; Venture View on AI &amp; Enterprise Software
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     KEYNOTE BANNER – ANTHROPIC HANDS-ON
+     ═══════════════════════════════════════════════════ -->
+<div class="keynote-banner">
+  <div class="keynote-banner-inner is-reversed">
+    <div class="keynote-content">
+      <div class="keynote-eyebrow">Hands-On Session</div>
+      <h2 class="keynote-name">Anthropic &amp; Claude</h2>
+      <p class="keynote-title">Eric Burns, Alan Zhang &amp; Sean Hall, Field Architects</p>
+      <p class="keynote-bio">
+        Half a day of building, not slides. You'll work alongside <strong>Anthropic's Field Engineering team</strong> to build real skills, agents and automations using <strong>Claude</strong>, the frontier model behind much of today's enterprise AI. Expect a short technical keynote framing where the frontier is heading, then hands-on coworking in your functional groups to translate those ideas into prototypes you can take back to your team. No prior coding experience required, bring curiosity and a problem worth solving.
+      </p>
+      <div class="keynote-tags">
+        <a href="https://www.anthropic.com" target="_blank" rel="noopener" class="keynote-tag">Anthropic</a>
+        <a href="https://www.anthropic.com/claude" target="_blank" rel="noopener" class="keynote-tag">Claude</a>
+        <a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener" class="keynote-tag">Claude Code</a>
+      </div>
+      <div class="keynote-session-label">
+        <i data-lucide="calendar"></i>
+        Tuesday 5 May &nbsp;&middot;&nbsp; 14:00 &ndash; 17:00 &nbsp;&middot;&nbsp; Computer History Museum
+      </div>
+    </div>
+    <div class="keynote-photo-wrap">
+      <img src="/Anthropic.jpg" alt="Anthropic" loading="eager">
     </div>
   </div>
 </div>
