@@ -585,6 +585,49 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 .speaker-linkedin:hover { opacity: 1; text-decoration: none; }
 .speaker-linkedin svg { width: 13px; height: 13px; }
 
+/* Founders joining us – compact pill grid */
+.founders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 40px;
+}
+.founder-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  padding: 12px 14px;
+  transition: border-color 0.2s;
+}
+.founder-pill:hover { border-color: rgba(99,102,241,0.3); }
+.founder-initials {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 11px; font-weight: 700;
+  color: rgba(255,255,255,0.85);
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+}
+.founder-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.founder-name {
+  font-family: var(--font-display);
+  font-size: 13px; font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.founder-company {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .startup-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 12px;
@@ -2063,15 +2106,6 @@ body.ff-ext-edit-on .hero-cta {
     <div class="speaker-section-label">Keynote &amp; Major Speakers</div>
     <div class="speakers-keynote animate-on-scroll">
       <div class="speaker-card">
-        <div class="speaker-avatar" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);">CP</div>
-        <div>
-          <h4>Chamath Palihapitiya</h4>
-          <div class="speaker-role">Founder &amp; CEO, 8090</div>
-          <div class="speaker-topic">Venture view on AI disruption in Enterprise Software</div>
-          <a href="https://www.linkedin.com/in/chamath" target="_blank" rel="noopener" class="speaker-linkedin"><i data-lucide="linkedin"></i> LinkedIn</a>
-        </div>
-      </div>
-      <div class="speaker-card">
         <div class="speaker-avatar" style="background:linear-gradient(135deg,#0d9488,#2dd4bf);">EB</div>
         <div>
           <h4>Erik Brynjolfsson</h4>
@@ -2111,12 +2145,68 @@ body.ff-ext-edit-on .hero-cta {
     </div>
     <div class="carousel-dots speakers-dots" aria-hidden="true"></div>
 
+    <div class="speaker-section-label">Founders Joining Us <span style="font-weight:400;font-size:10px;letter-spacing:0.5px;opacity:0.6;margin-left:8px;">Across dinners &amp; spotlight sessions</span></div>
+    <div class="founders-grid animate-on-scroll">
+      <div class="founder-pill">
+        <div class="founder-initials" style="background:linear-gradient(135deg,#0f172a,#1e3a5f);">EL</div>
+        <div class="founder-info">
+          <span class="founder-name">Emily Liu</span>
+          <span class="founder-company">Cursor</span>
+        </div>
+      </div>
+      <div class="founder-pill">
+        <div class="founder-initials" style="background:linear-gradient(135deg,#0f172a,#1e3a5f);">MP</div>
+        <div class="founder-info">
+          <span class="founder-name">Maxime Prades</span>
+          <span class="founder-company">Cursor</span>
+        </div>
+      </div>
+      <div class="founder-pill">
+        <div class="founder-initials" style="background:linear-gradient(135deg,#064e3b,#065f46);">AH</div>
+        <div class="founder-info">
+          <span class="founder-name">Alex H</span>
+          <span class="founder-company">Bright AI</span>
+        </div>
+      </div>
+      <div class="founder-pill">
+        <div class="founder-initials" style="background:linear-gradient(135deg,#4c1d95,#6d28d9);">MS</div>
+        <div class="founder-info">
+          <span class="founder-name">Malay Shah</span>
+          <span class="founder-company">PokaLabs</span>
+        </div>
+      </div>
+      <div class="founder-pill">
+        <div class="founder-initials" style="background:linear-gradient(135deg,#7c2d12,#c2410c);">PC</div>
+        <div class="founder-info">
+          <span class="founder-name">Prateek Chakravarty</span>
+          <span class="founder-company">Zinier</span>
+        </div>
+      </div>
+      <div class="founder-pill">
+        <div class="founder-initials" style="background:linear-gradient(135deg,#164e63,#0e7490);">SC</div>
+        <div class="founder-info">
+          <span class="founder-name">Samuel Colvin</span>
+          <span class="founder-company">Pydantic</span>
+        </div>
+      </div>
+      <div class="founder-pill">
+        <div class="founder-initials" style="background:linear-gradient(135deg,#1e1b4b,#3730a3);">SS</div>
+        <div class="founder-info">
+          <span class="founder-name">Sina Sojoodi</span>
+          <span class="founder-company">8090</span>
+        </div>
+      </div>
+      <div class="founder-pill">
+        <div class="founder-initials" style="background:linear-gradient(135deg,#1e1b4b,#3730a3);">JC</div>
+        <div class="founder-info">
+          <span class="founder-name">John Calzaretta</span>
+          <span class="founder-company">8090</span>
+        </div>
+      </div>
+    </div>
+
     <div class="speaker-section-label">AI Startup Showcase <span style="font-weight:400;font-size:10px;letter-spacing:0.5px;opacity:0.6;margin-left:8px;">Subject to change</span></div>
     <div class="startup-grid animate-on-scroll">
-      <a href="https://anthropic.com" target="_blank" rel="noopener" class="startup-card">
-        <img src="https://www.google.com/s2/favicons?sz=128&domain=anthropic.com" alt="Anthropic" class="startup-logo" onerror="this.style.display='none'">
-        <h4>Anthropic</h4><p>AI Safety &amp; Research</p>
-      </a>
       <a href="https://8090.ai" target="_blank" rel="noopener" class="startup-card">
         <img src="https://www.google.com/s2/favicons?sz=128&domain=8090.ai" alt="8090" class="startup-logo" onerror="this.style.display='none'">
         <h4>8090</h4><p>Enterprise AI</p>
