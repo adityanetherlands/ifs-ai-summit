@@ -908,6 +908,66 @@ a.keynote-tag:hover {
     padding: 36px 24px 48px;
   }
 }
+/* Reverse variant: logo/photo on the right, content on the left */
+.keynote-banner-reverse .keynote-banner-inner {
+  grid-template-columns: 1fr 360px;
+}
+.keynote-banner-reverse .keynote-photo-wrap img {
+  mask-image: linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+}
+.anthropic-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 360px;
+  background: linear-gradient(135deg, #f4f1ea 0%, #e8e2d5 100%);
+  position: relative;
+  overflow: hidden;
+}
+.anthropic-logo-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 100% at 30% 40%, rgba(0,0,0,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.anthropic-logo-mark {
+  width: 62%;
+  max-width: 240px;
+  color: #181818;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+.anthropic-logo-wordmark {
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: #181818;
+  z-index: 1;
+}
+@media (max-width: 900px) {
+  .keynote-banner-reverse .keynote-banner-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'logo' 'content';
+  }
+  .keynote-banner-reverse .anthropic-logo-wrap {
+    grid-area: logo;
+    min-height: 280px;
+    height: 280px;
+  }
+  .keynote-banner-reverse .keynote-content {
+    grid-area: content;
+  }
+}
 
 /* ═══════════════════════════════════════════════════════════════
    FOOTER
@@ -1565,6 +1625,40 @@ body.ff-ext-edit-on .hero-cta {
       </div>
     </div>
   </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     HANDS-ON BANNER – ANTHROPIC (feature-flagged)
+     ═══════════════════════════════════════════════════ -->
+<div class="ff-ext-edit">
+<div class="keynote-banner keynote-banner-reverse">
+  <div class="keynote-banner-inner">
+    <div class="keynote-content">
+      <div class="keynote-eyebrow">Hands-On Session</div>
+      <h2 class="keynote-name">Anthropic</h2>
+      <p class="keynote-title">Makers of Claude &nbsp;&middot;&nbsp; Frontier AI, built for safety</p>
+      <p class="keynote-bio">
+        A working session with the team behind <strong>Claude</strong> &ndash; the frontier model enterprises trust to build reliable, agentic software. <strong>Alan Zhang</strong> and <strong>Sean Hall</strong>, Field Architects at Anthropic, will cowork with you live: prompting patterns, tool use, Claude Code, and the engineering choices that turn a demo into production. Bring a laptop, bring a real IFS use case, and leave with working prototypes and patterns you can apply the week you get back.
+      </p>
+      <div class="keynote-tags">
+        <a href="https://www.anthropic.com/" target="_blank" rel="noopener" class="keynote-tag">Anthropic</a>
+        <a href="https://www.anthropic.com/claude" target="_blank" rel="noopener" class="keynote-tag">Claude</a>
+        <a href="https://docs.claude.com/" target="_blank" rel="noopener" class="keynote-tag">Claude Docs</a>
+      </div>
+      <div class="keynote-session-label">
+        <i data-lucide="calendar"></i>
+        Tuesday 5 May &nbsp;&middot;&nbsp; 14:00 &ndash; 17:00 &nbsp;&middot;&nbsp; Hands-On Block 2 &ndash; Anthropic / Claude Cowork
+      </div>
+    </div>
+    <div class="keynote-photo-wrap anthropic-logo-wrap" aria-label="Anthropic">
+      <svg class="anthropic-logo-mark" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon fill="currentColor" points="70,172 30,172 88,28 108,28"/>
+        <polygon fill="currentColor" points="130,172 170,172 112,28 92,28"/>
+      </svg>
+      <div class="anthropic-logo-wordmark">ANTHROPIC</div>
+    </div>
+  </div>
+</div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════
