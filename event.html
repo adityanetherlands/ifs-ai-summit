@@ -909,6 +909,63 @@ a.keynote-tag:hover {
   }
 }
 
+/* ─── Reversed variant: text left, logo right ───────────────────── */
+.keynote-banner--reversed::before {
+  background:
+    radial-gradient(ellipse 70% 120% at 100% 50%, rgba(99,102,241,0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 0% 50%, rgba(129,140,248,0.06) 0%, transparent 60%);
+}
+.keynote-banner-inner--reversed {
+  grid-template-columns: 1fr 340px;
+}
+.keynote-logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 52px 40px;
+  gap: 20px;
+  position: relative;
+}
+.keynote-logo-wrap::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(99,102,241,0.25), transparent);
+}
+.keynote-logo-mark {
+  width: 72px;
+  height: auto;
+  filter: drop-shadow(0 0 24px rgba(99,102,241,0.35));
+}
+.keynote-logo-wordmark {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 5px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+@media (max-width: 900px) {
+  .keynote-banner-inner--reversed {
+    grid-template-columns: 1fr;
+  }
+  .keynote-logo-wrap {
+    order: -1;
+    padding: 36px 24px 24px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+  }
+  .keynote-logo-wrap::before { display: none; }
+  .keynote-logo-mark { width: 48px; }
+  .keynote-logo-wordmark { font-size: 18px; letter-spacing: 4px; }
+}
+
 /* ═══════════════════════════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════════════════════════ */
@@ -1563,6 +1620,39 @@ body.ff-ext-edit-on .hero-cta {
         <i data-lucide="calendar"></i>
         Wednesday 6 May &nbsp;&middot;&nbsp; 10:00 &ndash; 11:00 &nbsp;&middot;&nbsp; Venture View on AI &amp; Enterprise Software
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     HANDS-ON SESSION BANNER – ANTHROPIC
+     ═══════════════════════════════════════════════════ -->
+<div class="keynote-banner keynote-banner--reversed">
+  <div class="keynote-banner-inner keynote-banner-inner--reversed">
+    <div class="keynote-content">
+      <div class="keynote-eyebrow">Hands-On Session</div>
+      <h2 class="keynote-name">Anthropic / Claude Cowork</h2>
+      <p class="keynote-title">Alan Zhang &amp; Sean Hall &ndash; Field Architects, Anthropic</p>
+      <p class="keynote-bio">
+        A deep, hands-on cowork session led by Anthropic's own field architects. Attendees build directly with <strong>Claude</strong> &ndash; exploring agentic workflows, prompt engineering, and how AI can be embedded into enterprise processes. This isn't a demo: it's three hours of guided building, where every participant leaves with something real they created using the most capable AI available today.
+      </p>
+      <div class="keynote-tags">
+        <span class="keynote-tag">Hands-On Building</span>
+        <span class="keynote-tag">Claude</span>
+        <span class="keynote-tag">Agentic AI</span>
+        <span class="keynote-tag">Prompt Engineering</span>
+      </div>
+      <div class="keynote-session-label">
+        <i data-lucide="calendar"></i>
+        Tuesday 5 May &nbsp;&middot;&nbsp; 14:00 &ndash; 17:00 &nbsp;&middot;&nbsp; Hands-On Block 2
+      </div>
+    </div>
+    <div class="keynote-logo-wrap">
+      <svg class="keynote-logo-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+        <path d="M40 4 L80 76 L66 76 L52 44 L28 44 L14 76 L0 76 Z" fill="white"/>
+        <path d="M40 11 L52 44 L28 44 Z" fill="#0f1117"/>
+      </svg>
+      <span class="keynote-logo-wordmark">Anthropic</span>
     </div>
   </div>
 </div>
