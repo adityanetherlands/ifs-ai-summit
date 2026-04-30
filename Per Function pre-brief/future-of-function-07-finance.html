@@ -542,11 +542,15 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
      ═══════════════════════════════════════════════════ -->
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="#" class="nav-brand">IFS <span>AI Summit</span></a>
+    <a href="../event.html" class="nav-brand">IFS <span>AI Summit</span></a>
     <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Brief Map</a></li>
-      <li><a href="#" class="active">Finance</a></li>
+      <li><a href="../event.html">Home</a></li>
+      <li><a href="../event.html#agenda">Agenda</a></li>
+      <li><a href="../event.html#prereads" class="active">Pre-Reads</a></li>
+      <li><a href="../event.html#homework">Homework</a></li>
+      <li><a href="../event.html#speakers">Speakers</a></li>
+      <li><a href="../event.html#groups">Groups</a></li>
+      <li><a href="../event.html#venue">Venue</a></li>
     </ul>
     <button class="nav-hamburger" aria-label="Open menu" onclick="toggleDrawer()">
       <i data-lucide="menu" style="width:24px;height:24px;"></i>
@@ -560,9 +564,13 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
   <button class="drawer-close" aria-label="Close menu" onclick="toggleDrawer()">
     <i data-lucide="x" style="width:24px;height:24px;"></i>
   </button>
-  <a href="#">Home</a>
-  <a href="#">Brief Map</a>
-  <a href="#" class="active">Finance</a>
+  <a href="../event.html" onclick="toggleDrawer()">Home</a>
+  <a href="../event.html#agenda" onclick="toggleDrawer()">Agenda</a>
+  <a href="../event.html#prereads" class="active" onclick="toggleDrawer()">Pre-Read Briefs</a>
+  <a href="../event.html#homework" onclick="toggleDrawer()">Homework</a>
+  <a href="../event.html#speakers" onclick="toggleDrawer()">Speakers</a>
+  <a href="../event.html#groups" onclick="toggleDrawer()">Groups</a>
+  <a href="../event.html#venue" onclick="toggleDrawer()">Venue</a>
 </div>
 
 <!-- ═══════════════════════════════════════════════════

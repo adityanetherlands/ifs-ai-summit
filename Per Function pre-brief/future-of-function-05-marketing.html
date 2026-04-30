@@ -529,29 +529,36 @@ body.ff-ext-edit-on .ff-ext-edit-hide { display: none !important; }
 <body>
 
 <!-- Navbar -->
-<nav class="nav">
+<nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="../index.html" class="nav-brand">IFS <span>Summit</span></a>
+    <a href="../event.html" class="nav-brand">IFS <span>AI Summit</span></a>
     <ul class="nav-links">
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="../event.html">Summit</a></li>
-      <li><a href="../event.html#prereads">Pre-reads</a></li>
-      <li><a href="#" style="opacity: 0.5; pointer-events: none;">Team</a></li>
+      <li><a href="../event.html">Home</a></li>
+      <li><a href="../event.html#agenda">Agenda</a></li>
+      <li><a href="../event.html#prereads" class="active">Pre-Reads</a></li>
+      <li><a href="../event.html#homework">Homework</a></li>
+      <li><a href="../event.html#speakers">Speakers</a></li>
+      <li><a href="../event.html#groups">Groups</a></li>
+      <li><a href="../event.html#venue">Venue</a></li>
     </ul>
-    <button class="nav-hamburger" onclick="toggleDrawer()">
-      <i data-lucide="menu"></i>
+    <button class="nav-hamburger" aria-label="Open menu" onclick="toggleDrawer()">
+      <i data-lucide="menu" style="width:24px;height:24px;"></i>
     </button>
   </div>
 </nav>
 
 <div id="navOverlay" class="nav-overlay" onclick="toggleDrawer()"></div>
-<div id="navDrawer" class="nav-drawer">
-  <button class="drawer-close" onclick="toggleDrawer()">
-    <i data-lucide="x"></i>
+<div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu">
+  <button class="drawer-close" aria-label="Close menu" onclick="toggleDrawer()">
+    <i data-lucide="x" style="width:24px;height:24px;"></i>
   </button>
-  <a href="../index.html">Home</a>
-  <a href="../event.html">Summit</a>
-  <a href="../event.html#prereads">Pre-reads</a>
+  <a href="../event.html" onclick="toggleDrawer()">Home</a>
+  <a href="../event.html#agenda" onclick="toggleDrawer()">Agenda</a>
+  <a href="../event.html#prereads" class="active" onclick="toggleDrawer()">Pre-Read Briefs</a>
+  <a href="../event.html#homework" onclick="toggleDrawer()">Homework</a>
+  <a href="../event.html#speakers" onclick="toggleDrawer()">Speakers</a>
+  <a href="../event.html#groups" onclick="toggleDrawer()">Groups</a>
+  <a href="../event.html#venue" onclick="toggleDrawer()">Venue</a>
 </div>
 
 <!-- Hero Section -->
