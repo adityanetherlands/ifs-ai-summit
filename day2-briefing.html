@@ -775,7 +775,8 @@ img { display: block; max-width: 100%; height: auto; }
   border: 1px solid transparent;
   color: var(--text-primary);
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
+  /* 16px keeps iOS Safari from auto-zooming on focus */
+  font-size: 16px;
   padding: 9px 40px 9px 38px;
   border-radius: 999px;
   outline: none;
@@ -816,7 +817,8 @@ img { display: block; max-width: 100%; height: auto; }
 @media (max-width: 560px) {
   .seating-search { gap: 10px; }
   .seating-search-label { font-size: 10px; letter-spacing: 1.2px; }
-  .seating-search-input { font-size: 13px; padding: 9px 38px 9px 34px; }
+  /* keep the input at 16px on mobile so iOS Safari does not auto-zoom on focus */
+  .seating-search-input { font-size: 16px; padding: 9px 38px 9px 34px; }
   .seating-search-wrap > svg { left: 12px; }
 }
 
