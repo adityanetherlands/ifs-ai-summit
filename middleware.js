@@ -1,5 +1,5 @@
 export default function middleware(request) {
-  const { pathname } = new URL(request.url);
+  const { pathname, search } = new URL(request.url);
 
   // Pass through: root, API routes, and static assets
   if (
@@ -19,7 +19,9 @@ export default function middleware(request) {
     .some(c => c === 'ifs_auth=1');
 
   if (!authenticated) {
-    return Response.redirect(new URL('/', request.url), 302);
+    const target = new URL('/', request.url);
+    target.searchParams.set('next', pathname + search);
+    return Response.redirect(target, 302);
   }
 }
 

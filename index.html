@@ -571,7 +571,10 @@
                 })
                 .then(function (res) {
                     if (res.ok) {
-                        window.location.href = '/event';
+                        var nextParam = new URLSearchParams(window.location.search).get('next') || '';
+                        // Safe same-origin path: starts with '/', not '//' or '/\'
+                        var isSafe = /^\/(?!\/)[^\\]*$/.test(nextParam) && nextParam !== '/';
+                        window.location.href = isSafe ? nextParam : '/event';
                     } else {
                         showError();
                         submitBtn.disabled = false;
