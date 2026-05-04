@@ -708,8 +708,14 @@ img { display: block; max-width: 100%; height: auto; }
 
 .seating-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
+}
+@media (max-width: 1024px) {
+  .seating-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .seating-grid { grid-template-columns: 1fr; }
 }
 .seat-card {
   position: relative;
@@ -798,10 +804,16 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .seat-attendees {
   list-style: none;
-  columns: 2;
+  columns: 1;
   column-gap: 22px;
   padding: 0;
   margin: 0;
+}
+@media (min-width: 1025px) {
+  .seat-card { padding: 24px 22px 22px; }
+}
+@media (max-width: 1024px) {
+  .seat-attendees { columns: 2; }
 }
 .seat-attendees li {
   font-family: 'Cormorant Garamond', Georgia, serif;
@@ -1336,7 +1348,7 @@ sections.forEach((section) => observer.observe(section));
   dinner.forEach(t => {
     const card = document.createElement('article');
     card.className = 'seat-card';
-    const dividerLabel = t.round === 2 ? 'Round 2 Host' : 'Round 1 Host';
+    const dividerLabel = t.round === 2 ? 'Round 2 Founder' : 'Round 1 Founder';
     card.innerHTML = `
       <span class="seat-table-num">Table ${t.n}</span>
       <span class="seat-theme">${escapeHtml(t.theme)}</span>
