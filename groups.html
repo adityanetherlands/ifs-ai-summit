@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFS AI Summit – Working Groups</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  :root {
+    --bg-primary: #090b10;
+    --bg-surface: #11141c;
+    --bg-elevated: #161a25;
+    --border-default: rgba(255,255,255,0.08);
+    --border-subtle: rgba(255,255,255,0.05);
+    --text-primary: #e8eaf0;
+    --text-muted: #9097a8;
+    --text-dim: #6b7280;
+    --accent-indigo: #6366f1;
+    --accent-indigo-light: #818cf8;
+    --accent-amber: #f59e0b;
+  }
+  body {
+    margin: 0;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    padding: 40px 24px 80px;
+    min-height: 100vh;
+  }
+  .container { max-width: 1280px; margin: 0 auto; }
+  header { margin-bottom: 40px; }
+  h1 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin: 0;
+  }
+  .stats {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .stats strong { color: var(--accent-indigo-light); font-weight: 600; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 14px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-num {
+    font-family: 'Lexend', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-indigo-light);
+    margin-bottom: 6px;
+  }
+  .card h2 {
+    font-family: 'Lexend', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+  .lead {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .lead strong { color: var(--accent-amber); font-weight: 600; }
+  .members {
+    list-style: none;
+    margin: 0;
+    padding: 14px 0 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .members li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 7px 0;
+    font-size: 14px;
+    border-bottom: 1px dashed var(--border-subtle);
+  }
+  .members li:last-child { border-bottom: none; }
+  .members li.is-lead .name { color: var(--accent-amber); font-weight: 600; }
+  .members li.is-lead .name::after {
+    content: ' · Tech Lead';
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .name { color: var(--text-primary); font-weight: 500; }
+  .fn {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+  .count {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    margin-top: auto;
+    padding-top: 14px;
+  }
+
+  @media print {
+    body { background: white; color: black; padding: 20px; }
+    .card { background: white; border: 1px solid #ddd; break-inside: avoid; }
+    .members li { border-bottom-color: #eee; }
+    .name, h1 { color: black; }
+    .fn, .lead, .subtitle, .stats, .count { color: #555; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .stats { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>IFS AI Summit · Working Groups</h1>
+    <p class="subtitle">Offline reference · 10 cross-functional groups · Member full names &amp; functions</p>
+    <div class="stats">
+      <span><strong>10</strong> groups</span>
+      <span><strong>55</strong> people total</span>
+      <span><strong>10</strong> tech leads</span>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-num">Group 1</div>
+      <h2>Sales – Team A</h2>
+      <div class="lead">Tech Lead: <strong>Herman Niewoudt</strong></div>
+      <ul class="members">
+        <li><span class="name">James Thompson</span><span class="fn">Core Sales</span></li>
+        <li><span class="name">Somya Kapoor</span><span class="fn">AI BU</span></li>
+        <li><span class="name">Simon Niesler</span><span class="fn">Core Sales</span></li>
+        <li class="is-lead"><span class="name">Herman Niewoudt</span><span class="fn">Core Sales</span></li>
+        <li><span class="name">Tim Forkner</span><span class="fn">M&amp;A</span></li>
+        <li><span class="name">Cindy Jaudon</span><span class="fn">Core Sales</span></li>
+        <li><span class="name">James Greaves</span><span class="fn">Core Sales</span></li>
+      </ul>
+      <div class="count">7 members</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Group 2</div>
+      <h2>Sales – Team B</h2>
+      <div class="lead">Tech Lead: <strong>Ravi Bulusu</strong></div>
+      <ul class="members">
+        <li class="is-lead"><span class="name">Ravi Bulusu</span><span class="fn">AI BU</span></li>
+        <li><span class="name">Justin Bigger</span><span class="fn">Core Sales</span></li>
+        <li><span class="name">Mark Buongiorno</span><span class="fn">Core Sales</span></li>
+        <li><span class="name">Mattias Bolander</span><span class="fn">Core Sales</span></li>
+        <li><span class="name">Andre Robberts</span><span class="fn">Core Sales</span></li>
+        <li><span class="name">Matt Breslin</span><span class="fn">Core Sales</span></li>
+      </ul>
+      <div class="count">6 members</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Group 3</div>
+      <h2>Pre-Sales</h2>
+      <div class="lead">Tech Lead: <strong>Jonathan Hyden</strong></div>
+      <ul class="members">
+        <li class="is-lead"><span class="name">Jonathan Hyden</span><span class="fn">AI BU</span></li>
+        <li><span class="name">Mathieu Daudigny</span><span class="fn">Core Sales</span></li>
+        <li><span class="name">Stephanie Poore</span><span class="fn">Core Sales</span></li>
+        <li><span class="name">Travis Johnstone</span><span class="fn">Core Sales</span></li>
+        <li><span class="name">Kriti Sharma</span><span class="fn">AI BU</span></li>
+        <li><span class="name">Steve Elsham</span><span class="fn">M&amp;A</span></li>
+      </ul>
+      <div class="count">6 members</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Group 4</div>
+      <h2>R&amp;D</h2>
+      <div class="lead">Tech Lead: <strong>Vaibs Kumar</strong></div>
+      <ul class="members">
+        <li><span class="name">Dan Dutton</span><span class="fn">Core Product / GCS</span></li>
+        <li><span class="name">Mairi Campbell</span><span class="fn">Core Product / GCS</span></li>
+        <li><span class="name">Cathie Hall</span><span class="fn">Core Product / GCS</span></li>
+        <li><span class="name">Gregory Briedenbach</span><span class="fn">Core Product / GCS</span></li>
+        <li class="is-lead"><span class="name">Vaibs Kumar</span><span class="fn">Core Product / GCS</span></li>
+      </ul>
+      <div class="count">5 members</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Group 5</div>
+      <h2>Customer Support &amp; Success</h2>
+      <div class="lead">Tech Lead: <strong>Bob De Caux</strong></div>
+      <ul class="members">
+        <li class="is-lead"><span class="name">Bob De Caux</span><span class="fn">Core Product / GCS</span></li>
+        <li><span class="name">Kurt Kemmerly</span><span class="fn">AI BU</span></li>
+        <li><span class="name">Raymond Jones</span><span class="fn">Core Product / GCS</span></li>
+        <li><span class="name">Tony Johnson</span><span class="fn">Core Product / GCS</span></li>
+        <li><span class="name">Piyush Sood</span><span class="fn">Core Product / GCS</span></li>
+      </ul>
+      <div class="count">5 members</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Group 6</div>
+      <h2>Marketing</h2>
+      <div class="lead">Tech Lead: <strong>Adi Kumar</strong></div>
+      <ul class="members">
+        <li><span class="name">Andreas Georgiou</span><span class="fn">Marketing</span></li>
+        <li><span class="name">Elvis Pinjagic</span><span class="fn">AI BU</span></li>
+        <li><span class="name">Oliver Pilgerstorfer</span><span class="fn">Marketing</span></li>
+        <li><span class="name">Sara Hill</span><span class="fn">Marketing</span></li>
+        <li class="is-lead"><span class="name">Adi Kumar</span><span class="fn">AI BU</span></li>
+      </ul>
+      <div class="count">5 members</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Group 7</div>
+      <h2>HR</h2>
+      <div class="lead">Tech Lead: <strong>Matt Ely</strong></div>
+      <ul class="members">
+        <li class="is-lead"><span class="name">Matt Ely</span><span class="fn">AI BU</span></li>
+        <li><span class="name">Laura Bennett</span><span class="fn">HR</span></li>
+        <li><span class="name">Mihita Podobnik</span><span class="fn">HR</span></li>
+        <li><span class="name">Danyal Hasan</span><span class="fn">Other</span></li>
+        <li><span class="name">Ann Marie Mullally</span><span class="fn">Core Sales</span></li>
+      </ul>
+      <div class="count">5 members</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Group 8</div>
+      <h2>Finance</h2>
+      <div class="lead">Tech Lead: <strong>Danilo Prates</strong></div>
+      <ul class="members">
+        <li class="is-lead"><span class="name">Danilo Prates</span><span class="fn">M&amp;A</span></li>
+        <li><span class="name">Hannes Liebe</span><span class="fn">Core Sales</span></li>
+        <li><span class="name">Jonathan Park</span><span class="fn">Finance</span></li>
+        <li><span class="name">Jordan Setterfield</span><span class="fn">Finance</span></li>
+        <li><span class="name">Ryan Courson</span><span class="fn">Finance</span></li>
+        <li><span class="name">Ben Rowland</span><span class="fn">Finance</span></li>
+        <li><span class="name">Rob Hortopp</span><span class="fn">M&amp;A</span></li>
+        <li><span class="name">Glen Tanner</span><span class="fn">Finance</span></li>
+      </ul>
+      <div class="count">8 members</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Group 9</div>
+      <h2>IT</h2>
+      <div class="lead">Tech Lead: <strong>Jorge García Díaz</strong></div>
+      <ul class="members">
+        <li><span class="name">Goiuri Hernández</span><span class="fn">Core Sales</span></li>
+        <li class="is-lead"><span class="name">Jorge García Díaz</span><span class="fn">IT</span></li>
+        <li><span class="name">Mubashir Nisar</span><span class="fn">IT</span></li>
+        <li><span class="name">Robi Gone</span><span class="fn">IT</span></li>
+        <li><span class="name">Matt Quinn</span><span class="fn">AI BU</span></li>
+      </ul>
+      <div class="count">5 members</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Group 10</div>
+      <h2>M&amp;A</h2>
+      <div class="lead">Tech Lead: <strong>Nick Vandivere</strong></div>
+      <ul class="members">
+        <li><span class="name">Lance Olmsted</span><span class="fn">M&amp;A</span></li>
+        <li class="is-lead"><span class="name">Nick Vandivere</span><span class="fn">AI BU</span></li>
+        <li><span class="name">Andrew Binstead</span><span class="fn">M&amp;A</span></li>
+        <li><span class="name">Joe Pascaretta</span><span class="fn">Strategy</span></li>
+      </ul>
+      <div class="count">4 members</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
