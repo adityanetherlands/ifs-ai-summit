@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 3 Briefing | IFS AI Leadership Summit</title>
+<meta name="description" content="Day 3 of the IFS AI Leadership Summit: SaaS disruption, AI-native KPIs, 2027 operating plans, working group commitments, and founder conversations.">
+
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+:root {
+  --bg-primary: #090b10;
+  --bg-secondary: #0f1117;
+  --bg-surface: #181b23;
+  --border-default: #2a2f3d;
+  --text-primary: #f0f1f5;
+  --text-secondary: #e4e6ed;
+  --text-muted: #9498ad;
+  --text-dim: #6b7094;
+  --accent-indigo: #6366f1;
+  --accent-indigo-light: #818cf8;
+  --accent-cyan: #06b6d4;
+  --accent-amber: #f59e0b;
+  --accent-emerald: #22c55e;
+  --accent-red: #ef4444;
+  --font-display: 'Lexend', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --max-width: 1180px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: var(--accent-indigo-light); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { display: block; max-width: 100%; height: auto; }
+::selection { background: var(--accent-indigo); color: white; }
+:focus-visible { outline: 2px solid var(--accent-indigo-light); outline-offset: 3px; }
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 9999;
+  background: var(--accent-indigo);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+.skip-link:focus { top: 14px; }
+
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 32px; }
+.section { padding: 88px 0; }
+.section-alt {
+  background:
+    linear-gradient(180deg, rgba(15,17,23,0.94), rgba(15,17,23,0.98)),
+    radial-gradient(ellipse 75% 55% at 90% 0%, rgba(239,68,68,0.12), transparent 64%),
+    radial-gradient(ellipse 70% 60% at 10% 90%, rgba(245,158,11,0.08), transparent 64%);
+}
+.section-header { margin-bottom: 38px; max-width: 800px; }
+.section-eyebrow {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+  margin-bottom: 10px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+.section-subtitle { color: var(--text-muted); font-size: 16px; max-width: 740px; }
+
+.nav {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 18px 28px;
+  pointer-events: none;
+}
+.nav-inner {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(100%, 920px);
+  padding: 8px 10px 8px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: linear-gradient(135deg, rgba(20,23,32,0.72), rgba(30,34,45,0.58));
+  backdrop-filter: blur(36px) saturate(1.25);
+  -webkit-backdrop-filter: blur(36px) saturate(1.25);
+  box-shadow: 0 10px 34px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-primary);
+  white-space: nowrap;
+  margin-right: 10px;
+}
+.nav-brand span { font-weight: 500; color: var(--accent-indigo-light); }
+.nav-links { display: flex; align-items: center; gap: 2px; list-style: none; margin-left: auto; }
+.nav-links a {
+  display: inline-flex;
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 999px;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: white;
+  background: rgba(255,255,255,0.09);
+  text-decoration: none;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-indigo-light);
+  border: 1px solid rgba(129,140,248,0.25);
+  background: rgba(99,102,241,0.1);
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.back-link:hover { text-decoration: none; border-color: rgba(129,140,248,0.48); }
+.back-link svg { width: 15px; height: 15px; }
+
+.hero {
+  min-height: 88vh;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+  padding: 148px 0 64px;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(180deg, rgba(9,11,16,0.2) 0%, rgba(9,11,16,0.82) 56%, rgba(9,11,16,1) 100%),
+    linear-gradient(90deg, rgba(9,11,16,0.96) 0%, rgba(9,11,16,0.78) 43%, rgba(9,11,16,0.6) 100%),
+    radial-gradient(ellipse 60% 55% at 74% 34%, rgba(185,28,28,0.22), transparent 62%),
+    url('assets/day3/boardroom.jpg') center/cover no-repeat;
+  filter: saturate(0.68) contrast(1.08) brightness(0.88);
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  z-index: -1;
+  background: linear-gradient(180deg, transparent, var(--bg-primary));
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(310px, 0.82fr);
+  gap: 42px;
+  align-items: end;
+}
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+  margin-bottom: 18px;
+}
+.hero-kicker svg { width: 15px; height: 15px; }
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 7vw, 74px);
+  line-height: 0.98;
+  letter-spacing: -0.8px;
+  font-weight: 800;
+  color: var(--text-primary);
+  max-width: 820px;
+  margin-bottom: 22px;
+}
+.hero-lead {
+  color: var(--text-secondary);
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 1.62;
+  max-width: 770px;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+.primary-action,
+.secondary-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 800;
+}
+.primary-action {
+  color: white;
+  background: linear-gradient(135deg, #b91c1c, #d97706);
+  box-shadow: 0 14px 40px rgba(217,119,6,0.2);
+}
+.secondary-action {
+  color: var(--text-secondary);
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+}
+.primary-action:hover,
+.secondary-action:hover { text-decoration: none; transform: translateY(-1px); }
+.primary-action svg,
+.secondary-action svg { width: 17px; height: 17px; }
+
+.hero-panel {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: linear-gradient(135deg, rgba(24,27,35,0.82), rgba(15,17,23,0.78));
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.4);
+}
+.hero-panel-title {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+.hero-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.hero-stat {
+  min-height: 98px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 14px;
+}
+.hero-stat strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+}
+.hero-stat span { display: block; color: var(--text-muted); font-size: 13px; line-height: 1.45; }
+
+.outcome-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: -18px;
+  margin-bottom: 64px;
+  position: relative;
+  z-index: 3;
+}
+.outcome {
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface);
+  border-radius: 8px;
+  padding: 18px;
+}
+.outcome svg { width: 22px; height: 22px; color: var(--accent-amber); margin-bottom: 14px; }
+.outcome h3 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.outcome p { color: var(--text-muted); font-size: 13px; line-height: 1.55; }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.strategy-card,
+.speaker-card,
+.commitment-card,
+.venue-card {
+  border: 1px solid var(--border-default);
+  background: linear-gradient(135deg, rgba(24,27,35,0.98), rgba(12,14,20,0.98));
+  border-radius: 10px;
+  padding: 22px;
+}
+.strategy-card h3,
+.speaker-card h3,
+.commitment-card h3,
+.venue-card h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+.strategy-card p,
+.speaker-card p,
+.commitment-card p,
+.venue-card p { color: var(--text-muted); font-size: 14px; }
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.tag svg { width: 13px; height: 13px; color: var(--accent-amber); }
+.source-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+.source-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(129,140,248,0.24);
+  background: rgba(99,102,241,0.08);
+  color: var(--accent-indigo-light);
+  border-radius: 999px;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 800;
+}
+.source-links a:hover { text-decoration: none; border-color: rgba(129,140,248,0.5); }
+.source-links svg { width: 13px; height: 13px; }
+
+.commitment-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.commitment-card ul {
+  display: grid;
+  gap: 9px;
+  list-style: none;
+  margin-top: 15px;
+}
+.commitment-card li {
+  display: grid;
+  grid-template-columns: 19px 1fr;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+.commitment-card li svg {
+  width: 16px;
+  height: 16px;
+  color: var(--accent-emerald);
+  margin-top: 2px;
+}
+
+.speaker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+.speaker-top {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 14px;
+}
+.speaker-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  color: white;
+  flex: 0 0 auto;
+}
+.speaker-role { color: var(--accent-indigo-light); font-size: 13px; font-weight: 700; margin-top: 2px; }
+.speaker-image {
+  width: 100%;
+  height: 210px;
+  border-radius: 8px;
+  object-fit: cover;
+  object-position: center 30%;
+  border: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 15px;
+}
+.working-session {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
+  gap: 22px;
+  align-items: start;
+}
+.working-callout {
+  border: 1px solid rgba(239,68,68,0.32);
+  background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(24,27,35,0.96));
+  border-radius: 10px;
+  padding: 24px;
+}
+.working-callout h3 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-size: 24px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.working-callout p { color: var(--text-muted); }
+.output-list {
+  display: grid;
+  gap: 12px;
+}
+.output-item {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 14px;
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface);
+  border-radius: 8px;
+  padding: 16px;
+}
+.output-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(245,158,11,0.1);
+  color: var(--accent-amber);
+}
+.output-icon svg { width: 21px; height: 21px; }
+.output-item h4 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-size: 15px;
+  margin-bottom: 3px;
+}
+.output-item p { color: var(--text-muted); font-size: 13px; line-height: 1.55; }
+
+.venue-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.venue-card svg {
+  width: 24px;
+  height: 24px;
+  color: var(--accent-amber);
+  margin-bottom: 14px;
+}
+
+.dinner-band {
+  border-top: 1px solid var(--border-default);
+  border-bottom: 1px solid var(--border-default);
+  background:
+    linear-gradient(90deg, rgba(9,11,16,0.95), rgba(9,11,16,0.68), rgba(9,11,16,0.95)),
+    url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=80') center/cover no-repeat;
+}
+.dinner-content {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(300px, 0.75fr);
+  gap: 36px;
+  align-items: center;
+}
+.dinner-note {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(24,27,35,0.76);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 10px;
+  padding: 22px;
+}
+.dinner-note h3 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-size: 22px;
+  line-height: 1.24;
+  margin-bottom: 10px;
+}
+.dinner-note p { color: var(--text-muted); }
+.founder-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.founder-chip {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: var(--text-secondary);
+  border-radius: 999px;
+  padding: 8px 11px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.site-footer {
+  background: var(--bg-secondary);
+  background-image:
+    radial-gradient(ellipse 65% 70% at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(236, 72, 153, 0.07) 0%, transparent 65%);
+  border-top: 1px solid var(--border-default);
+  padding: 48px 0;
+  text-align: center;
+}
+.site-footer p { font-size: 14px; color: var(--text-dim); margin-bottom: 8px; }
+.site-footer a { color: var(--accent-indigo-light); font-weight: 600; }
+.footer-weather {
+  display: flex; justify-content: center; gap: 24px; margin-top: 16px;
+  flex-wrap: wrap;
+}
+.fw-day { text-align: center; }
+.fw-day-date { font-size: 11px; color: var(--text-dim); margin-bottom: 4px; }
+.fw-day-icon { font-size: 22px; line-height: 1; margin-bottom: 2px; }
+.fw-day-temp { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+.fw-day-temp span { font-weight: 400; opacity: 0.7; }
+.fw-day-temp-f { font-size: 10px; color: var(--text-dim); font-weight: 400; opacity: 0.6; margin-top: 2px; }
+
+@media (max-width: 980px) {
+  .nav-links { display: none; }
+  .nav-inner { width: auto; max-width: calc(100vw - 28px); }
+  .hero-grid,
+  .working-session,
+  .dinner-content { grid-template-columns: 1fr; }
+  .hero { min-height: auto; padding-top: 132px; }
+  .hero-panel { max-width: 560px; }
+  .outcome-strip,
+  .card-grid,
+  .speaker-grid,
+  .commitment-grid,
+  .venue-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 680px) {
+  .container { padding: 0 20px; }
+  .section { padding: 68px 0; }
+  .nav { padding: 12px; }
+  .nav-brand { font-size: 14px; }
+  .back-link { padding: 9px 11px; }
+  .hero { padding: 118px 0 46px; }
+  .hero-bg {
+    background:
+      linear-gradient(180deg, rgba(9,11,16,0.56) 0%, rgba(9,11,16,0.86) 52%, rgba(9,11,16,1) 100%),
+      url('assets/day3/boardroom.jpg') center/cover no-repeat;
+  }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .primary-action,
+  .secondary-action { justify-content: center; }
+  .hero-stat-grid,
+  .outcome-strip,
+  .card-grid,
+  .speaker-grid,
+  .commitment-grid,
+  .venue-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<nav class="nav" aria-label="Day 3 navigation">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/">IFS <span>AI Summit</span></a>
+    <ul class="nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#arc">Arc</a></li>
+      <li><a href="#conversations">Voices</a></li>
+      <li><a href="#working-groups">Outputs</a></li>
+      <li><a href="#venue">Venue</a></li>
+      <li><a href="#dinner">Dinner</a></li>
+    </ul>
+    <a class="back-link" href="/event#agenda"><i data-lucide="arrow-left"></i> Full Agenda</a>
+  </div>
+</nav>
+
+<header class="hero" id="overview">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-kicker"><i data-lucide="calendar-days"></i> Wednesday 6 May 2026 &middot; Day 3</div>
+        <h1 class="hero-title">Decide how IFS disrupts itself first</h1>
+        <p class="hero-lead">
+          Day 2 showed what AI can do. Day 3 turns that experience into a 2027 operating plan: confront the market view of SaaS, define AI-native KPIs, set aggressive functional targets, and commit to concrete changes before the market forces them on us.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-action" href="#working-groups"><i data-lucide="target"></i> Working Group Outputs</a>
+          <a class="secondary-action" href="#conversations"><i data-lucide="message-square-warning"></i> Key Conversations</a>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="Day 3 summary">
+        <div class="hero-panel-title">Day 3 at a glance</div>
+        <div class="hero-stat-grid">
+          <div class="hero-stat">
+            <strong>Market lens</strong>
+            <span>Confront how Wall Street now reads SaaS and AI risk.</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Unfiltered voice</strong>
+            <span>A candid Silicon Valley view on winning in an AI world.</span>
+          </div>
+          <div class="hero-stat">
+            <strong>2027 plans</strong>
+            <span>Translate ambition into AI-native functional commitments.</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Decisions</strong>
+            <span>Leave with KPIs, owners, timelines, and proof points.</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="container" aria-label="Outcomes">
+    <div class="outcome-strip">
+      <div class="outcome">
+        <i data-lucide="line-chart"></i>
+        <h3>Confront SaaS disruption</h3>
+        <p>Understand how the market now reads software economics, margins, and AI risk.</p>
+      </div>
+      <div class="outcome">
+        <i data-lucide="gauge"></i>
+        <h3>Redefine success</h3>
+        <p>Pressure-test what KPIs matter when AI and agents reshape the function.</p>
+      </div>
+      <div class="outcome">
+        <i data-lucide="split"></i>
+        <h3>Face the fork</h3>
+        <p>Name the choices where IFS must disrupt itself rather than preserve the old model.</p>
+      </div>
+      <div class="outcome">
+        <i data-lucide="clipboard-check"></i>
+        <h3>Commit to action</h3>
+        <p>Leave with concrete commitments, owners, follow-ups, and timelines.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="arc">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Strategic Arc</div>
+        <h2 class="section-title">From market reality to operating decisions</h2>
+        <p class="section-subtitle">The day is not designed as another inspiration loop. It moves from external pressure to internal measurement, then into self-disruption and functional commitments.</p>
+      </div>
+
+      <div class="card-grid">
+        <article class="strategy-card">
+          <h3>Goldman: market risks in SaaS</h3>
+          <p>It is one thing to experience what the technology can do. It is another to understand how Wall Street sees SaaS now: the outlook, the risk profile, and what AI may do to unit economics, valuation, and investor confidence.</p>
+          <div class="tag-row">
+            <span class="tag"><i data-lucide="landmark"></i> Market lens</span>
+            <span class="tag"><i data-lucide="trending-down"></i> SaaS pressure</span>
+          </div>
+        </article>
+
+        <article class="strategy-card">
+          <h3>KPIs of the new world</h3>
+          <p>When AI and agents are around us, how do we measure success? Each function needs a sharper definition of what good looks like, and enterprise value must be understood beyond the books.</p>
+          <div class="tag-row">
+            <span class="tag"><i data-lucide="gauge"></i> New metrics</span>
+            <span class="tag"><i data-lucide="brain-circuit"></i> Agentic work</span>
+          </div>
+        </article>
+
+        <article class="strategy-card">
+          <h3>Developing our 2027 AI-native plans</h3>
+          <p>The working sessions ask what changes, what aggressive targets are needed, and how we disrupt ourselves before someone else does. The internal pace of change must be greater than or equal to the market.</p>
+          <div class="tag-row">
+            <span class="tag"><i data-lucide="target"></i> Aggressive targets</span>
+            <span class="tag"><i data-lucide="repeat-2"></i> Self-disruption</span>
+          </div>
+        </article>
+
+        <article class="strategy-card">
+          <h3>Product launch strategy in an AI-native world</h3>
+          <p>Products and updates will flow faster than ever. Launch strategy, messaging, enablement, customer communication, and GTM rhythm need to reflect the new world of product development.</p>
+          <div class="tag-row">
+            <span class="tag"><i data-lucide="rocket"></i> Faster updates</span>
+            <span class="tag"><i data-lucide="megaphone"></i> Launch model</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="conversations">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Key Conversations</div>
+        <h2 class="section-title">The outside voices that sharpen the room</h2>
+        <p class="section-subtitle">Day 3 brings in the investor lens and a candid Silicon Valley view so the working groups are grounded in market reality, not internal optimism.</p>
+      </div>
+
+      <div class="speaker-grid">
+        <article class="speaker-card">
+          <img class="speaker-image" src="Chamath.jpg" alt="Chamath Palihapitiya">
+          <h3>Chamath Palihapitiya</h3>
+          <div class="speaker-role">Founder &amp; CEO, Social Capital &middot; Chairman, 8090</div>
+          <p>One of Silicon Valley&apos;s most prominent and unfiltered voices joins for a fireside and Q&amp;A. His current 8090 work is directly relevant to the question in the room: what happens when business leaders can drive AI-native software creation much closer to the work.</p>
+          <div class="tag-row">
+            <span class="tag"><i data-lucide="message-square-warning"></i> Unfiltered perspective</span>
+            <span class="tag"><i data-lucide="circle-help"></i> Q&amp;A</span>
+          </div>
+          <div class="source-links">
+            <a href="https://www.8090.ai/" target="_blank" rel="noopener"><i data-lucide="external-link"></i> 8090</a>
+            <a href="https://www.socialcapital.com/about" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Social Capital</a>
+            <a href="https://allin.com/about" target="_blank" rel="noopener"><i data-lucide="external-link"></i> All-In</a>
+          </div>
+        </article>
+
+        <article class="speaker-card">
+          <div class="speaker-top">
+            <div class="speaker-avatar" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6);">GS</div>
+            <div>
+              <h3>Anna Skoglund &amp; Joe Porter</h3>
+              <div class="speaker-role">Goldman Sachs</div>
+            </div>
+          </div>
+          <p>They bring the market lens: how investors see SaaS, what AI changes in the software model, and which assumptions about growth, efficiency, and enterprise value are now under pressure.</p>
+          <div class="source-links">
+            <a href="https://www.linkedin.com/in/anna-skoglund-15a7b151/" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Anna Skoglund</a>
+            <a href="https://www.linkedin.com/in/joe-porter-gs/" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Joe Porter</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="working-groups">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Working Group Output</div>
+        <h2 class="section-title">What each group needs to leave with</h2>
+        <p class="section-subtitle">By playback, each group should be able to say what changes, what gets measured, what must be decided, and who owns the first proof point.</p>
+      </div>
+
+      <div class="working-session">
+        <aside class="working-callout">
+          <h3>The internal pace of change must match or beat the market.</h3>
+          <p>The working groups should be honest about where IFS is preserving old operating assumptions. The question is not whether AI changes the function. It is whether we choose the change deliberately and early enough.</p>
+        </aside>
+
+        <div class="output-list">
+          <div class="output-item">
+            <div class="output-icon"><i data-lucide="gauge"></i></div>
+            <div>
+              <h4>Key AI-native KPIs</h4>
+              <p>Define the few measurements that would prove the function is becoming faster, higher quality, more automated, or more valuable.</p>
+            </div>
+          </div>
+          <div class="output-item">
+            <div class="output-icon"><i data-lucide="handshake"></i></div>
+            <div>
+              <h4>Commitments</h4>
+              <p>Name the specific commitments the group is willing to stand behind after the summit.</p>
+            </div>
+          </div>
+          <div class="output-item">
+            <div class="output-icon"><i data-lucide="list-checks"></i></div>
+            <div>
+              <h4>Follow-up actions</h4>
+              <p>Capture the next steps, owners, and timing needed to keep momentum after the trip.</p>
+            </div>
+          </div>
+          <div class="output-item">
+            <div class="output-icon"><i data-lucide="git-fork"></i></div>
+            <div>
+              <h4>Fork-in-the-road decisions</h4>
+              <p>Identify the decisions that cannot be deferred: operating model, product model, talent model, process ownership, or investment choices.</p>
+            </div>
+          </div>
+          <div class="output-item">
+            <div class="output-icon"><i data-lucide="flag"></i></div>
+            <div>
+              <h4>First proof point</h4>
+              <p>Define a visible 30 to 90 day proof point that shows the function is behaving differently, not just talking differently.</p>
+            </div>
+          </div>
+          <div class="output-item">
+            <div class="output-icon"><i data-lucide="ban"></i></div>
+            <div>
+              <h4>What stops or changes</h4>
+              <p>Be explicit about which habits, handoffs, approval loops, or manual work should not survive the AI-native plan.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="rules">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Room Rules</div>
+        <h2 class="section-title">How to use the day well</h2>
+        <p class="section-subtitle">Day 3 works if the conversation is candid, quantified, and decision-oriented.</p>
+      </div>
+
+      <div class="commitment-grid">
+        <article class="commitment-card">
+          <h3>Bring yesterday into the room</h3>
+          <p>Use what you experienced on Day 2 as evidence. The plan should be grounded in what now feels possible.</p>
+          <ul>
+            <li><i data-lucide="check-circle-2"></i><span>What moved faster than expected?</span></li>
+            <li><i data-lucide="check-circle-2"></i><span>What quality level surprised you?</span></li>
+          </ul>
+        </article>
+        <article class="commitment-card">
+          <h3>Quantify the ambition</h3>
+          <p>If the target is not uncomfortable, it probably is not taking the market seriously enough.</p>
+          <ul>
+            <li><i data-lucide="check-circle-2"></i><span>Set aggressive functional targets.</span></li>
+            <li><i data-lucide="check-circle-2"></i><span>Pair every target with a proof point.</span></li>
+          </ul>
+        </article>
+        <article class="commitment-card">
+          <h3>Name the tradeoffs</h3>
+          <p>The best working groups will surface the choices leadership needs to make, not smooth them over.</p>
+          <ul>
+            <li><i data-lucide="check-circle-2"></i><span>What must be funded?</span></li>
+            <li><i data-lucide="check-circle-2"></i><span>What must be stopped?</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="venue">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Venue and Flow</div>
+        <h2 class="section-title">Back at Stanford Park Hotel</h2>
+        <p class="section-subtitle">Day 3 is intentionally based at the hotel: fewer logistics, more focus, and enough room for the strategy and working sessions to build toward playback.</p>
+      </div>
+
+      <div class="venue-grid">
+        <article class="venue-card">
+          <i data-lucide="coffee"></i>
+          <h3>Early start</h3>
+          <p>Breakfast begins in the Menlo Room so the market-risk conversation can open the day with full energy.</p>
+        </article>
+        <article class="venue-card">
+          <i data-lucide="briefcase-business"></i>
+          <h3>Strategy sessions</h3>
+          <p>The day stays focused on market outlook, KPIs, self-disruption, and 2027 operating choices.</p>
+        </article>
+        <article class="venue-card">
+          <i data-lucide="users"></i>
+          <h3>Working groups</h3>
+          <p>Groups move from briefing to working time, then into playback with commitments, owners, and timelines.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dinner-band" id="dinner">
+    <div class="container">
+      <div class="dinner-content">
+        <div class="section-header" style="margin-bottom:0;">
+          <div class="section-eyebrow">Closing Dinner</div>
+          <h2 class="section-title">Founder spotlights and table conversation</h2>
+          <p class="section-subtitle">The dinner guidance is the same as Day 2: use the access well, stay with your table, and ask the direct questions.</p>
+        </div>
+
+        <aside class="dinner-note">
+          <h3>Stay with your assigned seating.</h3>
+          <p>The founder conversations are part of the design. Use the table setting to test your assumptions, ask what they are seeing in market, and connect the day&apos;s strategy work to outside reality.</p>
+          <div class="founder-list">
+            <span class="founder-chip">Sina Sojoodi &middot; 8090</span>
+            <span class="founder-chip">John Calzaretta &middot; 8090</span>
+            <span class="founder-chip">Michael Abbott &middot; Stealth</span>
+            <span class="founder-chip">Alex Gallego &middot; Redpanda</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p><strong style="color:var(--text-muted)">IFS AI Leadership Summit</strong> &middot; 4&ndash;7 May 2026 &middot; Mountain View, California</p>
+    <div class="footer-weather" id="footer-weather">
+      <div class="fw-day"><div class="fw-day-date">Mon 4</div><div class="fw-day-icon" id="weather-icon-0">&ndash;</div><div class="fw-day-temp" id="weather-temp-0">&ndash;</div><div class="fw-day-temp-f" id="weather-tempf-0"></div></div>
+      <div class="fw-day"><div class="fw-day-date">Tue 5</div><div class="fw-day-icon" id="weather-icon-1">&ndash;</div><div class="fw-day-temp" id="weather-temp-1">&ndash;</div><div class="fw-day-temp-f" id="weather-tempf-1"></div></div>
+      <div class="fw-day"><div class="fw-day-date">Wed 6</div><div class="fw-day-icon" id="weather-icon-2">&ndash;</div><div class="fw-day-temp" id="weather-temp-2">&ndash;</div><div class="fw-day-temp-f" id="weather-tempf-2"></div></div>
+      <div class="fw-day"><div class="fw-day-date">Thu 7</div><div class="fw-day-icon" id="weather-icon-3">&ndash;</div><div class="fw-day-temp" id="weather-temp-3">&ndash;</div><div class="fw-day-temp-f" id="weather-tempf-3"></div></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+if (window.lucide) {
+  lucide.createIcons();
+}
+
+const sections = Array.from(document.querySelectorAll('main section[id], header[id]'));
+const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    navLinks.forEach((link) => {
+      link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
+    });
+  });
+}, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+
+sections.forEach((section) => observer.observe(section));
+
+// Weather forecast (Open-Meteo, free, no key)
+(function fetchWeather() {
+  const lat = 37.44770286506547, lon = -122.17224989892703;
+  function weatherIcon(code) {
+    if (code <= 1) return { icon: '☀️', label: 'Clear' };
+    if (code <= 3) return { icon: '⛅', label: 'Partly cloudy' };
+    if (code <= 48) return { icon: '🌫️', label: 'Foggy' };
+    if (code <= 57) return { icon: '🌦️', label: 'Drizzle' };
+    if (code <= 67) return { icon: '🌧️', label: 'Rain' };
+    if (code <= 77) return { icon: '❄️', label: 'Snow' };
+    if (code <= 82) return { icon: '🌧️', label: 'Showers' };
+    if (code <= 86) return { icon: '🌨️', label: 'Snow showers' };
+    return { icon: '⛈️', label: 'Thunderstorm' };
+  }
+  function render(d) {
+    for (let i = 0; i < 4; i++) {
+      const w = weatherIcon(d.weather_code[i]);
+      document.getElementById('weather-icon-' + i).textContent = w.icon;
+      document.getElementById('weather-icon-' + i).title = w.label;
+      const min = Math.round(d.temperature_2m_min[i]);
+      const max = Math.round(d.temperature_2m_max[i]);
+      const minF = Math.round(min * 9 / 5 + 32);
+      const maxF = Math.round(max * 9 / 5 + 32);
+      document.getElementById('weather-temp-' + i).innerHTML = max + '&deg; <span>/ ' + min + '&deg;C</span>';
+      document.getElementById('weather-tempf-' + i).innerHTML = maxF + '&deg; / ' + minF + '&deg;F';
+    }
+  }
+  const forecastUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=celsius&start_date=2026-05-04&end_date=2026-05-07&timezone=America/Los_Angeles`;
+  fetch(forecastUrl)
+    .then(r => r.json())
+    .then(data => {
+      if (data.error) throw new Error('out of range');
+      render(data.daily);
+    })
+    .catch(() => {
+      const histUrl = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=celsius&start_date=2025-05-04&end_date=2025-05-07&timezone=America/Los_Angeles`;
+      fetch(histUrl)
+        .then(r => r.json())
+        .then(data => {
+          if (data.error) throw new Error('archive failed');
+          render(data.daily);
+        })
+        .catch(() => {});
+    });
+})();
+</script>
+</body>
+</html>
