@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 2 Briefing | IFS AI Leadership Summit</title>
+<meta name="description" content="Day 2 of the IFS AI Leadership Summit: hands-on AI, vibe coding, Claude coworking, and founder conversations in Silicon Valley.">
+
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+:root {
+  --bg-primary: #090b10;
+  --bg-secondary: #0f1117;
+  --bg-surface: #181b23;
+  --bg-surface-hover: #1e222d;
+  --border-subtle: #1e222d;
+  --border-default: #2a2f3d;
+  --text-primary: #f0f1f5;
+  --text-secondary: #e4e6ed;
+  --text-muted: #9498ad;
+  --text-dim: #6b7094;
+  --accent-indigo: #6366f1;
+  --accent-indigo-light: #818cf8;
+  --accent-indigo-glow: rgba(99, 102, 241, 0.12);
+  --accent-amber: #f59e0b;
+  --accent-emerald: #22c55e;
+  --accent-cyan: #06b6d4;
+  --accent-rose: #f472b6;
+  --font-display: 'Lexend', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --nav-height: 64px;
+  --max-width: 1180px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: var(--accent-indigo-light); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { display: block; max-width: 100%; height: auto; }
+::selection { background: var(--accent-indigo); color: white; }
+:focus-visible { outline: 2px solid var(--accent-indigo-light); outline-offset: 3px; }
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 9999;
+  background: var(--accent-indigo);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+.skip-link:focus { top: 14px; }
+
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 32px; }
+.section { padding: 88px 0; }
+.section-alt {
+  background:
+    linear-gradient(180deg, rgba(15,17,23,0.94), rgba(15,17,23,0.98)),
+    radial-gradient(ellipse 80% 60% at 90% 10%, rgba(6,182,212,0.12), transparent 65%);
+}
+.section-header { margin-bottom: 38px; max-width: 780px; }
+.section-eyebrow {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: 10px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+.section-subtitle { color: var(--text-muted); font-size: 16px; max-width: 720px; }
+
+.nav {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 18px 28px;
+  pointer-events: none;
+}
+.nav-inner {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(100%, 920px);
+  padding: 8px 10px 8px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: linear-gradient(135deg, rgba(20,23,32,0.68), rgba(30,34,45,0.56));
+  backdrop-filter: blur(36px) saturate(1.25);
+  -webkit-backdrop-filter: blur(36px) saturate(1.25);
+  box-shadow: 0 10px 34px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-primary);
+  white-space: nowrap;
+  margin-right: 10px;
+}
+.nav-brand span {
+  font-weight: 500;
+  color: var(--accent-indigo-light);
+}
+.nav-links { display: flex; align-items: center; gap: 2px; list-style: none; margin-left: auto; }
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 999px;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: white;
+  background: rgba(255,255,255,0.09);
+  text-decoration: none;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-indigo-light);
+  border: 1px solid rgba(129,140,248,0.25);
+  background: rgba(99,102,241,0.1);
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.back-link:hover { text-decoration: none; border-color: rgba(129,140,248,0.48); }
+.back-link svg { width: 15px; height: 15px; }
+
+.hero {
+  min-height: 88vh;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+  padding: 148px 0 64px;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(180deg, rgba(9,11,16,0.42) 0%, rgba(9,11,16,0.8) 52%, rgba(9,11,16,1) 100%),
+    linear-gradient(90deg, rgba(9,11,16,0.94) 0%, rgba(9,11,16,0.62) 46%, rgba(9,11,16,0.5) 100%),
+    url('Even%20Space%20details/Learning%20Lab-2.jpg') center/cover no-repeat;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  z-index: -1;
+  background: linear-gradient(180deg, transparent, var(--bg-primary));
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(310px, 0.85fr);
+  gap: 42px;
+  align-items: end;
+}
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: 18px;
+}
+.hero-kicker svg { width: 15px; height: 15px; }
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 7vw, 76px);
+  line-height: 0.98;
+  letter-spacing: -0.8px;
+  font-weight: 800;
+  color: var(--text-primary);
+  max-width: 780px;
+  margin-bottom: 22px;
+}
+.hero-lead {
+  color: var(--text-secondary);
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 1.62;
+  max-width: 760px;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+.primary-action,
+.secondary-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 800;
+}
+.primary-action {
+  color: white;
+  background: linear-gradient(135deg, #4f46e5, #0891b2);
+  box-shadow: 0 14px 40px rgba(6,182,212,0.22);
+}
+.secondary-action {
+  color: var(--text-secondary);
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+}
+.primary-action:hover,
+.secondary-action:hover { text-decoration: none; transform: translateY(-1px); }
+.primary-action svg,
+.secondary-action svg { width: 17px; height: 17px; }
+
+.hero-panel {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: linear-gradient(135deg, rgba(24,27,35,0.78), rgba(15,17,23,0.76));
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.4);
+}
+.hero-panel-title {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+.hero-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.hero-stat {
+  min-height: 94px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 14px;
+}
+.hero-stat strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+}
+.hero-stat span { display: block; color: var(--text-muted); font-size: 13px; line-height: 1.45; }
+
+.outcome-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: -18px;
+  position: relative;
+  z-index: 3;
+}
+.outcome {
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface);
+  border-radius: 8px;
+  padding: 18px;
+}
+.outcome svg { width: 22px; height: 22px; color: var(--accent-cyan); margin-bottom: 14px; }
+.outcome h3 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.outcome p { color: var(--text-muted); font-size: 13px; line-height: 1.55; }
+
+.timeline {
+  position: relative;
+  display: grid;
+  gap: 14px;
+}
+.session {
+  display: grid;
+  grid-template-columns: 145px minmax(0, 1fr);
+  gap: 20px;
+  border: 1px solid var(--border-default);
+  background: linear-gradient(135deg, rgba(24,27,35,0.98), rgba(15,17,23,0.98));
+  border-radius: 10px;
+  padding: 20px;
+}
+.session-time {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent-amber);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1px;
+}
+.session-body h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.session-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 14px;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.tag svg { width: 13px; height: 13px; color: var(--accent-cyan); }
+.session-body p { color: var(--text-muted); max-width: 860px; }
+.session.highlight {
+  border-color: rgba(6,182,212,0.34);
+  box-shadow: 0 0 0 1px rgba(6,182,212,0.08), 0 18px 46px rgba(6,182,212,0.08);
+}
+.session.highlight .session-time { color: var(--accent-cyan); }
+
+.deep-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.deep-card {
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface);
+  border-radius: 10px;
+  padding: 22px;
+}
+.deep-card h3 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+.deep-card .deep-lead {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-amber);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.deep-card .deep-lead svg { width: 13px; height: 13px; }
+.deep-card p { color: var(--text-muted); font-size: 14px; }
+.deep-card ul {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin-top: 18px;
+}
+.deep-card li {
+  display: grid;
+  grid-template-columns: 19px 1fr;
+  gap: 9px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+.deep-card li svg {
+  width: 17px;
+  height: 17px;
+  color: var(--accent-emerald);
+  margin-top: 2px;
+}
+
+.speaker-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.speaker-card {
+  border: 1px solid var(--border-default);
+  background: linear-gradient(135deg, rgba(24,27,35,0.98), rgba(12,14,20,0.98));
+  border-radius: 10px;
+  padding: 20px;
+}
+.speaker-card.is-panel {
+  border-color: rgba(6,182,212,0.32);
+  box-shadow: 0 0 0 1px rgba(6,182,212,0.08), 0 18px 46px rgba(6,182,212,0.08);
+}
+.speaker-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: 10px;
+}
+.speaker-tag svg { width: 13px; height: 13px; }
+.speaker-top {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 14px;
+}
+.speaker-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  color: white;
+  flex: 0 0 auto;
+}
+.speaker-card h3 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-size: 17px;
+  line-height: 1.2;
+}
+.speaker-role { color: var(--accent-indigo-light); font-size: 13px; font-weight: 700; margin-top: 2px; }
+.speaker-card p { color: var(--text-muted); font-size: 14px; }
+.source-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+.source-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(129,140,248,0.24);
+  background: rgba(99,102,241,0.08);
+  color: var(--accent-indigo-light);
+  border-radius: 999px;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 800;
+}
+.source-links a:hover { text-decoration: none; border-color: rgba(129,140,248,0.5); }
+.source-links svg { width: 13px; height: 13px; }
+
+.readiness-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 22px;
+  align-items: start;
+}
+.readiness-callout {
+  border: 1px solid rgba(245,158,11,0.28);
+  background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(24,27,35,0.96));
+  border-radius: 10px;
+  padding: 24px;
+}
+.readiness-callout h3 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-size: 22px;
+  line-height: 1.22;
+  margin-bottom: 12px;
+}
+.readiness-callout p { color: var(--text-muted); }
+.checklist {
+  display: grid;
+  gap: 12px;
+}
+.check-item {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 14px;
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface);
+  border-radius: 8px;
+  padding: 16px;
+}
+.check-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(34,197,94,0.1);
+  color: var(--accent-emerald);
+}
+.check-icon svg { width: 21px; height: 21px; }
+.check-item h4 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-size: 15px;
+  margin-bottom: 3px;
+}
+.check-item p { color: var(--text-muted); font-size: 13px; line-height: 1.55; }
+
+.venue-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 28px;
+}
+.media-card {
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.media-card img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  background: #11141c;
+}
+.media-card.is-layout img { object-fit: contain; padding: 12px; background: #f4f6fb; }
+.media-card-body { padding: 16px 18px 18px; }
+.media-card h3 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.media-card p { color: var(--text-muted); font-size: 13px; }
+.venue-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.venue-gallery img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border-default);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.contact-item {
+  border: 1px solid var(--border-default);
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 14px;
+}
+.contact-item span {
+  display: block;
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.contact-item strong,
+.contact-item a {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.dinner-band {
+  border-top: 1px solid var(--border-default);
+  border-bottom: 1px solid var(--border-default);
+  background:
+    linear-gradient(90deg, rgba(9,11,16,0.94), rgba(9,11,16,0.68), rgba(9,11,16,0.94)),
+    url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=80') center/cover no-repeat;
+}
+.dinner-content {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(300px, 0.75fr);
+  gap: 36px;
+  align-items: center;
+}
+.dinner-note {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(24,27,35,0.74);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 10px;
+  padding: 22px;
+}
+.dinner-note h3 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-size: 22px;
+  line-height: 1.24;
+  margin-bottom: 10px;
+}
+.dinner-note p { color: var(--text-muted); }
+.founder-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.founder-chip {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: var(--text-secondary);
+  border-radius: 999px;
+  padding: 8px 11px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.footer {
+  border-top: 1px solid var(--border-default);
+  background: #07080d;
+  padding: 28px 0;
+  color: var(--text-dim);
+  font-size: 13px;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 980px) {
+  .nav-links { display: none; }
+  .nav-inner { width: auto; max-width: calc(100vw - 28px); }
+  .hero-grid,
+  .readiness-grid,
+  .dinner-content { grid-template-columns: 1fr; }
+  .hero { min-height: auto; padding-top: 132px; }
+  .hero-panel { max-width: 560px; }
+  .outcome-strip,
+  .deep-grid,
+  .speaker-grid,
+  .contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .venue-layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 680px) {
+  .container { padding: 0 20px; }
+  .section { padding: 68px 0; }
+  .nav { padding: 12px; }
+  .nav-brand { font-size: 14px; }
+  .back-link { padding: 9px 11px; }
+  .hero { padding: 118px 0 46px; }
+  .hero-bg {
+    background:
+      linear-gradient(180deg, rgba(9,11,16,0.56) 0%, rgba(9,11,16,0.86) 52%, rgba(9,11,16,1) 100%),
+      url('Even%20Space%20details/Learning%20Lab-2.jpg') center/cover no-repeat;
+  }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .primary-action,
+  .secondary-action { justify-content: center; }
+  .hero-stat-grid,
+  .outcome-strip,
+  .deep-grid,
+  .speaker-grid,
+  .contact-grid,
+  .venue-gallery { grid-template-columns: 1fr; }
+  .session { grid-template-columns: 1fr; gap: 8px; padding: 18px; }
+  .session-time { font-size: 12px; }
+  .media-card img { height: 260px; }
+  .venue-gallery img { height: 230px; }
+  .footer-inner { display: grid; }
+}
+</style>
+</head>
+
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<nav class="nav" aria-label="Day 2 navigation">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/">IFS <span>AI Summit</span></a>
+    <ul class="nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#sessions">Sessions</a></li>
+      <li><a href="#speakers">Speakers</a></li>
+      <li><a href="#ready">Ready</a></li>
+      <li><a href="#venue">Venue</a></li>
+      <li><a href="#dinner">Dinner</a></li>
+    </ul>
+    <a class="back-link" href="/event#agenda"><i data-lucide="arrow-left"></i> Full Agenda</a>
+  </div>
+</nav>
+
+<header class="hero" id="overview">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-kicker"><i data-lucide="calendar-days"></i> Tuesday 5 May 2026 &middot; Day 2</div>
+        <h1 class="hero-title">Hands-on with AI at the Computer History Museum</h1>
+        <p class="hero-lead">
+          Today is about learning what is possible by doing it. We will see how quickly AI can turn intent into working software, high-quality artifacts, and orchestrated workflows that would otherwise take hours or days. The tangible takeaway: a clearer view of how your function could run fundamentally differently next year.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-action" href="#sessions"><i data-lucide="sparkles"></i> Explore Sessions</a>
+          <a class="secondary-action" href="#ready"><i data-lucide="laptop"></i> Day 2 Readiness</a>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="Day 2 summary">
+        <div class="hero-panel-title">Day 2 at a glance</div>
+        <div class="hero-stat-grid">
+          <div class="hero-stat">
+            <strong>09:00</strong>
+            <span>Arrive at the museum for coffee and setup.</span>
+          </div>
+          <div class="hero-stat">
+            <strong>10:00 panel</strong>
+            <span>Abbott &amp; Prades, moderated by Vaibs Kumar.</span>
+          </div>
+          <div class="hero-stat">
+            <strong>2 builds</strong>
+            <span>Replit micro-app plus at least one Claude/Cowork skill.</span>
+          </div>
+          <div class="hero-stat">
+            <strong>22:00</strong>
+            <span>Founder dinner closes at Evvia in Palo Alto.</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="container" aria-label="Outcomes">
+    <div class="outcome-strip">
+      <div class="outcome">
+        <i data-lucide="sparkles"></i>
+        <h3>Feel the compression</h3>
+        <p>Experience tasks moving from days to hours, and from hours to minutes.</p>
+      </div>
+      <div class="outcome">
+        <i data-lucide="blocks"></i>
+        <h3>Build real software</h3>
+        <p>Create a small full-stack application so the new development loop becomes tangible.</p>
+      </div>
+      <div class="outcome">
+        <i data-lucide="file-check-2"></i>
+        <h3>Raise artifact quality</h3>
+        <p>Use Claude to produce sharper briefs, plans, analyses, and workflows.</p>
+      </div>
+      <div class="outcome">
+        <i data-lucide="route"></i>
+        <h3>Rethink the function</h3>
+        <p>Leave with a sharper point of view on how your team operates next year.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="sessions">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Deep Dives</div>
+        <h2 class="section-title">What the Hands-On Blocks Are For</h2>
+        <p class="section-subtitle">The day is designed to move leaders from observation to lived experience: build something, produce something, then decide what this changes for next year.</p>
+      </div>
+
+      <div class="deep-grid">
+        <article class="deep-card">
+          <div class="deep-lead"><i data-lucide="clock"></i> 10:45 &ndash; 12:30</div>
+          <h3>Replit: will a working tool into existence</h3>
+          <p>Block 1 is a fast, concrete introduction to AI-assisted software creation, guided by Replit Field Architects. The point is not to become an engineer in two hours; it is to feel how much of the distance between idea and working product has collapsed.</p>
+          <ul>
+            <li><i data-lucide="check-circle-2"></i><span>Build a small full-stack application with guidance.</span></li>
+            <li><i data-lucide="check-circle-2"></i><span>See how prompts, iteration, and inspection replace long handoffs.</span></li>
+            <li><i data-lucide="check-circle-2"></i><span>Bring back a sharper instinct for what prototypes can now prove.</span></li>
+          </ul>
+        </article>
+
+        <article class="deep-card">
+          <div class="deep-lead"><i data-lucide="clock"></i> 13:30 &ndash; 17:00</div>
+          <h3>Claude Cowork: raise the baseline quality</h3>
+          <p>Block 2 with Anthropic Field Architects Alan Zhang and Sean Hall focuses on high-quality artifacts and functional automation. Explore how AI can create briefs, plans, analyses, process maps, and workflows with a level of quality that lifts the entire organisation.</p>
+          <ul>
+            <li><i data-lucide="check-circle-2"></i><span>Generate polished artifacts from messy context.</span></li>
+            <li><i data-lucide="check-circle-2"></i><span>Automate an outcome that matters in your function.</span></li>
+            <li><i data-lucide="check-circle-2"></i><span>Build at least one reusable skill for work at IFS.</span></li>
+          </ul>
+        </article>
+
+        <article class="deep-card">
+          <div class="deep-lead"><i data-lucide="route"></i> Throughout the day</div>
+          <h3>Functional rethink: what changes next year?</h3>
+          <p>Throughout the day, keep asking what becomes possible when AI is not a side tool, but part of the operating model. The best output is not just a prototype; it is a new point of view on how your function should work.</p>
+          <ul>
+            <li><i data-lucide="check-circle-2"></i><span>Identify one workflow that should not stay manual.</span></li>
+            <li><i data-lucide="check-circle-2"></i><span>Notice where quality, speed, and ownership can move together.</span></li>
+            <li><i data-lucide="check-circle-2"></i><span>Translate the day into a practical next-year operating idea.</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="speakers">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">People to Listen To</div>
+        <h2 class="section-title">The 10:00 Panel and the Lunch Story</h2>
+        <p class="section-subtitle">The morning opens with a panel on where software and product are heading. The lunch conversation grounds it in a real operator&apos;s journey building an enterprise AI company. Together, they frame the hands-on blocks that follow.</p>
+      </div>
+
+      <div class="speaker-grid">
+        <article class="speaker-card is-panel">
+          <div class="speaker-tag"><i data-lucide="mic"></i> 10:00 Panel &middot; Moderated by Vaibs Kumar</div>
+          <div class="speaker-top">
+            <div class="speaker-avatar" style="background:linear-gradient(135deg,#1a2e1a,#166534);">MA</div>
+            <div>
+              <h3>Michael Abbott</h3>
+              <div class="speaker-role">Stealth &middot; ex-Apple, ex-GM</div>
+            </div>
+          </div>
+          <p>A software and product leader across Apple, General Motors, Twitter, Palm, Microsoft, and Kleiner Perkins. Listen for his view on how AI changes engineering leadership, product velocity, and the operating model behind software.</p>
+          <div class="source-links">
+            <a href="https://www.linkedin.com/in/michaelabbott/" target="_blank" rel="noopener"><i data-lucide="external-link"></i> LinkedIn</a>
+            <a href="https://investor.gm.com/news-releases/news-release-details/tech-industry-innovator-mike-abbott-joins-general-motors" target="_blank" rel="noopener"><i data-lucide="external-link"></i> GM profile</a>
+          </div>
+        </article>
+
+        <article class="speaker-card is-panel">
+          <div class="speaker-tag"><i data-lucide="mic"></i> 10:00 Panel &middot; Moderated by Vaibs Kumar</div>
+          <div class="speaker-top">
+            <div class="speaker-avatar" style="background:linear-gradient(135deg,#0f172a,#1e3a5f);">MP</div>
+            <div>
+              <h3>Maxime Prades</h3>
+              <div class="speaker-role">Product, Cursor</div>
+            </div>
+          </div>
+          <p>Maxime joins the conversation on where software engineering and SaaS are heading. The useful lens for IFS: what happens when AI-native tools make product teams faster, more exploratory, and closer to the customer problem.</p>
+          <div class="source-links">
+            <a href="https://www.linkedin.com/in/pradesmaxime/" target="_blank" rel="noopener"><i data-lucide="external-link"></i> LinkedIn</a>
+            <a href="https://www.linkedin.com/company/cursorai" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Cursor</a>
+          </div>
+        </article>
+
+        <article class="speaker-card">
+          <div class="speaker-tag" style="color:var(--accent-amber);"><i data-lucide="utensils"></i> 12:30 Lunch &amp; Learn</div>
+          <div class="speaker-top">
+            <div class="speaker-avatar" style="background:linear-gradient(135deg,#0f766e,#5eead4);">SD</div>
+            <div>
+              <h3>Sanjay Dhawan</h3>
+              <div class="speaker-role">CEO, SymphonyAI</div>
+            </div>
+          </div>
+          <p>Sanjay&apos;s lunch session is the founder story of SymphonyAI: how an enterprise AI company gets built, scaled, and made useful in real customer environments. Listen for the lessons that travel back into IFS.</p>
+          <div class="source-links">
+            <a href="https://www.linkedin.com/in/sanjay-dhawan-29909423/" target="_blank" rel="noopener"><i data-lucide="external-link"></i> LinkedIn</a>
+            <a href="https://www.symphonyai.com/" target="_blank" rel="noopener"><i data-lucide="external-link"></i> SymphonyAI</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="ready">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Before You Board</div>
+        <h2 class="section-title">Day 2 Readiness</h2>
+        <p class="section-subtitle">The day only works if everyone can build. Please treat the morning logistics as part of the session.</p>
+      </div>
+
+      <div class="readiness-grid">
+        <div class="readiness-callout">
+          <h3>Bring an admin-unlocked laptop and working AI access.</h3>
+          <p>You should be able to log in, install or approve browser-based tooling if needed, access Replit, and use Claude/Cowork without waiting on IT help. If your machine blocks normal setup flows, sort it before the Day 2 transfer.</p>
+        </div>
+
+        <div class="checklist">
+          <div class="check-item">
+            <div class="check-icon"><i data-lucide="laptop"></i></div>
+            <div>
+              <h4>Admin-unlocked laptop</h4>
+              <p>Bring the machine you can actually work on, with permissions sorted before breakfast ends.</p>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-icon"><i data-lucide="bot"></i></div>
+            <div>
+              <h4>Claude / Cowork access</h4>
+              <p>Confirm you can sign in and create artifacts, skills, or workflows during the Anthropic block.</p>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-icon"><i data-lucide="code-2"></i></div>
+            <div>
+              <h4>Replit access</h4>
+              <p>Make sure your account works and your browser can run the Replit environment.</p>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-icon"><i data-lucide="battery-charging"></i></div>
+            <div>
+              <h4>Charger and adapters</h4>
+              <p>Bring your charger, any adapters you depend on, and enough battery to start the day confidently.</p>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-icon"><i data-lucide="wifi"></i></div>
+            <div>
+              <h4>Wi-Fi on arrival</h4>
+              <p>Use the 09:00 coffee window to connect to venue Wi-Fi and open the tools before the welcome starts.</p>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-icon"><i data-lucide="notebook-pen"></i></div>
+            <div>
+              <h4>One real workflow to test</h4>
+              <p>Arrive with a process, artifact, decision, or customer workflow from your function that AI might change.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="venue">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Venue</div>
+        <h2 class="section-title">Computer History Museum: Learning Lab</h2>
+        <p class="section-subtitle">A fitting location for a day about the next software era. Our working base is the Learning Lab, adjacent to the Make Software exhibit on the first floor.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-item">
+          <span>Address</span>
+          <strong>1401 N Shoreline Blvd, Mountain View, CA 94043</strong>
+        </div>
+        <div class="contact-item">
+          <span>Phone</span>
+          <a href="tel:+16508101010">(650) 810-1010</a>
+        </div>
+        <div class="contact-item">
+          <span>Website</span>
+          <a href="https://computerhistory.org" target="_blank" rel="noopener">computerhistory.org</a>
+        </div>
+        <div class="contact-item">
+          <span>Room</span>
+          <strong>Learning Lab, first floor</strong>
+        </div>
+      </div>
+
+      <div class="venue-gallery" aria-label="Learning Lab photos">
+        <img src="Even%20Space%20details/Learning%20Lab-2.jpg" alt="Learning Lab seating at Computer History Museum">
+        <img src="Even%20Space%20details/Learning%20Lab%203.jpeg" alt="Learning Lab workshop setup">
+        <img src="Even%20Space%20details/Learning%20Lab%202.jpeg" alt="Learning Lab event room from rear">
+      </div>
+
+      <div class="venue-layout">
+        <article class="media-card is-layout">
+          <img src="assets/day2/chm-first-floor-03.png" alt="Computer History Museum first floor layout showing Learning Lab">
+          <div class="media-card-body">
+            <h3>First-floor layout</h3>
+            <p>The Learning Lab sits on the first floor near the Make Software exhibit, with the lobby and exhibit areas nearby.</p>
+          </div>
+        </article>
+
+        <article class="media-card is-layout">
+          <img src="assets/day2/chm-learning-lab-17.png" alt="Learning Lab specifications from CHM venue kit">
+          <div class="media-card-body">
+            <h3>Learning Lab specification</h3>
+            <p>CHM lists the Learning Lab at 1,320 square feet, 36.7 by 36.7 feet, with capacity up to 90 and screen / projector support.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="source-links" style="margin-top:18px;">
+        <a href="Even%20Space%20details/CHM%20Event%20Venue%20Kit%202026.pdf" target="_blank" rel="noopener"><i data-lucide="file-text"></i> CHM venue kit</a>
+        <a href="Even%20Space%20details/Furniture%20Inventory%202026.pdf" target="_blank" rel="noopener"><i data-lucide="file-text"></i> Furniture inventory</a>
+        <a href="https://computerhistory.org/contact-us/" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Official CHM contact</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dinner-band" id="dinner">
+    <div class="container">
+      <div class="dinner-content">
+        <div class="section-header" style="margin-bottom:0;">
+          <div class="section-eyebrow">Evening</div>
+          <h2 class="section-title">Evvia Dinner and Founder Spotlights</h2>
+          <p class="section-subtitle">Dinner is not just social time. It is a structured chance to get close to founders who are building in the AI-native market right now.</p>
+        </div>
+
+        <aside class="dinner-note">
+          <h3>Stick to your table. Ask the burning questions.</h3>
+          <p>Founders are joining us for dinner, and named seating is deliberate. Stay with your assigned table, engage deeply, and use the access well.</p>
+          <div class="founder-list">
+            <span class="founder-chip">Malay Shah &middot; PokaLabs</span>
+            <span class="founder-chip">Prateek Chakravarty &middot; Zinier</span>
+            <span class="founder-chip">Samuel Colvin &middot; Pydantic</span>
+            <span class="founder-chip">Rajeev Oak &middot; Prologis Ventures</span>
+            <span class="founder-chip">Eric Zaarour &middot; Laurel</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>IFS AI Leadership Summit &middot; Day 2 Briefing</span>
+    <span>Tuesday 5 May 2026 &middot; Mountain View and Palo Alto</span>
+  </div>
+</footer>
+
+<script>
+if (window.lucide) {
+  lucide.createIcons();
+}
+
+const sections = Array.from(document.querySelectorAll('main section[id], header[id]'));
+const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    navLinks.forEach((link) => {
+      link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
+    });
+  });
+}, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+
+sections.forEach((section) => observer.observe(section));
+</script>
+</body>
+</html>
