@@ -12,7 +12,7 @@
 <link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
@@ -735,6 +735,187 @@ img { display: block; max-width: 100%; height: auto; }
   .media-card img { height: 260px; }
   .venue-gallery img { height: 230px; }
 }
+
+/* ═══════════════════════════════════════════════════
+   SEATING — Find your table + Menu cards
+   ═══════════════════════════════════════════════════ */
+.seating-band {
+  background:
+    linear-gradient(180deg, rgba(15,17,23,0.95), rgba(9,11,16,0.98)),
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(212,175,55,0.06), transparent 65%);
+}
+.seating-search {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+  padding: 6px 10px 6px 22px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  max-width: 620px;
+}
+.seating-search-label {
+  font-family: 'Lexend', sans-serif;
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 1.6px; text-transform: uppercase;
+  color: var(--accent-amber);
+  white-space: nowrap;
+}
+.seating-search-wrap {
+  position: relative;
+  flex: 1 1 240px;
+}
+.seating-search-wrap > svg {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px; color: var(--text-dim); pointer-events: none;
+}
+.seating-search-input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid transparent;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  padding: 9px 38px 9px 36px;
+  border-radius: 999px;
+  outline: none;
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+.seating-search-input::placeholder { color: var(--text-dim); }
+.seating-search-input:focus {
+  border-color: rgba(245,158,11,0.5);
+  background: rgba(255,255,255,0.06);
+}
+.seating-search-clear {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  width: 22px; height: 22px; border-radius: 50%;
+  border: none; background: rgba(255,255,255,0.08);
+  color: var(--text-muted); cursor: pointer;
+  display: none; align-items: center; justify-content: center;
+}
+.seating-search-clear svg { width: 11px; height: 11px; }
+.seating-search-wrap.has-value .seating-search-clear { display: flex; }
+.seating-search-result {
+  font-size: 12px; color: var(--text-muted);
+  font-weight: 600; white-space: nowrap;
+}
+.seating-search-result strong { color: var(--accent-amber); font-weight: 800; }
+
+.seating-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+}
+.seat-card {
+  position: relative;
+  background:
+    radial-gradient(ellipse 100% 60% at 50% 0%, rgba(212,175,55,0.08), transparent 70%),
+    linear-gradient(180deg, #161924 0%, #0c0e15 100%);
+  border: 1px solid rgba(212,175,55,0.22);
+  border-radius: 4px;
+  padding: 28px 26px 24px;
+  overflow: hidden;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease, opacity 0.22s ease, filter 0.22s ease;
+}
+.seat-card::before, .seat-card::after {
+  content: ''; position: absolute;
+  width: 28px; height: 28px;
+  border: 1px solid rgba(212,175,55,0.46);
+}
+.seat-card::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+.seat-card::after { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+.seat-card.is-matched {
+  border-color: rgba(245,158,11,0.85);
+  box-shadow: 0 0 0 1px rgba(245,158,11,0.5), 0 18px 50px rgba(245,158,11,0.18);
+  transform: translateY(-2px);
+}
+.seat-card.is-dimmed { opacity: 0.32; filter: saturate(0.6); }
+.seat-table-num {
+  display: block;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(212,175,55,0.85);
+  text-align: center;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+}
+.seat-theme {
+  display: block;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 16px; font-weight: 500;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 18px;
+  letter-spacing: 0.4px;
+}
+.seat-divider {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; margin: 4px 0 14px;
+}
+.seat-divider::before, .seat-divider::after {
+  content: ''; flex: 1;
+  border-top: 1px solid rgba(212,175,55,0.32);
+  max-width: 60px;
+}
+.seat-divider span {
+  font-size: 9px; font-weight: 800;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(212,175,55,0.78);
+}
+.seat-host-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 28px; font-weight: 600;
+  color: #f5e8c8;
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+.seat-host-name.is-match { text-shadow: 0 0 18px rgba(245,158,11,0.5); }
+.seat-host-co {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(212,175,55,0.85);
+  text-align: center;
+  margin-bottom: 22px;
+}
+.seat-attendees-label {
+  font-size: 9px; font-weight: 800;
+  letter-spacing: 2.2px; text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: center;
+  margin-bottom: 12px;
+}
+.seat-attendees {
+  list-style: none;
+  columns: 2;
+  column-gap: 22px;
+  padding: 0;
+  margin: 0;
+}
+.seat-attendees li {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 15px;
+  color: var(--text-secondary);
+  padding: 3px 0;
+  break-inside: avoid;
+  border-radius: 2px;
+  transition: background 0.18s ease, color 0.18s ease, padding 0.18s ease;
+}
+.seat-attendees li.is-match {
+  background: rgba(245,158,11,0.18);
+  color: #f5e8c8;
+  padding: 3px 6px;
+  font-weight: 600;
+}
+@media (max-width: 680px) {
+  .seat-attendees { columns: 1; }
+}
 </style>
 </head>
 
@@ -1071,6 +1252,28 @@ img { display: block; max-width: 100%; height: auto; }
       </div>
     </div>
   </section>
+
+  <section class="section seating-band" id="seating">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Your Seat</div>
+        <h2 class="section-title">Find your table at Evvia</h2>
+        <p class="section-subtitle">Five tables, each hosted by a founder. Type your name to spotlight your table, then scroll down to your card.</p>
+      </div>
+
+      <div class="seating-search">
+        <span class="seating-search-label">Find your table</span>
+        <div class="seating-search-wrap" id="seating-search-wrap">
+          <i data-lucide="search"></i>
+          <input id="seating-search-input" type="search" class="seating-search-input" placeholder="Enter your name" autocomplete="off" spellcheck="false">
+          <button class="seating-search-clear" id="seating-search-clear" aria-label="Clear search"><i data-lucide="x"></i></button>
+        </div>
+        <span class="seating-search-result" id="seating-search-result"></span>
+      </div>
+
+      <div class="seating-grid" id="seating-grid"></div>
+    </div>
+  </section>
 </main>
 
 <footer class="site-footer">
@@ -1148,6 +1351,150 @@ sections.forEach((section) => observer.observe(section));
         })
         .catch(() => {});
     });
+})();
+
+// ─── Seating: data, render, and "Find your table" search ───
+(function seatingInit() {
+  const dinner = [
+    {
+      n: 1, theme: "Capital, Strategy & M&A",
+      host: { name: "Eric Zaarour", co: "Laurel" },
+      attendees: [
+        "Mark Moffat", "Cathie Hall", "Ryan Courson", "Andrew Binstead",
+        "Rob Hortopp", "Jonathan Park", "Mihita Podobnik", "Glen Tanner",
+        "Laura Bennett", "Danyal Hasan", "Joseph Pascaretta", "Kate Joyce",
+        "Joe Porter (Goldman Sachs)"
+      ]
+    },
+    {
+      n: 2, theme: "Industrial AI & Manufacturing",
+      host: { name: "Malay Shah", co: "PokaLabs" },
+      attendees: [
+        "Mark Buongiorno", "Hannes Liebe", "Travis Johnstone", "Dan Dutton",
+        "Gregory Breidenbach", "Mathieu Daudigny", "Mattias Bolander",
+        "Andreas Georgiou", "Elvis Pinjagic", "Jorge García Díaz",
+        "Piyush Sood", "Nick Vandivere"
+      ]
+    },
+    {
+      n: 3, theme: "Energy, Asset Mgmt & Built World",
+      host: { name: "Rajeev Oak", co: "Prologis Ventures" },
+      attendees: [
+        "Lance Olmsted", "Darren Roos", "Steve Elsham", "Cindy Jaudon",
+        "Tim Forkner", "Herman Niewoudt", "Kurt Kemmerly",
+        "Anna Skoglund (Goldman Sachs)",
+        "Danilo Prates", "Goiuri Hernández", "Tony Johnson",
+        "Fred Brady", "James Thompson"
+      ]
+    },
+    {
+      n: 4, theme: "Customer Outcomes & Field Service",
+      host: { name: "Prateek Chakravarty", co: "Zinier" },
+      attendees: [
+        "Andre Robberts", "Simon Niesler", "Matt Breslin", "Stephanie Poore",
+        "Oliver Pilgerstorfer", "Somya Kapoor", "Jordan Setterfield",
+        "Ben Rowland", "Jonathan Hyden", "Matt Quinn", "Sara Hill",
+        "Ann Marie Mullally"
+      ]
+    },
+    {
+      n: 5, theme: "Developer Platform & AI R&D",
+      host: { name: "Samuel Colvin", co: "Pydantic" },
+      attendees: [
+        "Bob De Caux", "Kriti Sharma", "James Greaves", "Ravi Bulusu",
+        "Mairi Campbell", "Robi Gone", "Vaibs Kumar", "Adi Kumar",
+        "Matt Ely", "Mubashir Nisar", "Raymond Jones", "Justin Bigger"
+      ]
+    }
+  ];
+
+  const grid = document.getElementById('seating-grid');
+  if (!grid) return;
+
+  function nameOnly(s) { return s.replace(/\s*\([^)]*\)\s*/g, '').trim(); }
+  function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  const records = [];
+  dinner.forEach(t => {
+    const card = document.createElement('article');
+    card.className = 'seat-card';
+    card.innerHTML = `
+      <span class="seat-table-num">Table ${t.n}</span>
+      <span class="seat-theme">${escapeHtml(t.theme)}</span>
+      <div class="seat-divider"><span>Hosted by</span></div>
+      <div class="seat-host-name">${escapeHtml(t.host.name)}</div>
+      <div class="seat-host-co">${escapeHtml(t.host.co)}</div>
+      <div class="seat-attendees-label">Joining the table</div>
+      <ul class="seat-attendees">
+        ${t.attendees.map(a => `<li data-name="${escapeHtml(nameOnly(a))}">${escapeHtml(a)}</li>`).join('')}
+      </ul>
+    `;
+    grid.appendChild(card);
+
+    records.push({
+      table: t.n,
+      host: t.host.name,
+      names: [t.host.name, ...t.attendees.map(nameOnly)],
+      cardEl: card,
+      hostEl: card.querySelector('.seat-host-name'),
+      nameEls: Array.from(card.querySelectorAll('.seat-attendees li'))
+    });
+  });
+
+  if (window.lucide) lucide.createIcons();
+
+  const input = document.getElementById('seating-search-input');
+  const wrap = document.getElementById('seating-search-wrap');
+  const clearBtn = document.getElementById('seating-search-clear');
+  const resultEl = document.getElementById('seating-search-result');
+
+  function startsWith(name, q) { return name.toLowerCase().startsWith(q); }
+
+  function applyFilter() {
+    const q = input.value.trim().toLowerCase();
+    wrap.classList.toggle('has-value', q.length > 0);
+
+    if (!q) {
+      records.forEach(r => {
+        r.cardEl.classList.remove('is-matched', 'is-dimmed');
+        r.hostEl.classList.remove('is-match');
+        r.nameEls.forEach(el => el.classList.remove('is-match'));
+      });
+      resultEl.textContent = '';
+      return;
+    }
+
+    const matchedTables = new Set();
+    records.forEach(r => {
+      const matched = r.names.some(n => startsWith(n, q));
+      r.cardEl.classList.toggle('is-matched', matched);
+      r.cardEl.classList.toggle('is-dimmed', !matched);
+      if (matched) matchedTables.add(r.table);
+
+      const hostMatches = startsWith(r.host, q);
+      r.hostEl.classList.toggle('is-match', matched && hostMatches);
+      r.nameEls.forEach(el => {
+        const nm = el.getAttribute('data-name') || '';
+        el.classList.toggle('is-match', matched && startsWith(nm, q));
+      });
+    });
+
+    const count = matchedTables.size;
+    if (count === 0) {
+      resultEl.innerHTML = `<strong>No match.</strong> Try just your first name.`;
+    } else if (count === 1) {
+      const t = [...matchedTables][0];
+      resultEl.innerHTML = `Match: <strong>Table ${t}</strong>`;
+    } else {
+      resultEl.innerHTML = `<strong>${count} possible tables</strong> &middot; keep typing your last name`;
+    }
+  }
+
+  input.addEventListener('input', applyFilter);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { input.value = ''; applyFilter(); input.blur(); }
+  });
+  clearBtn.addEventListener('click', () => { input.value = ''; applyFilter(); input.focus(); });
 })();
 </script>
 </body>
