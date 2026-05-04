@@ -748,12 +748,12 @@ img { display: block; max-width: 100%; height: auto; }
   display: flex;
   align-items: center;
   gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 28px;
-  padding: 6px 10px 6px 22px;
+  flex-wrap: nowrap;
+  padding: 6px 6px 6px 22px;
   background: rgba(255,255,255,0.04);
   border: 1px solid var(--border-default);
   border-radius: 999px;
+  width: 100%;
   max-width: 620px;
 }
 .seating-search-label {
@@ -762,13 +762,15 @@ img { display: block; max-width: 100%; height: auto; }
   letter-spacing: 1.6px; text-transform: uppercase;
   color: var(--accent-amber);
   white-space: nowrap;
+  flex: 0 0 auto;
 }
 .seating-search-wrap {
   position: relative;
-  flex: 1 1 240px;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 .seating-search-wrap > svg {
-  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
   width: 16px; height: 16px; color: var(--text-dim); pointer-events: none;
 }
 .seating-search-input {
@@ -778,18 +780,27 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--text-primary);
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-  padding: 9px 38px 9px 36px;
+  padding: 9px 40px 9px 38px;
   border-radius: 999px;
   outline: none;
   transition: border-color 0.18s ease, background 0.18s ease;
+  -webkit-appearance: none;
+  appearance: none;
 }
 .seating-search-input::placeholder { color: var(--text-dim); }
 .seating-search-input:focus {
   border-color: rgba(245,158,11,0.5);
   background: rgba(255,255,255,0.06);
 }
+/* Hide native clear UI from <input type="search"> across browsers */
+.seating-search-input::-webkit-search-decoration,
+.seating-search-input::-webkit-search-cancel-button,
+.seating-search-input::-webkit-search-results-button,
+.seating-search-input::-webkit-search-results-decoration { -webkit-appearance: none; appearance: none; display: none; }
+.seating-search-input::-ms-clear,
+.seating-search-input::-ms-reveal { display: none; width: 0; height: 0; }
 .seating-search-clear {
-  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
   width: 22px; height: 22px; border-radius: 50%;
   border: none; background: rgba(255,255,255,0.08);
   color: var(--text-muted); cursor: pointer;
@@ -798,10 +809,20 @@ img { display: block; max-width: 100%; height: auto; }
 .seating-search-clear svg { width: 11px; height: 11px; }
 .seating-search-wrap.has-value .seating-search-clear { display: flex; }
 .seating-search-result {
+  display: block;
   font-size: 12px; color: var(--text-muted);
-  font-weight: 600; white-space: nowrap;
+  font-weight: 600;
+  margin-top: 12px;
+  min-height: 18px;
 }
 .seating-search-result strong { color: var(--accent-amber); font-weight: 800; }
+.seating-search-row { margin-bottom: 28px; }
+@media (max-width: 560px) {
+  .seating-search { padding: 6px 6px 6px 16px; gap: 10px; }
+  .seating-search-label { font-size: 10px; letter-spacing: 1.2px; }
+  .seating-search-input { font-size: 13px; padding: 9px 38px 9px 34px; }
+  .seating-search-wrap > svg { left: 12px; }
+}
 
 .seating-grid {
   display: grid;
@@ -1261,14 +1282,16 @@ img { display: block; max-width: 100%; height: auto; }
         <p class="section-subtitle">Five tables, each hosted by a founder. Type your name to spotlight your table, then scroll down to your card.</p>
       </div>
 
-      <div class="seating-search">
-        <span class="seating-search-label">Find your table</span>
-        <div class="seating-search-wrap" id="seating-search-wrap">
-          <i data-lucide="search"></i>
-          <input id="seating-search-input" type="search" class="seating-search-input" placeholder="Enter your name" autocomplete="off" spellcheck="false">
-          <button class="seating-search-clear" id="seating-search-clear" aria-label="Clear search"><i data-lucide="x"></i></button>
+      <div class="seating-search-row">
+        <div class="seating-search">
+          <span class="seating-search-label">Find your table</span>
+          <div class="seating-search-wrap" id="seating-search-wrap">
+            <i data-lucide="search"></i>
+            <input id="seating-search-input" type="text" class="seating-search-input" placeholder="Enter your name" autocomplete="off" spellcheck="false" aria-label="Search by name">
+            <button class="seating-search-clear" id="seating-search-clear" aria-label="Clear search"><i data-lucide="x"></i></button>
+          </div>
         </div>
-        <span class="seating-search-result" id="seating-search-result"></span>
+        <span class="seating-search-result" id="seating-search-result" aria-live="polite"></span>
       </div>
 
       <div class="seating-grid" id="seating-grid"></div>
