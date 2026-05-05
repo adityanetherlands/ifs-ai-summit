@@ -1423,7 +1423,7 @@ sections.forEach((section) => observer.observe(section));
     },
     {
       n: 6, theme: "Energy, Asset Mgmt & Built World",
-      host: { name: "Joe Porter", co: "Goldman Sachs" },
+      host: { name: "Joe Porter", co: "Goldman Sachs", role: "Executive" },
       attendees: [
         "Alexandre Lucas (Goldman Sachs)", "Darren Roos", "Mark Moffat",
         "Matt Breslin", "Ryan Courson", "Lance Olmsted", "Cindy Jaudon",
@@ -1446,7 +1446,7 @@ sections.forEach((section) => observer.observe(section));
     card.innerHTML = `
       <span class="seat-table-num">Table ${t.n}</span>
       <span class="seat-theme">${escapeHtml(t.theme)}</span>
-      <div class="seat-divider"><span>Founder</span></div>
+      <div class="seat-divider"><span>${t.host.role || 'Founder'}</span></div>
       <div class="seat-host-name">${escapeHtml(t.host.name)}</div>
       <div class="seat-host-co">${escapeHtml(t.host.co)}</div>
       <div class="seat-attendees-label">Joining the table</div>
